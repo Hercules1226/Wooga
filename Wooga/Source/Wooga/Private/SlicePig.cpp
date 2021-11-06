@@ -3,6 +3,8 @@
 
 #include "SlicePig.h"
 #include "Cutting.h"
+
+#include "Materials/MaterialInstance.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SceneComponent.h"
 #include <Kismet/GameplayStatics.h>
@@ -21,10 +23,13 @@ ASlicePig::ASlicePig()
 	pigHead->SetupAttachment(rootComp);
 
 	top = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Top"));
-
+	top->SetupAttachment(rootComp);
+	top->CreateDynamicMaterialInstance(0);
 	bottom = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("bottom"));
-
+	bottom->SetupAttachment(rootComp);
 	inside = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Inside"));
+	inside->SetupAttachment(rootComp);
+	onMaterial = CreateDefaultSubobject<UMaterialInstance>(TEXT("On Material"));
 }
 
 // Called when the game starts or when spawned
@@ -52,19 +57,33 @@ void ASlicePig::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (cutting->bisfinish == true)
+	if (cutting)
 	{
-		topPos = FMath::Lerp(topPos, targetTopPos, GetWorld()->DeltaTimeSeconds * 2);
-		bottomPos = FMath::Lerp(bottomPos, targetBottomPos, GetWorld()->DeltaTimeSeconds * 2);
+		if (cutting->bisfinish == true)
+		{
+			topPos = FMath::Lerp(topPos, targetTopPos, GetWorld()->DeltaTimeSeconds * 2);
+			bottomPos = FMath::Lerp(bottomPos, targetBottomPos, GetWorld()->DeltaTimeSeconds * 2);
 
-		/*topRot = FMath::Lerp(topRot, targetTopRot, GetWorld()->DeltaTimeSeconds * 2);
-		bottomRot = FMath::Lerp(bottomRot, targetBottomRot, GetWorld()->DeltaTimeSeconds * 2);*/
+			/*topRot = FMath::Lerp(topRot, targetTopRot, GetWorld()->DeltaTimeSeconds * 2);
+			bottomRot = FMath::Lerp(bottomRot, targetBottomRot, GetWorld()->DeltaTimeSeconds * 2);*/
 
-		top->SetRelativeLocation(topPos);
-		//top->SetRelativeRotation(topRot);
-		bottom->SetRelativeLocation(bottomPos);
-		//bottom->SetRelativeRotation(bottomRot);
+			top->SetRelativeLocation(topPos);
+			//top->SetRelativeRotation(topRot);
+			bottom->SetRelativeLocation(bottomPos);
+			//bottom->SetRelativeRotation(bottomRot);
 
+			// 지워야 할듯
+			if (FVector::Dist(topPos, targetTopPos) < 1.f || FVector::Dist(bottomPos, targetBottomPos) < 1.f)
+			{
+				cutting->bisfinish = false;
+			}
+			disTime += GetWorld()->DeltaTimeSeconds;
+			blend = FMath::Lerp(0.f, 1.f, disTime * 0.5f);
+
+			pigHead->SetScalarParameterValueOnMaterials(TEXT("Amount"), blend);
+			top->SetScalarParameterValueOnMaterials(TEXT("Amount"), blend);
+			bottom->SetScalarParameterValueOnMaterials(TEXT("Amount"), blend);
+		}
 	}
-}
 
+}

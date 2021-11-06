@@ -89,7 +89,7 @@ void ACutting::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 			fA->SetActorHiddenInGame(false);
 			bisfinish = true;
 			fA->Destroy();
-			Destroy();
+			SetActorHiddenInGame(true);
 		}
 	}
 }
