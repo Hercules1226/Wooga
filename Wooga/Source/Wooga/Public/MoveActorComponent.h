@@ -48,4 +48,7 @@ private:
 		FRotator hmdRotation;
 	UPROPERTY()
 		FVector hmdLocation;
+
+	UPROPERTY()
+		bool bisMove = true;
 };
