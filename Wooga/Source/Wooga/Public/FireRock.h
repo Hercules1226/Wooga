@@ -68,7 +68,8 @@ public:
 		class UParticleSystem* explosionFactory;
 
 	// sound
-	const UObject* WorldContextObject;
+	UPROPERTY()
+		const UObject* WorldContextObject;
 
 	UPROPERTY(EditAnywhere, Category = "Sound")
 		USoundBase* SoundBase;
@@ -78,11 +79,18 @@ public:
 	UPROPERTY()
 		FRotator rotation;
 
-	float VolumeMultiplier = 1.f;
-	float PitchMultiplier = 1.f;
-	float StartTime = 0.f;
-	class USoundAttenuation* AttenuationSettings;
-	USoundConcurrency* ConcurrencySettings;
-	bool bAutoDestroy = false;
-	int32 overlabCount = 0;
+	UPROPERTY()
+		float VolumeMultiplier = 1.f;
+	UPROPERTY()
+		float PitchMultiplier = 1.f;
+	UPROPERTY()
+		float StartTime = 0.f;
+	UPROPERTY()
+		class USoundAttenuation* AttenuationSettings;
+	UPROPERTY()
+		USoundConcurrency* ConcurrencySettings;
+	UPROPERTY()
+		bool bAutoDestroy = false;
+	UPROPERTY()
+		int32 overlabCount = 0;
 };

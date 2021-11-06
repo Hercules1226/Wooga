@@ -38,7 +38,7 @@ void UMoveActorComponent::TickComponent(float DeltaTime, ELevelTick TickType, FA
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	
+
 }
 
 void UMoveActorComponent::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -46,23 +46,24 @@ void UMoveActorComponent::SetupPlayerInputComponent(UInputComponent* PlayerInput
 	//PlayerInputComponent->BindAxis("RightThumbstick_X", this, &UMoveActorComponent::MoveHorizontal);
 
 	// 이동방법과 잡는방법 알려주는 상태에선 이동 기능 꺼주기
-	
+
 	if (gameMode->flowState != EFlowState::ManipulateUI || gameMode->flowState != EFlowState::HowToGrabActorUI)
 	{
 		PlayerInputComponent->BindAxis("RightThumbstick_Y", this, &UMoveActorComponent::MoveVertical);
 		PlayerInputComponent->BindAxis("LeftThumbstick_X", this, &UMoveActorComponent::RotateHorizontal);
+		PlayerInputComponent->BindAction("LeftGrip", IE_Pressed, this, &UMoveActorComponent::LeftGripOn);
+		PlayerInputComponent->BindAction("LeftGrip", IE_Released, this, &UMoveActorComponent::LeftGripOff);
+		PlayerInputComponent->BindAction("RightGrip", IE_Pressed, this, &UMoveActorComponent::RightGripOn);
+		PlayerInputComponent->BindAction("RightGrip", IE_Released, this, &UMoveActorComponent::RightGripOff);
 	}
+
 	
-	/*PlayerInputComponent->BindAction("LeftGrip", IE_Pressed, this, &UMoveActorComponent::LeftGripOn);
-	PlayerInputComponent->BindAction("LeftGrip", IE_Released, this, &UMoveActorComponent::LeftGripOff);
-	PlayerInputComponent->BindAction("RightGrip", IE_Pressed, this, &UMoveActorComponent::RightGripOn);
-	PlayerInputComponent->BindAction("RightGrip", IE_Released, this, &UMoveActorComponent::RightGripOff);*/
 }
 
 void UMoveActorComponent::MoveHorizontal(float value)
 {
 	FVector dir = player->GetActorRightVector() * value;
-	
+
 	player->SetActorLocation(player->GetActorLocation() + dir * moveSpeed * GetWorld()->DeltaTimeSeconds);
 }
 

@@ -61,8 +61,6 @@ void ACutting::Tick(float DeltaTime)
 
 	if (bisOverlab == true)
 	{
-		
-		
 		handleY = player->rightHand->GetComponentLocation().Y;
 
 		handle->SetRelativeLocation(FVector(handleX, handleY, handleZ));
@@ -75,7 +73,6 @@ void ACutting::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 	{
 		bisOverlab = true;
 
-		
 		player->rightHand->SetHiddenInGame(true);
 		fA->SetActorHiddenInGame(true);
 
@@ -88,10 +85,9 @@ void ACutting::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 		auto detachRock = Cast<ADetachRock>(OtherActor);
 		if (OtherActor == detachRock)
 		{
-			
 			player->rightHand->SetHiddenInGame(false);
 			fA->SetActorHiddenInGame(false);
-
+			bisfinish = true;
 			fA->Destroy();
 			Destroy();
 		}

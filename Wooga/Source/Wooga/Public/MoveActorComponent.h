@@ -7,12 +7,12 @@
 #include "MoveActorComponent.generated.h"
 
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class WOOGA_API UMoveActorComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
-public:	
+public:
 	// Sets default values for this component's properties
 	UMoveActorComponent();
 
@@ -20,15 +20,15 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent);
 
 	UPROPERTY(EditAnywhere, Category = MoveSettings)
-	float moveSpeed = 200.f;
+		float moveSpeed = 200.f;
 	UPROPERTY(EditAnywhere, Category = MoveSettings)
-	float rotateSpeed = 50.f;
+		float rotateSpeed = 50.f;
 
 private:
 	void MoveHorizontal(float value);
@@ -39,9 +39,13 @@ private:
 	void RightGripOn();
 	void RightGripOff();
 
-	class AVR_Player* player;
-	class ASJ_WoogaGameModeBase* gameMode;
+	UPROPERTY()
+		class AVR_Player* player;
+	UPROPERTY()
+		class ASJ_WoogaGameModeBase* gameMode;
 
-	FRotator hmdRotation;
-	FVector hmdLocation;
+	UPROPERTY()
+		FRotator hmdRotation;
+	UPROPERTY()
+		FVector hmdLocation;
 };

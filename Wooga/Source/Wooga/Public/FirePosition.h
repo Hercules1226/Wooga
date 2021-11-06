@@ -10,8 +10,8 @@ UCLASS()
 class WOOGA_API AFirePosition : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AFirePosition();
 
@@ -19,22 +19,22 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 public:
-	UPROPERTY(EditAnywhere, Category = PickUPSettings)
+	UPROPERTY(EditAnywhere, Category = Setting)
 		class UBoxComponent* boxComp;
 
-	UPROPERTY(EditAnywhere, Category = PickUPSettings)
+	UPROPERTY(EditAnywhere, Category = Setting)
 		class UStaticMeshComponent* meshComp;
 
 	UPROPERTY(EditAnywhere, Category = OutLine)
-	class UStaticMeshComponent* outLine;
+		class UStaticMeshComponent* outLine;
 
 	UPROPERTY(EditAnywhere, Category = FX)
-	class UParticleSystemComponent* FX;
+		class UParticleSystemComponent* FX;
 
 	UPROPERTY(EditAnywhere, Category = PickUPSettings)
 		FVector grabOffset;
@@ -46,7 +46,7 @@ public:
 		class AFireRock* fireRock;
 
 	UPROPERTY()
-	bool bisFire = false;
+		bool bisFire = false;
 
 	UPROPERTY(EditAnywhere, Category = "Fire")
 		class UParticleSystem* smokeFactory;
@@ -55,7 +55,8 @@ public:
 		class UParticleSystem* emberFactory;
 
 	// sound
-	const UObject* WorldContextObject;
+	UPROPERTY()
+		const UObject* WorldContextObject;
 
 	UPROPERTY(EditAnywhere, Category = "Sound")
 		USoundBase* SoundBase;
@@ -65,11 +66,18 @@ public:
 	UPROPERTY()
 		FRotator rotation;
 
-	float VolumeMultiplier = 1.f;
-	float PitchMultiplier = 1.f;
-	float StartTime = 0.f;
-	class USoundAttenuation* AttenuationSettings;
-	USoundConcurrency* ConcurrencySettings;
-	bool bAutoDestroy = false;
-	int32 overlabCount = 0;
+	UPROPERTY()
+		float VolumeMultiplier = 1.f;
+	UPROPERTY()
+		float PitchMultiplier = 1.f;
+	UPROPERTY()
+		float StartTime = 0.f;
+	UPROPERTY()
+		class USoundAttenuation* AttenuationSettings;
+	UPROPERTY()
+		USoundConcurrency* ConcurrencySettings;
+	UPROPERTY()
+		bool bAutoDestroy = false;
+	UPROPERTY()
+		int32 overlabCount = 0;
 };

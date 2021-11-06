@@ -10,8 +10,8 @@ UCLASS()
 class WOOGA_API ALastHouse : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	ALastHouse();
 
@@ -19,13 +19,13 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION()
 		void OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
-	
+
 	UPROPERTY(EditAnywhere, Category = Settings)
 		class USceneComponent* sceneComponent;
 
@@ -59,7 +59,7 @@ public:
 		class AVR_Player* player;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
-	class UMaterial* offMaterial;
+		class UMaterial* offMaterial;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
 		class UMaterial* onMaterial;

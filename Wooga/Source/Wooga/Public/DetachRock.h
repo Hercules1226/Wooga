@@ -10,8 +10,8 @@ UCLASS()
 class WOOGA_API ADetachRock : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	ADetachRock();
 
@@ -19,14 +19,14 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY(EditAnywhere, Category = PickUPSettings)
+	UPROPERTY(EditAnywhere, Category = Setting)
 		class UBoxComponent* boxComp;
 
-	UPROPERTY(EditAnywhere, Category = PickUPSettings)
+	UPROPERTY(EditAnywhere, Category = Setting)
 		class UStaticMeshComponent* meshComp;
 
 };

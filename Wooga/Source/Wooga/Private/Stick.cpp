@@ -8,7 +8,7 @@
 // Sets default values
 AStick::AStick()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	boxComp = CreateDefaultSubobject<UBoxComponent>(TEXT("Box Component"));
@@ -30,7 +30,7 @@ AStick::AStick()
 void AStick::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 }
 
 // Called every frame

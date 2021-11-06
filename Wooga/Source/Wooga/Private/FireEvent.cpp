@@ -10,7 +10,7 @@
 // Sets default values
 AFireEvent::AFireEvent()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	planeComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Plane Component"));
@@ -24,7 +24,7 @@ AFireEvent::AFireEvent()
 void AFireEvent::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
 }
 
@@ -47,7 +47,7 @@ void AFireEvent::Tick(float DeltaTime)
 	FVector startScale = GetActorScale3D();
 	FVector endScale = FVector(0.001f, 0.001f, 0.001f);
 
-	FVector setScale = FMath::Lerp(startScale, endScale, DeltaTime/1.2f);
+	FVector setScale = FMath::Lerp(startScale, endScale, DeltaTime / 1.2f);
 	SetActorScale3D(setScale);
 }
 

@@ -39,6 +39,9 @@ public:
 		class UStaticMeshComponent* inside;
 
 	UPROPERTY()
+		ACutting* cutting;
+
+	UPROPERTY()
 		FVector topPos;
 
 	UPROPERTY()
@@ -49,4 +52,17 @@ public:
 
 	UPROPERTY()
 		FVector targetBottomPos;
+
+	UPROPERTY()
+		FRotator topRot;
+
+	UPROPERTY()
+		FRotator bottomRot;
+
+	UPROPERTY()
+		FRotator targetTopRot;
+
+	UPROPERTY()
+		FRotator targetBottomRot;
+
 };

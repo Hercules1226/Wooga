@@ -19,7 +19,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -27,99 +27,109 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 public:
-		// Capsule 몸체
-		UPROPERTY(EditAnywhere, Category = PlayerSettings)
-			class UCapsuleComponent* capsuleComp;
-		// Camera 위치
-		UPROPERTY(EditAnywhere, Category = PlayerSettings)
-			class USceneComponent* cameraRoot;
-		// Main Camera
-		UPROPERTY(EditAnywhere, Category = PlayerSettings)
-			class UCameraComponent* playerCam;
-		UPROPERTY(EditAnywhere, Category = PickUPSettings)
-			class UBoxComponent* headComp;
+	// Capsule 몸체
+	UPROPERTY(EditAnywhere, Category = PlayerSettings)
+		class UCapsuleComponent* capsuleComp;
+	// Camera 위치
+	UPROPERTY(EditAnywhere, Category = PlayerSettings)
+		class USceneComponent* cameraRoot;
+	// Main Camera
+	UPROPERTY(EditAnywhere, Category = PlayerSettings)
+		class UCameraComponent* playerCam;
+	UPROPERTY(EditAnywhere, Category = PickUPSettings)
+		class UBoxComponent* headComp;
 
-		UPROPERTY(EditAnywhere, Category = PickUPSettings)
-			class UBoxComponent* mouthComp;
+	UPROPERTY(EditAnywhere, Category = PickUPSettings)
+		class UBoxComponent* mouthComp;
 
-		// LeftController
-		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = PlayerSettings)
-			class UMotionControllerComponent* leftController;
-		// RightController
-		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = PlayerSettings)
-			class UMotionControllerComponent* rightController;
-		// 왼손
-		UPROPERTY(EditAnywhere, Category = PlayerSettings)
-			class USkeletalMeshComponent* leftHand;
-		// 왼손 그랩 포인트
-		UPROPERTY(EditAnywhere, Category = PlayerSettings)
-			class USceneComponent* leftHandLoc;
-		UPROPERTY(EditAnywhere, Category = PlayerSettings)
-			class USceneComponent* leftFALoc;
-		// 오른손
-		UPROPERTY(EditAnywhere, Category = PlayerSettings)
-			class USkeletalMeshComponent* rightHand;
-		// 오른손 그랩 포인트
-		UPROPERTY(EditAnywhere, Category = PlayerSettings)
-			class USceneComponent* rightHandLoc;
-		UPROPERTY(EditAnywhere, Category = PlayerSettings)
-			class USceneComponent* rightFALoc;
-		UPROPERTY(EditAnywhere, Category = PlayerSettings)
-			class USceneComponent* rightHRLoc;
-		// 왼손 그랩 TextLog
-		UPROPERTY(EditAnywhere, Category = PlayerSettings)
-			class UTextRenderComponent* leftLog;
-		// 오른손 그랩 TextLog
-		UPROPERTY(EditAnywhere, Category = PlayerSettings)
-			class UTextRenderComponent* rightLog;
+	// LeftController
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = PlayerSettings)
+		class UMotionControllerComponent* leftController;
+	// RightController
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = PlayerSettings)
+		class UMotionControllerComponent* rightController;
+	// 왼손
+	UPROPERTY(EditAnywhere, Category = PlayerSettings)
+		class USkeletalMeshComponent* leftHand;
+	// 왼손 그랩 포인트
+	UPROPERTY(EditAnywhere, Category = PlayerSettings)
+		class USceneComponent* leftHandLoc;
+	UPROPERTY(EditAnywhere, Category = PlayerSettings)
+		class USceneComponent* leftFALoc;
+	// 오른손
+	UPROPERTY(EditAnywhere, Category = PlayerSettings)
+		class USkeletalMeshComponent* rightHand;
+	// 오른손 그랩 포인트
+	UPROPERTY(EditAnywhere, Category = PlayerSettings)
+		class USceneComponent* rightHandLoc;
+	UPROPERTY(EditAnywhere, Category = PlayerSettings)
+		class USceneComponent* rightFALoc;
+	UPROPERTY(EditAnywhere, Category = PlayerSettings)
+		class USceneComponent* rightHRLoc;
+	// 왼손 그랩 TextLog
+	UPROPERTY(EditAnywhere, Category = PlayerSettings)
+		class UTextRenderComponent* leftLog;
+	// 오른손 그랩 TextLog
+	UPROPERTY(EditAnywhere, Category = PlayerSettings)
+		class UTextRenderComponent* rightLog;
 
-		UPROPERTY(EditAnywhere, Category = Watch)
-			class UWidgetComponent* playerWatch;
+	UPROPERTY(EditAnywhere, Category = Watch)
+		class UWidgetComponent* playerWatch;
 
-		// 액터 컴포넌트들 추가하기
-		UPROPERTY(VisibleAnywhere, Category = PlayerSettings)
-			class UMoveActorComponent* moveComp;
+	// 액터 컴포넌트들 추가하기
+	UPROPERTY(VisibleAnywhere, Category = PlayerSettings)
+		class UMoveActorComponent* moveComp;
 
-		// 손 애니메이션 추가
-		UPROPERTY(VisibleAnywhere, Category = PlayerSettings)
-			class UHandActorComponent* handComp;
+	// 손 애니메이션 추가
+	UPROPERTY(VisibleAnywhere, Category = PlayerSettings)
+		class UHandActorComponent* handComp;
 
-		UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = PlayerSettings)
-			class UGrabActorComponent* grabComp;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = PlayerSettings)
+		class UGrabActorComponent* grabComp;
 
-		UPROPERTY()
-			class ASJ_UIPannel* uiPannel;
+	UPROPERTY()
+		class ASJ_UIPannel* uiPannel;
 
-		void TurnOff();
+	void TurnOff();
 
-		UPROPERTY(VisibleDefaultsOnly, Category = state)
+	UPROPERTY(VisibleDefaultsOnly, Category = state)
 		bool isClose;
 
-		UPROPERTY()
+	UPROPERTY()
 		bool bIsCloseDelay;
 
 public:
 	void ResetHMD();
-	
 
-	FRotator hmdRotation;
-	FVector hmdLocation;
 
-	FRotator hmdRotation2;
-	FVector hmdLocation2;
+	UPROPERTY()
+		FRotator hmdRotation;
+	UPROPERTY()
+		FVector hmdLocation;
 
-	FRotator headRotate;
-	FVector headLocation;
+	UPROPERTY()
+		FRotator hmdRotation2;
+	UPROPERTY()
+		FVector hmdLocation2;
 
-	float headRotateYaw;
-	float headRotatePitch;
+	UPROPERTY()
+		FRotator headRotate;
+	UPROPERTY()
+		FVector headLocation;
 
-	float change;
+	UPROPERTY()
+		float headRotateYaw;
+	UPROPERTY()
+		float headRotatePitch;
+
+	UPROPERTY()
+		float change;
 
 	UPROPERTY(VisibleAnywhere, Category = knowledge)
 		float knowledgePoint;
 
-	FTimerHandle testTimer;
+	UPROPERTY()
+		FTimerHandle testTimer;
 
 	UFUNCTION()
 		void OverlapKnowledgePoint(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
