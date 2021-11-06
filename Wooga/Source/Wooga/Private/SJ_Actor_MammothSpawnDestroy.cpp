@@ -27,12 +27,18 @@ void ASJ_Actor_MammothSpawnDestroy::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	destroyRange->OnComponentBeginOverlap.AddDynamic(this, &ASJ_Actor_MammothSpawnDestroy::TriggerIn);
+	FVector p = FVector(6580, 8000, 1390);
+	SetActorLocation(p);
+
+	FRotator r = FRotator(0, 80, 0);
+	SetActorRotation(r);
 
 	FActorSpawnParameters Param;
 	Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
 	mammoth = GetWorld()->SpawnActor<ASJ_Actor_Mammoth>(bpMammoth,spawnRange->GetComponentLocation(),spawnRange->GetComponentRotation(), Param);
+
+	destroyRange->OnComponentBeginOverlap.AddDynamic(this, &ASJ_Actor_MammothSpawnDestroy::TriggerIn);
 }
 
 // Called every frame

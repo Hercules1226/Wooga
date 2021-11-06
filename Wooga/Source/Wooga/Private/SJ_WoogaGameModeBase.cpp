@@ -584,7 +584,9 @@ void ASJ_WoogaGameModeBase::HandAxTitle()
 		FActorSpawnParameters Param;
 		Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
-		mammothSpawn = Cast<ASJ_Actor_MammothSpawnDestroy>(UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_Actor_MammothSpawnDestroy::StaticClass()));
+		mammothSpawn = GetWorld()->SpawnActor<ASJ_Actor_MammothSpawnDestroy>(bpMammothSpawn, Param);
+
+		UE_LOG(LogTemp, Warning, TEXT("Spawn Mammoth"));
 
 		SetState(EFlowState::SeeMammoth);
 	}
@@ -596,12 +598,14 @@ void ASJ_WoogaGameModeBase::SeeMammoth()
 
 	if (nextDelayTime >= 20.0f)
 	{
-		if (mammothShakeTime >= 1.0f)
-		{
-			GetWorld()->GetFirstPlayerController()->PlayerCameraManager->StartCameraShake(mammothCameraShake);
+		
+	}
 
-			mammothShakeTime = 0;
-		}
+	if (mammothShakeTime >= 1.0f)
+	{
+		GetWorld()->GetFirstPlayerController()->PlayerCameraManager->StartCameraShake(mammothCameraShake);
+
+		mammothShakeTime = 0;
 	}
 }
 #pragma endregion

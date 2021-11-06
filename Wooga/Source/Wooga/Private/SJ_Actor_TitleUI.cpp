@@ -71,7 +71,7 @@ void ASJ_Actor_TitleUI::BeginPlay()
 		dir.Normalize();
 
 		SetActorRotation(dir.Rotation());
-	}	
+	}
 }
 
 // Called every frame

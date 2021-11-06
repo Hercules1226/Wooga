@@ -31,6 +31,6 @@ public:
 	class ASJ_Actor_MammothSpawnDestroy* range;
 
 	UPROPERTY(EditAnywhere, Category = Speed)
-	float speed = 200.0f;
+	float speed = 300.0f;
 
 };
