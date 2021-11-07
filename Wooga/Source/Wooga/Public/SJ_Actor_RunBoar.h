@@ -16,13 +16,13 @@ public:
 	ASJ_Actor_RunBoar();
 
 	UPROPERTY(EditAnywhere, Category = Boar)
-	class UBoxComponent* rootBox;
+	class USceneComponent* rootComp;
 
 	UPROPERTY(EditAnywhere, Category = Boar)
 	class USkeletalMeshComponent* boarMesh;
 
 	UPROPERTY(EditAnywhere, Category = Boar)
-	class UBoxComponent* hitPoint;
+	class UStaticMeshComponent* hitPoint;
 
 protected:
 	// Called when the game starts or when spawned
@@ -59,9 +59,13 @@ public:
 	UPROPERTY()
 	float speed = 300.0f;
 
+	// 슬로우 모션까지 시간
+	UPROPERTY()
+	float slowTime;
+
 	// 플레이어와 돼지간의 거리 변수
 	UPROPERTY()
-	float distance = 350.0f;
+	float distance = 250.0f;
 
 	// 오버랩 함수
 	UFUNCTION()

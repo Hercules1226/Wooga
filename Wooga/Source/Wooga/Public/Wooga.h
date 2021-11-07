@@ -28,7 +28,8 @@ enum class EFlowState : uint8
 	HandAxTitle,
 	SeeMammoth,
 	GrabHandAx,
-	RunBoar
+	RunBoar,
+	HitBoar
 };
 
 UENUM(BlueprintType)
