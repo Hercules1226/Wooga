@@ -27,6 +27,9 @@
 #include "Components/LightComponent.h"
 #include "SJ_Actor_GoToGuideLine.h"
 #include "SJ_Actor_MammothSpawnDestroy.h"
+#include "SJ_Actor_RunBoar.h"
+#include "SJ_Actor_GrabHandAxUI.h"
+#include "SJ_Actor_HitBoarUI.h"
 
 ASJ_WoogaGameModeBase::ASJ_WoogaGameModeBase()
 {
@@ -102,8 +105,13 @@ void ASJ_WoogaGameModeBase::Tick(float DeltaSeconds)
 		SeeMammoth();
 		break;
 	case EFlowState::GrabHandAx:
+		GrabHandAx();
 		break;
 	case  EFlowState::RunBoar:
+		RunBoar();
+		break;
+	case EFlowState::HitBoar:
+		HitBoar();
 		break;
 	}
 
@@ -610,21 +618,69 @@ void ASJ_WoogaGameModeBase::SeeMammoth()
 
 	nextDelayTime += GetWorld()->DeltaTimeSeconds;
 	
-	if (nextDelayTime >= 20.0f)
+	if (nextDelayTime >= 15.0f)
 	{
+		// ¸¾¸ð½º ½ºÆù ¾×ÅÍ Á¦°Å
+		mammothSpawn->Destroy();
+
+		// ÁÖ¸Ôµµ³¢ µ¹ Àâ±â UI »ý¼º
+		FActorSpawnParameters Param;
+		Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+		handAxUI = GetWorld()->SpawnActor<ASJ_Actor_GrabHandAxUI>(bpHandAxUI, Param);
+		
+		// ÁÖ¸Ôµµ³¢ µ¹ ¾Æ¿ô¶óÀÎ
+
+		// µô·¹ÀÌ º¯¼ö ÃÊ±âÈ­
+		nextDelayTime = 0;
+
 		SetState(EFlowState::GrabHandAx);
 	}
 }
+
 void ASJ_WoogaGameModeBase::GrabHandAx()
 {
-	if (player->grabComp->bisfistAxeR)
+	nextDelayTime += GetWorld()->DeltaTimeSeconds;
+
+	if (nextDelayTime >= 10.0f)
 	{
+		UE_LOG(LogTemp, Warning, TEXT("GrabHandAx"));
+		// UI ²ô±â
+		bIsUIClose = true;
+
+		// ¸äµÅÁö »ý¼º
+		FActorSpawnParameters Param;
+		Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+		boar = GetWorld()->SpawnActor<ASJ_Actor_RunBoar>(bpRunboar, Param);
+
+		// µô·¹ÀÌ º¯¼ö ÃÊ±âÈ­
+		nextDelayTime = 0;
+
 		SetState(EFlowState::RunBoar);
+	}
+	if (player->grabComp->bisfistAxeR == true)
+	{
+		
 	}
 }
 void ASJ_WoogaGameModeBase::RunBoar()
 {
-	
+	if (boar->boarState == EBoarState::SlowMotion)
+	{
+		// ¸äµÅÁö °¡°Ý UI
+		FActorSpawnParameters Param;
+		Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+		hitBoarUI = GetWorld()->SpawnActor<ASJ_Actor_HitBoarUI>(bpHitBoarUI, Param);
+
+		SetState(EFlowState::HitBoar);
+	}
+}
+
+void ASJ_WoogaGameModeBase::HitBoar()
+{
+
 }
 #pragma endregion
 

@@ -180,6 +180,7 @@ public:
 	void SeeMammoth();
 	void GrabHandAx();
 	void RunBoar();
+	void HitBoar();
 
 	// 주먹도끼 가이드라인
 	class ASJ_Actor_GoToGuideLine* handAxGuideLine;
@@ -202,4 +203,19 @@ public:
 	// 카메라 쉐이크 플레이 시간
 	UPROPERTY()
 	float mammothShakeTime;
+
+	// 주먹도끼 돌 잡기 UI
+	class ASJ_Actor_GrabHandAxUI* handAxUI;
+	UPROPERTY(EditAnywhere, Category = UI)
+	TSubclassOf<class ASJ_Actor_GrabHandAxUI> bpHandAxUI;
+
+	// 멧돼지 생성
+	class ASJ_Actor_RunBoar* boar;
+	UPROPERTY(EditAnywhere, Category = Boar)
+	TSubclassOf<class ASJ_Actor_RunBoar> bpRunboar;
+
+	// 멧돼지 처치 UI
+	class ASJ_Actor_HitBoarUI* hitBoarUI;
+	UPROPERTY(EditAnywhere, Category = UI)
+	TSubclassOf<class ASJ_Actor_HitBoarUI> bpHitBoarUI;
 };

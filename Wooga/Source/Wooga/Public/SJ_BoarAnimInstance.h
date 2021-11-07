@@ -14,6 +14,7 @@ class WOOGA_API USJ_BoarAnimInstance : public UAnimInstance
 {
 	GENERATED_BODY()
 
-	/*UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AnimInstance")
-	bool isHit;*/
+public:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AnimInstance")
+	bool isHit;
 };
