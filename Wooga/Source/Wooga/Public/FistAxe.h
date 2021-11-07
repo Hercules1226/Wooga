@@ -94,7 +94,7 @@ public:
 
 public:
 	// 소켓에 넣을떄 Offset 값을 조정
-	UPROPERTY(EditAnywhere, Category = PickUPSettings)
+	UPROPERTY(EditAnywhere, Category = Settings)
 		FVector grabOffset;
 
 	UPROPERTY()

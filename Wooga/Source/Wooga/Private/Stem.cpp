@@ -12,7 +12,7 @@
 // Sets default values
 AStem::AStem()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	boxComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Root Component"));
@@ -49,14 +49,13 @@ AStem::AStem()
 
 	constraint2 = CreateDefaultSubobject<UPhysicsConstraintComponent>(TEXT("Constraint2"));
 	constraint2->SetupAttachment(boxComp);
-
 }
 
 // Called when the game starts or when spawned
 void AStem::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 }
 
 // Called every frame

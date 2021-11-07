@@ -27,7 +27,7 @@ void UHandActorComponent::BeginPlay()
 		l_handAnim = Cast<UVRHandAnimInstance>(player->leftHand->GetAnimInstance());
 		r_handAnim = Cast<UVRHandAnimInstance>(player->rightHand->GetAnimInstance());
 	}
-	
+
 }
 
 

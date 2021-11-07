@@ -8,7 +8,7 @@
 // Sets default values
 ADetachRock::ADetachRock()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	boxComp = CreateDefaultSubobject<UBoxComponent>(TEXT("Box Component"));
@@ -22,7 +22,7 @@ ADetachRock::ADetachRock()
 void ADetachRock::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 }
 
 // Called every frame

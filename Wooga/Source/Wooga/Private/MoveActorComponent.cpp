@@ -38,48 +38,51 @@ void UMoveActorComponent::TickComponent(float DeltaTime, ELevelTick TickType, FA
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	
+
 }
 
 void UMoveActorComponent::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
-	//PlayerInputComponent->BindAxis("RightThumbstick_X", this, &UMoveActorComponent::MoveHorizontal);
-
-	// 이동방법과 잡는방법 알려주는 상태에선 이동 기능 꺼주기
-	
-	if (gameMode->flowState != EFlowState::ManipulateUI || gameMode->flowState != EFlowState::HowToGrabActorUI)
-	{
-		PlayerInputComponent->BindAxis("RightThumbstick_Y", this, &UMoveActorComponent::MoveVertical);
-		PlayerInputComponent->BindAxis("LeftThumbstick_X", this, &UMoveActorComponent::RotateHorizontal);
-	}
-	
-	/*PlayerInputComponent->BindAction("LeftGrip", IE_Pressed, this, &UMoveActorComponent::LeftGripOn);
+	PlayerInputComponent->BindAxis("RightThumbstick_X", this, &UMoveActorComponent::MoveHorizontal);
+	PlayerInputComponent->BindAxis("RightThumbstick_Y", this, &UMoveActorComponent::MoveVertical);
+	PlayerInputComponent->BindAxis("LeftThumbstick_X", this, &UMoveActorComponent::RotateHorizontal);
+	PlayerInputComponent->BindAction("LeftGrip", IE_Pressed, this, &UMoveActorComponent::LeftGripOn);
 	PlayerInputComponent->BindAction("LeftGrip", IE_Released, this, &UMoveActorComponent::LeftGripOff);
 	PlayerInputComponent->BindAction("RightGrip", IE_Pressed, this, &UMoveActorComponent::RightGripOn);
-	PlayerInputComponent->BindAction("RightGrip", IE_Released, this, &UMoveActorComponent::RightGripOff);*/
+	PlayerInputComponent->BindAction("RightGrip", IE_Released, this, &UMoveActorComponent::RightGripOff);
 }
 
 void UMoveActorComponent::MoveHorizontal(float value)
 {
-	FVector dir = player->GetActorRightVector() * value;
-	
-	player->SetActorLocation(player->GetActorLocation() + dir * moveSpeed * GetWorld()->DeltaTimeSeconds);
+
+	if (bisMove == true)
+	{
+		FVector dir = player->GetActorRightVector() * value;
+
+		player->SetActorLocation(player->GetActorLocation() + dir * moveSpeed * GetWorld()->DeltaTimeSeconds);
+	}
 }
 
 void UMoveActorComponent::MoveVertical(float value)
 {
-	auto cam = Cast<UCameraComponent>(player->GetDefaultSubobjectByName(TEXT("MainCamera")));
+	if (bisMove == true)
+	{
+		auto cam = Cast<UCameraComponent>(player->GetDefaultSubobjectByName(TEXT("MainCamera")));
 
-	FVector dir = cam->GetForwardVector() * value;
-	dir.Z = 0;
+		FVector dir = cam->GetForwardVector() * value;
+		dir.Z = 0;
 
-	player->SetActorLocation(player->GetActorLocation() + dir * moveSpeed * GetWorld()->DeltaTimeSeconds);
+		player->SetActorLocation(player->GetActorLocation() + dir * moveSpeed * GetWorld()->DeltaTimeSeconds);
+	}
 }
 
 void UMoveActorComponent::RotateHorizontal(float value)
 {
-	FRotator rot = FRotator(0, value * rotateSpeed * GetWorld()->DeltaTimeSeconds, 0);
-	player->AddActorLocalRotation(rot);
+	if (bisMove == true)
+	{
+		FRotator rot = FRotator(0, value * rotateSpeed * GetWorld()->DeltaTimeSeconds, 0);
+		player->AddActorLocalRotation(rot);
+	}
 }
 
 void UMoveActorComponent::LeftGripOn()

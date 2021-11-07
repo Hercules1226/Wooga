@@ -23,7 +23,7 @@
 // Sets default values
 AVR_Player::AVR_Player()
 {
- 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	// Player Body
@@ -165,7 +165,7 @@ AVR_Player::AVR_Player()
 void AVR_Player::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 	// HMD 의 초기 위치값을 설정하기
 	UHeadMountedDisplayFunctionLibrary::GetOrientationAndPosition(hmdRotation, hmdLocation);
 	// HMD 의 기준점을 바닥으로 설정
@@ -179,7 +179,7 @@ void AVR_Player::BeginPlay()
 
 	playerWatch->OnComponentBeginOverlap.AddDynamic(this, &AVR_Player::OverlapKnowledgePoint);
 
-	
+
 }
 
 // Called every frame
@@ -228,7 +228,7 @@ void AVR_Player::Tick(float DeltaTime)
 void AVR_Player::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-	
+
 	moveComp->SetupPlayerInputComponent(PlayerInputComponent);
 	grabComp->SetupPlayerInputComponent(PlayerInputComponent);
 

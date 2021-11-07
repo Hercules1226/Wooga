@@ -10,8 +10,8 @@ UCLASS()
 class WOOGA_API ASlicePig : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	ASlicePig();
 
@@ -19,24 +19,36 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY(EditAnywhere, Category = PickUPSettings)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Setting)
 		class USceneComponent* rootComp;
 
-	UPROPERTY(EditAnywhere, Category = PickUPSettings)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Setting)
 		class UStaticMeshComponent* pigHead;
 
-	UPROPERTY(EditAnywhere, Category = PickUPSettings)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Setting)
 		class UStaticMeshComponent* top;
 
-	UPROPERTY(EditAnywhere, Category = PickUPSettings)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Setting)
 		class UStaticMeshComponent* bottom;
 
-	UPROPERTY(EditAnywhere, Category = PickUPSettings)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Setting)
 		class UStaticMeshComponent* inside;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Setting)
+		class UMaterialInstance* onMaterial;
+
+	UPROPERTY()
+		float blend;
+
+	UPROPERTY()
+		float disTime;
+
+	UPROPERTY()
+		ACutting* cutting;
 
 	UPROPERTY()
 		FVector topPos;
@@ -49,4 +61,16 @@ public:
 
 	UPROPERTY()
 		FVector targetBottomPos;
+
+	UPROPERTY()
+		FRotator topRot;
+
+	UPROPERTY()
+		FRotator bottomRot;
+
+	UPROPERTY()
+		FRotator targetTopRot;
+
+	UPROPERTY()
+		FRotator targetBottomRot;
 };

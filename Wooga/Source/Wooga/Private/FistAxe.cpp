@@ -136,7 +136,7 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 
 	if (currentTime >= 1.f)
 	{
-	detachRock = Cast<ADetachRock>(OtherActor);
+		detachRock = Cast<ADetachRock>(OtherActor);
 		if (OtherActor == detachRock)
 		{
 			// Nuckback
@@ -281,7 +281,7 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 
 				rock6->SetMaterial(0, offMaterial);
 				rock7->SetMaterial(0, onMaterial);
-				
+
 				rock6->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 				rock6->DetachFromParent(true);
 				currentTime = 0.f;
@@ -509,7 +509,7 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 
 				rock14->SetMaterial(0, offMaterial);
 				rock15->SetMaterial(0, onMaterial);
-				
+
 				rock15->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 				rock15->DetachFromParent(true);
 				currentTime = 0.f;
@@ -523,7 +523,7 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 			rock15->SetMaterial(0, offMaterial);
 		}
 	}
-	
-	
+
+
 }
 
