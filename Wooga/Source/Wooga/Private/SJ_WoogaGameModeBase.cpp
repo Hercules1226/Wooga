@@ -101,6 +101,10 @@ void ASJ_WoogaGameModeBase::Tick(float DeltaSeconds)
 	case EFlowState::SeeMammoth:
 		SeeMammoth();
 		break;
+	case EFlowState::GrabHandAx:
+		break;
+	case  EFlowState::RunBoar:
+		break;
 	}
 
 	// UI 로직
@@ -593,20 +597,34 @@ void ASJ_WoogaGameModeBase::HandAxTitle()
 }
 void ASJ_WoogaGameModeBase::SeeMammoth()
 {
-	nextDelayTime += GetWorld()->DeltaTimeSeconds;
+	// 카메라 쉐이크와 사운드 플레이
 	mammothShakeTime += GetWorld()->DeltaTimeSeconds;
 
-	if (nextDelayTime >= 20.0f)
-	{
-		
-	}
-
+	// 1초마다 한번씩 카메라 쉐이크 플레이
 	if (mammothShakeTime >= 1.0f)
 	{
 		GetWorld()->GetFirstPlayerController()->PlayerCameraManager->StartCameraShake(mammothCameraShake);
 
 		mammothShakeTime = 0;
 	}
+
+	nextDelayTime += GetWorld()->DeltaTimeSeconds;
+	
+	if (nextDelayTime >= 20.0f)
+	{
+		SetState(EFlowState::GrabHandAx);
+	}
+}
+void ASJ_WoogaGameModeBase::GrabHandAx()
+{
+	if (player->grabComp->bisfistAxeR)
+	{
+		SetState(EFlowState::RunBoar);
+	}
+}
+void ASJ_WoogaGameModeBase::RunBoar()
+{
+	
 }
 #pragma endregion
 

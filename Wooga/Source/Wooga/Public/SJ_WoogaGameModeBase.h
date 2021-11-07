@@ -178,6 +178,8 @@ public:
 	// 사냥(주먹도끼)
 	void HandAxTitle();
 	void SeeMammoth();
+	void GrabHandAx();
+	void RunBoar();
 
 	// 주먹도끼 가이드라인
 	class ASJ_Actor_GoToGuideLine* handAxGuideLine;
@@ -193,7 +195,7 @@ public:
 	UPROPERTY(EditAnywhere, Category = Mammoth)
 	TSubclassOf<class ASJ_Actor_MammothSpawnDestroy> bpMammothSpawn;
 
-	// 카메라 쉐이크
+	// 맘모스 카메라 쉐이크
 	UPROPERTY(EditAnywhere, Category = Mammoth)
 	TSubclassOf<class UCameraShakeBase> mammothCameraShake;
 

@@ -26,7 +26,9 @@ enum class EFlowState : uint8
 	GoToFistAxCourse,
 	// ªÁ≥…(¡÷∏‘µµ≥¢)
 	HandAxTitle,
-	SeeMammoth
+	SeeMammoth,
+	GrabHandAx,
+	RunBoar
 };
 
 UENUM(BlueprintType)
@@ -43,4 +45,13 @@ enum class EBlinkState : uint8
 	OnOpacity,
 	PlayOpacity,
 	OffOpacity
+};
+
+UENUM(BlueprintType)
+enum class EBoarState : uint8
+{
+	Run,
+	SlowMotion,
+	Hit,
+	Die
 };
