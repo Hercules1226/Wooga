@@ -27,10 +27,10 @@ void ASJ_Actor_MammothSpawnDestroy::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	FVector p = FVector(6580, 8000, 1390);
+	FVector p = FVector(5749, 7421, 1390);
 	SetActorLocation(p);
 
-	FRotator r = FRotator(0, 80, 0);
+	FRotator r = FRotator(0, 50, 0);
 	SetActorRotation(r);
 
 	FActorSpawnParameters Param;

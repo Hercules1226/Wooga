@@ -32,5 +32,5 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	class ASJ_Actor_RunBoar* boar;
+	class ASJ_Character_Boar* boar;
 };

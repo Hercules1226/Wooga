@@ -27,7 +27,7 @@
 #include "Components/LightComponent.h"
 #include "SJ_Actor_GoToGuideLine.h"
 #include "SJ_Actor_MammothSpawnDestroy.h"
-#include "SJ_Actor_RunBoar.h"
+#include "SJ_Character_Boar.h"
 #include "SJ_Actor_GrabHandAxUI.h"
 #include "SJ_Actor_HitBoarUI.h"
 
@@ -652,7 +652,7 @@ void ASJ_WoogaGameModeBase::GrabHandAx()
 		FActorSpawnParameters Param;
 		Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
-		boar = GetWorld()->SpawnActor<ASJ_Actor_RunBoar>(bpRunboar, Param);
+		boar = GetWorld()->SpawnActor<ASJ_Character_Boar>(bpRunboar, Param);
 
 		// 딜레이 변수 초기화
 		nextDelayTime = 0;

@@ -46,7 +46,7 @@ void ASJ_Actor_GoToGuideLine::BeginPlay()
 	}
 	else if (gameModeBase->flowState == EFlowState::CompleteCollect || gameModeBase->flowState == EFlowState::GoToFistAxCourse)
 	{
-		FVector p2 = FVector(8170, 9163, 1230);
+		FVector p2 = FVector(7473, 8344, 1270);
 
 		SetActorLocation(p2);
 

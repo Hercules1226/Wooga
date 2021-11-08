@@ -210,9 +210,9 @@ public:
 	TSubclassOf<class ASJ_Actor_GrabHandAxUI> bpHandAxUI;
 
 	// ¸äµÅÁö »ý¼º
-	class ASJ_Actor_RunBoar* boar;
+	class ASJ_Character_Boar* boar;
 	UPROPERTY(EditAnywhere, Category = Boar)
-	TSubclassOf<class ASJ_Actor_RunBoar> bpRunboar;
+	TSubclassOf<class ASJ_Character_Boar> bpRunboar;
 
 	// ¸äµÅÁö Ã³Ä¡ UI
 	class ASJ_Actor_HitBoarUI* hitBoarUI;

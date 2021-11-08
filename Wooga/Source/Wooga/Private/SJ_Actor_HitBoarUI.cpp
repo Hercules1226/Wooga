@@ -5,7 +5,7 @@
 #include <Components/StaticMeshComponent.h>
 #include <Components/WidgetComponent.h>
 #include <Kismet/GameplayStatics.h>
-#include "SJ_Actor_RunBoar.h"
+#include "SJ_Character_Boar.h"
 
 // Sets default values
 ASJ_Actor_HitBoarUI::ASJ_Actor_HitBoarUI()
@@ -28,7 +28,7 @@ void ASJ_Actor_HitBoarUI::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	boar = Cast<ASJ_Actor_RunBoar>(UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_Actor_RunBoar::StaticClass()));
+	boar = Cast<ASJ_Character_Boar>(UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_Character_Boar::StaticClass()));
 
 	FVector boarLoc = boar->GetActorLocation();
 	FVector p = boarLoc + boar->GetActorUpVector() * 100.0f;

@@ -13,11 +13,8 @@ ASJ_Actor_RunBoar::ASJ_Actor_RunBoar()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	rootComp = CreateDefaultSubobject<USceneComponent>(TEXT("RootComp"));
-	SetRootComponent(rootComp);
-
 	boarMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Boar"));
-	boarMesh->SetupAttachment(rootComp);
+	SetRootComponent(boarMesh);
 
 	hitPoint = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("HitPoint"));
 	hitPoint->SetupAttachment(boarMesh);
@@ -28,13 +25,15 @@ void ASJ_Actor_RunBoar::BeginPlay()
 {
 	Super::BeginPlay();
 
-	FVector p = FVector(8190.0f, 7190.0f, 1160.0f);
+	FVector p = FVector(7010.0f, 6000.0f, 1200.0f);
 
 	SetActorLocation(p);
 	
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
 
-	hitPoint->OnComponentBeginOverlap.AddDynamic(this, &ASJ_Actor_RunBoar::OnTrigger);
+	boarMesh->OnComponentBeginOverlap.AddDynamic(this, &ASJ_Actor_RunBoar::BoarTrigger);
+
+	hitPoint->OnComponentBeginOverlap.AddDynamic(this, &ASJ_Actor_RunBoar::HitPointTrigger);
 
 	hitPoint->SetHiddenInGame(true);
 
@@ -87,7 +86,9 @@ void ASJ_Actor_RunBoar::Run()
 	FVector p = me + dir * speed * GetWorld()->DeltaTimeSeconds;
 
 	SetActorLocation(p);
-	SetActorRotation(dir.Rotation());
+
+	FRotator r = FRotator(GetActorRotation().Pitch, dir.Rotation().Yaw, GetActorRotation().Roll);
+	// SetActorRotation(dir.Rotation().Yaw);
 
 	float slowRange = FVector::Dist(me, playerLoc);
 
@@ -111,7 +112,7 @@ void ASJ_Actor_RunBoar::Hit()
 	me = GetActorLocation();
 	dir = GetActorRightVector();
 
-	FVector p1 = me + dir * GetWorld()->DeltaTimeSeconds * -600.f;
+	FVector p1 = me + dir * GetWorld()->DeltaTimeSeconds * 600.f;
 
 	SetActorLocation(p1);
 }
@@ -121,7 +122,7 @@ void ASJ_Actor_RunBoar::Die()
 	
 }
 
-void ASJ_Actor_RunBoar::OnTrigger(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+void ASJ_Actor_RunBoar::HitPointTrigger(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	fistAxe = Cast<AFistAxe>(OtherActor);
 
@@ -137,12 +138,17 @@ void ASJ_Actor_RunBoar::OnTrigger(UPrimitiveComponent* OverlappedComponent, AAct
 			SetState(EBoarState::Hit);
 		}
 	}
+}
+
+void ASJ_Actor_RunBoar::BoarTrigger(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	FString name = OtherActor->GetName();
 
 	if (boarState == EBoarState::Hit)
 	{
 		if (name.Contains("rock"))
 		{
-			SetState(EBoarState::Die);
+			// SetState(EBoarState::Die);
 		}
 	}
 }
