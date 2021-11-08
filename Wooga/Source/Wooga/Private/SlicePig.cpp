@@ -29,6 +29,8 @@ ASlicePig::ASlicePig()
 	bottom->SetupAttachment(rootComp);
 	inside = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Inside"));
 	inside->SetupAttachment(rootComp);
+	inside2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Inside2"));
+	inside2->SetupAttachment(rootComp);
 	onMaterial = CreateDefaultSubobject<UMaterialInstance>(TEXT("On Material"));
 }
 
@@ -72,11 +74,6 @@ void ASlicePig::Tick(float DeltaTime)
 			bottom->SetRelativeLocation(bottomPos);
 			//bottom->SetRelativeRotation(bottomRot);
 
-			// 지워야 할듯
-			if (FVector::Dist(topPos, targetTopPos) < 1.f || FVector::Dist(bottomPos, targetBottomPos) < 1.f)
-			{
-				cutting->bisfinish = false;
-			}
 			disTime += GetWorld()->DeltaTimeSeconds;
 			blend = FMath::Lerp(0.f, 1.f, disTime * 0.5f);
 

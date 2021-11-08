@@ -39,6 +39,9 @@ public:
 		class UStaticMeshComponent* inside;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Setting)
+		class UStaticMeshComponent* inside2;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Setting)
 		class UMaterialInstance* onMaterial;
 
 	UPROPERTY()
