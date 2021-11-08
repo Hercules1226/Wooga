@@ -92,5 +92,6 @@ void ACutting::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 			SetActorHiddenInGame(true);
 		}
 	}
+
 }
 
