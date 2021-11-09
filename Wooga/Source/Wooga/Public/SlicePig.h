@@ -51,7 +51,7 @@ public:
 		float disTime;
 
 	UPROPERTY()
-	class	ACutting* cutting;
+		class ACutting* cutting;
 
 	UPROPERTY()
 		FVector topPos;

@@ -3,7 +3,6 @@
 
 #include "SlicePig.h"
 #include "Cutting.h"
-
 #include "Materials/MaterialInstance.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SceneComponent.h"
@@ -24,13 +23,16 @@ ASlicePig::ASlicePig()
 
 	top = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Top"));
 	top->SetupAttachment(rootComp);
-	top->CreateDynamicMaterialInstance(0);
-	bottom = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("bottom"));
+
+	bottom = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Bottom"));
 	bottom->SetupAttachment(rootComp);
+	
 	inside = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Inside"));
 	inside->SetupAttachment(rootComp);
+	
 	inside2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Inside2"));
 	inside2->SetupAttachment(rootComp);
+	
 	onMaterial = CreateDefaultSubobject<UMaterialInstance>(TEXT("On Material"));
 }
 
