@@ -23,7 +23,7 @@
 #include "SJ_Actor_EatAppleUI.h"
 #include "SJ_Actor_CollectAndHungryUI.h"
 #include "SJ_InformUIPannel.h"
-#include "Engine/DirectionalLight.h"
+#include "Components/DirectionalLightComponent.h"
 #include "Components/LightComponent.h"
 #include "SJ_Actor_GoToGuideLine.h"
 #include "SJ_Actor_MammothSpawnDestroy.h"
@@ -435,6 +435,10 @@ void ASJ_WoogaGameModeBase::GoToCollectState()
 {
 	// InformUIPannel 에서 관리
 	informUI = Cast<ASJ_InformUIPannel>(UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_InformUIPannel::StaticClass()));
+
+	UDirectionalLightComponent* getLight = Cast<UDirectionalLightComponent>(directLight->GetComponentByClass(UDirectionalLightComponent::StaticClass()));
+
+	getLight->SetLightColor(FVector(1.0f, 0.686685f, 0.181164f));
 
 	if (informUI->isTrigger == true)
 	{

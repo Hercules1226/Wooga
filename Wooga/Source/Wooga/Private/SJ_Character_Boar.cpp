@@ -8,6 +8,8 @@
 #include "VR_Player.h"
 #include "FistAxe.h"
 #include "SJ_BoarAnimInstance.h"
+#include "SJ_Actor_BoarHitRock.h"
+#include "SlicePig.h"
 
 // Sets default values
 ASJ_Character_Boar::ASJ_Character_Boar()
@@ -32,8 +34,11 @@ void ASJ_Character_Boar::BeginPlay()
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
 
 	hitPoint->OnComponentBeginOverlap.AddDynamic(this, &ASJ_Character_Boar::HitPointTrigger);
+	GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &ASJ_Character_Boar::HitBoarBody);
 
 	hitPoint->SetHiddenInGame(true);
+
+	Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
 	FVector p = FVector(7010.0f, 6000.0f, 1200.0f);
 
@@ -120,13 +125,17 @@ void ASJ_Character_Boar::Hit()
 	me = GetActorLocation();
 	dir = GetActorRightVector();
 
-	FVector p1 = me + dir * GetWorld()->DeltaTimeSeconds * -600.f;
+	FVector p1 = me + dir * GetWorld()->DeltaTimeSeconds * 2000.f;
 
 	SetActorLocation(p1);
 }
 
 void ASJ_Character_Boar::Die()
 {
+	// 자를 수 있는 돼지를 소환
+	GetWorld()->SpawnActor<ASlicePig>(bpSlicePig, GetActorLocation(), GetActorRotation(), Param);
+
+	Destroy();
 }
 
 void ASJ_Character_Boar::HitPointTrigger(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -143,6 +152,21 @@ void ASJ_Character_Boar::HitPointTrigger(UPrimitiveComponent* OverlappedComponen
 			anim->isHit = true;
 
 			SetState(EBoarState::Hit);
+		}
+	}
+}
+
+void ASJ_Character_Boar::HitBoarBody(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	auto hitRock = Cast<ASJ_Actor_BoarHitRock>(OtherActor);
+
+	if (boarState == EBoarState::Hit)
+	{
+		if (OtherActor == hitRock)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("BoarDie"));
+			hitPoint->SetHiddenInGame(true);
+			SetState(EBoarState::Die);
 		}
 	}
 }

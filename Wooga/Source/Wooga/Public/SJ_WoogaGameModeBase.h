@@ -131,11 +131,8 @@ public:
 	UPROPERTY(EditAnywhere, Category = GuideLine)
 		TSubclassOf<class ASJ_GuidLine> bbgoToCollectGuideLine;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Light)
-		class ADirectionalLight* dirLight;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Light)
-		class ADirectionalLight* sunLight;
+	UPROPERTY(EditAnywhere, Category = Light)
+	AActor* directLight;
 
 	FVector p;
 
