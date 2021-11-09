@@ -644,9 +644,7 @@ void ASJ_WoogaGameModeBase::SeeMammoth()
 
 void ASJ_WoogaGameModeBase::GrabHandAx()
 {
-	nextDelayTime += GetWorld()->DeltaTimeSeconds;
-
-	if (nextDelayTime >= 10.0f)
+	if (player->grabComp->bisGrabFistAxeR == true)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("GrabHandAx"));
 		// UI ²ô±â
@@ -662,10 +660,6 @@ void ASJ_WoogaGameModeBase::GrabHandAx()
 		nextDelayTime = 0;
 
 		SetState(EFlowState::RunBoar);
-	}
-	if (player->grabComp->bisfistAxeR == true)
-	{
-		
 	}
 }
 void ASJ_WoogaGameModeBase::RunBoar()

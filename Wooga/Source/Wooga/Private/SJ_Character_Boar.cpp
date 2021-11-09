@@ -110,6 +110,7 @@ void ASJ_Character_Boar::Run()
 	{
 		CustomTimeDilation = 0.05f;
 		hitPoint->SetHiddenInGame(false);
+		
 
 		SetState(EBoarState::SlowMotion);
 	}
@@ -125,7 +126,7 @@ void ASJ_Character_Boar::Hit()
 	me = GetActorLocation();
 	dir = GetActorRightVector();
 
-	FVector p1 = me + dir * GetWorld()->DeltaTimeSeconds * 2000.f;
+	FVector p1 = me + dir * GetWorld()->DeltaTimeSeconds * 1500.f;
 
 	SetActorLocation(p1);
 }
@@ -150,7 +151,7 @@ void ASJ_Character_Boar::HitPointTrigger(UPrimitiveComponent* OverlappedComponen
 		{
 			CustomTimeDilation = 1.0f;
 			anim->isHit = true;
-
+			GetCapsuleComponent()->SetEnableGravity(true);
 			SetState(EBoarState::Hit);
 		}
 	}
