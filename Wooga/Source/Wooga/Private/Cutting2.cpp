@@ -48,8 +48,8 @@ void ACutting2::BeginPlay()
 	fA = Cast<AFistAxe>(UGameplayStatics::GetActorOfClass(GetWorld(), AFistAxe::StaticClass()));
 	cutting = Cast<ACutting>(UGameplayStatics::GetActorOfClass(GetWorld(), ACutting::StaticClass()));
 
-	handleX = handle->GetRelativeLocation().X;
 	handleZ = handle->GetRelativeLocation().Z;
+	handleY = handle->GetRelativeLocation().Y;
 
 	handle->SetMaterial(0, offMaterial);
 	handle->SetMaterial(1, offMaterial);
@@ -62,14 +62,16 @@ void ACutting2::Tick(float DeltaTime)
 
 	if (bisOverlab == true)
 	{
-		handleY = player->rightHand->GetComponentLocation().Y;
-
+		handleX = player->rightHand->GetComponentLocation().X;
+		
 		handle->SetRelativeLocation(FVector(handleX, handleY, handleZ));
 	}
 
 	if (cutting->bisfinish == true)
 	{
-
+		handle->SetHiddenInGame(false);
+		line->SetHiddenInGame(false);
+		
 	}
 }
 
