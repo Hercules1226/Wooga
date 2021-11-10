@@ -67,9 +67,9 @@ void UMoveActorComponent::MoveVertical(float value)
 {
 	if (bisMove == true)
 	{
-		auto cam = Cast<UCameraComponent>(player->GetDefaultSubobjectByName(TEXT("MainCamera")));
+		//auto cam = Cast<UCameraComponent>(player->GetDefaultSubobjectByName(TEXT("MainCamera")));
 
-		FVector dir = cam->GetForwardVector() * value;
+		FVector dir = player->GetActorForwardVector() * value;
 		dir.Z = 0;
 
 		player->SetActorLocation(player->GetActorLocation() + dir * moveSpeed * GetWorld()->DeltaTimeSeconds);
