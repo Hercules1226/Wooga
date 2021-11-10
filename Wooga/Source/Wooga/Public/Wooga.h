@@ -30,7 +30,10 @@ enum class EFlowState : uint8
 	GrabHandAx,
 	RunBoar,
 	HitBoar,
-	MakeHandAx
+	MakeHandAx,
+	IndirectnessHit,
+	DirectlyHit,
+	CompleteHandAx
 };
 
 UENUM(BlueprintType)

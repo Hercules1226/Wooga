@@ -63,6 +63,16 @@ void ASJ_Actor_GoToGuideLine::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	if (isTrigger == true)
+	{
+		changeTime += DeltaTime;
+
+		if (changeTime >= 0.1f)
+		{
+			isTrigger = false;
+			changeTime = 0;
+		}
+	}
 }
 
 void ASJ_Actor_GoToGuideLine::RangeIn(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)

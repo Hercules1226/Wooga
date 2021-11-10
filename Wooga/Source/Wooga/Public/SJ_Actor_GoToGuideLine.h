@@ -44,4 +44,7 @@ public:
 
 	UPROPERTY()
 	bool isTrigger;
+
+	UPROPERTY()
+	float changeTime;
 };

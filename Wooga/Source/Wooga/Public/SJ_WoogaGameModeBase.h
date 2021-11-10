@@ -28,6 +28,9 @@ public:
 	// 플레이어
 	class AVR_Player* player;
 
+	// 생성 파라미터
+	FActorSpawnParameters Param;
+
 	// 다음 상태로 넘어가는 딜레이 타임
 	UPROPERTY()
 	float nextDelayTime;
@@ -179,9 +182,12 @@ public:
 	void RunBoar();
 	void HitBoar();
 	void MakeHandAx();
+	void IndirectHit();
+	void DirectHit();
+	void CompleteHandAx();
 
 	// 주먹도끼 가이드라인
-	class ASJ_Actor_GoToGuideLine* handAxGuideLine;
+	class ASJ_Actor_GoToGuideLine*goToGuideLine;
 	UPROPERTY(EditAnywhere, Category =GuideLine)
 	TSubclassOf<class ASJ_Actor_GoToGuideLine> bpHandAxGuideLine;
 
@@ -223,4 +229,18 @@ public:
 	class ASJ_Actor_MakeHandAxUI* makeHandAxUI;
 	UPROPERTY(EditAnywhere, Category = UI)
 	TSubclassOf<class ASJ_Actor_MakeHandAxUI> bpMakeHandAxUI;
+
+	// 주먹도끼를 만들기 위한 가이드라인
+	UPROPERTY(EditAnywhere, Category = GuideLine)
+	TSubclassOf<class ASJ_Actor_GoToGuideLine> bpMakeHandAxGuideLine;
+
+	// 간접떼기 UI
+	class ASJ_Actor_IndirectHitUI* indirectUI;
+	UPROPERTY(EditAnywhere, Category = UI)
+	TSubclassOf<class ASJ_Actor_IndirectHitUI> bpIndirectUI;
+
+	// 직접떼기 UI
+	class ASJ_Actor_DirectHitUI* directUI;
+	UPROPERTY(EditAnywhere, Category = UI)
+	TSubclassOf<class ASJ_Actor_DirectHitUI> bpDirectHitUI;
 };

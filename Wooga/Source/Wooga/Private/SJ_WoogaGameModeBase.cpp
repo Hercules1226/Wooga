@@ -32,6 +32,8 @@
 #include "SJ_Actor_HitBoarUI.h"
 #include "SJ_Actor_MakeHandAxUI.h"
 #include "FistAxe.h"
+#include "SJ_Actor_IndirectHitUI.h"
+#include "SJ_Actor_DirectHitUI.h"
 
 ASJ_WoogaGameModeBase::ASJ_WoogaGameModeBase()
 {
@@ -46,6 +48,8 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	SetState(EFlowState::CompleteCollect);
 
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
+
+	Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 }
 
 #pragma region FlowStateFunction
@@ -118,6 +122,12 @@ void ASJ_WoogaGameModeBase::Tick(float DeltaSeconds)
 	case EFlowState::MakeHandAx:
 		MakeHandAx();
 		break;
+	case EFlowState::IndirectnessHit:
+		break;
+	case EFlowState::DirectlyHit:
+		break;
+	case  EFlowState::CompleteHandAx:
+		break;
 	}
 
 	// UI 로직
@@ -151,9 +161,6 @@ void ASJ_WoogaGameModeBase::InGame()
 
 	if (nextDelayTime >= 5.0f)
 	{
-		FActorSpawnParameters Param;
-		Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
 		// 조작방법 UI 생성
 		manipulateUI = GetWorld()->SpawnActor<ASJ_Actor_HowToManipulate>(bpManipulateUI, Param);
 
@@ -180,9 +187,6 @@ void ASJ_WoogaGameModeBase::ManipulateUI()
 		// 이후에도 같은 방법을 사용한다.
 		if (nextDelayTime >= 3.0f)
 		{
-			FActorSpawnParameters Param;
-			Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
 			// 시작시 잡는 방법 알려주는 UI 생성 코드
 			howToGrab = GetWorld()->SpawnActor<ASJ_HowToGrabUIActor>(howToGrabActor, Param);
 
@@ -219,9 +223,6 @@ void ASJ_WoogaGameModeBase::GrabActorUI()
 			// 사용된 UI 제거
 			howToGrab->Destroy();
 
-			FActorSpawnParameters Param;
-			Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
 			// 불의 발견 제목
 			titleUI = GetWorld()->SpawnActor<ASJ_Actor_TitleUI>(bpFDTitle, Param);
 
@@ -247,9 +248,6 @@ void ASJ_WoogaGameModeBase::FireDiscoveryTitle()
 		fireRockTwo->outLine->SetVisibility(true);
 
 		// 불씨 UI 생성
-		FActorSpawnParameters Param;
-		Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
 		howToFire = GetWorld()->SpawnActor<ASJ_HowToFireUIActor>(howToFireUIActor, Param);
 
 		// 사용된 UI 제거
@@ -287,9 +285,6 @@ void ASJ_WoogaGameModeBase::HowToFireUI()
 			fireStraw->outLine->SetVisibility(true);
 
 			//  불씨 바닥으로 옮기는 UI
-			FActorSpawnParameters Param;
-			Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
 			howToFireNext = GetWorld()->SpawnActor<ASJ_HowToFireNextUIActor>(howToFireNextUIActor, Param);
 
 			// 사용된 UI 제거
@@ -323,9 +318,6 @@ void ASJ_WoogaGameModeBase::HowToFireUINext()
 			// 임무 완료 사운드
 			UGameplayStatics::PlaySound2D(GetWorld(), uiSound);
 
-			FActorSpawnParameters Param;
-			Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
 			breatheFireUI = GetWorld()->SpawnActor<ASJ_Actor_BreatheFireUI>(bpBreatheFireUI, Param);
 
 			// 사용된 UI 제거
@@ -356,9 +348,6 @@ void ASJ_WoogaGameModeBase::Firing()
 			bIsUIClose = true;
 
 			// 홀로그램 생성
-			FActorSpawnParameters Param;
-			Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
 			hologram = GetWorld()->SpawnActor<ASJ_Hologram>(fireDisCoveryHologram, Param);
 
 			// UI Sound
@@ -394,9 +383,6 @@ void ASJ_WoogaGameModeBase::CompleteFireCourse()
 		nextDelayTime = 0;
 
 		// 지식 안내 UI 생성
-		FActorSpawnParameters Param;
-		Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
 		watchInformUI = GetWorld()->SpawnActor<ASJ_Actor_WatchInformUI>(bpWatchInformUI, Param);
 
 		// 사용된 홀로그램 제거
@@ -421,9 +407,6 @@ void ASJ_WoogaGameModeBase::InformWatch()
 
 	if (nextDelayTime >= 3.0f)
 	{
-		FActorSpawnParameters Param;
-		Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
 		informUI = GetWorld()->SpawnActor<ASJ_InformUIPannel>(bpGoToCollect, Param);
 
 		watchInformUI->Destroy();
@@ -448,9 +431,6 @@ void ASJ_WoogaGameModeBase::GoToCollectState()
 	if (informUI->isTrigger == true)
 	{
 		// 채집하기 제목 UI 생성
-		FActorSpawnParameters Param;
-		Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
 		titleUI = GetWorld()->SpawnActor<class ASJ_Actor_TitleUI>(bpCollectTitleUI, Param);
 
 		// 채집 상태로 넘어가기
@@ -468,9 +448,6 @@ void ASJ_WoogaGameModeBase::CollectTitle()
 	if (nextDelayTime >= 6.0f)
 	{
 		// 배고픔과 채집 안내 UI
-		FActorSpawnParameters Param;
-		Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
 		collectAndHungry = GetWorld()->SpawnActor<ASJ_Actor_CollectAndHungryUI>(bpCollectAndHungry, Param);
 
 		// 제목 없애기
@@ -507,9 +484,6 @@ void ASJ_WoogaGameModeBase::HowToCollectActorUI()
 			UGameplayStatics::PlaySound2D(GetWorld(), uiSound);
 
 			// 사과 채집과 먹기 UI
-			FActorSpawnParameters Param;
-			Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
 			eatAppleUI = GetWorld()->SpawnActor<ASJ_Actor_EatAppleUI>(bpEatAppleUI, Param);
 
 			// 사용 UI 없애기
@@ -535,9 +509,6 @@ void ASJ_WoogaGameModeBase::CollectAndEat()
 		if (nextDelayTime >= 3.0f)
 		{
 			// 채집 홀로그램 생성
-			FActorSpawnParameters Param;
-			Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
 			hologram = GetWorld()->SpawnActor<ASJ_Hologram>(bpCollectHologram, Param);
 
 			// 임무 완료 사운드
@@ -559,10 +530,7 @@ void ASJ_WoogaGameModeBase::CompleteCollect()
 	if (nextDelayTime >= 3.0f)
 	{
 		// 아웃라인 생성
-		FActorSpawnParameters Param;
-		Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
-		handAxGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpHandAxGuideLine, Param);
+		goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpHandAxGuideLine, Param);
 
 		nextDelayTime = 0;
 		SetState(EFlowState::GoToFistAxCourse);
@@ -571,12 +539,9 @@ void ASJ_WoogaGameModeBase::CompleteCollect()
 
 void ASJ_WoogaGameModeBase::GoToFistAxCourse()
 {
-	if (handAxGuideLine->isTrigger == true)
+	if (goToGuideLine->isTrigger == true)
 	{
 		// 주먹도끼(사냥하기) 제목 생성
-		FActorSpawnParameters Param;
-		Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
 		titleUI = GetWorld()->SpawnActor<ASJ_Actor_TitleUI>(bpHandAxTitleUI, Param);
 
 		SetState(EFlowState::HandAxTitle);
@@ -596,13 +561,13 @@ void ASJ_WoogaGameModeBase::HandAxTitle()
 		// 제목 없애기
 		titleUI->Destroy();
 
+		// 가이드라인 없애기
+		goToGuideLine->Destroy();
+
 		// 딜레이변수 초기화
 		nextDelayTime = 0;
 
 		// 맘모스 생성
-		FActorSpawnParameters Param;
-		Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
 		mammothSpawn = GetWorld()->SpawnActor<ASJ_Actor_MammothSpawnDestroy>(bpMammothSpawn, Param);
 
 		SetState(EFlowState::SeeMammoth);
@@ -629,9 +594,6 @@ void ASJ_WoogaGameModeBase::SeeMammoth()
 		mammothSpawn->Destroy();
 
 		// 주먹도끼 돌 잡기 UI 생성
-		FActorSpawnParameters Param;
-		Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
 		handAxUI = GetWorld()->SpawnActor<ASJ_Actor_GrabHandAxUI>(bpHandAxUI, Param);
 		
 		// 주먹도끼 돌 아웃라인
@@ -653,9 +615,6 @@ void ASJ_WoogaGameModeBase::GrabHandAx()
 		bIsUIClose = true;
 
 		// 멧돼지 생성
-		FActorSpawnParameters Param;
-		Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
 		boar = GetWorld()->SpawnActor<ASJ_Character_Boar>(bpRunboar, Param);
 
 		// 딜레이 변수 초기화
@@ -669,9 +628,6 @@ void ASJ_WoogaGameModeBase::RunBoar()
 	if (boar->boarState == EBoarState::SlowMotion)
 	{
 		// 멧돼지 가격 UI
-		FActorSpawnParameters Param;
-		Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
 		hitBoarUI = GetWorld()->SpawnActor<ASJ_Actor_HitBoarUI>(bpHitBoarUI, Param);
 
 		SetState(EFlowState::HitBoar);
@@ -682,10 +638,10 @@ void ASJ_WoogaGameModeBase::HitBoar()
 {
 	if (boar->boarState == EBoarState::Die)
 	{
-		nextDelayTime += GetWorld()->DeltaTimeSeconds;
-
 		// UI 꺼주기
 		bIsUIClose = true;
+
+		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
 		if (nextDelayTime >= 3.0f)
 		{
@@ -693,10 +649,10 @@ void ASJ_WoogaGameModeBase::HitBoar()
 			hitBoarUI->Destroy();
 
 			// 주먹도끼 만들기 UI
-			FActorSpawnParameters Param;
-			Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
 			makeHandAxUI = GetWorld()->SpawnActor<ASJ_Actor_MakeHandAxUI>(bpMakeHandAxUI, Param);
+
+			// 주먹도끼 제작을 위한 장소 이동
+			goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpMakeHandAxGuideLine, Param);
 
 			nextDelayTime = 0;
 
@@ -706,7 +662,63 @@ void ASJ_WoogaGameModeBase::HitBoar()
 }
 void ASJ_WoogaGameModeBase::MakeHandAx()
 {
-	
+	if (goToGuideLine->isTrigger == true)
+	{
+		bIsUIClose = true;
+		makeHandAxUI->Destroy();
+
+		// 간접떼기 UI 생성
+		indirectUI = GetWorld()->SpawnActor<ASJ_Actor_IndirectHitUI>(bpIndirectUI, Param);
+
+		SetState(EFlowState::IndirectnessHit);
+	}
+}
+void ASJ_WoogaGameModeBase::IndirectHit()
+{
+	if (fistAxe->bisD1 == true)
+	{
+		// UI 꺼주기
+		bIsUIClose = true;
+
+		nextDelayTime += GetWorld()->DeltaTimeSeconds;
+
+		if (nextDelayTime >= 3.0f)
+		{
+			// 직접떼기 UI 생성 
+			directUI = GetWorld()->SpawnActor<ASJ_Actor_DirectHitUI>(bpDirectHitUI, Param);
+
+			// 사용 UI 제거
+			indirectUI->Destroy();
+
+			// 딜레이변수 초기화
+			nextDelayTime = 0;
+
+			SetState(EFlowState::DirectlyHit);
+		}
+	}
+}
+void ASJ_WoogaGameModeBase::DirectHit()
+{
+	if (fistAxe->bisD15 == true)
+	{
+		bIsUIClose = true;
+
+		nextDelayTime += GetWorld()->DeltaTimeSeconds;
+
+		if (nextDelayTime >= 3.0f)
+		{
+			// 사용 UI 제거
+			directUI->Destroy();
+
+			// 딜레이변수 초기화
+			nextDelayTime = 0;
+
+			SetState(EFlowState::CompleteHandAx);
+		}
+	}
+}
+void ASJ_WoogaGameModeBase::CompleteHandAx()
+{
 }
 #pragma endregion
 
