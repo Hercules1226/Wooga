@@ -178,6 +178,7 @@ public:
 	void GrabHandAx();
 	void RunBoar();
 	void HitBoar();
+	void MakeHandAx();
 
 	// ¡÷∏‘µµ≥¢ ∞°¿ÃµÂ∂Û¿Œ
 	class ASJ_Actor_GoToGuideLine* handAxGuideLine;
@@ -206,6 +207,8 @@ public:
 	UPROPERTY(EditAnywhere, Category = UI)
 	TSubclassOf<class ASJ_Actor_GrabHandAxUI> bpHandAxUI;
 
+	class AFistAxe* fistAxe;
+
 	// ∏‰µ≈¡ˆ ª˝º∫
 	class ASJ_Character_Boar* boar;
 	UPROPERTY(EditAnywhere, Category = Boar)
@@ -215,4 +218,9 @@ public:
 	class ASJ_Actor_HitBoarUI* hitBoarUI;
 	UPROPERTY(EditAnywhere, Category = UI)
 	TSubclassOf<class ASJ_Actor_HitBoarUI> bpHitBoarUI;
+
+	// ¡÷∏‘µµ≥¢ ∏∏µÈ±‚ UI
+	class ASJ_Actor_MakeHandAxUI* makeHandAxUI;
+	UPROPERTY(EditAnywhere, Category = UI)
+	TSubclassOf<class ASJ_Actor_MakeHandAxUI> bpMakeHandAxUI;
 };

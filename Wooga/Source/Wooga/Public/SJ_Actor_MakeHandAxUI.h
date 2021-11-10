@@ -4,19 +4,25 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "SJ_MTest.generated.h"
+#include "SJ_Actor_MakeHandAxUI.generated.h"
 
 UCLASS()
-class WOOGA_API ASJ_MTest : public AActor
+class WOOGA_API ASJ_Actor_MakeHandAxUI : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ASJ_MTest();
+	ASJ_Actor_MakeHandAxUI();
 
-	UPROPERTY(EditAnywhere, Category = Mesh)
-	class UStaticMeshComponent* meshComp;
+	UPROPERTY(EditAnywhere, Category = UI)
+	class USceneComponent* rootComp;
+
+	UPROPERTY()
+		class UStaticMeshComponent* plane;
+
+	UPROPERTY(EditAnywhere, Category = UI)
+		class UWidgetComponent* makeHandAxUI;
 
 protected:
 	// Called when the game starts or when spawned
@@ -26,9 +32,6 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY()
-	float prop;
+	class ASlicePig* slicePig;
 
-	UPROPERTY()
-	float propTime;
 };

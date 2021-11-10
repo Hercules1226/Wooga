@@ -106,7 +106,7 @@ void AFistAxe::BeginPlay()
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
 	//rock2->SetMaterial(0, onMaterial);
 
-	handHologramL->SetHiddenInGame(false);
+	handHologramL->SetHiddenInGame(true);
 	handHologramR->SetHiddenInGame(true);
 	fakeHand->SetHiddenInGame(true);
 }

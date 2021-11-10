@@ -134,7 +134,11 @@ void ASJ_Character_Boar::Hit()
 void ASJ_Character_Boar::Die()
 {
 	// 자를 수 있는 돼지를 소환
-	GetWorld()->SpawnActor<ASlicePig>(bpSlicePig, GetActorLocation(), GetActorRotation(), Param);
+	// GetWorld()->SpawnActor<ASlicePig>(bpSlicePig, GetActorLocation(), GetActorRotation(), Param);
+
+	FVector p = FVector(7220.f, 8440.0f, 1160.0f);
+	FRotator r = FRotator(0.0f, 70.0f, 0.0f);
+	GetWorld()->SpawnActor<ASlicePig>(bpSlicePig, p, r, Param);
 
 	Destroy();
 }

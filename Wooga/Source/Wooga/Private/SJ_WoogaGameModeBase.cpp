@@ -30,6 +30,8 @@
 #include "SJ_Character_Boar.h"
 #include "SJ_Actor_GrabHandAxUI.h"
 #include "SJ_Actor_HitBoarUI.h"
+#include "SJ_Actor_MakeHandAxUI.h"
+#include "FistAxe.h"
 
 ASJ_WoogaGameModeBase::ASJ_WoogaGameModeBase()
 {
@@ -112,6 +114,9 @@ void ASJ_WoogaGameModeBase::Tick(float DeltaSeconds)
 		break;
 	case EFlowState::HitBoar:
 		HitBoar();
+		break;
+	case EFlowState::MakeHandAx:
+		MakeHandAx();
 		break;
 	}
 
@@ -574,8 +579,6 @@ void ASJ_WoogaGameModeBase::GoToFistAxCourse()
 
 		titleUI = GetWorld()->SpawnActor<ASJ_Actor_TitleUI>(bpHandAxTitleUI, Param);
 
-		UE_LOG(LogTemp, Warning, TEXT("RangeIn"));
-
 		SetState(EFlowState::HandAxTitle);
 	}
 }
@@ -601,8 +604,6 @@ void ASJ_WoogaGameModeBase::HandAxTitle()
 		Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
 		mammothSpawn = GetWorld()->SpawnActor<ASJ_Actor_MammothSpawnDestroy>(bpMammothSpawn, Param);
-
-		UE_LOG(LogTemp, Warning, TEXT("Spawn Mammoth"));
 
 		SetState(EFlowState::SeeMammoth);
 	}
@@ -634,6 +635,8 @@ void ASJ_WoogaGameModeBase::SeeMammoth()
 		handAxUI = GetWorld()->SpawnActor<ASJ_Actor_GrabHandAxUI>(bpHandAxUI, Param);
 		
 		// ¡÷∏‘µµ≥¢ µπ æ∆øÙ∂Û¿Œ
+		fistAxe = Cast<AFistAxe>(UGameplayStatics::GetActorOfClass(GetWorld(), AFistAxe::StaticClass()));
+		fistAxe->handHologramL->SetHiddenInGame(false);
 
 		// µÙ∑π¿Ã ∫Øºˆ √ ±‚»≠
 		nextDelayTime = 0;
@@ -646,7 +649,6 @@ void ASJ_WoogaGameModeBase::GrabHandAx()
 {
 	if (player->grabComp->bisGrabFistAxeR == true)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("GrabHandAx"));
 		// UI ≤Ù±‚
 		bIsUIClose = true;
 
@@ -678,7 +680,33 @@ void ASJ_WoogaGameModeBase::RunBoar()
 
 void ASJ_WoogaGameModeBase::HitBoar()
 {
+	if (boar->boarState == EBoarState::Die)
+	{
+		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
+		// UI ≤®¡÷±‚
+		bIsUIClose = true;
+
+		if (nextDelayTime >= 3.0f)
+		{
+			// ªÁøÎµ» UI ¡¶∞≈
+			hitBoarUI->Destroy();
+
+			// ¡÷∏‘µµ≥¢ ∏∏µÈ±‚ UI
+			FActorSpawnParameters Param;
+			Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+			makeHandAxUI = GetWorld()->SpawnActor<ASJ_Actor_MakeHandAxUI>(bpMakeHandAxUI, Param);
+
+			nextDelayTime = 0;
+
+			SetState(EFlowState::MakeHandAx);
+		}
+	}
+}
+void ASJ_WoogaGameModeBase::MakeHandAx()
+{
+	
 }
 #pragma endregion
 

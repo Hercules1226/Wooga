@@ -9,7 +9,6 @@
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraComponent.h"
 #include "NiagaraSystem.h"
-#include "SJ_KnoweldgePoint.h"
 #include "FireEvent.h"
 
 // Sets default values
