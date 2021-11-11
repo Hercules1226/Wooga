@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "Wooga.h"
 #include "GameFramework/Actor.h"
 #include "FistAxe.generated.h"
 
@@ -96,6 +96,9 @@ public:
 	// 소켓에 넣을떄 Offset 값을 조정
 	UPROPERTY(EditAnywhere, Category = Settings)
 		FVector grabOffset;
+
+	UPROPERTY()
+	class ASJ_WoogaGameModeBase* gameModeBase;
 
 	UPROPERTY()
 		class ADetachRock* detachRock;

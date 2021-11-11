@@ -125,27 +125,18 @@ public:
 	UPROPERTY(EditAnywhere, Category = UI)
 		TSubclassOf<class ASJ_Actor_WatchInformUI> bpWatchInformUI;
 
-	UPROPERTY(EditAnywhere, Category = GuideLine)
-		AActor* gotoCollectGuideLine;
-
-	class ASJ_GuidLine* guideLine;
-
-	// 다음 장소로 이동하기 위한 가이드 라인
-	UPROPERTY(EditAnywhere, Category = GuideLine)
-		TSubclassOf<class ASJ_GuidLine> bbgoToCollectGuideLine;
-
 	UPROPERTY(EditAnywhere, Category = Light)
 	AActor* directLight;
 
 	FVector p;
 
 	UPROPERTY(EditAnywhere, Category = Haptic)
-		class UHapticFeedbackEffect_Base* watchHaptic;
+	class UHapticFeedbackEffect_Base* watchHaptic;
 
-	// Inform UI Pannel
-	class ASJ_InformUIPannel* informUI;
-	UPROPERTY(EditAnywhere, Category = UI)
-		TSubclassOf <class ASJ_InformUIPannel> bpGoToCollect;
+	// 가이드라인
+	class ASJ_Actor_GoToGuideLine* goToGuideLine;
+	UPROPERTY(EditAnywhere, Category = GuideLine)
+	TSubclassOf<class ASJ_Actor_GoToGuideLine> bpCollectGuideLine;
 
 	// 채집하기 제목 
 	UPROPERTY(EditAnywhere, Category = UI)
@@ -187,7 +178,7 @@ public:
 	void CompleteHandAx();
 
 	// 주먹도끼 가이드라인
-	class ASJ_Actor_GoToGuideLine*goToGuideLine;
+	
 	UPROPERTY(EditAnywhere, Category =GuideLine)
 	TSubclassOf<class ASJ_Actor_GoToGuideLine> bpHandAxGuideLine;
 

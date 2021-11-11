@@ -169,7 +169,7 @@ void ASJ_Character_Boar::HitBoarBody(UPrimitiveComponent* OverlappedComponent, A
 	{
 		if (OtherActor == hitRock)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("BoarDie"));
+			isHitBoar = true;
 			hitPoint->SetHiddenInGame(true);
 			SetState(EBoarState::Die);
 		}

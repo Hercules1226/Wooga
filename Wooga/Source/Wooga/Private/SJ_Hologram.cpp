@@ -52,6 +52,8 @@ void ASJ_Hologram::BeginPlay()
 		FVector p2 = FVector(9575, 10053, 1280);
 
 		SetActorLocation(p2);
+
+		playChangeTime = 10.0f;
 	}
 
 	FVector dir = player->GetActorLocation() - GetActorLocation();

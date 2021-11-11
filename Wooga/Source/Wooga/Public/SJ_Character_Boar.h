@@ -56,6 +56,10 @@ public:
 	UPROPERTY()
 	float distance = 100.0f;
 
+	// 돼지 가격 변수
+	UPROPERTY()
+	bool isHitBoar;
+
 	// 돼지 상태 머신
 	EBoarState boarState;
 	// 캡슐화

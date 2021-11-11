@@ -22,7 +22,6 @@
 #include "Apple.h"
 #include "SJ_Actor_EatAppleUI.h"
 #include "SJ_Actor_CollectAndHungryUI.h"
-#include "SJ_InformUIPannel.h"
 #include "Components/DirectionalLightComponent.h"
 #include "Components/LightComponent.h"
 #include "SJ_Actor_GoToGuideLine.h"
@@ -45,7 +44,10 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	Super::BeginPlay();
 
 	// 맨 처음 불의 발견 교육으로 시작
-	SetState(EFlowState::CompleteCollect);
+	SetState(EFlowState::InGame);
+	
+	// 테스트용 스테이트
+	//SetState(EFlowState::CompleteCollect);
 
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
 
@@ -123,10 +125,13 @@ void ASJ_WoogaGameModeBase::Tick(float DeltaSeconds)
 		MakeHandAx();
 		break;
 	case EFlowState::IndirectnessHit:
+		IndirectHit();
 		break;
 	case EFlowState::DirectlyHit:
+		DirectHit();
 		break;
 	case  EFlowState::CompleteHandAx:
+		CompleteHandAx();
 		break;
 	}
 
@@ -407,7 +412,8 @@ void ASJ_WoogaGameModeBase::InformWatch()
 
 	if (nextDelayTime >= 3.0f)
 	{
-		informUI = GetWorld()->SpawnActor<ASJ_InformUIPannel>(bpGoToCollect, Param);
+		// 가이드라인 생성
+		goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpCollectGuideLine,Param);
 
 		watchInformUI->Destroy();
 
@@ -422,13 +428,11 @@ void ASJ_WoogaGameModeBase::InformWatch()
 void ASJ_WoogaGameModeBase::GoToCollectState()
 {
 	// InformUIPannel 에서 관리
-	informUI = Cast<ASJ_InformUIPannel>(UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_InformUIPannel::StaticClass()));
+	// UDirectionalLightComponent* getLight = Cast<UDirectionalLightComponent>(directLight->GetComponentByClass(UDirectionalLightComponent::StaticClass()));
 
-	UDirectionalLightComponent* getLight = Cast<UDirectionalLightComponent>(directLight->GetComponentByClass(UDirectionalLightComponent::StaticClass()));
+	// getLight->SetLightColor(FVector(1.0f, 0.686685f, 0.181164f));
 
-	getLight->SetLightColor(FVector(1.0f, 0.686685f, 0.181164f));
-
-	if (informUI->isTrigger == true)
+	if (goToGuideLine->isTrigger == true)
 	{
 		// 채집하기 제목 UI 생성
 		titleUI = GetWorld()->SpawnActor<class ASJ_Actor_TitleUI>(bpCollectTitleUI, Param);
@@ -452,6 +456,9 @@ void ASJ_WoogaGameModeBase::CollectTitle()
 
 		// 제목 없애기
 		titleUI->Destroy();
+
+		// 가이드라인 없애기
+		goToGuideLine->Destroy();
 
 		// 임무 완료 사운드
 		UGameplayStatics::PlaySound2D(GetWorld(), uiSound);
@@ -527,7 +534,7 @@ void ASJ_WoogaGameModeBase::CompleteCollect()
 	// 홀로그램 재생이 끝나면 플레이어 워치로 들어가고 
 	nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-	if (nextDelayTime >= 3.0f)
+	if (nextDelayTime >= 15.0f)
 	{
 		// 아웃라인 생성
 		goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpHandAxGuideLine, Param);
@@ -613,14 +620,22 @@ void ASJ_WoogaGameModeBase::GrabHandAx()
 	{
 		// UI 끄기
 		bIsUIClose = true;
+			
+		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-		// 멧돼지 생성
-		boar = GetWorld()->SpawnActor<ASJ_Character_Boar>(bpRunboar, Param);
+		if (nextDelayTime >= 3.0f)
+		{	
+			// 멧돼지 생성
+			boar = GetWorld()->SpawnActor<ASJ_Character_Boar>(bpRunboar, Param);
 
-		// 딜레이 변수 초기화
-		nextDelayTime = 0;
+			// 돌잡기 UI 제거
+			handAxUI->Destroy();
 
-		SetState(EFlowState::RunBoar);
+			// 딜레이 변수 초기화
+			nextDelayTime = 0;
+
+			SetState(EFlowState::RunBoar);
+		}
 	}
 }
 void ASJ_WoogaGameModeBase::RunBoar()
@@ -630,13 +645,15 @@ void ASJ_WoogaGameModeBase::RunBoar()
 		// 멧돼지 가격 UI
 		hitBoarUI = GetWorld()->SpawnActor<ASJ_Actor_HitBoarUI>(bpHitBoarUI, Param);
 
+		
+
 		SetState(EFlowState::HitBoar);
 	}
 }
 
 void ASJ_WoogaGameModeBase::HitBoar()
 {
-	if (boar->boarState == EBoarState::Die)
+	if (boar->isHitBoar == true)
 	{
 		// UI 꺼주기
 		bIsUIClose = true;
@@ -665,12 +682,19 @@ void ASJ_WoogaGameModeBase::MakeHandAx()
 	if (goToGuideLine->isTrigger == true)
 	{
 		bIsUIClose = true;
-		makeHandAxUI->Destroy();
 
-		// 간접떼기 UI 생성
-		indirectUI = GetWorld()->SpawnActor<ASJ_Actor_IndirectHitUI>(bpIndirectUI, Param);
+		nextDelayTime += GetWorld()->DeltaTimeSeconds;
+		if (nextDelayTime >= 0)
+		{
+			makeHandAxUI->Destroy();
 
-		SetState(EFlowState::IndirectnessHit);
+			// 간접떼기 UI 생성
+			indirectUI = GetWorld()->SpawnActor<ASJ_Actor_IndirectHitUI>(bpIndirectUI, Param);
+
+			nextDelayTime = 0;
+
+			SetState(EFlowState::IndirectnessHit);
+		}
 	}
 }
 void ASJ_WoogaGameModeBase::IndirectHit()
