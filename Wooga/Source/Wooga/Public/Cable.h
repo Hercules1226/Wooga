@@ -31,4 +31,19 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = Settings)
 		class USplineComponent* splineComp;
+
+	UPROPERTY(EditAnywhere, Category = Settings)
+		class UStaticMeshComponent* rockComp;
+
+	UPROPERTY(EditAnywhere, Category = Settings)
+		class UStaticMeshComponent* handComp;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
+		class UMaterialInstance* onMaterial;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
+		class UMaterialInstance* offMaterial;
+
+	UPROPERTY()
+		class UNiagaraComponent* nia;
 };
