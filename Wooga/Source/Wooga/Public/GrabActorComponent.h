@@ -67,6 +67,10 @@ public:
 
 	void RGripHalfRock(AActor* grabActor);
 
+	void LGripSumjji(AActor* grabActor);
+
+	void RGripSumjji(AActor* grabActor);
+
 
 	UPROPERTY()
 		class AVR_Player* player;
@@ -74,41 +78,54 @@ public:
 	// 잡을 액터
 	UPROPERTY()
 		class AFireRock* fireRockR;
+
 	UPROPERTY()
 		class AFireRock* fireRockL;
 
 	UPROPERTY()
 		class AFireRock2* fireRock2L;
+
 	UPROPERTY()
 		class AFireRock2* fireRock2R;
 
 	UPROPERTY()
 		class AFirePosition* firePositionR;
+
 	UPROPERTY()
 		class AFirePosition* firePositionL;
 
 	UPROPERTY()
 		class AApple* appleR;
+
 	UPROPERTY()
 		class AApple* appleL;
 
 	UPROPERTY()
 		class AStem* stemR;
+
 	UPROPERTY()
 		class AStem* stemL;
 
 	UPROPERTY()
 		class AStick* stickR;
+
 	UPROPERTY()
 		class AStick* stickL;
 
 	UPROPERTY()
 		class AFistAxe* fistAxe;
+
 	UPROPERTY()
 		class AFistAxe* fistAxeL;
+
 	UPROPERTY()
 		class AFistAxe* fistAxeR;
 
+	UPROPERTY()
+		class ACable* sumjjiL;
+
+	UPROPERTY()
+		class ACable* sumjjiR;
 
 	UPROPERTY()
 		class AHalfRock* halfRock;
@@ -145,5 +162,9 @@ public:
 		bool bisGrabHR = false;
 	UPROPERTY()
 		bool bisfistAxeR = false;
+	UPROPERTY()
+		bool bisSumjjiL = false;
+	UPROPERTY()
+		bool bisSumjjiR = false;
 
 };
