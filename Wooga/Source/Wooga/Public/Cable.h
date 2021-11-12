@@ -46,4 +46,7 @@ public:
 
 	UPROPERTY()
 		class UNiagaraComponent* nia;
+
+	UPROPERTY(EditAnywhere, Category = Setting)
+		FVector grabOffset;
 };

@@ -44,7 +44,7 @@ void ACable::BeginPlay()
 	nia = Cast<UNiagaraComponent>(GetDefaultSubobjectByName(TEXT("Niagara")));
 	if (nia)
 	{
-		//nia->SetHiddenInGame(false);
+		nia->SetHiddenInGame(false);
 	}
 }
 
@@ -52,6 +52,6 @@ void ACable::BeginPlay()
 void ACable::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	
 }
 
