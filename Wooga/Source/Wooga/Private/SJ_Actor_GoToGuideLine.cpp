@@ -64,6 +64,16 @@ void ASJ_Actor_GoToGuideLine::BeginPlay()
 
 		SetActorRotation(r3);
 	}
+	else if (gameModeBase->flowState == EFlowState::CuttingPig)
+	{
+		FVector p4 = FVector(5279, 7747, 1260);
+
+		SetActorLocation(p4);
+
+		FRotator r4 = FRotator(0, -50, 0);
+
+		SetActorRotation(r4);
+	}
 
 	range->OnComponentBeginOverlap.AddDynamic(this, &ASJ_Actor_GoToGuideLine::RangeIn);
 }

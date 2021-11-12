@@ -33,6 +33,9 @@
 #include "FistAxe.h"
 #include "SJ_Actor_IndirectHitUI.h"
 #include "SJ_Actor_DirectHitUI.h"
+#include "SJ_Actor_Hologram.h"
+#include "SJ_Actor_CuttingPigUI.h"
+#include "Engine/DirectionalLight.h"
 
 ASJ_WoogaGameModeBase::ASJ_WoogaGameModeBase()
 {
@@ -45,13 +48,14 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 
 	// 맨 처음 불의 발견 교육으로 시작
 	SetState(EFlowState::InGame);
-	
+
 	// 테스트용 스테이트
 	//SetState(EFlowState::CompleteCollect);
 
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
 
 	Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
 }
 
 #pragma region FlowStateFunction
@@ -133,6 +137,12 @@ void ASJ_WoogaGameModeBase::Tick(float DeltaSeconds)
 	case  EFlowState::CompleteHandAx:
 		CompleteHandAx();
 		break;
+	case EFlowState::CuttingPig:
+		CuttingPig();
+		break;
+	case EFlowState::GoToFireUse:
+		FireUse();
+		break;
 	}
 
 	// UI 로직
@@ -151,7 +161,7 @@ void ASJ_WoogaGameModeBase::Tick(float DeltaSeconds)
 // 캡슐화
 void ASJ_WoogaGameModeBase::SetState(EFlowState state)
 {
-	flowState = state;                                                                                                                         
+	flowState = state;
 }
 
 EFlowState ASJ_WoogaGameModeBase::GetState()
@@ -413,7 +423,7 @@ void ASJ_WoogaGameModeBase::InformWatch()
 	if (nextDelayTime >= 3.0f)
 	{
 		// 가이드라인 생성
-		goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpCollectGuideLine,Param);
+		goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpCollectGuideLine, Param);
 
 		watchInformUI->Destroy();
 
@@ -594,7 +604,7 @@ void ASJ_WoogaGameModeBase::SeeMammoth()
 	}
 
 	nextDelayTime += GetWorld()->DeltaTimeSeconds;
-	
+
 	if (nextDelayTime >= 15.0f)
 	{
 		// 맘모스 스폰 액터 제거
@@ -602,7 +612,7 @@ void ASJ_WoogaGameModeBase::SeeMammoth()
 
 		// 주먹도끼 돌 잡기 UI 생성
 		handAxUI = GetWorld()->SpawnActor<ASJ_Actor_GrabHandAxUI>(bpHandAxUI, Param);
-		
+
 		// 주먹도끼 돌 아웃라인
 		fistAxe = Cast<AFistAxe>(UGameplayStatics::GetActorOfClass(GetWorld(), AFistAxe::StaticClass()));
 		fistAxe->handHologramL->SetHiddenInGame(false);
@@ -620,11 +630,11 @@ void ASJ_WoogaGameModeBase::GrabHandAx()
 	{
 		// UI 끄기
 		bIsUIClose = true;
-			
+
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
 		if (nextDelayTime >= 3.0f)
-		{	
+		{
 			// 멧돼지 생성
 			boar = GetWorld()->SpawnActor<ASJ_Character_Boar>(bpRunboar, Param);
 
@@ -644,8 +654,6 @@ void ASJ_WoogaGameModeBase::RunBoar()
 	{
 		// 멧돼지 가격 UI
 		hitBoarUI = GetWorld()->SpawnActor<ASJ_Actor_HitBoarUI>(bpHitBoarUI, Param);
-
-		
 
 		SetState(EFlowState::HitBoar);
 	}
@@ -737,13 +745,43 @@ void ASJ_WoogaGameModeBase::DirectHit()
 			// 딜레이변수 초기화
 			nextDelayTime = 0;
 
+			// 주먹도끼 홀로그램 생성
+			hologramActor = GetWorld()->SpawnActor<ASJ_Actor_Hologram>(bpHandAxHologram, Param);
+
 			SetState(EFlowState::CompleteHandAx);
 		}
 	}
 }
 void ASJ_WoogaGameModeBase::CompleteHandAx()
 {
+	nextDelayTime += GetWorld()->DeltaTimeSeconds;
+
+	if (nextDelayTime >= 20.0f)
+	{
+		// 홀로그램 제거
+		hologramActor->Destroy();
+
+		// 돼지 도축 UI 생성
+		cuttingPigUI = GetWorld()->SpawnActor<ASJ_Actor_CuttingPigUI>(bpCuttingPigUI, Param);
+		
+		//딜레이 변수 초기화
+		nextDelayTime = 0;
+
+		SetState(EFlowState::CuttingPig);
+	}
 }
 #pragma endregion
+
+#pragma  region FireUse
+void ASJ_WoogaGameModeBase::CuttingPig()
+{
+	goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpFIreUseGuideLine, Param);
+	SetState(EFlowState::GoToFireUse);
+}
+void ASJ_WoogaGameModeBase::FireUse()
+{
+	
+}
+#pragma  endregion
 
 

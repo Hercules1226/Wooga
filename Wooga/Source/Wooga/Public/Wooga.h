@@ -33,7 +33,10 @@ enum class EFlowState : uint8
 	MakeHandAx,
 	IndirectnessHit,
 	DirectlyHit,
-	CompleteHandAx
+	CompleteHandAx,
+	// 불의 활용
+	CuttingPig,
+	GoToFireUse
 };
 
 UENUM(BlueprintType)

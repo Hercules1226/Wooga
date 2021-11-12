@@ -54,7 +54,7 @@ public:
 	class ASJ_Actor_HowToManipulate* manipulateUI;
 
 	UPROPERTY(EditAnywhere, Category = UI)
-		TSubclassOf<class ASJ_Actor_HowToManipulate> bpManipulateUI;
+	TSubclassOf<class ASJ_Actor_HowToManipulate> bpManipulateUI;
 
 	// 두 UI 간에 딜레이를 위한 잡는방법UI 생성 타이머
 	FTimerHandle howToGrabUITimer;
@@ -63,7 +63,7 @@ public:
 	class ASJ_HowToGrabUIActor* howToGrab;
 
 	UPROPERTY(EditAnywhere, Category = UI)
-		TSubclassOf<class ASJ_HowToGrabUIActor> howToGrabActor;
+	TSubclassOf<class ASJ_HowToGrabUIActor> howToGrabActor;
 
 	// 제목 생성 기능 및 타이머
 	FTimerHandle titleTimer;
@@ -72,7 +72,7 @@ public:
 	class ASJ_Actor_TitleUI* titleUI;
 
 	UPROPERTY(EditAnywhere, Category = UI)
-		TSubclassOf<class ASJ_Actor_TitleUI> bpFDTitle;
+	TSubclassOf<class ASJ_Actor_TitleUI> bpFDTitle;
 
 	// 부싯돌
 	class AFireRock* fireRockOne;
@@ -89,13 +89,13 @@ public:
 
 	// UI Sound
 	UPROPERTY(EditAnywhere, Category = Sound)
-		class USoundBase* uiSound;
+	class USoundBase* uiSound;
 
 	// 불지피는 방법 알려주는 UI
 	class ASJ_HowToFireUIActor* howToFire;
 
 	UPROPERTY(EditAnywhere, Category = UI)
-		TSubclassOf<class ASJ_HowToFireUIActor> howToFireUIActor;
+	TSubclassOf<class ASJ_HowToFireUIActor> howToFireUIActor;
 
 	// 지푸라기
 	class AFirePosition* firePosition;
@@ -106,27 +106,24 @@ public:
 	class ASJ_HowToFireNextUIActor* howToFireNext;
 
 	UPROPERTY(EditAnywhere, Category = UI)
-		TSubclassOf<class ASJ_HowToFireNextUIActor> howToFireNextUIActor;
+	TSubclassOf<class ASJ_HowToFireNextUIActor> howToFireNextUIActor;
 
 	// 불에 숨을 불어 넣는 방법 UI
 	class ASJ_Actor_BreatheFireUI* breatheFireUI;
 	UPROPERTY(EditAnywhere, Category = UI)
-		TSubclassOf<class ASJ_Actor_BreatheFireUI> bpBreatheFireUI;
+	TSubclassOf<class ASJ_Actor_BreatheFireUI> bpBreatheFireUI;
 
 	// 불의 발견 홀로그램
 	class ASJ_Hologram* hologram;
 
 	UPROPERTY(EditAnywhere, Category = Hologram)
-		TSubclassOf<class ASJ_Hologram> fireDisCoveryHologram;
+	TSubclassOf<class ASJ_Hologram> fireDisCoveryHologram;
 
 	// 플레이어 워치 안내 UI
 	class ASJ_Actor_WatchInformUI* watchInformUI;
 
 	UPROPERTY(EditAnywhere, Category = UI)
-		TSubclassOf<class ASJ_Actor_WatchInformUI> bpWatchInformUI;
-
-	UPROPERTY(EditAnywhere, Category = Light)
-	AActor* directLight;
+	TSubclassOf<class ASJ_Actor_WatchInformUI> bpWatchInformUI;
 
 	FVector p;
 
@@ -178,7 +175,6 @@ public:
 	void CompleteHandAx();
 
 	// 주먹도끼 가이드라인
-	
 	UPROPERTY(EditAnywhere, Category =GuideLine)
 	TSubclassOf<class ASJ_Actor_GoToGuideLine> bpHandAxGuideLine;
 
@@ -234,4 +230,23 @@ public:
 	class ASJ_Actor_DirectHitUI* directUI;
 	UPROPERTY(EditAnywhere, Category = UI)
 	TSubclassOf<class ASJ_Actor_DirectHitUI> bpDirectHitUI;
+
+	// 주먹도끼 홀로그램
+	UPROPERTY()
+	class ASJ_Actor_Hologram* hologramActor;
+	UPROPERTY(EditAnywhere, Category = Hologram)
+	TSubclassOf<class ASJ_Actor_Hologram> bpHandAxHologram;
+
+	// 불의 활용
+	void CuttingPig();
+	void FireUse();
+	
+	// 돼지 도축 UI
+	UPROPERTY()
+	class ASJ_Actor_CuttingPigUI* cuttingPigUI;
+	UPROPERTY(EditAnywhere, Category = UI)
+	TSubclassOf<class ASJ_Actor_CuttingPigUI> bpCuttingPigUI;
+
+	// 불의 활용 가이드라인
+	TSubclassOf<class ASJ_Actor_GoToGuideLine> bpFIreUseGuideLine;
 };

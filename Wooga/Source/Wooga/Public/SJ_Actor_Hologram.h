@@ -4,25 +4,25 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "SJ_Actor_MakeHandAxUI.generated.h"
+#include "SJ_Actor_Hologram.generated.h"
 
 UCLASS()
-class WOOGA_API ASJ_Actor_MakeHandAxUI : public AActor
+class WOOGA_API ASJ_Actor_Hologram : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ASJ_Actor_MakeHandAxUI();
+	ASJ_Actor_Hologram();
 
-	UPROPERTY(EditAnywhere, Category = UI)
+	UPROPERTY(EditAnywhere, Category = Hologram)
 	class USceneComponent* rootComp;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, Category = Hologram)
 	class UStaticMeshComponent* plane;
 
-	UPROPERTY(EditAnywhere, Category = UI)
-	class UWidgetComponent* makeHandAxUI;
+	UPROPERTY(EditAnywhere, Category = Hologram)
+	class UWidgetComponent* handAxHologram;
 
 protected:
 	// Called when the game starts or when spawned
@@ -32,6 +32,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	class ASlicePig* slicePig;
+	UPROPERTY()
+	class ASJ_WoogaGameModeBase* gameModeBase;
 
 };
