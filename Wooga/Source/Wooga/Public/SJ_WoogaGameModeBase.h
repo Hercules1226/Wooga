@@ -239,14 +239,33 @@ public:
 
 	// 불의 활용
 	void CuttingPig();
-	void FireUse();
+	void GoToFireUse();
+	void FireUseTitle();
+	void FiringTwo();
+	void CookAndEat();
+
 	
-	// 돼지 도축 UI
+	// 돼지 정육 UI
 	UPROPERTY()
 	class ASJ_Actor_CuttingPigUI* cuttingPigUI;
 	UPROPERTY(EditAnywhere, Category = UI)
 	TSubclassOf<class ASJ_Actor_CuttingPigUI> bpCuttingPigUI;
 
+	// 고기 들고가기 UI
+	UPROPERTY()
+	class ASJ_Actor_PickUpMeatUI* pickUpMeatUI;
+	UPROPERTY(EditAnywhere, Category = UI)
+	TSubclassOf<class ASJ_Actor_PickUpMeatUI> bpPickUpMeatUI;
+
+	// 돼지 정육 기능
+	UPROPERTY()
+	class ACutting2* pigCutting;
+
 	// 불의 활용 가이드라인
+	UPROPERTY(EditAnywhere, Category = GuideLine)
 	TSubclassOf<class ASJ_Actor_GoToGuideLine> bpFIreUseGuideLine;
+
+	// 불의 활용 제목
+	UPROPERTY(EditAnywhere, Category = UI)
+	TSubclassOf<class ASJ_Actor_TitleUI> bpFireUseTitle;
 };

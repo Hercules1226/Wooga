@@ -72,6 +72,16 @@ void ASJ_Actor_TitleUI::BeginPlay()
 
 		SetActorRotation(dir.Rotation());
 	}
+	else if (gameMode->flowState == EFlowState::GoToFireUse || gameMode->flowState == EFlowState::FireUseTitle)
+	{
+		FVector p3 = FVector(5201, 7838, 1270);
+
+		SetActorLocation(p3);
+
+		FRotator r3 = FRotator(0, -50, 0);
+
+		SetActorRotation(r3);
+	}
 }
 
 // Called every frame

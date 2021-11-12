@@ -36,6 +36,8 @@
 #include "SJ_Actor_Hologram.h"
 #include "SJ_Actor_CuttingPigUI.h"
 #include "Engine/DirectionalLight.h"
+#include "Cutting2.h"
+#include "SJ_Actor_PickUpMeatUI.h"
 
 ASJ_WoogaGameModeBase::ASJ_WoogaGameModeBase()
 {
@@ -141,7 +143,16 @@ void ASJ_WoogaGameModeBase::Tick(float DeltaSeconds)
 		CuttingPig();
 		break;
 	case EFlowState::GoToFireUse:
-		FireUse();
+		GoToFireUse();
+		break;
+	case EFlowState::FireUseTitle:
+		FireUseTitle();
+		break;
+	case EFlowState::FiringTwo:
+		FiringTwo();
+		break;
+	case EFlowState::CookAndEat:
+		CookAndEat();
 		break;
 	}
 
@@ -689,10 +700,12 @@ void ASJ_WoogaGameModeBase::MakeHandAx()
 {
 	if (goToGuideLine->isTrigger == true)
 	{
+		// UI 꺼주기
 		bIsUIClose = true;
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
-		if (nextDelayTime >= 0)
+
+		if (nextDelayTime >= 3.0f)
 		{
 			makeHandAxUI->Destroy();
 
@@ -760,10 +773,12 @@ void ASJ_WoogaGameModeBase::CompleteHandAx()
 	{
 		// 홀로그램 제거
 		hologramActor->Destroy();
+		// 간이 가이드라인 제거
+		goToGuideLine->Destroy();
 
-		// 돼지 도축 UI 생성
+		// 돼지 정육 UI 생성
 		cuttingPigUI = GetWorld()->SpawnActor<ASJ_Actor_CuttingPigUI>(bpCuttingPigUI, Param);
-		
+
 		//딜레이 변수 초기화
 		nextDelayTime = 0;
 
@@ -775,12 +790,72 @@ void ASJ_WoogaGameModeBase::CompleteHandAx()
 #pragma  region FireUse
 void ASJ_WoogaGameModeBase::CuttingPig()
 {
-	goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpFIreUseGuideLine, Param);
-	SetState(EFlowState::GoToFireUse);
+	// 돼지 정육 완료 기능 가지고 있는 액터
+	pigCutting = Cast<ACutting2>(UGameplayStatics::GetActorOfClass(GetWorld(), ACutting2::StaticClass()));
+
+	if (pigCutting->bisfinish == true)
+	{
+		// UI 꺼주기
+		bIsUIClose = true;
+
+		nextDelayTime += GetWorld()->DeltaTimeSeconds;
+
+		if (nextDelayTime >= 3.0f)
+		{
+			// 가이드라인 생성
+			goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpFIreUseGuideLine, Param);
+
+			// 고기 들고가기 UI생성
+			pickUpMeatUI = GetWorld()->SpawnActor<ASJ_Actor_PickUpMeatUI>(bpPickUpMeatUI, Param);
+
+			// 사용 UI 제거
+			cuttingPigUI->Destroy();
+
+			// 딜레이 변수 초기화
+			nextDelayTime = 0;
+
+			SetState(EFlowState::GoToFireUse);
+		}
+
+	}
 }
-void ASJ_WoogaGameModeBase::FireUse()
+void ASJ_WoogaGameModeBase::GoToFireUse()
 {
-	
+	if (goToGuideLine->isTrigger == true)
+	{
+		// 고기 들고가기 UI 제거
+		pickUpMeatUI->Destroy();
+
+		// 불의 활용 UI 생성
+		titleUI = GetWorld()->SpawnActor<ASJ_Actor_TitleUI>(bpFireUseTitle, Param);
+
+		SetState(EFlowState::FireUseTitle);
+	}
+}
+void ASJ_WoogaGameModeBase::FireUseTitle()
+{
+	// 이때 이동을 막자
+	nextDelayTime += GetWorld()->DeltaTimeSeconds;
+
+	if (nextDelayTime >= 6.0f)
+	{
+		// 제목 없애기
+		titleUI->Destroy();
+
+		// 가이드라인 없애기
+		goToGuideLine->Destroy();
+
+		// 딜레이변수 초기화
+		nextDelayTime = 0;
+
+		SetState(EFlowState::FiringTwo);
+	}
+}
+void ASJ_WoogaGameModeBase::FiringTwo()
+{
+}
+void ASJ_WoogaGameModeBase::CookAndEat()
+{
 }
 #pragma  endregion
 
