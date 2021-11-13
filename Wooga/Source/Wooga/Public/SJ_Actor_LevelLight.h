@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "Wooga.h"
 #include "GameFramework/Actor.h"
 #include "SJ_Actor_LevelLight.generated.h"
 
@@ -32,6 +32,14 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	ELightState lightState;
+	ELightState GetState();
+	void SetState(ELightState state);
+
+	void Stay();
+	void Day();
+	void Night();
+
 	// 현재 컬러
 	UPROPERTY()
 	FLinearColor curDirColor;
@@ -40,14 +48,23 @@ public:
 
 	// 낮 컬러
 	UPROPERTY()
-	FLinearColor dayDirColor = FLinearColor(255, 216, 118);
+	FLinearColor dayDirColor = FLinearColor(1.0f, 0.686685f, 0.181164f);
 	UPROPERTY()
-	FLinearColor daySunColor = FLinearColor(248, 229, 197);
+	FLinearColor daySunColor = FLinearColor(0.938686f, 0.783538f, 0.55834f);
 
 	// 밤 컬러
 	UPROPERTY()
-	FLinearColor nightDirColor = FLinearColor(74, 126, 155);
+	FLinearColor nightDirColor = FLinearColor(0.068478f, 0.208637f, 0.327778f);
 	UPROPERTY()
-	FLinearColor nightSunColor = FLinearColor(35, 39, 49);
+	FLinearColor nightSunColor = FLinearColor(0.016807f, 0.020289f, 0.030713f);
+
+	// 변환 변수
+	UPROPERTY()
+	float changeTIme;
+
+	UPROPERTY()
+	bool isDay;
+	UPROPERTY()
+	bool isNight;
 
 };

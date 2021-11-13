@@ -38,6 +38,7 @@
 #include "Engine/DirectionalLight.h"
 #include "Cutting2.h"
 #include "SJ_Actor_PickUpMeatUI.h"
+#include "SJ_Actor_FireTwoUI.h"
 
 ASJ_WoogaGameModeBase::ASJ_WoogaGameModeBase()
 {
@@ -49,10 +50,10 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	Super::BeginPlay();
 
 	// 맨 처음 불의 발견 교육으로 시작
-	SetState(EFlowState::InGame);
+	//SetState(EFlowState::InGame);
 
 	// 테스트용 스테이트
-	//SetState(EFlowState::CompleteCollect);
+	SetState(EFlowState::CompleteCollect);
 
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
 
@@ -455,6 +456,9 @@ void ASJ_WoogaGameModeBase::GoToCollectState()
 
 	if (goToGuideLine->isTrigger == true)
 	{
+		// 장작을 다시 사용해 주기 위한 세팅
+		fireStraw->Destroy();
+
 		// 채집하기 제목 UI 생성
 		titleUI = GetWorld()->SpawnActor<class ASJ_Actor_TitleUI>(bpCollectTitleUI, Param);
 
@@ -555,7 +559,7 @@ void ASJ_WoogaGameModeBase::CompleteCollect()
 	// 홀로그램 재생이 끝나면 플레이어 워치로 들어가고 
 	nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-	if (nextDelayTime >= 15.0f)
+	if (nextDelayTime >= 3.0f)
 	{
 		// 아웃라인 생성
 		goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpHandAxGuideLine, Param);
@@ -808,6 +812,15 @@ void ASJ_WoogaGameModeBase::CuttingPig()
 			// 고기 들고가기 UI생성
 			pickUpMeatUI = GetWorld()->SpawnActor<ASJ_Actor_PickUpMeatUI>(bpPickUpMeatUI, Param);
 
+			// 도착 했을때 장작이 보이게 장작생성
+			fireStraw = GetWorld()->SpawnActor<AFireStraw>(bpFireStraw, Param);
+
+			// 장작에 숨만 불어 넣으면 불이 켜지도록 하게 하기 위한 변수 세팅
+			fireStraw->bisReadyFire = true;
+			fireStraw->bisOverlab = false;
+			fireStraw->bisSmog = false;
+			fireStraw->isClear = false;
+
 			// 사용 UI 제거
 			cuttingPigUI->Destroy();
 
@@ -816,7 +829,6 @@ void ASJ_WoogaGameModeBase::CuttingPig()
 
 			SetState(EFlowState::GoToFireUse);
 		}
-
 	}
 }
 void ASJ_WoogaGameModeBase::GoToFireUse()
@@ -845,6 +857,9 @@ void ASJ_WoogaGameModeBase::FireUseTitle()
 		// 가이드라인 없애기
 		goToGuideLine->Destroy();
 
+		// 숨을 불어 넣어주세요 UI 생성
+		fireTwoUI = GetWorld()->SpawnActor<ASJ_Actor_FireTwoUI>(bpFireTwoUI, Param);
+
 		// 딜레이변수 초기화
 		nextDelayTime = 0;
 
@@ -853,6 +868,24 @@ void ASJ_WoogaGameModeBase::FireUseTitle()
 }
 void ASJ_WoogaGameModeBase::FiringTwo()
 {
+	if (fireStraw->isClear == true)
+	{
+		// UI 꺼주기
+		bIsUIClose = true;
+
+		nextDelayTime += GetWorld()->DeltaTimeSeconds;
+
+		if (nextDelayTime >= 3.0f)
+		{
+			// 딜레이 변수 초기화
+			nextDelayTime = 0;
+
+			// 사용 UI 파괴
+			fireTwoUI->Destroy();
+
+			SetState(EFlowState::CookAndEat);
+		}
+	}
 }
 void ASJ_WoogaGameModeBase::CookAndEat()
 {

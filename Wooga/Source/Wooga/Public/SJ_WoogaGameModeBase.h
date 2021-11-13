@@ -244,6 +244,9 @@ public:
 	void FiringTwo();
 	void CookAndEat();
 
+	// 생성 할 장작
+	UPROPERTY(EditAnywhere, Category = FireStraw)
+	TSubclassOf<class AFireStraw> bpFireStraw;
 	
 	// 돼지 정육 UI
 	UPROPERTY()
@@ -268,4 +271,10 @@ public:
 	// 불의 활용 제목
 	UPROPERTY(EditAnywhere, Category = UI)
 	TSubclassOf<class ASJ_Actor_TitleUI> bpFireUseTitle;
+
+	// 숨을 불어 넣어주세요 UI
+	UPROPERTY()
+	class ASJ_Actor_FireTwoUI* fireTwoUI;
+	UPROPERTY(EditAnywhere, Category = UI)
+	TSubclassOf<class ASJ_Actor_FireTwoUI> bpFireTwoUI;
 };

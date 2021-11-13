@@ -136,7 +136,7 @@ void AFistAxe::Tick(float DeltaTime)
 
 void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (gameModeBase->flowState == EFlowState::IndirectnessHit || gameModeBase->flowState == EFlowState::DirectlyHit)
+	// if (gameModeBase->flowState == EFlowState::IndirectnessHit || gameModeBase->flowState == EFlowState::DirectlyHit)
 	{
 		if (currentTime >= 1.f)
 		{

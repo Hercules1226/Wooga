@@ -70,6 +70,7 @@ enum class EBoarState : uint8
 UENUM(BlueprintType)
 enum class ELightState : uint8
 {
+	Stay,
 	Day,
 	Night
 };
