@@ -694,6 +694,9 @@ void ASJ_WoogaGameModeBase::HitBoar()
 			// 주먹도끼 제작을 위한 장소 이동
 			goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpMakeHandAxGuideLine, Param);
 
+			// 임무 완료 사운드
+			UGameplayStatics::PlaySound2D(GetWorld(), uiSound);
+
 			nextDelayTime = 0;
 
 			SetState(EFlowState::MakeHandAx);
@@ -702,7 +705,7 @@ void ASJ_WoogaGameModeBase::HitBoar()
 }
 void ASJ_WoogaGameModeBase::MakeHandAx()
 {
-	if (goToGuideLine->isTrigger == true)
+	// if (goToGuideLine->isTrigger == true)
 	{
 		// UI 꺼주기
 		bIsUIClose = true;
@@ -715,6 +718,9 @@ void ASJ_WoogaGameModeBase::MakeHandAx()
 
 			// 간접떼기 UI 생성
 			indirectUI = GetWorld()->SpawnActor<ASJ_Actor_IndirectHitUI>(bpIndirectUI, Param);
+
+			// 임무 완료 사운드
+			UGameplayStatics::PlaySound2D(GetWorld(), uiSound);
 
 			nextDelayTime = 0;
 
@@ -736,6 +742,9 @@ void ASJ_WoogaGameModeBase::IndirectHit()
 			// 직접떼기 UI 생성 
 			directUI = GetWorld()->SpawnActor<ASJ_Actor_DirectHitUI>(bpDirectHitUI, Param);
 
+			// 임무 완료 사운드
+			UGameplayStatics::PlaySound2D(GetWorld(), uiSound);
+
 			// 사용 UI 제거
 			indirectUI->Destroy();
 
@@ -754,6 +763,7 @@ void ASJ_WoogaGameModeBase::DirectHit()
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
+
 		if (nextDelayTime >= 3.0f)
 		{
 			// 사용 UI 제거
@@ -761,6 +771,9 @@ void ASJ_WoogaGameModeBase::DirectHit()
 
 			// 딜레이변수 초기화
 			nextDelayTime = 0;
+
+			// 임무 완료 사운드
+			UGameplayStatics::PlaySound2D(GetWorld(), uiSound);
 
 			// 주먹도끼 홀로그램 생성
 			hologramActor = GetWorld()->SpawnActor<ASJ_Actor_Hologram>(bpHandAxHologram, Param);

@@ -24,6 +24,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = Light)
 	class UDirectionalLightComponent* sun;
 
+	UPROPERTY(EditAnywhere, Category = Light)
+	class UStaticMeshComponent* skySphere;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

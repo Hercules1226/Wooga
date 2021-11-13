@@ -54,7 +54,7 @@ public:
 	float slowTime;
 	// 플레이어와 돼지간의 거리 변수
 	UPROPERTY()
-	float distance = 100.0f;
+	float distance = 350.0f;
 
 	// 돼지 가격 변수
 	UPROPERTY()
