@@ -11,11 +11,8 @@ ADetachRock::ADetachRock()
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	boxComp = CreateDefaultSubobject<UBoxComponent>(TEXT("Box Component"));
-	SetRootComponent(boxComp);
-
 	meshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh Component"));
-	meshComp->SetupAttachment(boxComp);
+	SetRootComponent(meshComp);
 }
 
 // Called when the game starts or when spawned

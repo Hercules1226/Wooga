@@ -2,20 +2,22 @@
 
 
 #include "Cable.h"
+#include "String.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SplineComponent.h"
 #include "Niagara/Public/NiagaraComponent.h"
 #include "Niagara/Public/NiagaraFunctionLibrary.h"
+#include <Kismet/GameplayStatics.h>
 
 // Sets default values
 ACable::ACable()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	
+
 	stickComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Stick Component"));
 	SetRootComponent(stickComp);
-	
+
 	cableComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Cable Component"));
 	cableComp->SetupAttachment(stickComp);
 
@@ -39,19 +41,33 @@ ACable::ACable()
 void ACable::BeginPlay()
 {
 	Super::BeginPlay();
-	
-	
-	nia = Cast<UNiagaraComponent>(GetDefaultSubobjectByName(TEXT("Niagara")));
-	if (nia)
-	{
-		nia->SetHiddenInGame(false);
-	}
+	stickComp->OnComponentBeginOverlap.AddDynamic(this, &ACable::OnCollisionEnter);
+	rockComp->OnComponentBeginOverlap.AddDynamic(this, &ACable::OnCollisionEnter);
+
+	//string = Cast<AString>(UGameplayStatics::GetActorOfClass(GetWorld(), AString::StaticClass()));
 }
 
 // Called every frame
 void ACable::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	
+
 }
 
+void ACable::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	nia = Cast<UNiagaraComponent>(GetDefaultSubobjectByName(TEXT("Spiral_2")));
+	string = Cast<AString>(OtherActor);
+	
+	if (bisSumjjiRock == true)
+	{
+		if (OtherActor == string)
+		{
+			if (nia)
+			{
+				//nia->SetActive(true);
+				cableComp->SetHiddenInGame(false);
+			}
+		}
+	}
+}

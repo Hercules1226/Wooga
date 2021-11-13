@@ -136,7 +136,6 @@ void UGrabActorComponent::RightGrabAction()
 	RGripStick(grabActor);
 	RGripFistAxe(grabActor);
 	RGripHalfRock(grabActor);
-	LGripSumjji(grabActor);
 	RGripSumjji(grabActor);
 }
 
@@ -291,7 +290,7 @@ void UGrabActorComponent::RightReleaseAction()
 		bisSumjjiR = false;
 
 		// 왼손 피는 애니메이션
-		player->handComp->targetGripValueLeft = 0.0f;
+		player->handComp->targetGripValueRight = 0.0f;
 	}
 
 
@@ -318,6 +317,7 @@ void UGrabActorComponent::LeftGrabAction()
 	LGripApple(grabActor);
 	LGripStick(grabActor);
 	LGripFistAxe(grabActor);
+	LGripSumjji(grabActor);
 }
 
 void UGrabActorComponent::LeftReleaseAction()
