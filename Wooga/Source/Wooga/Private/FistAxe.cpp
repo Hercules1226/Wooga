@@ -518,13 +518,14 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 					rock15->DetachFromParent(true);
 					currentTime = 0.f;
 
-					bisD14 = true;
+					bisD15 = true;
 				}
 			}
 
 			if (bisD15 == true)
 			{
 				rock15->SetMaterial(0, offMaterial);
+				// UE_LOG(LogTemp, Warning, TEXT("CompleteHandAx"));
 			}
 		}
 	}

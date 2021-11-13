@@ -34,7 +34,11 @@ void ASJ_Actor_Hologram::BeginPlay()
 	{
 		FVector p3 = FVector(7370, 8030, 1320);
 
+		SetActorLocation(p3);
+
 		FRotator r3 = FRotator(0, 50, 0);
+
+		SetActorRotation(r3);
 	}
 	
 }

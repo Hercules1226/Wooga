@@ -138,7 +138,7 @@ void ASJ_Character_Boar::Die()
 
 	FVector p = FVector(7220.f, 8440.0f, 1160.0f);
 	FRotator r = FRotator(0.0f, 70.0f, 0.0f);
-	GetWorld()->SpawnActor<ASlicePig>(bpSlicePig, p, r, Param);
+	// GetWorld()->SpawnActor<ASlicePig>(bpSlicePig, p, r, Param);
 
 	Destroy();
 }

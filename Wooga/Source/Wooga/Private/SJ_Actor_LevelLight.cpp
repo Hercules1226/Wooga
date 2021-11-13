@@ -3,6 +3,7 @@
 
 #include "SJ_Actor_LevelLight.h"
 #include <Components/DirectionalLightComponent.h>
+#include <Components/StaticMeshComponent.h>
 
 // Sets default values
 ASJ_Actor_LevelLight::ASJ_Actor_LevelLight()
@@ -18,6 +19,9 @@ ASJ_Actor_LevelLight::ASJ_Actor_LevelLight()
 
 	sun = CreateDefaultSubobject<UDirectionalLightComponent>(TEXT("Sun"));
 	sun->SetupAttachment(rootComp);
+
+	skySphere = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("SkySphere"));
+	skySphere->SetupAttachment(rootComp);
 }
 
 // Called when the game starts or when spawned
@@ -25,7 +29,7 @@ void ASJ_Actor_LevelLight::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	SetState(ELightState::Day);
+	SetState(ELightState::Stay);
 }
 
 // Called every frame
@@ -83,6 +87,7 @@ void ASJ_Actor_LevelLight::Day()
 	{
 		isDay = false;
 		changeTIme = 0;
+		skySphere->SetHiddenInGame(true);
 
 		SetState(ELightState::Stay);
 	}
@@ -102,6 +107,7 @@ void ASJ_Actor_LevelLight::Night()
 	{
 		isDay = false;
 		changeTIme = 0;
+		skySphere->SetHiddenInGame(false);
 
 		SetState(ELightState::Stay);
 	}
