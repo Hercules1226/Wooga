@@ -61,17 +61,16 @@ void ACable::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class A
 	string = Cast<AString>(OtherActor);
 	sumjjiRock = Cast<ASumjjiRock>(OtherActor);
 
-	if (bisSumjjiRock == true)
+
+	if (OtherActor == string)
 	{
-		if (OtherActor == string)
+		if (nia)
 		{
-			if (nia)
-			{
-				//nia->SetActive(true);
-				cableComp->SetHiddenInGame(false);
-			}
+			//nia->SetActive(true);
+			cableComp->SetHiddenInGame(false);
 		}
 	}
+
 
 	if (OverlappedComp == rockComp && OtherActor == sumjjiRock)
 	{
