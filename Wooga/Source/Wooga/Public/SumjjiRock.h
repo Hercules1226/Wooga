@@ -10,8 +10,8 @@ UCLASS()
 class WOOGA_API ASumjjiRock : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	ASumjjiRock();
 
@@ -19,8 +19,68 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UFUNCTION()
+		void OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	UPROPERTY(EditAnywhere, Category = Settings)
+		class UStaticMeshComponent* sumjji;
+
+	UPROPERTY(EditAnywhere, Category = Settings)
+		class UStaticMeshComponent* rock1;
+
+	UPROPERTY(EditAnywhere, Category = Settings)
+		class UStaticMeshComponent* rock2;
+
+	UPROPERTY(EditAnywhere, Category = Settings)
+		class UStaticMeshComponent* rock3;
+
+	UPROPERTY(EditAnywhere, Category = Settings)
+		class UStaticMeshComponent* rock4;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
+		class UMaterialInstance* onMaterial;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
+		class UMaterialInstance* offMaterial;
+
+public:
+	// 소켓에 넣을떄 Offset 값을 조정
+	UPROPERTY(EditAnywhere, Category = Settings)
+		FVector grabOffset;
+
+	UPROPERTY()
+		class AVR_Player* player;
+
+	UPROPERTY()
+		class ABone* bone;
+
+	UPROPERTY()
+		float currentTime;
+
+	// 넉벡 종료지점
+	UPROPERTY()
+		FVector knockbackPos;
+
+	UPROPERTY()
+		FVector returnKnockbackPos;
+
+	UPROPERTY()
+		FVector myPos;
+
+public:
+	UPROPERTY()
+		bool bisOverlab = false;
+
+	UPROPERTY()
+		bool bisRock2 = false;
+	UPROPERTY()
+		bool bisRock3 = false;
+	UPROPERTY()
+		bool bisRock4 = false;
+	UPROPERTY()
+		bool bisRockFin = false;
 };

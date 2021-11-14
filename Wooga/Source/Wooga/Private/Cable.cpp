@@ -3,6 +3,7 @@
 
 #include "Cable.h"
 #include "String.h"
+#include "SumjjiRock.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SplineComponent.h"
 #include "Niagara/Public/NiagaraComponent.h"
@@ -58,7 +59,8 @@ void ACable::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class A
 {
 	nia = Cast<UNiagaraComponent>(GetDefaultSubobjectByName(TEXT("Spiral_2")));
 	string = Cast<AString>(OtherActor);
-	
+	sumjjiRock = Cast<ASumjjiRock>(OtherActor);
+
 	if (bisSumjjiRock == true)
 	{
 		if (OtherActor == string)
@@ -69,5 +71,11 @@ void ACable::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class A
 				cableComp->SetHiddenInGame(false);
 			}
 		}
+	}
+
+	if (OverlappedComp == rockComp && OtherActor == sumjjiRock)
+	{
+		rockComp->SetHiddenInGame(false);
+		sumjjiRock->Destroy();
 	}
 }

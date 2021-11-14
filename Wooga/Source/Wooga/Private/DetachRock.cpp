@@ -2,7 +2,6 @@
 
 
 #include "DetachRock.h"
-#include "Components/BoxComponent.h"
 #include "Components/StaticMeshComponent.h"
 
 // Sets default values

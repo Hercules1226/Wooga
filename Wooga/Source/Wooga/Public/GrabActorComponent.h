@@ -71,6 +71,10 @@ public:
 
 	void RGripSumjji(AActor* grabActor);
 
+	void LGripSumjjiRock(AActor* grabActor);
+
+	void RGripSumjjiRock(AActor* grabActor);
+
 
 	UPROPERTY()
 		class AVR_Player* player;
@@ -131,6 +135,12 @@ public:
 		class AHalfRock* halfRock;
 
 	UPROPERTY()
+		class ASumjjiRock* sumjjiRockL;
+
+	UPROPERTY()
+		class ASumjjiRock* sumjjiRockR;
+
+	UPROPERTY()
 		FHitResult grabObject;
 
 public:
@@ -166,5 +176,9 @@ public:
 		bool bisSumjjiL = false;
 	UPROPERTY()
 		bool bisSumjjiR = false;
+	UPROPERTY()
+		bool bisSumjjiRockL = false;
+	UPROPERTY()
+		bool bisSumjjiRockR = false;
 
 };

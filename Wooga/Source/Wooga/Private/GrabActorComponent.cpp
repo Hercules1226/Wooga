@@ -13,6 +13,7 @@
 #include "HalfRock.h"
 #include "Cutting.h"
 #include "Cable.h"
+#include "SumjjiRock.h"
 #include "DrawDebugHelpers.h"
 #include "HandActorComponent.h"
 #include "Components/BoxComponent.h"
@@ -137,6 +138,7 @@ void UGrabActorComponent::RightGrabAction()
 	RGripFistAxe(grabActor);
 	RGripHalfRock(grabActor);
 	RGripSumjji(grabActor);
+	RGripSumjjiRock(grabActor);
 }
 
 void UGrabActorComponent::RightReleaseAction()
@@ -293,6 +295,22 @@ void UGrabActorComponent::RightReleaseAction()
 		player->handComp->targetGripValueRight = 0.0f;
 	}
 
+	if (sumjjiRockR)
+	{
+		sumjjiRockR->sumjji->SetEnableGravity(true);
+		// 그 자리에서 떨어지게
+		sumjjiRockR->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+
+		sumjjiRockR->sumjji->SetSimulatePhysics(true);
+		//sumjjiL->outLine->SetVisibility(true);
+
+		sumjjiRockR = nullptr;
+		bisLeftGrab = false;
+		bisSumjjiRockR = false;
+
+		// 왼손 피는 애니메이션
+		player->handComp->targetGripValueRight = 0.0f;
+	}
 
 	//}
 		// 오른손 피는 애니메이션
@@ -318,6 +336,7 @@ void UGrabActorComponent::LeftGrabAction()
 	LGripStick(grabActor);
 	LGripFistAxe(grabActor);
 	LGripSumjji(grabActor);
+	LGripSumjjiRock(grabActor);
 }
 
 void UGrabActorComponent::LeftReleaseAction()
@@ -437,6 +456,23 @@ void UGrabActorComponent::LeftReleaseAction()
 		sumjjiL = nullptr;
 		bisLeftGrab = false;
 		bisSumjjiL = false;
+
+		// 왼손 피는 애니메이션
+		player->handComp->targetGripValueLeft = 0.0f;
+	}
+
+	if (sumjjiRockL)
+	{
+		sumjjiRockL->sumjji->SetEnableGravity(true);
+		// 그 자리에서 떨어지게
+		sumjjiRockL->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+
+		sumjjiRockL->sumjji->SetSimulatePhysics(true);
+		//sumjjiL->outLine->SetVisibility(true);
+
+		sumjjiRockL = nullptr;
+		bisLeftGrab = false;
+		bisSumjjiRockL = false;
 
 		// 왼손 피는 애니메이션
 		player->handComp->targetGripValueLeft = 0.0f;
@@ -992,6 +1028,72 @@ void UGrabActorComponent::RGripSumjji(AActor* grabActor)
 			sumjjiR->stickComp->SetRelativeLocation((sumjjiR->grabOffset));
 
 			bisSumjjiR = true;
+		}
+	}
+}
+
+void UGrabActorComponent::LGripSumjjiRock(AActor* grabActor)
+{
+	FString fr = grabActor->GetName();
+	/*if (fireRock == nullptr)
+	{*/
+	if (fr.Contains("SumjjiRock"))
+	{
+		sumjjiRockL = Cast<ASumjjiRock>(grabActor);
+
+		if (sumjjiRockL)
+		{
+			//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("TRIGGER IN!!")));
+			//fireRock->SetActorHiddenInGame(false);
+			//FAttachmentTransformRules attachRules = FAttachmentTransformRules::KeepWorldTransform;
+			FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
+
+			sumjjiRockL->sumjji->SetSimulatePhysics(false);
+			sumjjiRockL->sumjji->SetEnableGravity(false);
+			//sumjjiL->outLine->SetVisibility(false);
+
+			sumjjiRockL->AttachToComponent(player->leftHandLoc, attachRules, TEXT("LGrabPoint"));
+			// 왼손 쥐는 애니메이션
+			player->handComp->targetGripValueLeft = 0.7f;
+
+
+			// 오브젝트를 잡았을때 위치 잡기
+			sumjjiRockL->sumjji->SetRelativeLocation((sumjjiRockL->grabOffset));
+
+			bisSumjjiRockL = true;
+		}
+	}
+}
+
+void UGrabActorComponent::RGripSumjjiRock(AActor* grabActor)
+{
+	FString fr = grabActor->GetName();
+	/*if (fireRock == nullptr)
+	{*/
+	if (fr.Contains("SumjjiRock"))
+	{
+		sumjjiRockR = Cast<ASumjjiRock>(grabActor);
+
+		if (sumjjiRockR)
+		{
+			//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("TRIGGER IN!!")));
+			//fireRock->SetActorHiddenInGame(false);
+			//FAttachmentTransformRules attachRules = FAttachmentTransformRules::KeepWorldTransform;
+			FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
+
+			sumjjiRockR->sumjji->SetSimulatePhysics(false);
+			sumjjiRockR->sumjji->SetEnableGravity(false);
+			//sumjjiL->outLine->SetVisibility(false);
+
+			sumjjiRockR->AttachToComponent(player->rightHandLoc, attachRules, TEXT("RGrabPoint"));
+			// 왼손 쥐는 애니메이션
+			player->handComp->targetGripValueRight = 0.7f;
+
+
+			// 오브젝트를 잡았을때 위치 잡기
+			sumjjiRockR->sumjji->SetRelativeLocation((sumjjiRockR->grabOffset));
+
+			bisSumjjiRockR = true;
 		}
 	}
 }
