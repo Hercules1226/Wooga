@@ -54,8 +54,8 @@ public:
 	UPROPERTY()
 		class ASumjjiRock* sumjjiRock;
 
-	UPROPERTY()
-		class UNiagaraComponent* nia;
+	/*UPROPERTY()
+		class UNiagaraComponent* nia;*/
 
 	UPROPERTY(EditAnywhere, Category = Setting)
 		FVector grabOffset;

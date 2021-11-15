@@ -5,6 +5,7 @@
 #include "Components/SceneComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "GrabActorComponent.h"
 #include "PhysicsEngine/PhysicsConstraintComponent.h"
 #include "VR_Player.h"
 #include "FistAxe.h"
@@ -59,9 +60,16 @@ void ACutting::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (bisOverlab == true)
+	if (bisOverlabR == true)
 	{
 		handleY = player->rightHand->GetComponentLocation().Y;
+
+		handle->SetRelativeLocation(FVector(handleX, handleY, handleZ));
+	}
+
+	if (bisOverlabL == true)
+	{
+		handleY = player->leftHand->GetComponentLocation().Y;
 
 		handle->SetRelativeLocation(FVector(handleX, handleY, handleZ));
 	}
@@ -69,23 +77,55 @@ void ACutting::Tick(float DeltaTime)
 
 void ACutting::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (OtherActor == fA)
+	if (player->grabComp->bisGrabFistAxeR)
 	{
-		bisOverlab = true;
+		if (OtherActor == fA)
+		{
+			bisOverlabR = true;
 
-		player->rightHand->SetHiddenInGame(true);
-		fA->SetActorHiddenInGame(true);
+			player->rightHand->SetHiddenInGame(true);
+			fA->SetActorHiddenInGame(true);
 
-		handle->SetMaterial(0, onMaterialHand);
-		handle->SetMaterial(1, onMaterialFA);
+			handle->SetMaterial(0, onMaterialHand);
+			handle->SetMaterial(1, onMaterialFA);
+		}
 	}
 
-	if (bisOverlab == true)
+	if (player->grabComp->bisGrabFistAxeL)
+	{
+		if (OtherActor == fA)
+		{
+			bisOverlabL = true;
+			handle->SetRelativeScale3D(FVector(1.2f, -1.2f, 1.2f));
+			player->leftHand->SetHiddenInGame(true);
+			fA->SetActorHiddenInGame(true);
+
+			handle->SetMaterial(0, onMaterialHand);
+			handle->SetMaterial(1, onMaterialFA);
+		}
+	}
+	
+
+	if (bisOverlabR == true)
 	{
 		auto detachRock = Cast<ADetachRock>(OtherActor);
 		if (OtherActor == detachRock)
 		{
 			player->rightHand->SetHiddenInGame(false);
+			//?!
+			fA->SetActorHiddenInGame(false);
+			bisfinish = true;
+			//fA->Destroy();
+			SetActorHiddenInGame(true);
+		}
+	}
+
+	if (bisOverlabL == true)
+	{
+		auto detachRock = Cast<ADetachRock>(OtherActor);
+		if (OtherActor == detachRock)
+		{
+			player->leftHand->SetHiddenInGame(false);
 			fA->SetActorHiddenInGame(false);
 			bisfinish = true;
 			//fA->Destroy();

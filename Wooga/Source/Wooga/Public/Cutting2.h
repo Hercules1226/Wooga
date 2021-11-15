@@ -57,7 +57,9 @@ public:
 		class UMaterialInstance* offMaterial;
 
 	UPROPERTY()
-		bool bisOverlab = false;
+		bool bisOverlabL = false;
+	UPROPERTY()
+		bool bisOverlabR = false;
 	UPROPERTY()
 		bool bisfinish = false;
 

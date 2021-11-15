@@ -43,4 +43,7 @@ public:
 
 	UPROPERTY()
 		float currentTime;
+
+	UPROPERTY(EditAnywhere, Category = Setting)
+		FVector grabOffset;
 };

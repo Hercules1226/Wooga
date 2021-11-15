@@ -48,8 +48,8 @@ void ACutting2::BeginPlay()
 	fA = Cast<AFistAxe>(UGameplayStatics::GetActorOfClass(GetWorld(), AFistAxe::StaticClass()));
 	cutting = Cast<ACutting>(UGameplayStatics::GetActorOfClass(GetWorld(), ACutting::StaticClass()));
 
-	handleZ = handle->GetRelativeLocation().Z;
 	handleY = handle->GetRelativeLocation().Y;
+	handleX = handle->GetRelativeLocation().X;
 
 	handle->SetMaterial(0, offMaterial);
 	handle->SetMaterial(1, offMaterial);
@@ -60,10 +60,17 @@ void ACutting2::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (bisOverlab == true)
+	if (bisOverlabR == true)
 	{
-		handleX = player->rightHand->GetComponentLocation().X;
-		
+		handleZ = player->rightHand->GetComponentLocation().Z;
+
+		handle->SetRelativeLocation(FVector(handleX, handleY, handleZ));
+	}
+
+	if (bisOverlabL == true)
+	{
+		handleX = player->leftHand->GetComponentLocation().X;
+
 		handle->SetRelativeLocation(FVector(handleX, handleY, handleZ));
 	}
 
@@ -71,7 +78,7 @@ void ACutting2::Tick(float DeltaTime)
 	{
 		handle->SetHiddenInGame(false);
 		line->SetHiddenInGame(false);
-		
+
 	}
 }
 
@@ -79,18 +86,35 @@ void ACutting2::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, clas
 {
 	if (cutting->bisfinish == true)
 	{
-		if (OtherActor == fA)
+		if (player->grabComp->bisGrabFistAxeR)
 		{
-			bisOverlab = true;
+			if (OtherActor == fA)
+			{
+				bisOverlabR = true;
 
-			player->rightHand->SetHiddenInGame(true);
-			fA->SetActorHiddenInGame(true);
+				player->rightHand->SetHiddenInGame(true);
+				fA->SetActorHiddenInGame(true);
 
-			handle->SetMaterial(0, onMaterialHand);
-			handle->SetMaterial(1, onMaterialFA);
+				handle->SetMaterial(0, onMaterialHand);
+				handle->SetMaterial(1, onMaterialFA);
+			}
 		}
 
-		if (bisOverlab == true)
+		if (player->grabComp->bisGrabFistAxeL)
+		{
+			if (OtherActor == fA)
+			{
+				bisOverlabL = true;
+				handle->SetRelativeScale3D(FVector(1.2f, -1.2f, 1.2f));
+				player->leftHand->SetHiddenInGame(true);
+				fA->SetActorHiddenInGame(true);
+
+				handle->SetMaterial(0, onMaterialHand);
+				handle->SetMaterial(1, onMaterialFA);
+			}
+		}
+
+		if (bisOverlabR == true)
 		{
 			auto detachRock = Cast<ADetachRock>(OtherActor);
 			if (OtherActor == detachRock)
@@ -102,6 +126,20 @@ void ACutting2::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, clas
 				SetActorHiddenInGame(true);
 			}
 		}
+
+		if (bisOverlabL == true)
+		{
+			auto detachRock = Cast<ADetachRock>(OtherActor);
+			if (OtherActor == detachRock)
+			{
+				player->leftHand->SetHiddenInGame(false);
+				fA->SetActorHiddenInGame(false);
+				bisfinish = true;
+				fA->Destroy();
+				SetActorHiddenInGame(true);
+			}
+		}
 	}
+
 }
 

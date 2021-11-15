@@ -30,7 +30,7 @@ void ATomahowk::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	currentTime += GetWorld()->DeltaTimeSeconds;
 
-	if (bisOverlab == false)
+	if (bisOverlab == true)
 	{
 	if (currentTime >= 2.f)
 	{
@@ -50,8 +50,8 @@ void ATomahowk::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, clas
 
 	if (OtherActor == fireStraw)
 	{
-		currentTime += GetWorld()->DeltaTimeSeconds;
 		bisOverlab = true;
+		currentTime = 0;
 	}
 }
 

@@ -14,6 +14,9 @@
 #include "Cutting.h"
 #include "Cable.h"
 #include "SumjjiRock.h"
+#include "String.h"
+#include "Bone.h"
+#include "Tomahowk.h"
 #include "DrawDebugHelpers.h"
 #include "HandActorComponent.h"
 #include "Components/BoxComponent.h"
@@ -139,6 +142,8 @@ void UGrabActorComponent::RightGrabAction()
 	RGripHalfRock(grabActor);
 	RGripSumjji(grabActor);
 	RGripSumjjiRock(grabActor);
+	RGripString(grabActor);
+	RGripTomahowk(grabActor);
 }
 
 void UGrabActorComponent::RightReleaseAction()
@@ -312,6 +317,23 @@ void UGrabActorComponent::RightReleaseAction()
 		player->handComp->targetGripValueRight = 0.0f;
 	}
 
+	if (stringR)
+	{
+		stringR->meshComp->SetEnableGravity(true);
+		// 그 자리에서 떨어지게
+		stringR->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+
+		stringR->meshComp->SetSimulatePhysics(true);
+		//sumjjiL->outLine->SetVisibility(true);
+
+		stringR = nullptr;
+		bisLeftGrab = false;
+		bisStringR = false;
+
+		// 왼손 피는 애니메이션
+		player->handComp->targetGripValueRight = 0.0f;
+	}
+
 	//}
 		// 오른손 피는 애니메이션
 	player->handComp->targetGripValueRight = 0.0f;
@@ -337,6 +359,8 @@ void UGrabActorComponent::LeftGrabAction()
 	LGripFistAxe(grabActor);
 	LGripSumjji(grabActor);
 	LGripSumjjiRock(grabActor);
+	LGripString(grabActor);
+	LGripTomahowk(grabActor);
 }
 
 void UGrabActorComponent::LeftReleaseAction()
@@ -476,6 +500,23 @@ void UGrabActorComponent::LeftReleaseAction()
 
 		// 왼손 피는 애니메이션
 		player->handComp->targetGripValueLeft = 0.0f;
+	}
+
+	if (stringL)
+	{
+		stringL->meshComp->SetEnableGravity(true);
+		// 그 자리에서 떨어지게
+		stringL->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+
+		stringL->meshComp->SetSimulatePhysics(true);
+		//sumjjiL->outLine->SetVisibility(true);
+
+		stringL = nullptr;
+		bisLeftGrab = false;
+		bisStringL = false;
+
+		// 왼손 피는 애니메이션
+		player->handComp->targetGripValueRight = 0.0f;
 	}
 
 
@@ -1094,6 +1135,204 @@ void UGrabActorComponent::RGripSumjjiRock(AActor* grabActor)
 			sumjjiRockR->sumjji->SetRelativeLocation((sumjjiRockR->grabOffset));
 
 			bisSumjjiRockR = true;
+		}
+	}
+}
+
+void UGrabActorComponent::LGripString(AActor* grabActor)
+{
+	FString fr = grabActor->GetName();
+	/*if (fireRock == nullptr)
+	{*/
+	if (fr.Contains("String"))
+	{
+		stringL = Cast<AString>(grabActor);
+
+		if (stringL)
+		{
+			//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("TRIGGER IN!!")));
+			//fireRock->SetActorHiddenInGame(false);
+			//FAttachmentTransformRules attachRules = FAttachmentTransformRules::KeepWorldTransform;
+			FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
+
+			stringL->meshComp->SetSimulatePhysics(false);
+			stringL->meshComp->SetEnableGravity(false);
+			//sumjjiL->outLine->SetVisibility(false);
+
+			stringL->AttachToComponent(player->leftHandLoc, attachRules, TEXT("LGrabPoint"));
+			// 왼손 쥐는 애니메이션
+			player->handComp->targetGripValueLeft = 0.7f;
+
+
+			// 오브젝트를 잡았을때 위치 잡기
+			stringL->meshComp->SetRelativeLocation((stringL->grabOffset));
+
+			bisStringL = true;
+		}
+	}
+}
+
+void UGrabActorComponent::RGripString(AActor* grabActor)
+{
+	FString fr = grabActor->GetName();
+	/*if (fireRock == nullptr)
+	{*/
+	if (fr.Contains("String"))
+	{
+		stringR = Cast<AString>(grabActor);
+
+		if (stringR)
+		{
+			//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("TRIGGER IN!!")));
+			//fireRock->SetActorHiddenInGame(false);
+			//FAttachmentTransformRules attachRules = FAttachmentTransformRules::KeepWorldTransform;
+			FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
+
+			stringR->meshComp->SetSimulatePhysics(false);
+			stringR->meshComp->SetEnableGravity(false);
+			//sumjjiL->outLine->SetVisibility(false);
+
+			stringR->AttachToComponent(player->rightHandLoc, attachRules, TEXT("RGrabPoint"));
+			// 왼손 쥐는 애니메이션
+			player->handComp->targetGripValueRight = 0.7f;
+
+
+			// 오브젝트를 잡았을때 위치 잡기
+			stringR->meshComp->SetRelativeLocation((stringR->grabOffset));
+
+			bisStringR = true;
+		}
+	}
+}
+
+void UGrabActorComponent::LGripBone(AActor* grabActor)
+{
+	FString fr = grabActor->GetName();
+	/*if (fireRock == nullptr)
+	{*/
+	if (fr.Contains("Bone"))
+	{
+		boneL = Cast<ABone>(grabActor);
+
+		if (boneL)
+		{
+			//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("TRIGGER IN!!")));
+			//fireRock->SetActorHiddenInGame(false);
+			//FAttachmentTransformRules attachRules = FAttachmentTransformRules::KeepWorldTransform;
+			FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
+
+			boneL->meshComp->SetSimulatePhysics(false);
+			boneL->meshComp->SetEnableGravity(false);
+			//sumjjiL->outLine->SetVisibility(false);
+
+			boneL->AttachToComponent(player->leftHandLoc, attachRules, TEXT("LGrabPoint"));
+			// 왼손 쥐는 애니메이션
+			player->handComp->targetGripValueLeft = 0.7f;
+
+
+			// 오브젝트를 잡았을때 위치 잡기
+			boneL->meshComp->SetRelativeLocation((boneL->grabOffset));
+
+			bisBoneL = true;
+		}
+	}
+}
+
+void UGrabActorComponent::RGripBone(AActor* grabActor)
+{
+	FString fr = grabActor->GetName();
+	/*if (fireRock == nullptr)
+	{*/
+	if (fr.Contains("Bone"))
+	{
+		boneR = Cast<ABone>(grabActor);
+
+		if (boneR)
+		{
+			//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("TRIGGER IN!!")));
+			//fireRock->SetActorHiddenInGame(false);
+			//FAttachmentTransformRules attachRules = FAttachmentTransformRules::KeepWorldTransform;
+			FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
+
+			boneR->meshComp->SetSimulatePhysics(false);
+			boneR->meshComp->SetEnableGravity(false);
+			//sumjjiL->outLine->SetVisibility(false);
+
+			boneR->AttachToComponent(player->rightHandLoc, attachRules, TEXT("RGrabPoint"));
+			// 왼손 쥐는 애니메이션
+			player->handComp->targetGripValueRight = 0.7f;
+
+
+			// 오브젝트를 잡았을때 위치 잡기
+			boneR->meshComp->SetRelativeLocation((boneR->grabOffset));
+
+			bisBoneR = true;
+		}
+	}
+}
+
+void UGrabActorComponent::LGripTomahowk(AActor* grabActor)
+{
+	FString fr = grabActor->GetName();
+	/*if (fireRock == nullptr)
+	{*/
+	if (fr.Contains("Tomahowk"))
+	{
+		tomahowkL = Cast<ATomahowk>(grabActor);
+
+		if (tomahowkL)
+		{
+			//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("TRIGGER IN!!")));
+			//fireRock->SetActorHiddenInGame(false);
+			//FAttachmentTransformRules attachRules = FAttachmentTransformRules::KeepWorldTransform;
+			FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
+
+			tomahowkL->meshComp->SetSimulatePhysics(false);
+			tomahowkL->meshComp->SetEnableGravity(false);
+			//sumjjiL->outLine->SetVisibility(false);
+
+			tomahowkL->AttachToComponent(player->leftHandLoc, attachRules, TEXT("LGrabPoint"));
+			// 왼손 쥐는 애니메이션
+			player->handComp->targetGripValueLeft = 0.7f;
+
+
+			// 오브젝트를 잡았을때 위치 잡기
+			tomahowkL->meshComp->SetRelativeLocation((tomahowkL->grabOffset));
+
+			bisTomahowkL = true;
+		}
+	}
+}
+
+void UGrabActorComponent::RGripTomahowk(AActor* grabActor)
+{
+	FString fr = grabActor->GetName();
+	/*if (fireRock == nullptr)
+	{*/
+	if (fr.Contains("Tomahowk"))
+	{
+		tomahowkR = Cast<ATomahowk>(grabActor);
+
+		if (tomahowkR)
+		{
+			//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("TRIGGER IN!!")));
+			//fireRock->SetActorHiddenInGame(false);
+			//FAttachmentTransformRules attachRules = FAttachmentTransformRules::KeepWorldTransform;
+			FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
+
+			tomahowkR->meshComp->SetSimulatePhysics(false);
+			tomahowkR->meshComp->SetEnableGravity(false);
+			//sumjjiL->outLine->SetVisibility(false);
+
+			tomahowkR->AttachToComponent(player->rightHandLoc, attachRules, TEXT("RGrabPoint"));
+			// 왼손 쥐는 애니메이션
+			player->handComp->targetGripValueRight = 0.7f;
+
+
+			// 오브젝트를 잡았을때 위치 잡기
+			tomahowkR->meshComp->SetRelativeLocation((tomahowkR->grabOffset));
+
+			bisTomahowkR = true;
 		}
 	}
 }

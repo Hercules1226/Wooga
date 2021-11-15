@@ -75,6 +75,17 @@ public:
 
 	void RGripSumjjiRock(AActor* grabActor);
 
+	void LGripString(AActor* grabActor);
+
+	void RGripString(AActor* grabActor);
+
+	void LGripBone(AActor* grabActor);
+
+	void RGripBone(AActor* grabActor);
+
+	void LGripTomahowk(AActor* grabActor);
+
+	void RGripTomahowk(AActor* grabActor);
 
 	UPROPERTY()
 		class AVR_Player* player;
@@ -141,6 +152,24 @@ public:
 		class ASumjjiRock* sumjjiRockR;
 
 	UPROPERTY()
+		class AString* stringL;
+
+	UPROPERTY()
+		class AString* stringR;
+
+	UPROPERTY()
+		class ABone* boneL;
+
+	UPROPERTY()
+		class ABone* boneR;
+
+	UPROPERTY()
+		class ATomahowk* tomahowkL;
+
+	UPROPERTY()
+		class ATomahowk* tomahowkR;
+
+	UPROPERTY()
 		FHitResult grabObject;
 
 public:
@@ -180,5 +209,17 @@ public:
 		bool bisSumjjiRockL = false;
 	UPROPERTY()
 		bool bisSumjjiRockR = false;
+	UPROPERTY()
+		bool bisStringL = false;
+	UPROPERTY()
+		bool bisStringR = false;
+	UPROPERTY()
+		bool bisBoneL = false;
+	UPROPERTY()
+		bool bisBoneR = false;
+	UPROPERTY()
+		bool bisTomahowkL = false;
+	UPROPERTY()
+		bool bisTomahowkR = false;
 
 };

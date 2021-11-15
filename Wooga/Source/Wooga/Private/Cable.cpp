@@ -64,11 +64,10 @@ void ACable::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class A
 
 	if (OtherActor == string)
 	{
-		if (nia)
-		{
-			/*UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), SpawnEffect, MeshComp->GetComponentLocation(), MeshComp->GetComponentRotation());*/
+		
+			//UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), SpawnEffect, cableComp->GetComponentLocation(), cableComp->GetComponentRotation());
 			cableComp->SetHiddenInGame(false);
-		}
+		
 	}
 
 
