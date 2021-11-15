@@ -21,8 +21,6 @@ public:
 	UPROPERTY(EditAnywhere, Category = Range)
 	class UStaticMeshComponent* footStep;
 
-
-
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -30,6 +28,9 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UPROPERTY()
+	class ASJ_WoogaGameModeBase* gameMode;
 
 	UFUNCTION()
 	void OnPlayerOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);

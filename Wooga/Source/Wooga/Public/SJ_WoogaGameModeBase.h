@@ -48,6 +48,16 @@ public:
 	UPROPERTY()
 		bool isDelay;
 
+	// 주먹도끼 제작 상태에서 죽은 돼지는 월드내 올려놓고 사용하자
+	UPROPERTY()
+	class ASlicePig* slicePig;
+	UPROPERTY()
+	class ACutting* cutting;
+	UPROPERTY()
+	class ACutting2* cuttingTwo;
+	UPROPERTY()
+	class ASliceMeat* sliceMeat;
+
 	// 게임 시작
 	void InGame();
 	void ManipulateUI();
@@ -216,12 +226,20 @@ public:
 	UPROPERTY(EditAnywhere, Category = UI)
 		TSubclassOf<class ASJ_Actor_HitBoarUI> bpHitBoarUI;
 
+	// 돼지 죽는 사운드
+	UPROPERTY(EditAnywhere, Category = Sound)
+	class USoundBase* pigDieSound;
+
 	// 주먹도끼 만들기 UI
 	class ASJ_Actor_MakeHandAxUI* makeHandAxUI;
 	UPROPERTY(EditAnywhere, Category = UI)
 		TSubclassOf<class ASJ_Actor_MakeHandAxUI> bpMakeHandAxUI;
 
 	// 주먹도끼를 만들기 위한 가이드라인
+	UPROPERTY()
+	class ASJ_Actor_MakeRange* makeHandAxRange;
+	UPROPERTY()
+	TSubclassOf<class ASJ_Actor_MakeRange> bpMakeHandAxRange;
 	UPROPERTY(EditAnywhere, Category = GuideLine)
 		TSubclassOf<class ASJ_Actor_GoToGuideLine> bpMakeHandAxGuideLine;
 

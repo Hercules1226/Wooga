@@ -5,6 +5,8 @@
 #include <Components/BoxComponent.h>
 #include <Components/StaticMeshComponent.h>
 #include "VR_Player.h"
+#include "SJ_WoogaGameModeBase.h"
+
 // Sets default values
 ASJ_Actor_MakeRange::ASJ_Actor_MakeRange()
 {
@@ -24,6 +26,19 @@ void ASJ_Actor_MakeRange::BeginPlay()
 	Super::BeginPlay();
 	
 	range->OnComponentBeginOverlap.AddDynamic(this, &ASJ_Actor_MakeRange::OnPlayerOverlap);
+
+	gameMode = Cast<ASJ_WoogaGameModeBase>(GetWorld()->GetAuthGameMode());
+
+	if (gameMode->flowState == EFlowState::HitBoar)
+	{
+		FVector p = FVector(7500, 8284, 1250);
+
+		SetActorLocation(p);
+
+		FRotator r = FRotator(0, 140, 0);
+
+		SetActorRotation(r);
+	}
 }
 
 // Called every frame
@@ -31,6 +46,16 @@ void ASJ_Actor_MakeRange::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	if (gameMode->flowState == EFlowState::CuttingPig)
+	{
+		FVector p1 = FVector(7358, 8479, 1250);
+
+		SetActorLocation(p1);
+
+		FRotator r1 = FRotator(0, -20, 0);
+
+		SetActorRotation(r1);
+	}
 }
 
 void ASJ_Actor_MakeRange::OnPlayerOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)

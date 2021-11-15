@@ -49,7 +49,7 @@ public:
 	UPROPERTY()
 		float playTime;
 	UPROPERTY(EditAnywhere, Category = Time)
-		float playChangeTime;
+		float playChangeTime = 15.0f;
 
 	UPROPERTY()
 		float destroyTime;

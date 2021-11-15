@@ -36,9 +36,13 @@
 #include "SJ_Actor_Hologram.h"
 #include "SJ_Actor_CuttingPigUI.h"
 #include "Engine/DirectionalLight.h"
-#include "Cutting2.h"
 #include "SJ_Actor_PickUpMeatUI.h"
 #include "SJ_Actor_FireTwoUI.h"
+#include "SlicePig.h"
+#include "SliceMeat.h"
+#include "Cutting.h"
+#include "Cutting2.h"
+#include "SJ_Actor_MakeRange.h"
 
 ASJ_WoogaGameModeBase::ASJ_WoogaGameModeBase()
 {
@@ -55,10 +59,27 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	// 테스트용 스테이트
 	//SetState(EFlowState::CompleteCollect);
 
-	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
-
+	// 스폰 파라미터
 	Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
+	// 플레이어 캐스팅
+	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
+
+	// 죽은 돼지
+	slicePig = Cast<ASlicePig>(UGameplayStatics::GetActorOfClass(GetWorld(), ASlicePig::StaticClass()));
+	slicePig->SetActorHiddenInGame(true);
+
+	// 정육 포인트 1
+	cutting = Cast<ACutting>(UGameplayStatics::GetActorOfClass(GetWorld(), ACutting::StaticClass()));
+	cutting->SetActorHiddenInGame(true);
+
+	// 정육 포인트2
+	cuttingTwo = Cast<ACutting2>(UGameplayStatics::GetActorOfClass(GetWorld(), ACutting2::StaticClass()));
+	cuttingTwo->SetActorHiddenInGame(true);
+
+	// 자를 고기
+	sliceMeat = Cast<ASliceMeat>(UGameplayStatics::GetActorOfClass(GetWorld(), ASliceMeat::StaticClass()));
+	sliceMeat->SetActorHiddenInGame(true);
 }
 
 #pragma region FlowStateFunction
@@ -405,7 +426,7 @@ void ASJ_WoogaGameModeBase::CompleteFireCourse()
 	// 홀로그램이 꺼지면 시계로 들어가는 기능
 	nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-	if (nextDelayTime >= 20.0f)
+	if (nextDelayTime >= 17.0f)
 	{
 		// 임무 완료 사운드
 		//UGameplayStatics::PlaySound2D(GetWorld(), uiSound);
@@ -503,7 +524,7 @@ void ASJ_WoogaGameModeBase::HowToCollectActorUI()
 	{
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-		if (nextDelayTime >= 3.0f)
+		if (nextDelayTime >= 2.0f)
 		{
 			// 사과 캐싱하고 아웃라인 켜주기
 			apple = Cast<AApple>(UGameplayStatics::GetActorOfClass(GetWorld(), AApple::StaticClass()));
@@ -533,7 +554,7 @@ void ASJ_WoogaGameModeBase::CollectAndEat()
 
 		bIsUIClose = true;
 
-		if (nextDelayTime >= 3.0f)
+		if (nextDelayTime >= 2.0f)
 		{
 			// 채집 홀로그램 생성
 			hologramActor = GetWorld()->SpawnActor< ASJ_Actor_Hologram>(bpCollectHologram, Param);
@@ -640,7 +661,7 @@ void ASJ_WoogaGameModeBase::GrabHandAx()
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-		if (nextDelayTime >= 3.0f)
+		if (nextDelayTime >= 2.0f)
 		{
 			// 멧돼지 생성
 			boar = GetWorld()->SpawnActor<ASJ_Character_Boar>(bpRunboar, Param);
@@ -675,7 +696,7 @@ void ASJ_WoogaGameModeBase::HitBoar()
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-		if (nextDelayTime >= 3.0f)
+		if (nextDelayTime >= 2.0f)
 		{
 			// 사용된 UI 제거
 			hitBoarUI->Destroy();
@@ -684,10 +705,10 @@ void ASJ_WoogaGameModeBase::HitBoar()
 			makeHandAxUI = GetWorld()->SpawnActor<ASJ_Actor_MakeHandAxUI>(bpMakeHandAxUI, Param);
 
 			// 주먹도끼 제작을 위한 장소 이동
-			goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpMakeHandAxGuideLine, Param);
+			makeHandAxRange = GetWorld()->SpawnActor<ASJ_Actor_MakeRange>(bpMakeHandAxRange, Param);
 
-			// 임무 완료 사운드
-			//UGameplayStatics::PlaySound2D(GetWorld(), uiSound);
+			// 숨겨뒀던 죽은 돼지를 소환
+			slicePig->SetActorHiddenInGame(false);
 
 			nextDelayTime = 0;
 
@@ -697,14 +718,14 @@ void ASJ_WoogaGameModeBase::HitBoar()
 }
 void ASJ_WoogaGameModeBase::MakeHandAx()
 {
-	// if (goToGuideLine->isTrigger == true)
+	if (makeHandAxRange->isPlayerIn == true)
 	{
 		// UI 꺼주기
 		bIsUIClose = true;
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-		if (nextDelayTime >= 3.0f)
+		if (nextDelayTime >= 2.0f)
 		{
 			makeHandAxUI->Destroy();
 
@@ -729,13 +750,10 @@ void ASJ_WoogaGameModeBase::IndirectHit()
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-		if (nextDelayTime >= 3.0f)
+		if (nextDelayTime >= 2.0f)
 		{
 			// 직접떼기 UI 생성 
 			directUI = GetWorld()->SpawnActor<ASJ_Actor_DirectHitUI>(bpDirectHitUI, Param);
-
-			// 임무 완료 사운드
-			//UGameplayStatics::PlaySound2D(GetWorld(), uiSound);
 
 			// 사용 UI 제거
 			indirectUI->Destroy();
@@ -756,16 +774,13 @@ void ASJ_WoogaGameModeBase::DirectHit()
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
 
-		if (nextDelayTime >= 3.0f)
+		if (nextDelayTime >= 2.0f)
 		{
 			// 사용 UI 제거
 			directUI->Destroy();
 
 			// 딜레이변수 초기화
 			nextDelayTime = 0;
-
-			// 임무 완료 사운드
-			//UGameplayStatics::PlaySound2D(GetWorld(), uiSound);
 
 			// 주먹도끼 홀로그램 생성
 			hologramActor = GetWorld()->SpawnActor<ASJ_Actor_Hologram>(bpHandAxHologram, Param);
@@ -785,6 +800,10 @@ void ASJ_WoogaGameModeBase::CompleteHandAx()
 
 		// 돼지 정육 UI 생성
 		cuttingPigUI = GetWorld()->SpawnActor<ASJ_Actor_CuttingPigUI>(bpCuttingPigUI, Param);
+
+		cutting->SetActorHiddenInGame(false);
+		cuttingTwo->SetActorHiddenInGame(false);
+		slicePig->SetActorHiddenInGame(false);
 
 		//딜레이 변수 초기화
 		nextDelayTime = 0;
@@ -826,6 +845,8 @@ void ASJ_WoogaGameModeBase::CuttingPig()
 
 			// 사용 UI 제거
 			cuttingPigUI->Destroy();
+			// 발판 제거
+			makeHandAxRange->Destroy();
 
 			// 딜레이 변수 초기화
 			nextDelayTime = 0;

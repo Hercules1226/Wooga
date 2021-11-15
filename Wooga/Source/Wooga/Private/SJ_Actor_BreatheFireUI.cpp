@@ -28,7 +28,6 @@ ASJ_Actor_BreatheFireUI::ASJ_Actor_BreatheFireUI()
 void ASJ_Actor_BreatheFireUI::BeginPlay()
 {
 	Super::BeginPlay();
-
 	fireStraw = Cast<AFireStraw>(UGameplayStatics::GetActorOfClass(GetWorld(), AFireStraw::StaticClass()));
 
 	FVector tar = fireStraw->GetActorLocation();
@@ -41,7 +40,8 @@ void ASJ_Actor_BreatheFireUI::BeginPlay()
 
 	FRotator r = FRotator(0, -70, 0);
 
-	SetActorRotation(r);
+	SetActorRotation(r);	
+	
 }
 
 // Called every frame
