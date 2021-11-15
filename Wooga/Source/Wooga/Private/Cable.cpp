@@ -57,7 +57,7 @@ void ACable::Tick(float DeltaTime)
 
 void ACable::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	nia = Cast<UNiagaraComponent>(GetDefaultSubobjectByName(TEXT("Spiral_2")));
+	//nia = Cast<UNiagaraComponent>(GetDefaultSubobjectByName(TEXT("Spiral_2")));
 	string = Cast<AString>(OtherActor);
 	sumjjiRock = Cast<ASumjjiRock>(OtherActor);
 
@@ -66,7 +66,7 @@ void ACable::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class A
 	{
 		if (nia)
 		{
-			//nia->SetActive(true);
+			/*UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), SpawnEffect, MeshComp->GetComponentLocation(), MeshComp->GetComponentRotation());*/
 			cableComp->SetHiddenInGame(false);
 		}
 	}
