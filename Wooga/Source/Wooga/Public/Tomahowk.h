@@ -28,6 +28,10 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = Setting)
 		class UStaticMeshComponent* meshComp;
+	UPROPERTY(EditAnywhere, Category = Setting)
+		class UStaticMeshComponent* meshComp1;
+	UPROPERTY(EditAnywhere, Category = Setting)
+		class UStaticMeshComponent* meshComp2;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
 		class UMaterialInstance* medium;
@@ -46,4 +50,10 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = Setting)
 		FVector grabOffset;
+
+	UPROPERTY()
+		float blend;
+
+	UPROPERTY()
+		float disTime;
 };

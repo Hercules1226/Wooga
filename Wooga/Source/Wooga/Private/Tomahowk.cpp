@@ -7,11 +7,17 @@
 // Sets default values
 ATomahowk::ATomahowk()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	meshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh Component"));
 	SetRootComponent(meshComp);
+
+	meshComp1 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh Component1"));
+	meshComp1->SetupAttachment(meshComp);
+	meshComp2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh Component2"));
+	meshComp2->SetupAttachment(meshComp);
+
 
 	medium = CreateDefaultSubobject<UMaterialInstance>(TEXT("Medium"));
 	welldone = CreateDefaultSubobject<UMaterialInstance>(TEXT("Welldone"));
@@ -28,19 +34,30 @@ void ATomahowk::BeginPlay()
 void ATomahowk::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	currentTime += GetWorld()->DeltaTimeSeconds;
 
 	if (bisOverlab == true)
 	{
-	if (currentTime >= 2.f)
-	{
-		meshComp->SetMaterial(0, medium);
-	}
+		currentTime += GetWorld()->DeltaTimeSeconds;
 
-	if (currentTime >= 4.f)
-	{
-		meshComp->SetMaterial(0, welldone);
-	}
+		if (currentTime >= 2.f)
+		{
+			meshComp->SetMaterial(0, medium);
+
+			//disTime += GetWorld()->DeltaTimeSeconds;
+			//blend = FMath::Lerp(0.f, 1.f, disTime * 0.5f);
+
+		//	meshComp1->SetScalarParameterValueOnMaterials(TEXT("Amount"), blend);
+		}
+
+		if (currentTime >= 4.f)
+		{
+			meshComp->SetMaterial(0, welldone);
+
+			/*disTime += GetWorld()->DeltaTimeSeconds;
+			blend = FMath::Lerp(0.f, 1.f, disTime * 0.5f);*/
+
+		//	meshComp1->SetScalarParameterValueOnMaterials(TEXT("Amount"), blend);
+		}
 	}
 }
 
@@ -51,7 +68,7 @@ void ATomahowk::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, clas
 	if (OtherActor == fireStraw)
 	{
 		bisOverlab = true;
-		currentTime = 0;
+
 	}
 }
 

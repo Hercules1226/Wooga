@@ -6,8 +6,8 @@
 #include "SumjjiRock.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SplineComponent.h"
-#include "Niagara/Public/NiagaraComponent.h"
-#include "Niagara/Public/NiagaraFunctionLibrary.h"
+#include "NiagaraComponent.h"
+#include "NiagaraFunctionLibrary.h"
 #include <Kismet/GameplayStatics.h>
 
 // Sets default values
@@ -57,15 +57,17 @@ void ACable::Tick(float DeltaTime)
 
 void ACable::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	//nia = Cast<UNiagaraComponent>(GetDefaultSubobjectByName(TEXT("Spiral_2")));
+	nia = Cast<UNiagaraComponent>(GetDefaultSubobjectByName(TEXT("Niagara")));
 	string = Cast<AString>(OtherActor);
 	sumjjiRock = Cast<ASumjjiRock>(OtherActor);
 
 
 	if (OtherActor == string)
 	{
-		
+	
+		//nia->SetHiddenInGame(false);
 			//UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), SpawnEffect, cableComp->GetComponentLocation(), cableComp->GetComponentRotation());
+			string->Destroy();
 			cableComp->SetHiddenInGame(false);
 		
 	}
