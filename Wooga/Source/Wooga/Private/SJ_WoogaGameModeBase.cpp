@@ -378,7 +378,7 @@ void ASJ_WoogaGameModeBase::Firing()
 		bIsUIClose = true;
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
-		if (nextDelayTime >= 3.0f)
+		if (nextDelayTime >= 2.0f)
 		{
 			// 홀로그램 생성
 			hologramActor = GetWorld()->SpawnActor< ASJ_Actor_Hologram>(fireDisCoveryHologram, Param);

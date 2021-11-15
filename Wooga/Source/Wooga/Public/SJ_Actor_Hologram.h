@@ -21,7 +21,7 @@ public:
 	UPROPERTY(EditAnywhere, Category = Hologram)
 		class UStaticMeshComponent* plane;
 
-	UPROPERTY(EditAnywhere, Category = Hologram)
+	UPROPERTY(EditAnywhere, Category = Hologram, BlueprintReadWrite)
 		class UWidgetComponent* hologram;
 
 protected:

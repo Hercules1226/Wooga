@@ -29,8 +29,8 @@ ASJ_Actor_Hologram::ASJ_Actor_Hologram()
 void ASJ_Actor_Hologram::BeginPlay()
 {
 	Super::BeginPlay();
-
-	gameModeBase = Cast<ASJ_WoogaGameModeBase>(GetWorld()->GetAuthGameMode());
+	/*
+	* gameModeBase = Cast<ASJ_WoogaGameModeBase>(GetWorld()->GetAuthGameMode());
 	// 불의 발견 홀로그램
 	if (gameModeBase->flowState == EFlowState::Firing || gameModeBase->flowState == EFlowState::CompleteFireDiscovery)
 	{
@@ -65,6 +65,8 @@ void ASJ_Actor_Hologram::BeginPlay()
 
 		SetActorRotation(r3);
 	}
+	*/
+	
 
 }
 

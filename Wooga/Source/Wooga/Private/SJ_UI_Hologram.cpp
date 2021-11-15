@@ -10,7 +10,7 @@ void USJ_UI_Hologram::NativeConstruct()
 
 	gameModeBase = Cast<ASJ_WoogaGameModeBase>(GetWorld()->GetAuthGameMode());
 
-	PlayAnimation(OpenUI);
+	// PlayAnimation(OpenUI);
 }
 
 void USJ_UI_Hologram::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
@@ -25,6 +25,8 @@ void USJ_UI_Hologram::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 		if (gameModeBase->flowState == EFlowState::CompleteHandAx)
 		{
 			PlayAnimation(CloseUI);
+
+			nextDelayTime = 0;
 		}
 	}
 	
