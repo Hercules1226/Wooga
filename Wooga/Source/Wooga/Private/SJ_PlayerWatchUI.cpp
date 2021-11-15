@@ -32,6 +32,11 @@ void USJ_PlayerWatchUI::NativeTick(const FGeometry& MyGeometry, float InDeltaTim
 		player->isPlayAnim = false;
 		PlayAnimation(CollectClear);
 	}
+	else if (player->knowledgePoint == 3 && player->isPlayAnim == true)
+	{
+		player->isPlayAnim = false;
+		PlayAnimation(HandAxClear);
+	}
 
 	if (gameMode->flowState == EFlowState::GoToCollectCourse)
 	{

@@ -50,10 +50,10 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	Super::BeginPlay();
 
 	// 맨 처음 불의 발견 교육으로 시작
-	//SetState(EFlowState::InGame);
+	SetState(EFlowState::InGame);
 
 	// 테스트용 스테이트
-	SetState(EFlowState::CompleteCollect);
+	//SetState(EFlowState::CompleteCollect);
 
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
 
@@ -143,6 +143,8 @@ void ASJ_WoogaGameModeBase::Tick(float DeltaSeconds)
 	case EFlowState::CuttingPig:
 		CuttingPig();
 		break;
+	case EFlowState::TestFunc:
+		break;
 	case EFlowState::GoToFireUse:
 		GoToFireUse();
 		break;
@@ -160,12 +162,22 @@ void ASJ_WoogaGameModeBase::Tick(float DeltaSeconds)
 	// UI 로직
 	if (bIsUIClose == true)
 	{
+		isDelay = true;
+	}
+
+	if (isDelay == true)
+	{
 		uiChange += DeltaSeconds;
 
 		if (uiChange >= 0.1f)
 		{
 			bIsUIClose = false;
+		}
+
+		if (uiChange >= 2.0f)
+		{
 			uiChange = 0;
+			isDelay = false;
 		}
 	}
 }
@@ -317,9 +329,6 @@ void ASJ_WoogaGameModeBase::HowToFireUI()
 			// 사용된 UI 제거
 			howToFire->Destroy();
 
-			// 임무 완료 사운드
-			UGameplayStatics::PlaySound2D(GetWorld(), uiSound);
-
 			nextDelayTime = 0;
 
 			SetState(EFlowState::HowToFireUINext);
@@ -342,9 +351,6 @@ void ASJ_WoogaGameModeBase::HowToFireUINext()
 
 		if (nextDelayTime >= 2.0f)
 		{
-			// 임무 완료 사운드
-			UGameplayStatics::PlaySound2D(GetWorld(), uiSound);
-
 			breatheFireUI = GetWorld()->SpawnActor<ASJ_Actor_BreatheFireUI>(bpBreatheFireUI, Param);
 
 			// 사용된 UI 제거
@@ -368,17 +374,14 @@ void ASJ_WoogaGameModeBase::Firing()
 		firePosition->outLine->SetHiddenInGame(true);
 		fireStraw->outLine->SetHiddenInGame(true);
 
+		// UI 꺼주기
+		bIsUIClose = true;
+
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 		if (nextDelayTime >= 3.0f)
 		{
-			// UI 꺼주기
-			bIsUIClose = true;
-
 			// 홀로그램 생성
-			hologram = GetWorld()->SpawnActor<ASJ_Hologram>(fireDisCoveryHologram, Param);
-
-			// UI Sound
-			UGameplayStatics::PlaySound2D(GetWorld(), uiSound);
+			hologramActor = GetWorld()->SpawnActor< ASJ_Actor_Hologram>(fireDisCoveryHologram, Param);
 
 			// 딜레이 변수 초기화
 			nextDelayTime = 0;
@@ -396,6 +399,7 @@ void ASJ_WoogaGameModeBase::Firing()
 		}
 	}
 }
+
 void ASJ_WoogaGameModeBase::CompleteFireCourse()
 {
 	// 홀로그램이 꺼지면 시계로 들어가는 기능
@@ -404,16 +408,13 @@ void ASJ_WoogaGameModeBase::CompleteFireCourse()
 	if (nextDelayTime >= 20.0f)
 	{
 		// 임무 완료 사운드
-		UGameplayStatics::PlaySound2D(GetWorld(), uiSound);
+		//UGameplayStatics::PlaySound2D(GetWorld(), uiSound);
 
 		// 딜레이 변수 초기화
 		nextDelayTime = 0;
 
 		// 지식 안내 UI 생성
 		watchInformUI = GetWorld()->SpawnActor<ASJ_Actor_WatchInformUI>(bpWatchInformUI, Param);
-
-		// 사용된 홀로그램 제거
-		hologram->Destroy();
 
 		SetState(EFlowState::InformWatch);
 	}
@@ -485,9 +486,6 @@ void ASJ_WoogaGameModeBase::CollectTitle()
 		// 가이드라인 없애기
 		goToGuideLine->Destroy();
 
-		// 임무 완료 사운드
-		UGameplayStatics::PlaySound2D(GetWorld(), uiSound);
-
 		// 딜레이변수 초기화
 		nextDelayTime = 0;
 
@@ -511,9 +509,6 @@ void ASJ_WoogaGameModeBase::HowToCollectActorUI()
 			apple = Cast<AApple>(UGameplayStatics::GetActorOfClass(GetWorld(), AApple::StaticClass()));
 
 			apple->outLine->SetVisibility(true);
-
-			// 임무 완료 사운드
-			UGameplayStatics::PlaySound2D(GetWorld(), uiSound);
 
 			// 사과 채집과 먹기 UI
 			eatAppleUI = GetWorld()->SpawnActor<ASJ_Actor_EatAppleUI>(bpEatAppleUI, Param);
@@ -541,10 +536,7 @@ void ASJ_WoogaGameModeBase::CollectAndEat()
 		if (nextDelayTime >= 3.0f)
 		{
 			// 채집 홀로그램 생성
-			hologram = GetWorld()->SpawnActor<ASJ_Hologram>(bpCollectHologram, Param);
-
-			// 임무 완료 사운드
-			UGameplayStatics::PlaySound2D(GetWorld(), uiSound);
+			hologramActor = GetWorld()->SpawnActor< ASJ_Actor_Hologram>(bpCollectHologram, Param);
 
 			// 사용된 UI 삭제
 			eatAppleUI->Destroy();
@@ -695,7 +687,7 @@ void ASJ_WoogaGameModeBase::HitBoar()
 			goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpMakeHandAxGuideLine, Param);
 
 			// 임무 완료 사운드
-			UGameplayStatics::PlaySound2D(GetWorld(), uiSound);
+			//UGameplayStatics::PlaySound2D(GetWorld(), uiSound);
 
 			nextDelayTime = 0;
 
@@ -720,7 +712,7 @@ void ASJ_WoogaGameModeBase::MakeHandAx()
 			indirectUI = GetWorld()->SpawnActor<ASJ_Actor_IndirectHitUI>(bpIndirectUI, Param);
 
 			// 임무 완료 사운드
-			UGameplayStatics::PlaySound2D(GetWorld(), uiSound);
+			//UGameplayStatics::PlaySound2D(GetWorld(), uiSound);
 
 			nextDelayTime = 0;
 
@@ -743,7 +735,7 @@ void ASJ_WoogaGameModeBase::IndirectHit()
 			directUI = GetWorld()->SpawnActor<ASJ_Actor_DirectHitUI>(bpDirectHitUI, Param);
 
 			// 임무 완료 사운드
-			UGameplayStatics::PlaySound2D(GetWorld(), uiSound);
+			//UGameplayStatics::PlaySound2D(GetWorld(), uiSound);
 
 			// 사용 UI 제거
 			indirectUI->Destroy();
@@ -773,7 +765,7 @@ void ASJ_WoogaGameModeBase::DirectHit()
 			nextDelayTime = 0;
 
 			// 임무 완료 사운드
-			UGameplayStatics::PlaySound2D(GetWorld(), uiSound);
+			//UGameplayStatics::PlaySound2D(GetWorld(), uiSound);
 
 			// 주먹도끼 홀로그램 생성
 			hologramActor = GetWorld()->SpawnActor<ASJ_Actor_Hologram>(bpHandAxHologram, Param);
@@ -788,8 +780,6 @@ void ASJ_WoogaGameModeBase::CompleteHandAx()
 
 	if (nextDelayTime >= 20.0f)
 	{
-		// 홀로그램 제거
-		hologramActor->Destroy();
 		// 간이 가이드라인 제거
 		goToGuideLine->Destroy();
 
@@ -842,6 +832,33 @@ void ASJ_WoogaGameModeBase::CuttingPig()
 
 			SetState(EFlowState::GoToFireUse);
 		}
+	}
+}
+void ASJ_WoogaGameModeBase::TestFunc()
+{
+	nextDelayTime += GetWorld()->DeltaTimeSeconds;
+
+	if (nextDelayTime >= 3.0f)
+	{
+		// 가이드라인 생성
+		goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpFIreUseGuideLine, Param);
+
+		// 고기 들고가기 UI생성
+		pickUpMeatUI = GetWorld()->SpawnActor<ASJ_Actor_PickUpMeatUI>(bpPickUpMeatUI, Param);
+
+		// 도착 했을때 장작이 보이게 장작생성
+		fireStraw = GetWorld()->SpawnActor<AFireStraw>(bpFireStraw, Param);
+
+		// 장작에 숨만 불어 넣으면 불이 켜지도록 하게 하기 위한 변수 세팅
+		fireStraw->bisReadyFire = true;
+		fireStraw->bisOverlab = false;
+		fireStraw->bisSmog = false;
+		fireStraw->isClear = false;
+
+		// 딜레이 변수 초기화
+		nextDelayTime = 0;
+
+		SetState(EFlowState::GoToFireUse);
 	}
 }
 void ASJ_WoogaGameModeBase::GoToFireUse()

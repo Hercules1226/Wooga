@@ -11,7 +11,7 @@
 // Sets default values
 ASJ_Actor_TitleUI::ASJ_Actor_TitleUI()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	rootComp = CreateDefaultSubobject<USceneComponent>(TEXT("Root Comp"));
@@ -28,7 +28,7 @@ ASJ_Actor_TitleUI::ASJ_Actor_TitleUI()
 void ASJ_Actor_TitleUI::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
 
 	gameMode = Cast<ASJ_WoogaGameModeBase>(GetWorld()->GetAuthGameMode());

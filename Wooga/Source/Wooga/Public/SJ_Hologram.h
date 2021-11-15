@@ -10,8 +10,8 @@ UCLASS()
 class WOOGA_API ASJ_Hologram : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	ASJ_Hologram();
 
@@ -25,7 +25,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -42,21 +42,22 @@ public:
 
 	float createTime;
 	float startParam;
-	
+
 	float playTime;
 	UPROPERTY(EditAnywhere, Category = Time)
-	float playChangeTime = 12.0f;
+		float playChangeTime = 12.0f;
 
 	float destroyTime;
 	float destroyParam;
 
 	UPROPERTY(EditAnywhere, Category = "FX")
-	class UNiagaraSystem* destroyFX;
+		class UNiagaraSystem* destroyFX;
 
 	UPROPERTY(EditAnywhere, Category = Point)
-	TSubclassOf<class AFireEvent> knowledgePoint;
-
+		TSubclassOf<class AFireEvent> knowledgePoint;
 
 	UPROPERTY(EditAnywhere, Category = Sound)
 		class USoundBase* FDHologramSound;
+
+
 };

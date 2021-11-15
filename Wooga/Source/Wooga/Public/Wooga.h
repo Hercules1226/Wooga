@@ -36,6 +36,7 @@ enum class EFlowState : uint8
 	CompleteHandAx,
 	// 불의 활용
 	CuttingPig,
+	TestFunc,
 	GoToFireUse,
 	FireUseTitle,
 	FiringTwo,
