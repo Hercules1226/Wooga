@@ -88,7 +88,7 @@ void ACutting2::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, clas
 	{
 		if (player->grabComp->bisGrabFistAxeR)
 		{
-			if (OtherActor == fA)
+			if (OtherActor == fA || OverlappedComp == handle)
 			{
 				bisOverlabR = true;
 

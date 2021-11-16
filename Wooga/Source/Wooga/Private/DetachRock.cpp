@@ -2,6 +2,7 @@
 
 
 #include "DetachRock.h"
+#include "HalfRock.h"
 #include "Components/StaticMeshComponent.h"
 
 // Sets default values
@@ -26,5 +27,14 @@ void ADetachRock::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void ADetachRock::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	halfRock = Cast<AHalfRock>(OtherActor);
+	if (OtherActor == halfRock)
+	{
+		Destroy();
+	}
 }
 
