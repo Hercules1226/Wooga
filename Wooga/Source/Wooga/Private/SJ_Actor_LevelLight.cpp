@@ -87,7 +87,7 @@ void ASJ_Actor_LevelLight::Day()
 	{
 		isDay = false;
 		changeTIme = 0;
-		skySphere->SetHiddenInGame(true);
+		skySphere->SetVisibility(false);
 
 		SetState(ELightState::Stay);
 	}
@@ -107,7 +107,7 @@ void ASJ_Actor_LevelLight::Night()
 	{
 		isDay = false;
 		changeTIme = 0;
-		skySphere->SetHiddenInGame(false);
+		skySphere->SetVisibility(true);
 
 		SetState(ELightState::Stay);
 	}

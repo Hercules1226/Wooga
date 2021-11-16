@@ -30,7 +30,7 @@ void ASJ_Actor_WatchInformUI::BeginPlay()
 
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
 	
-	FVector p1 = FVector(10850, 11780, 1280);
+	FVector p1 = FVector(10850, 11859, 1280);
 
 	SetActorLocation(p1);
 

@@ -43,6 +43,7 @@
 #include "Cutting.h"
 #include "Cutting2.h"
 #include "SJ_Actor_MakeRange.h"
+#include "SJ_Actor_LevelLight.h"
 
 ASJ_WoogaGameModeBase::ASJ_WoogaGameModeBase()
 {
@@ -80,6 +81,9 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	// 자를 고기
 	sliceMeat = Cast<ASliceMeat>(UGameplayStatics::GetActorOfClass(GetWorld(), ASliceMeat::StaticClass()));
 	sliceMeat->SetActorHiddenInGame(true);
+
+	// 라이트
+	levelLight = Cast<ASJ_Actor_LevelLight>(UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_Actor_LevelLight::StaticClass()));
 }
 
 #pragma region FlowStateFunction
@@ -459,6 +463,9 @@ void ASJ_WoogaGameModeBase::InformWatch()
 		// 가이드라인 생성
 		goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpCollectGuideLine, Param);
 
+		// 라이팅 낮 상태로 변경
+		levelLight->isDay = true;
+
 		watchInformUI->Destroy();
 
 		// 딜레이 변수 초기화
@@ -471,11 +478,6 @@ void ASJ_WoogaGameModeBase::InformWatch()
 
 void ASJ_WoogaGameModeBase::GoToCollectState()
 {
-	// InformUIPannel 에서 관리
-	// UDirectionalLightComponent* getLight = Cast<UDirectionalLightComponent>(directLight->GetComponentByClass(UDirectionalLightComponent::StaticClass()));
-
-	// getLight->SetLightColor(FVector(1.0f, 0.686685f, 0.181164f));
-
 	if (goToGuideLine->isTrigger == true)
 	{
 		// 장작을 다시 사용해 주기 위한 세팅
@@ -572,7 +574,7 @@ void ASJ_WoogaGameModeBase::CompleteCollect()
 	// 홀로그램 재생이 끝나면 플레이어 워치로 들어가고 
 	nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-	if (nextDelayTime >= 3.0f)
+	if (nextDelayTime >= 15.0f)
 	{
 		// 아웃라인 생성
 		goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpHandAxGuideLine, Param);
@@ -826,7 +828,7 @@ void ASJ_WoogaGameModeBase::CuttingPig()
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-		if (nextDelayTime >= 3.0f)
+		if (nextDelayTime >= 2.0f)
 		{
 			// 가이드라인 생성
 			goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpFIreUseGuideLine, Param);

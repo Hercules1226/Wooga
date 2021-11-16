@@ -58,6 +58,9 @@ public:
 	UPROPERTY()
 	class ASliceMeat* sliceMeat;
 
+	// 라이트 설정
+	class ASJ_Actor_LevelLight* levelLight;
+
 	// 게임 시작
 	void InGame();
 	void ManipulateUI();
@@ -226,10 +229,6 @@ public:
 	UPROPERTY(EditAnywhere, Category = UI)
 		TSubclassOf<class ASJ_Actor_HitBoarUI> bpHitBoarUI;
 
-	// 돼지 죽는 사운드
-	UPROPERTY(EditAnywhere, Category = Sound)
-	class USoundBase* pigDieSound;
-
 	// 주먹도끼 만들기 UI
 	class ASJ_Actor_MakeHandAxUI* makeHandAxUI;
 	UPROPERTY(EditAnywhere, Category = UI)
@@ -238,7 +237,7 @@ public:
 	// 주먹도끼를 만들기 위한 가이드라인
 	UPROPERTY()
 	class ASJ_Actor_MakeRange* makeHandAxRange;
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, Category = Range)
 	TSubclassOf<class ASJ_Actor_MakeRange> bpMakeHandAxRange;
 	UPROPERTY(EditAnywhere, Category = GuideLine)
 		TSubclassOf<class ASJ_Actor_GoToGuideLine> bpMakeHandAxGuideLine;

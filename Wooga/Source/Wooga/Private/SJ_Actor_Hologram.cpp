@@ -51,6 +51,10 @@ void ASJ_Actor_Hologram::BeginPlay()
 
 		SetActorLocation(p2);
 
+		FRotator r2 = FRotator(0, 50, 0);
+
+		SetActorRotation(r2);
+
 		playChangeTime = 10.0f;
 	}
 

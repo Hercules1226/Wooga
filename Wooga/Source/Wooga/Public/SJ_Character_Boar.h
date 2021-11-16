@@ -54,7 +54,7 @@ public:
 	float slowTime;
 	// 플레이어와 돼지간의 거리 변수
 	UPROPERTY()
-	float distance = 350.0f;
+	float distance = 200.0f;
 
 	// 돼지 가격 변수
 	UPROPERTY()
@@ -80,7 +80,9 @@ public:
 	void HitBoarBody(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	FActorSpawnParameters Param;
-	UPROPERTY(EditAnywhere, Category = SlicePig)
-	TSubclassOf<class ASlicePig> bpSlicePig;
+
+	// 돼지 죽는 소리
+	UPROPERTY(EditAnywhere, Category = Sound)
+	class USoundBase* pigDieSound;
 
 };
