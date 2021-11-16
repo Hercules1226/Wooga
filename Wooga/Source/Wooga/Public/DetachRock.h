@@ -26,4 +26,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = Setting)
 		class UStaticMeshComponent* meshComp;
 
+	UFUNCTION()
+		void OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	UPROPERTY()
+		class AHalfRock* halfRock;
 };
