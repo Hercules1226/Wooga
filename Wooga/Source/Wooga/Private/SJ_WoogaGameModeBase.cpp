@@ -798,14 +798,14 @@ void ASJ_WoogaGameModeBase::CompleteHandAx()
 	if (nextDelayTime >= 20.0f)
 	{
 		// 간이 가이드라인 제거
-		goToGuideLine->Destroy();
+		//goToGuideLine->Destroy();
 
 		// 돼지 정육 UI 생성
 		cuttingPigUI = GetWorld()->SpawnActor<ASJ_Actor_CuttingPigUI>(bpCuttingPigUI, Param);
 
 		cutting->SetActorHiddenInGame(false);
 		cuttingTwo->SetActorHiddenInGame(false);
-		slicePig->SetActorHiddenInGame(false);
+		sliceMeat->SetActorHiddenInGame(false);
 
 		//딜레이 변수 초기화
 		nextDelayTime = 0;

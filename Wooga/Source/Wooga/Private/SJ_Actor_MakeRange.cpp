@@ -29,13 +29,13 @@ void ASJ_Actor_MakeRange::BeginPlay()
 
 	gameMode = Cast<ASJ_WoogaGameModeBase>(GetWorld()->GetAuthGameMode());
 
-	if (gameMode->flowState == EFlowState::HitBoar)
+	 if (gameMode->flowState == EFlowState::HitBoar)
 	{
-		FVector p = FVector(7500, 8284, 1250);
+		FVector p = FVector(7482, 8331, 1200);
 
 		SetActorLocation(p);
 
-		FRotator r = FRotator(0, 140, 0);
+		FRotator r = FRotator(0, 130, 0);
 
 		SetActorRotation(r);
 	}
@@ -48,11 +48,11 @@ void ASJ_Actor_MakeRange::Tick(float DeltaTime)
 
 	if (gameMode->flowState == EFlowState::CuttingPig)
 	{
-		FVector p1 = FVector(7358, 8479, 1250);
+		FVector p1 = FVector(7401, 8470, 1200);
 
 		SetActorLocation(p1);
 
-		FRotator r1 = FRotator(0, -20, 0);
+		FRotator r1 = FRotator(0, 330, 0);
 
 		SetActorRotation(r1);
 	}

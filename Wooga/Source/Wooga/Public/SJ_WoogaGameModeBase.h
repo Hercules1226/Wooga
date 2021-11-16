@@ -239,8 +239,6 @@ public:
 	class ASJ_Actor_MakeRange* makeHandAxRange;
 	UPROPERTY(EditAnywhere, Category = Range)
 	TSubclassOf<class ASJ_Actor_MakeRange> bpMakeHandAxRange;
-	UPROPERTY(EditAnywhere, Category = GuideLine)
-		TSubclassOf<class ASJ_Actor_GoToGuideLine> bpMakeHandAxGuideLine;
 
 	// °£Á¢¶¼±â UI
 	class ASJ_Actor_IndirectHitUI* indirectUI;
