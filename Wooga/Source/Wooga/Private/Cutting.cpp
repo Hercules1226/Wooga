@@ -50,7 +50,6 @@ void ACutting::BeginPlay()
 
 	handleX = handle->GetRelativeLocation().X;
 	handleZ = handle->GetRelativeLocation().Z;
-
 	/*handle->SetMaterial(0, offMaterial);*/
 	handle->SetMaterial(1, offMaterial);
 }
@@ -115,8 +114,10 @@ void ACutting::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 			//?!
 			fA->SetActorHiddenInGame(false);
 			bisfinish = true;
+			//UGameplayStatics::PlaySound2D(GetWorld(), cuttingSound);
 			//fA->Destroy();
 			SetActorHiddenInGame(true);
+			//Destroy();
 		}
 	}
 
@@ -128,8 +129,11 @@ void ACutting::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 			player->leftHand->SetHiddenInGame(false);
 			fA->SetActorHiddenInGame(false);
 			bisfinish = true;
+			//UGameplayStatics::PlaySound2D(GetWorld(), cuttingSound);
 			//fA->Destroy();
 			SetActorHiddenInGame(true);
+			bisSound = true;
+			//Destroy();
 		}
 	}
 

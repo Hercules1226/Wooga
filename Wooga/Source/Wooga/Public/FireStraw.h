@@ -79,7 +79,7 @@ public:
 	UPROPERTY()
 		FRotator rotation;
 
-	UPROPERTY(EditAnywhere, Category = "Sound")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
 		class UAudioComponent* fireLoopSound;
 
 	UPROPERTY()

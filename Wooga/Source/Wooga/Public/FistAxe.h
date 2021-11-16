@@ -176,4 +176,31 @@ public:
 
 	UPROPERTY()
 		bool bisD15 = false;
+
+	// sound
+	UPROPERTY()
+		const UObject* WorldContextObject;
+
+	UPROPERTY(EditAnywhere, Category = "Sound")
+		USoundBase* SoundBase;
+
+	UPROPERTY()
+		FVector location;
+	UPROPERTY()
+		FRotator rotation;
+
+	UPROPERTY()
+		float VolumeMultiplier = 1.f;
+	UPROPERTY()
+		float PitchMultiplier = 1.f;
+	UPROPERTY()
+		float StartTime = 0.f;
+	UPROPERTY()
+		class USoundAttenuation* AttenuationSettings;
+	UPROPERTY()
+		USoundConcurrency* ConcurrencySettings;
+	UPROPERTY()
+		bool bAutoDestroy = false;
+	UPROPERTY()
+		int32 overlabCount = 0;
 };

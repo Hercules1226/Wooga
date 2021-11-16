@@ -150,6 +150,10 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 				player->leftHand->SetRelativeLocation(myPos);
 				rock2->SetMaterial(0, onMaterial);
 				bisOverlab = true;
+				location = this->GetActorLocation();
+				rotation = this->GetActorRotation();
+
+				UAudioComponent* MySound = UGameplayStatics::SpawnSoundAtLocation(GetWorld(), SoundBase, location, rotation, VolumeMultiplier, PitchMultiplier, StartTime, AttenuationSettings, ConcurrencySettings, bAutoDestroy);
 
 				childRock = Cast<AHalfRock>(halfRock->GetChildActor());
 				childRock->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
@@ -162,6 +166,7 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 				halfRockComp = Cast<UStaticMeshComponent>(childRock->GetDefaultSubobjectByName(TEXT("halfRock")));
 				halfRockComp->SetSimulatePhysics(true);
 				halfRockComp->SetEnableGravity(true);
+
 				currentTime = 0.f;
 			}
 
@@ -175,6 +180,11 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 					myPos = knockbackPos;
 					player->leftHand->SetRelativeLocation(myPos);
 					bisOverlab = true;
+
+					location = this->GetActorLocation();
+					rotation = this->GetActorRotation();
+
+					UAudioComponent* MySound = UGameplayStatics::SpawnSoundAtLocation(GetWorld(), SoundBase, location, rotation, VolumeMultiplier, PitchMultiplier, StartTime, AttenuationSettings, ConcurrencySettings, bAutoDestroy);
 
 					rock2->SetSimulatePhysics(true);
 					rock2->SetEnableGravity(true);
@@ -202,6 +212,11 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 					player->leftHand->SetRelativeLocation(myPos);
 					bisOverlab = true;
 
+					location = this->GetActorLocation();
+					rotation = this->GetActorRotation();
+
+					UAudioComponent* MySound = UGameplayStatics::SpawnSoundAtLocation(GetWorld(), SoundBase, location, rotation, VolumeMultiplier, PitchMultiplier, StartTime, AttenuationSettings, ConcurrencySettings, bAutoDestroy);
+
 					rock3->SetSimulatePhysics(true);
 					rock3->SetEnableGravity(true);
 
@@ -227,6 +242,11 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 					myPos = knockbackPos;
 					player->leftHand->SetRelativeLocation(myPos);
 					bisOverlab = true;
+
+					location = this->GetActorLocation();
+					rotation = this->GetActorRotation();
+
+					UAudioComponent* MySound = UGameplayStatics::SpawnSoundAtLocation(GetWorld(), SoundBase, location, rotation, VolumeMultiplier, PitchMultiplier, StartTime, AttenuationSettings, ConcurrencySettings, bAutoDestroy);
 
 					rock4->SetSimulatePhysics(true);
 					rock4->SetEnableGravity(true);
@@ -254,6 +274,11 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 					player->leftHand->SetRelativeLocation(myPos);
 					bisOverlab = true;
 
+					location = this->GetActorLocation();
+					rotation = this->GetActorRotation();
+
+					UAudioComponent* MySound = UGameplayStatics::SpawnSoundAtLocation(GetWorld(), SoundBase, location, rotation, VolumeMultiplier, PitchMultiplier, StartTime, AttenuationSettings, ConcurrencySettings, bAutoDestroy);
+
 					rock5->SetSimulatePhysics(true);
 					rock5->SetEnableGravity(true);
 
@@ -279,6 +304,11 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 					myPos = knockbackPos;
 					player->leftHand->SetRelativeLocation(myPos);
 					bisOverlab = true;
+
+					location = this->GetActorLocation();
+					rotation = this->GetActorRotation();
+
+					UAudioComponent* MySound = UGameplayStatics::SpawnSoundAtLocation(GetWorld(), SoundBase, location, rotation, VolumeMultiplier, PitchMultiplier, StartTime, AttenuationSettings, ConcurrencySettings, bAutoDestroy);
 
 					rock6->SetSimulatePhysics(true);
 					rock6->SetEnableGravity(true);
@@ -306,6 +336,11 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 					player->leftHand->SetRelativeLocation(myPos);
 					bisOverlab = true;
 
+					location = this->GetActorLocation();
+					rotation = this->GetActorRotation();
+
+					UAudioComponent* MySound = UGameplayStatics::SpawnSoundAtLocation(GetWorld(), SoundBase, location, rotation, VolumeMultiplier, PitchMultiplier, StartTime, AttenuationSettings, ConcurrencySettings, bAutoDestroy);
+
 					rock7->SetSimulatePhysics(true);
 					rock7->SetEnableGravity(true);
 
@@ -331,6 +366,11 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 					myPos = knockbackPos;
 					player->leftHand->SetRelativeLocation(myPos);
 					bisOverlab = true;
+
+					location = this->GetActorLocation();
+					rotation = this->GetActorRotation();
+
+					UAudioComponent* MySound = UGameplayStatics::SpawnSoundAtLocation(GetWorld(), SoundBase, location, rotation, VolumeMultiplier, PitchMultiplier, StartTime, AttenuationSettings, ConcurrencySettings, bAutoDestroy);
 
 					rock8->SetSimulatePhysics(true);
 					rock8->SetEnableGravity(true);
@@ -358,6 +398,11 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 					player->leftHand->SetRelativeLocation(myPos);
 					bisOverlab = true;
 
+					location = this->GetActorLocation();
+					rotation = this->GetActorRotation();
+
+					UAudioComponent* MySound = UGameplayStatics::SpawnSoundAtLocation(GetWorld(), SoundBase, location, rotation, VolumeMultiplier, PitchMultiplier, StartTime, AttenuationSettings, ConcurrencySettings, bAutoDestroy);
+
 					rock9->SetSimulatePhysics(true);
 					rock9->SetEnableGravity(true);
 
@@ -382,6 +427,11 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 					myPos = knockbackPos;
 					player->leftHand->SetRelativeLocation(myPos);
 					bisOverlab = true;
+
+					location = this->GetActorLocation();
+					rotation = this->GetActorRotation();
+
+					UAudioComponent* MySound = UGameplayStatics::SpawnSoundAtLocation(GetWorld(), SoundBase, location, rotation, VolumeMultiplier, PitchMultiplier, StartTime, AttenuationSettings, ConcurrencySettings, bAutoDestroy);
 
 					rock10->SetSimulatePhysics(true);
 					rock10->SetEnableGravity(true);
@@ -408,6 +458,11 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 					player->leftHand->SetRelativeLocation(myPos);
 					bisOverlab = true;
 
+					location = this->GetActorLocation();
+					rotation = this->GetActorRotation();
+
+					UAudioComponent* MySound = UGameplayStatics::SpawnSoundAtLocation(GetWorld(), SoundBase, location, rotation, VolumeMultiplier, PitchMultiplier, StartTime, AttenuationSettings, ConcurrencySettings, bAutoDestroy);
+
 					rock11->SetSimulatePhysics(true);
 					rock11->SetEnableGravity(true);
 
@@ -432,6 +487,11 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 					myPos = knockbackPos;
 					player->leftHand->SetRelativeLocation(myPos);
 					bisOverlab = true;
+
+					location = this->GetActorLocation();
+					rotation = this->GetActorRotation();
+
+					UAudioComponent* MySound = UGameplayStatics::SpawnSoundAtLocation(GetWorld(), SoundBase, location, rotation, VolumeMultiplier, PitchMultiplier, StartTime, AttenuationSettings, ConcurrencySettings, bAutoDestroy);
 
 					rock12->SetSimulatePhysics(true);
 					rock12->SetEnableGravity(true);
@@ -458,6 +518,11 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 					player->leftHand->SetRelativeLocation(myPos);
 					bisOverlab = true;
 
+					location = this->GetActorLocation();
+					rotation = this->GetActorRotation();
+
+					UAudioComponent* MySound = UGameplayStatics::SpawnSoundAtLocation(GetWorld(), SoundBase, location, rotation, VolumeMultiplier, PitchMultiplier, StartTime, AttenuationSettings, ConcurrencySettings, bAutoDestroy);
+
 					rock13->SetSimulatePhysics(true);
 					rock13->SetEnableGravity(true);
 
@@ -483,6 +548,11 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 					player->leftHand->SetRelativeLocation(myPos);
 					bisOverlab = true;
 
+					location = this->GetActorLocation();
+					rotation = this->GetActorRotation();
+
+					UAudioComponent* MySound = UGameplayStatics::SpawnSoundAtLocation(GetWorld(), SoundBase, location, rotation, VolumeMultiplier, PitchMultiplier, StartTime, AttenuationSettings, ConcurrencySettings, bAutoDestroy);
+
 					rock14->SetSimulatePhysics(true);
 					rock14->SetEnableGravity(true);
 
@@ -507,6 +577,11 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 					myPos = knockbackPos;
 					player->leftHand->SetRelativeLocation(myPos);
 					bisOverlab = true;
+
+					location = this->GetActorLocation();
+					rotation = this->GetActorRotation();
+
+					UAudioComponent* MySound = UGameplayStatics::SpawnSoundAtLocation(GetWorld(), SoundBase, location, rotation, VolumeMultiplier, PitchMultiplier, StartTime, AttenuationSettings, ConcurrencySettings, bAutoDestroy);
 
 					rock15->SetSimulatePhysics(true);
 					rock15->SetEnableGravity(true);

@@ -41,5 +41,16 @@ void ASJ_Actor_Mammoth::Tick(float DeltaTime)
 	FVector p = me + dir * DeltaTime * speed;
 
 	SetActorLocation(p);
+
+	playTime += DeltaTime;
+
+	if (playTime >= 1.0f)
+	{
+		GetWorld()->GetFirstPlayerController()->PlayerCameraManager->StartCameraShake(mammothCameraShake);
+		UGameplayStatics::PlaySound2D(GetWorld(), footStepSound);
+
+		playTime = 0;
+	}
 }
+
 

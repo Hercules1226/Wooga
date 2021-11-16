@@ -5,7 +5,6 @@
 #include "VR_Player.h"
 #include "Apple.h"
 #include "Stick.h"
-#include "Stem.h"
 #include "FireRock.h"
 #include "FireRock2.h"
 #include "FirePosition.h"
@@ -38,8 +37,6 @@ void UGrabActorComponent::BeginPlay()
 	// Player Casting
 	player = Cast<AVR_Player>(GetOwner());
 
-	stemR = Cast<AStem>(UGameplayStatics::GetActorOfClass(GetWorld(), AStem::StaticClass()));
-	stemL = Cast<AStem>(UGameplayStatics::GetActorOfClass(GetWorld(), AStem::StaticClass()));
 	fistAxe = Cast<AFistAxe>(UGameplayStatics::GetActorOfClass(GetWorld(), AFistAxe::StaticClass()));
 }
 
@@ -334,6 +331,23 @@ void UGrabActorComponent::RightReleaseAction()
 		player->handComp->targetGripValueRight = 0.0f;
 	}
 
+	if (tomahowkR)
+	{
+		tomahowkR->meshComp->SetEnableGravity(true);
+		// 그 자리에서 떨어지게
+		tomahowkR->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+
+		tomahowkR->meshComp->SetSimulatePhysics(true);
+		//sumjjiL->outLine->SetVisibility(true);
+
+		tomahowkR = nullptr;
+		bisLeftGrab = false;
+		bisTomahowkR = false;
+
+		// 왼손 피는 애니메이션
+		player->handComp->targetGripValueRight = 0.0f;
+	}
+
 	//}
 		// 오른손 피는 애니메이션
 	player->handComp->targetGripValueRight = 0.0f;
@@ -514,6 +528,23 @@ void UGrabActorComponent::LeftReleaseAction()
 		stringL = nullptr;
 		bisLeftGrab = false;
 		bisStringL = false;
+
+		// 왼손 피는 애니메이션
+		player->handComp->targetGripValueRight = 0.0f;
+	}
+
+	if (tomahowkL)
+	{
+		tomahowkL->meshComp->SetEnableGravity(true);
+		// 그 자리에서 떨어지게
+		tomahowkL->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+
+		tomahowkL->meshComp->SetSimulatePhysics(true);
+		//sumjjiL->outLine->SetVisibility(true);
+
+		tomahowkL = nullptr;
+		bisLeftGrab = false;
+		bisTomahowkL = false;
 
 		// 왼손 피는 애니메이션
 		player->handComp->targetGripValueRight = 0.0f;
@@ -741,7 +772,7 @@ void UGrabActorComponent::RGripApple(AActor* grabActor)
 			appleR->boxComp->SetEnableGravity(true);
 			appleR->outLine->SetHiddenInGame(true);
 
-			stemR->midLoc->SetSimulatePhysics(true);
+			/*stemR->midLoc->SetSimulatePhysics(true);
 			stemR->midLoc->SetEnableGravity(true);
 			stemL->midLoc->SetSimulatePhysics(true);
 			stemL->midLoc->SetEnableGravity(true);
@@ -749,7 +780,7 @@ void UGrabActorComponent::RGripApple(AActor* grabActor)
 			stemR->bottomLoc->SetSimulatePhysics(true);
 			stemR->bottomLoc->SetEnableGravity(true);
 			stemL->bottomLoc->SetSimulatePhysics(true);
-			stemL->bottomLoc->SetEnableGravity(true);
+			stemL->bottomLoc->SetEnableGravity(true);*/
 
 
 			appleR->AttachToComponent(player->rightHandLoc, attachRules, TEXT("RGrabPoint"));
@@ -786,7 +817,7 @@ void UGrabActorComponent::LGripApple(AActor* grabActor)
 			appleL->boxComp->SetEnableGravity(true);
 			appleL->outLine->SetHiddenInGame(true);
 
-			stemR->midLoc->SetSimulatePhysics(true);
+			/*stemR->midLoc->SetSimulatePhysics(true);
 			stemR->midLoc->SetEnableGravity(true);
 			stemL->midLoc->SetSimulatePhysics(true);
 			stemL->midLoc->SetEnableGravity(true);
@@ -794,7 +825,7 @@ void UGrabActorComponent::LGripApple(AActor* grabActor)
 			stemR->bottomLoc->SetSimulatePhysics(true);
 			stemR->bottomLoc->SetEnableGravity(true);
 			stemL->bottomLoc->SetSimulatePhysics(true);
-			stemL->bottomLoc->SetEnableGravity(true);
+			stemL->bottomLoc->SetEnableGravity(true);*/
 
 
 			appleL->AttachToComponent(player->leftHandLoc, attachRules, TEXT("LGrabPoint"));

@@ -80,4 +80,7 @@ public:
 		bool bAutoDestroy = false;
 	UPROPERTY()
 		int32 overlabCount = 0;
+
+	UPROPERTY()
+	float outLineParam = 250;
 };

@@ -80,6 +80,12 @@ void ACutting2::Tick(float DeltaTime)
 		line->SetHiddenInGame(false);
 
 	}
+
+	if (bisSound == true)
+	{
+		UGameplayStatics::PlaySound2D(GetWorld(), cuttingSound);
+		 bisSound = false;
+	}
 }
 
 void ACutting2::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -124,6 +130,7 @@ void ACutting2::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, clas
 				bisfinish = true;
 				fA->Destroy();
 				SetActorHiddenInGame(true);
+				bisSound = true;
 			}
 		}
 
@@ -137,6 +144,7 @@ void ACutting2::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, clas
 				bisfinish = true;
 				fA->Destroy();
 				SetActorHiddenInGame(true);
+				bisSound = true;
 			}
 		}
 	}

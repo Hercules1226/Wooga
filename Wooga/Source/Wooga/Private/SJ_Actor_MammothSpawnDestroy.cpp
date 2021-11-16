@@ -32,6 +32,7 @@ void ASJ_Actor_MammothSpawnDestroy::BeginPlay()
 
 	FRotator r = FRotator(0, 50, 0);
 	SetActorRotation(r);
+	
 
 	FActorSpawnParameters Param;
 	Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;

@@ -31,11 +31,11 @@ void ASJ_Actor_MakeRange::BeginPlay()
 
 	 if (gameMode->flowState == EFlowState::HitBoar)
 	{
-		FVector p = FVector(7482, 8331, 1200);
+		FVector p = FVector(7665, 8294, 1190);
 
 		SetActorLocation(p);
 
-		FRotator r = FRotator(0, 130, 0);
+		FRotator r = FRotator(0, 150, 0);
 
 		SetActorRotation(r);
 	}

@@ -74,7 +74,7 @@ void AFireRock::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, clas
 				knockbackPos = player->leftHand->GetRelativeLocation() + FVector(1.f, 0.f, 1.f) * -3.f;
 				myPos = knockbackPos;
 				player->leftHand->SetRelativeLocation(myPos);
-				UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), explosionFactory, GetActorLocation() + FVector(0.f, 0.0f, 0.f));
+				UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), explosionFactory, GetActorLocation() + FVector(0.f, 0.0f, -30.f));
 
 				bisOverlab = true;
 

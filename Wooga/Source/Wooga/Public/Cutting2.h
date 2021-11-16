@@ -10,8 +10,8 @@ UCLASS()
 class WOOGA_API ACutting2 : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	ACutting2();
 
@@ -19,7 +19,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	UFUNCTION()
@@ -56,12 +56,17 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
 		class UMaterialInstance* offMaterial;
 
+	UPROPERTY(EditAnywhere, Category = Sound)
+		class USoundBase* cuttingSound;
+
 	UPROPERTY()
 		bool bisOverlabL = false;
 	UPROPERTY()
 		bool bisOverlabR = false;
 	UPROPERTY()
 		bool bisfinish = false;
+	UPROPERTY()
+		bool bisSound = false;
 
 	UPROPERTY()
 		float handleX;

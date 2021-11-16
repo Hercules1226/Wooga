@@ -33,4 +33,12 @@ public:
 	UPROPERTY(EditAnywhere, Category = Speed)
 	float speed = 300.0f;
 
+	UPROPERTY(EditAnywhere, Category = Mammoth)
+	TSubclassOf<class UCameraShakeBase> mammothCameraShake;
+
+	UPROPERTY(EditAnywhere, Category = Sound)
+	class USoundBase* footStepSound;
+
+	UPROPERTY()
+	float playTime;
 };

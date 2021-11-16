@@ -54,12 +54,17 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
 		class UMaterialInstance* offMaterial;
 
+	UPROPERTY(EditAnywhere, Category = Sound)
+	class USoundBase* cuttingSound;
+
 	UPROPERTY()
 		bool bisOverlabR = false;
 	UPROPERTY()
 		bool bisOverlabL = false;
 	UPROPERTY()
 		bool bisfinish = false;
+	UPROPERTY()
+		bool bisSound = false;
 
 	UPROPERTY()
 		float handleX;

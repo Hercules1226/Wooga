@@ -116,12 +116,6 @@ public:
 		class AApple* appleL;
 
 	UPROPERTY()
-		class AStem* stemR;
-
-	UPROPERTY()
-		class AStem* stemL;
-
-	UPROPERTY()
 		class AStick* stickR;
 
 	UPROPERTY()

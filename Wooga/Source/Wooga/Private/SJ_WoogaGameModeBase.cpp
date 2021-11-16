@@ -55,10 +55,10 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	Super::BeginPlay();
 
 	// 맨 처음 불의 발견 교육으로 시작
-	SetState(EFlowState::InGame);
+	// SetState(EFlowState::InGame);
 
 	// 테스트용 스테이트
-	//SetState(EFlowState::CompleteCollect);
+	SetState(EFlowState::InGame);
 
 	// 스폰 파라미터
 	Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
@@ -622,17 +622,6 @@ void ASJ_WoogaGameModeBase::HandAxTitle()
 }
 void ASJ_WoogaGameModeBase::SeeMammoth()
 {
-	// 카메라 쉐이크와 사운드 플레이
-	mammothShakeTime += GetWorld()->DeltaTimeSeconds;
-
-	// 1초마다 한번씩 카메라 쉐이크 플레이
-	if (mammothShakeTime >= 1.0f)
-	{
-		GetWorld()->GetFirstPlayerController()->PlayerCameraManager->StartCameraShake(mammothCameraShake);
-
-		mammothShakeTime = 0;
-	}
-
 	nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
 	if (nextDelayTime >= 15.0f)

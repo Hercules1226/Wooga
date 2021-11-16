@@ -40,7 +40,7 @@ void AFireStraw::BeginPlay()
 
 	outLine->SetVisibility(false);
 
-	fireLoopSound->Stop();
+	//fireLoopSound->Stop();
 	isClear = false;
 }
 
@@ -63,9 +63,9 @@ void AFireStraw::Tick(float DeltaTime)
 				location = this->GetActorLocation();
 				rotation = this->GetActorRotation();
 				UGameplayStatics::PlaySoundAtLocation(GetWorld(), SoundBase2, location);
-				UGameplayStatics::PlaySoundAtLocation(GetWorld(), SoundBase3, location);
+				//UGameplayStatics::PlaySoundAtLocation(GetWorld(), SoundBase3, location);
 
-				fireLoopSound->Play();
+				//fireLoopSound->Play();
 				pointLight->SetHiddenInGame(false);
 				UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), fireFactory, GetActorLocation() + FVector(0.f, 0.0f, 0.f));
 				bisSmog = true;
