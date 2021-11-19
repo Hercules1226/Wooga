@@ -21,6 +21,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = Boar)
 	class UStaticMeshComponent* hitPoint;
 
+	UPROPERTY(EditAnywhere, Category = Boar)
+	class UStaticMeshComponent* hammer;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -90,5 +93,9 @@ public:
 	// µÅÁö Á×´Â ¼Ò¸®
 	UPROPERTY(EditAnywhere, Category = Sound)
 	class USoundBase* pigDieSound;
+
+	// ¸ÁÄ¡
+	UPROPERTY(EditAnywhere, Category = Hammer)
+	TSubclassOf<class ASJ_Actor_Hammer> bpHammer;
 
 };

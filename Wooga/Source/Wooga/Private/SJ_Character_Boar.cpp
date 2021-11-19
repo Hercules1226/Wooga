@@ -22,6 +22,9 @@ ASJ_Character_Boar::ASJ_Character_Boar()
 
 	hitPoint = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("HitPoint"));
 	hitPoint->SetupAttachment(boarMesh);
+
+	hammer = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Hammer"));
+	hammer->SetupAttachment(boarMesh);
 }
 
 // Called when the game starts or when spawned
@@ -164,6 +167,8 @@ void ASJ_Character_Boar::HitPointTrigger(UPrimitiveComponent* OverlappedComponen
 			boarMesh->SetSimulatePhysics(true);
 			// boarMesh->AddForce(GetActorRightVector() * 1000000);
 
+			hitPoint->SetHiddenInGame(true);
+
 			UGameplayStatics::PlaySound2D(GetWorld(), pigDieSound);
 			SetState(EBoarState::Hit);
 		}
@@ -179,7 +184,7 @@ void ASJ_Character_Boar::HitBoarBody(UPrimitiveComponent* OverlappedComponent, A
 		if (OtherActor == hitRock)
 		{
 			isHitBoar = true;
-			hitPoint->SetHiddenInGame(true);
+			
 			SetState(EBoarState::Die);
 		}
 	}
