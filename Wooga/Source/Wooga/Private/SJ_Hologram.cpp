@@ -38,7 +38,7 @@ void ASJ_Hologram::BeginPlay()
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
 
 	gameMode = Cast<ASJ_WoogaGameModeBase>(GetWorld()->GetAuthGameMode());
-
+	/*
 	FVector playerLoc = player->GetActorLocation();
 	FVector me = GetActorLocation();
 
@@ -81,7 +81,7 @@ void ASJ_Hologram::BeginPlay()
 
 		SetActorRotation(r3);
 	}
-
+	*/
 	/*
 	 FVector dir = player->GetActorLocation() - GetActorLocation();
 	dir.Normalize();
