@@ -130,6 +130,12 @@ public:
 		TSubclassOf<class ASJ_Actor_BreatheFireUI> bpBreatheFireUI;
 
 	// 불의 발견 홀로그램
+
+	UPROPERTY()
+	class ASJ_Hologram* hologram;
+
+	UPROPERTY(EditAnywhere, Category = Hologram)
+	TSubclassOf<class ASJ_Hologram> bpFDHologram;
 	UPROPERTY()
 		class ASJ_Actor_Hologram* hologramActor;
 

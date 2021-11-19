@@ -34,7 +34,7 @@ void ASJ_Character_Boar::BeginPlay()
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
 
 	hitPoint->OnComponentBeginOverlap.AddDynamic(this, &ASJ_Character_Boar::HitPointTrigger);
-	GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &ASJ_Character_Boar::HitBoarBody);
+	boarMesh->OnComponentBeginOverlap.AddDynamic(this, &ASJ_Character_Boar::HitBoarBody);
 
 	hitPoint->SetHiddenInGame(true);
 
@@ -42,7 +42,7 @@ void ASJ_Character_Boar::BeginPlay()
 
 	FVector p = FVector(7010.0f, 6000.0f, 1200.0f);
 
-	SetActorLocation(p);
+	// SetActorLocation(p);
 
 	SetState(EBoarState::Run);
 }
@@ -124,15 +124,27 @@ void ASJ_Character_Boar::Hit()
 {
 	// 벽방향으로 날라가야 한다.
 	me = GetActorLocation();
+
 	dir = GetActorRightVector();
 
-	FVector p1 = me + dir * GetWorld()->DeltaTimeSeconds * 1500.f;
+
+	FVector p1 = me + dir * GetWorld()->DeltaTimeSeconds * 1300;
+
+	// GetCapsuleComponent()->SetRelativeLocation(p1);
 
 	SetActorLocation(p1);
+
+	curRot = GetActorRotation();
+	setRot = FRotator(GetActorRotation().Pitch, GetActorRotation().Yaw, 30.0f);
+
+	curRot = FMath::Lerp(curRot, setRot, GetWorld()->DeltaTimeSeconds * 5);
+
+	// SetActorRotation(curRot);
 }
 
 void ASJ_Character_Boar::Die()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Die"));
 	Destroy();
 }
 
@@ -148,7 +160,9 @@ void ASJ_Character_Boar::HitPointTrigger(UPrimitiveComponent* OverlappedComponen
 		{
 			CustomTimeDilation = 1.0f;
 			anim->isHit = true;
-			GetCapsuleComponent()->SetEnableGravity(true);
+			boarMesh->SetCollisionProfileName(TEXT("Ragdoll"));
+			boarMesh->SetSimulatePhysics(true);
+			// boarMesh->AddForce(GetActorRightVector() * 1000000);
 
 			UGameplayStatics::PlaySound2D(GetWorld(), pigDieSound);
 			SetState(EBoarState::Hit);

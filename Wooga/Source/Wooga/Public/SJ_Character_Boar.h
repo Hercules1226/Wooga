@@ -55,6 +55,12 @@ public:
 	// 플레이어와 돼지간의 거리 변수
 	UPROPERTY()
 	float distance = 200.0f;
+	// 돼지 맞을때 회전값
+	UPROPERTY()
+	float hitRot;
+
+	FRotator curRot;
+	FRotator setRot;
 
 	// 돼지 가격 변수
 	UPROPERTY()

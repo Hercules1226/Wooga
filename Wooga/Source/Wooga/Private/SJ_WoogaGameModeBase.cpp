@@ -58,7 +58,7 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	// SetState(EFlowState::InGame);
 
 	// 테스트용 스테이트
-	SetState(EFlowState::InGame);
+	SetState(EFlowState::CompleteCollect);
 
 	// 스폰 파라미터
 	Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;

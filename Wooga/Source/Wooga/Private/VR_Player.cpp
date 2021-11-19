@@ -258,6 +258,7 @@ void AVR_Player::OverlapKnowledgePoint(UPrimitiveComponent* OverlappedComp, AAct
 		{
 			GetWorld()->GetFirstPlayerController()->PlayHapticEffect(watchHaptic, EControllerHand::Left, 0.5f, false);
 			knowledgePoint = 1;
+			isKnowledgeIn = true;
 			isPlayAnim = true;
 			OtherActor->Destroy();
 		}
@@ -266,6 +267,7 @@ void AVR_Player::OverlapKnowledgePoint(UPrimitiveComponent* OverlappedComp, AAct
 		{
 			GetWorld()->GetFirstPlayerController()->PlayHapticEffect(watchHaptic, EControllerHand::Left, 0.5f, false);
 			knowledgePoint = 2;
+			isKnowledgeIn = true;
 			isPlayAnim = true;
 			OtherActor->Destroy();
 		}
@@ -274,6 +276,7 @@ void AVR_Player::OverlapKnowledgePoint(UPrimitiveComponent* OverlappedComp, AAct
 		{
 			GetWorld()->GetFirstPlayerController()->PlayHapticEffect(watchHaptic, EControllerHand::Left, 0.5f, false);
 			knowledgePoint = 3;
+			isKnowledgeIn = true;
 			isPlayAnim = true;
 			OtherActor->Destroy();
 		}

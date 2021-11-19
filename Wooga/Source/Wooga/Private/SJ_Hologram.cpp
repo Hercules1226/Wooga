@@ -10,6 +10,7 @@
 #include "NiagaraComponent.h"
 #include "NiagaraSystem.h"
 #include "FireEvent.h"
+#include <Components/PostProcessComponent.h>
 
 // Sets default values
 ASJ_Hologram::ASJ_Hologram()
@@ -24,6 +25,9 @@ ASJ_Hologram::ASJ_Hologram()
 	meshComp->SetupAttachment(rootComp);
 	meshComp->CreateDynamicMaterialInstance(0);
 
+	holoPost = CreateDefaultSubobject<UPostProcessComponent>(TEXT("HologramPostProcess"));
+	holoPost->SetupAttachment(rootComp);
+
 }
 
 // Called when the game starts or when spawned
@@ -35,17 +39,23 @@ void ASJ_Hologram::BeginPlay()
 
 	gameMode = Cast<ASJ_WoogaGameModeBase>(GetWorld()->GetAuthGameMode());
 
-	/*FVector playerLoc = player->GetActorLocation();
+	FVector playerLoc = player->GetActorLocation();
 	FVector me = GetActorLocation();
 
-	FVector p = player->GetActorLocation() + player->GetActorForwardVector() * 300;*/
+	FVector p = player->GetActorLocation() + player->GetActorForwardVector() * 300;
+
 	// ºÒÀÇ ¹ß°ß È¦·Î±×·¥
 	if (gameMode->flowState == EFlowState::Firing || gameMode->flowState == EFlowState::CompleteFireDiscovery)
 	{
-		FVector p1 = FVector(10850, 11780, 1280);
+		FVector p1 = FVector(10875, 11859, 1290);
 
 		SetActorLocation(p1);
+
+		FRotator r1 = FRotator(0, 70, 0);
+
+		SetActorRotation(r1);
 	}
+
 	// Ã¤Áý È¦·Î±×·¥
 	if (gameMode->flowState == EFlowState::CollectAndEat || gameMode->flowState == EFlowState::CompleteCollect)
 	{
@@ -53,14 +63,32 @@ void ASJ_Hologram::BeginPlay()
 
 		SetActorLocation(p2);
 
+		FRotator r2 = FRotator(0, 50, 0);
+
+		SetActorRotation(r2);
+
 		playChangeTime = 10.0f;
 	}
 
-	FVector dir = player->GetActorLocation() - GetActorLocation();
+	// ÁÖ¸Ôµµ³¢ È¦·Î±×·¥
+	if (gameMode->flowState == EFlowState::CompleteHandAx || gameMode->flowState == EFlowState::DirectlyHit)
+	{
+		FVector p3 = FVector(7370, 8030, 1320);
+
+		SetActorLocation(p3);
+
+		FRotator r3 = FRotator(0, 50, 0);
+
+		SetActorRotation(r3);
+	}
+
+	/*
+	 FVector dir = player->GetActorLocation() - GetActorLocation();
 	dir.Normalize();
 
 	SetActorRotation(dir.Rotation());
-
+	*/
+	
 	SetState(EHologramState::TurnOnHologram);
 
 }
@@ -99,14 +127,16 @@ void ASJ_Hologram::TurnOnHologram()
 	// È¦·Î±×·¥ »ý¼º
 	createTime +=GetWorld()->DeltaTimeSeconds;
 
-	startParam = FMath::Lerp(-1.0f, 1.0f, createTime * 0.5f);
+	startParam = FMath::Lerp(-0.4f, 0.5f, createTime * 0.5f);
 
-	meshComp->SetScalarParameterValueOnMaterials(TEXT("Dissolve"), startParam);
+	meshComp->SetScalarParameterValueOnMaterials(TEXT("Time"), startParam);
 
 	if (createTime >= 2.0f)
 	{
 		UGameplayStatics::PlaySound2D(GetWorld(), FDHologramSound);
 		createTime = 0;
+
+		// holoPost->bEnabled = false;
 		SetState(EHologramState::PlayHologram);
 	}
 }
@@ -133,18 +163,17 @@ void ASJ_Hologram::TurnOffHologram()
 {
 	destroyTime += GetWorld()->DeltaTimeSeconds;
 
-	destroyParam = FMath::Lerp(1.0f, -1.0f, destroyTime * 0.5f);
+	destroyParam = FMath::Lerp(0.5f, -0.4f, destroyTime * 0.5f);
 
-	meshComp->SetScalarParameterValueOnMaterials(TEXT("Dissolve"), destroyParam);
+	meshComp->SetScalarParameterValueOnMaterials(TEXT("Time"), destroyParam);
 
-	if (destroyTime >= 3.0f)
+	if (player->isKnowledgeIn == true)
 	{
 		destroyTime = 0;
 		SetState(EHologramState::TurnOnHologram);
+		player->isKnowledgeIn = false;
 		Destroy();
 	}
-
-	// Áö½Ä ÀÌµ¿ ·ÎÁ÷
 }
 
 

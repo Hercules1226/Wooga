@@ -21,6 +21,9 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = Hologram)
 		class UStaticMeshComponent* meshComp;
 
+	UPROPERTY(EditAnywhere, Category = Hologram)
+	class UPostProcessComponent* holoPost;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
