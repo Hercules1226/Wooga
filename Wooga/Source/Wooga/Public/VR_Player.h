@@ -36,6 +36,10 @@ public:
 	// Main Camera
 	UPROPERTY(EditAnywhere, Category = PlayerSettings)
 		class UCameraComponent* playerCam;
+
+	UPROPERTY(EditAnywhere, Category = PlayerSettings)
+		class UStaticMeshComponent* camLoc;
+
 	UPROPERTY(EditAnywhere, Category = PickUPSettings)
 		class UBoxComponent* headComp;
 
@@ -75,6 +79,9 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = Watch)
 		class UWidgetComponent* playerWatch;
+
+	UPROPERTY(EditAnywhere, Category = PlayerSettings)
+		class UStaticMeshComponent* watch;
 
 	// 액터 컴포넌트들 추가하기
 	UPROPERTY(VisibleAnywhere, Category = PlayerSettings)
