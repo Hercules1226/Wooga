@@ -49,6 +49,10 @@ AVR_Player::AVR_Player()
 	// Camera Location 에 붙임
 	playerCam->SetupAttachment(cameraRoot);
 
+	camLoc = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("CamLoc"));
+	// Camera Location 에 붙임
+	camLoc->SetupAttachment(playerCam);
+
 	headComp = CreateDefaultSubobject<UBoxComponent>(TEXT("Head Component"));
 	headComp->SetupAttachment(cameraRoot);
 	//headComp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
