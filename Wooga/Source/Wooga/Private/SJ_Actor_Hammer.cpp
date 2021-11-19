@@ -21,10 +21,14 @@ void ASJ_Actor_Hammer::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	SetActorHiddenInGame(true);
+
 	boar = Cast<ASJ_Character_Boar>(UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_Character_Boar::StaticClass()));
 
 	FVector  b = boar->GetActorLocation();
-	FVector  p = b + boar->GetActorRightVector() * 100;
+	FVector  p = b + boar->GetActorRightVector() * -200;
+
+	SetActorLocation(p);
 }
 
 // Called every frame
@@ -37,6 +41,8 @@ void ASJ_Actor_Hammer::Tick(float DeltaTime)
 	FVector  dir = tar - me;
 	dir.Normalize();
 
-	hammer->AddForce(dir * 1000);
+	FVector p2 = boar->GetActorRightVector() * 170000;
+
+	hammer->AddForce(p2 * 12);
 }
 

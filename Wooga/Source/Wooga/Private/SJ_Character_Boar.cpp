@@ -10,6 +10,7 @@
 #include "SJ_BoarAnimInstance.h"
 #include "SJ_Actor_BoarHitRock.h"
 #include "SlicePig.h"
+#include "SJ_Actor_Hammer.h"
 
 // Sets default values
 ASJ_Character_Boar::ASJ_Character_Boar()
@@ -46,6 +47,11 @@ void ASJ_Character_Boar::BeginPlay()
 	FVector p = FVector(7010.0f, 6000.0f, 1200.0f);
 
 	// SetActorLocation(p);
+
+	// 타격 포인트 얼굴에 붙여주기
+	FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
+
+	hitPoint->AttachToComponent(boarMesh, attachRules, TEXT("HitPosition"));
 
 	SetState(EBoarState::Run);
 }
@@ -166,6 +172,10 @@ void ASJ_Character_Boar::HitPointTrigger(UPrimitiveComponent* OverlappedComponen
 			boarMesh->SetCollisionProfileName(TEXT("Ragdoll"));
 			boarMesh->SetSimulatePhysics(true);
 			// boarMesh->AddForce(GetActorRightVector() * 1000000);
+
+			Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+			GetWorld()->SpawnActor<ASJ_Actor_Hammer>(bpHammer, Param);
 
 			hitPoint->SetHiddenInGame(true);
 
