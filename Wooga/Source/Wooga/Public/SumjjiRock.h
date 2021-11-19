@@ -56,7 +56,7 @@ public:
 		class AVR_Player* player;
 
 	UPROPERTY()
-		class ABone* bone;
+		class ATomahowk* bone;
 
 	UPROPERTY()
 		float currentTime;

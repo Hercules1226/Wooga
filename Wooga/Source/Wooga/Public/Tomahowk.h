@@ -45,9 +45,6 @@ public:
 		class AFireStraw* fireStraw;
 
 	UPROPERTY()
-		bool bisOverlab = false;
-
-	UPROPERTY()
 		float currentTime;
 
 	UPROPERTY(EditAnywhere, Category = Setting)
@@ -58,4 +55,13 @@ public:
 
 	UPROPERTY()
 		float disTime;
+
+	UPROPERTY()
+		bool bisOverlab = false;
+
+	UPROPERTY()
+		bool bisWelldone = false;
+
+	UPROPERTY()
+		bool bisBone = false;
 };

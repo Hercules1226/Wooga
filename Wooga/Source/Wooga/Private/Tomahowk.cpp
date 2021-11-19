@@ -32,7 +32,7 @@ ATomahowk::ATomahowk()
 void ATomahowk::BeginPlay()
 {
 	Super::BeginPlay();
-	//meshComp->OnComponentBeginOverlap.AddDynamic(this, &ATomahowk::OnCollisionEnter);
+	//meshComp->OnComponentBeginOverlap.AddDynamic(this, &ATomahowk::OnCollisionBoneEnter);
 	meshComp1->OnComponentBeginOverlap.AddDynamic(this, &ATomahowk::OnCollisionEnter);
 
 }
@@ -59,7 +59,7 @@ void ATomahowk::Tick(float DeltaTime)
 		if (currentTime >= 4.f)
 		{
 			meshComp1->SetMaterial(0, welldone);
-
+			bisWelldone = true;
 			/*disTime += GetWorld()->DeltaTimeSeconds;
 			blend = FMath::Lerp(0.f, 1.f, disTime * 0.5f);*/
 
@@ -76,13 +76,19 @@ void ATomahowk::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, clas
 	{
 		bisOverlab = true;
 	}
-	if (player)
+
+	if (bisWelldone == true)
 	{
-		if (player->grabComp->bisTomahowkL == true || player->grabComp->bisTomahowkR == true)
+		if (player)
 		{
-			if (OtherComp == player->mouthComp)
+			if (player->grabComp->bisTomahowkL == true || player->grabComp->bisTomahowkR == true)
 			{
-				meshComp1->SetHiddenInGame(true);
+				if (OtherComp == player->mouthComp)
+				{
+					meshComp1->SetHiddenInGame(true);
+					meshComp->SetHiddenInGame(false);
+					bisBone = true;
+				}
 			}
 		}
 	}

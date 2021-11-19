@@ -37,8 +37,6 @@ void UMoveActorComponent::BeginPlay()
 void UMoveActorComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-
 }
 
 void UMoveActorComponent::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -82,6 +80,8 @@ void UMoveActorComponent::RotateHorizontal(float value)
 	{
 		FRotator rot = FRotator(0, value * rotateSpeed * GetWorld()->DeltaTimeSeconds, 0);
 		player->AddActorLocalRotation(rot);
+
+		player->camLoc->AddRelativeRotation(rot);
 	}
 }
 

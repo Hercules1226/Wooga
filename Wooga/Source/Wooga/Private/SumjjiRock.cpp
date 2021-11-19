@@ -4,7 +4,7 @@
 #include "SumjjiRock.h"
 #include "Components/StaticMeshComponent.h"
 #include "VR_Player.h"
-#include "Bone.h"
+#include "Tomahowk.h"
 #include <Kismet/GameplayStatics.h>
 
 // Sets default values
@@ -44,6 +44,7 @@ void ASumjjiRock::BeginPlay()
 	rock4->OnComponentBeginOverlap.AddDynamic(this, &ASumjjiRock::OnCollisionEnter);
 
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
+	bone = Cast<ATomahowk>(UGameplayStatics::GetActorOfClass(GetWorld(), ATomahowk::StaticClass()));
 	rock1->SetMaterial(0, onMaterial);
 
 }
@@ -68,35 +69,11 @@ void ASumjjiRock::Tick(float DeltaTime)
 
 void ASumjjiRock::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (currentTime >= 1.f)
+	if (bone->bisBone == true)
 	{
-		bone = Cast<ABone>(OtherActor);
-
-		if (OverlappedComp == rock1 && OtherActor == bone)
+		if (currentTime >= 1.f)
 		{
-			// Nuckback
-			myPos = player->leftHand->GetRelativeLocation();
-			knockbackPos = player->leftHand->GetRelativeLocation() + FVector(1.f, 0.f, 1.f) * -3.f;
-			myPos = knockbackPos;
-			player->leftHand->SetRelativeLocation(myPos);
-			bisOverlab = true;
-
-			rock1->SetSimulatePhysics(true);
-			rock1->SetEnableGravity(true);
-
-			rock1->SetMaterial(0, offMaterial);
-			rock2->SetMaterial(0, onMaterial);
-
-			rock1->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
-			rock1->DetachFromParent(true);
-			currentTime = 0.f;
-
-			bisRock2 = true;
-		}
-
-		if (bisRock2 == true)
-		{
-			if (OverlappedComp == rock2 && OtherActor == bone)
+			if (OverlappedComp == rock1 && OtherComp == bone->meshComp)
 			{
 				// Nuckback
 				myPos = player->leftHand->GetRelativeLocation();
@@ -105,67 +82,92 @@ void ASumjjiRock::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cl
 				player->leftHand->SetRelativeLocation(myPos);
 				bisOverlab = true;
 
-				rock2->SetSimulatePhysics(true);
-				rock2->SetEnableGravity(true);
+				rock1->SetSimulatePhysics(true);
+				rock1->SetEnableGravity(true);
 
-				rock2->SetMaterial(0, offMaterial);
-				rock3->SetMaterial(0, onMaterial);
+				rock1->SetMaterial(0, offMaterial);
+				rock2->SetMaterial(0, onMaterial);
 
-				rock2->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
-				rock2->DetachFromParent(true);
+				rock1->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+				rock1->DetachFromParent(true);
 				currentTime = 0.f;
 
-				bisRock3 = true;
+				bisRock2 = true;
 			}
-		}
 
-		if (bisRock3 == true)
-		{
-			if (OverlappedComp == rock3 && OtherActor == bone)
+			if (bisRock2 == true)
 			{
-				// Nuckback
-				myPos = player->leftHand->GetRelativeLocation();
-				knockbackPos = player->leftHand->GetRelativeLocation() + FVector(1.f, 0.f, 1.f) * -3.f;
-				myPos = knockbackPos;
-				player->leftHand->SetRelativeLocation(myPos);
-				bisOverlab = true;
+				if (OverlappedComp == rock2 && OtherComp == bone->meshComp)
+				{
+					// Nuckback
+					myPos = player->leftHand->GetRelativeLocation();
+					knockbackPos = player->leftHand->GetRelativeLocation() + FVector(1.f, 0.f, 1.f) * -3.f;
+					myPos = knockbackPos;
+					player->leftHand->SetRelativeLocation(myPos);
+					bisOverlab = true;
 
-				rock3->SetSimulatePhysics(true);
-				rock3->SetEnableGravity(true);
+					rock2->SetSimulatePhysics(true);
+					rock2->SetEnableGravity(true);
 
-				rock3->SetMaterial(0, offMaterial);
-				rock4->SetMaterial(0, onMaterial);
+					rock2->SetMaterial(0, offMaterial);
+					rock3->SetMaterial(0, onMaterial);
 
-				rock3->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
-				rock3->DetachFromParent(true);
-				currentTime = 0.f;
+					rock2->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+					rock2->DetachFromParent(true);
+					currentTime = 0.f;
 
-				bisRock4 = true;
+					bisRock3 = true;
+				}
 			}
-		}
 
-		if (bisRock4 == true)
-		{
-			if (OverlappedComp == rock4 && OtherActor == bone)
+			if (bisRock3 == true)
 			{
-				// Nuckback
-				myPos = player->leftHand->GetRelativeLocation();
-				knockbackPos = player->leftHand->GetRelativeLocation() + FVector(1.f, 0.f, 1.f) * -3.f;
-				myPos = knockbackPos;
-				player->leftHand->SetRelativeLocation(myPos);
-				bisOverlab = true;
+				if (OverlappedComp == rock3 && OtherComp == bone->meshComp)
+				{
+					// Nuckback
+					myPos = player->leftHand->GetRelativeLocation();
+					knockbackPos = player->leftHand->GetRelativeLocation() + FVector(1.f, 0.f, 1.f) * -3.f;
+					myPos = knockbackPos;
+					player->leftHand->SetRelativeLocation(myPos);
+					bisOverlab = true;
 
-				rock4->SetSimulatePhysics(true);
-				rock4->SetEnableGravity(true);
+					rock3->SetSimulatePhysics(true);
+					rock3->SetEnableGravity(true);
 
-				rock4->SetMaterial(0, offMaterial);
-				//rock5->SetMaterial(0, onMaterial);
+					rock3->SetMaterial(0, offMaterial);
+					rock4->SetMaterial(0, onMaterial);
 
-				rock4->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
-				rock4->DetachFromParent(true);
-				currentTime = 0.f;
+					rock3->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+					rock3->DetachFromParent(true);
+					currentTime = 0.f;
 
-				bisRockFin = true;
+					bisRock4 = true;
+				}
+			}
+
+			if (bisRock4 == true)
+			{
+				if (OverlappedComp == rock4 && OtherComp == bone->meshComp)
+				{
+					// Nuckback
+					myPos = player->leftHand->GetRelativeLocation();
+					knockbackPos = player->leftHand->GetRelativeLocation() + FVector(1.f, 0.f, 1.f) * -3.f;
+					myPos = knockbackPos;
+					player->leftHand->SetRelativeLocation(myPos);
+					bisOverlab = true;
+
+					rock4->SetSimulatePhysics(true);
+					rock4->SetEnableGravity(true);
+
+					rock4->SetMaterial(0, offMaterial);
+					//rock5->SetMaterial(0, onMaterial);
+
+					rock4->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+					rock4->DetachFromParent(true);
+					currentTime = 0.f;
+
+					bisRockFin = true;
+				}
 			}
 		}
 	}

@@ -31,11 +31,12 @@ void AWatch::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	/*
+	if(player->camLoc)
+	{
 	FVector dir = player->camLoc->GetRelativeLocation() - rootComp->GetRelativeLocation();
 	dir.Normalize();
 	SetActorRotation(dir.ToOrientationRotator());
-	*/
+	}
 	
 }
 
