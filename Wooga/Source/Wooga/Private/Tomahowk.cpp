@@ -3,6 +3,9 @@
 
 #include "Tomahowk.h"
 #include "FireStraw.h"
+#include "Components/BoxComponent.h"
+#include "GrabActorComponent.h"
+#include "VR_Player.h"
 
 // Sets default values
 ATomahowk::ATomahowk()
@@ -17,6 +20,8 @@ ATomahowk::ATomahowk()
 	meshComp1->SetupAttachment(meshComp);
 	meshComp2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh Component2"));
 	meshComp2->SetupAttachment(meshComp);
+	meshComp3 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh Component3"));
+	meshComp3->SetupAttachment(meshComp);
 
 
 	medium = CreateDefaultSubobject<UMaterialInstance>(TEXT("Medium"));
@@ -27,7 +32,9 @@ ATomahowk::ATomahowk()
 void ATomahowk::BeginPlay()
 {
 	Super::BeginPlay();
-	meshComp->OnComponentBeginOverlap.AddDynamic(this, &ATomahowk::OnCollisionEnter);
+	//meshComp->OnComponentBeginOverlap.AddDynamic(this, &ATomahowk::OnCollisionEnter);
+	meshComp1->OnComponentBeginOverlap.AddDynamic(this, &ATomahowk::OnCollisionEnter);
+
 }
 
 // Called every frame
@@ -41,7 +48,7 @@ void ATomahowk::Tick(float DeltaTime)
 
 		if (currentTime >= 2.f)
 		{
-			meshComp->SetMaterial(0, medium);
+			meshComp1->SetMaterial(0, medium);
 
 			//disTime += GetWorld()->DeltaTimeSeconds;
 			//blend = FMath::Lerp(0.f, 1.f, disTime * 0.5f);
@@ -51,12 +58,12 @@ void ATomahowk::Tick(float DeltaTime)
 
 		if (currentTime >= 4.f)
 		{
-			meshComp->SetMaterial(0, welldone);
+			meshComp1->SetMaterial(0, welldone);
 
 			/*disTime += GetWorld()->DeltaTimeSeconds;
 			blend = FMath::Lerp(0.f, 1.f, disTime * 0.5f);*/
 
-		//	meshComp1->SetScalarParameterValueOnMaterials(TEXT("Amount"), blend);
+			//	meshComp1->SetScalarParameterValueOnMaterials(TEXT("Amount"), blend);
 		}
 	}
 }
@@ -64,11 +71,20 @@ void ATomahowk::Tick(float DeltaTime)
 void ATomahowk::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	fireStraw = Cast<AFireStraw>(OtherActor);
-
+	auto player = Cast<AVR_Player>(OtherActor);
 	if (OtherActor == fireStraw)
 	{
 		bisOverlab = true;
-
+	}
+	if (player)
+	{
+		if (player->grabComp->bisTomahowkL == true || player->grabComp->bisTomahowkR == true)
+		{
+			if (OtherComp == player->mouthComp)
+			{
+				meshComp1->SetHiddenInGame(true);
+			}
+		}
 	}
 }
 
