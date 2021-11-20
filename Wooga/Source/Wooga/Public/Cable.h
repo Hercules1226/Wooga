@@ -40,7 +40,7 @@ public:
 		class UStaticMeshComponent* rockComp;
 
 	UPROPERTY(EditAnywhere, Category = Settings)
-		class UStaticMeshComponent* handComp;
+		class USkeletalMeshComponent* fish;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
 		class UMaterialInstance* onMaterial;
@@ -50,6 +50,12 @@ public:
 
 	UPROPERTY()
 		class AString* string;
+
+	UPROPERTY()
+		class ASJ_Actor_CatchFish* catchFish;
+
+	UPROPERTY()
+		float currentTime = 5;
 
 	UPROPERTY()
 		class ASumjjiRock* sumjjiRock;
@@ -62,4 +68,7 @@ public:
 
 	UPROPERTY()
 		bool bisSumjjiRock = false;
+
+		UPROPERTY()
+		bool biscatch = false;
 };

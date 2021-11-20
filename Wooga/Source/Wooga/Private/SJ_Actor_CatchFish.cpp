@@ -5,6 +5,8 @@
 #include <Components/SkeletalMeshComponent.h>
 #include "SJ_CatchFishAnimInstance.h"
 #include "Cable.h"
+#include <Kismet/GameplayStatics.h>
+
 
 // Sets default values
 ASJ_Actor_CatchFish::ASJ_Actor_CatchFish()
@@ -40,13 +42,19 @@ void ASJ_Actor_CatchFish::OnOverlap(UPrimitiveComponent* OverlappedComponent, AA
 {
 	sumjji = Cast<ACable>(OtherActor);
 
-	if (sumjji)
+	if (OtherComp == sumjji->rockComp)
 	{
 		// ½¿º£Âî¸£°³¿¡ Âñ¸®¸é
 		catchFishAnimInst->isDie = true;
 		isAttacked = true;
 
 		outlineFish->SetVisibility(false);
+
+		fish->SetHiddenInGame(true);
+		sumjji->fish->SetHiddenInGame(false);
+		sumjji->biscatch = true;
+		sumjji->currentTime = 0.f;
+		//Destroy();
 	}
 }
 

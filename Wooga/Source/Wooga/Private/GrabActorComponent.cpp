@@ -371,7 +371,7 @@ void UGrabActorComponent::LeftGrabAction()
 	LGripApple(grabActor);
 	LGripStick(grabActor);
 	LGripFistAxe(grabActor);
-	LGripSumjji(grabActor);
+	//LGripSumjji(grabActor);
 	LGripSumjjiRock(grabActor);
 	LGripString(grabActor);
 	LGripTomahowk(grabActor);
