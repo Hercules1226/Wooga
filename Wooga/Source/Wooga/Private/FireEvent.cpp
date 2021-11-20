@@ -6,6 +6,7 @@
 #include <Kismet/GameplayStatics.h>
 #include "VR_Player.h"
 #include <Components/WidgetComponent.h>
+#include "Watch.h"
 
 // Sets default values
 AFireEvent::AFireEvent()
@@ -26,6 +27,8 @@ void AFireEvent::BeginPlay()
 	Super::BeginPlay();
 
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
+
+	watch = Cast<AWatch>(UGameplayStatics::GetActorOfClass(GetWorld(), AWatch::StaticClass()));
 }
 
 // Called every frame
@@ -34,7 +37,7 @@ void AFireEvent::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	FVector me = skelComp->GetComponentLocation();
-	FVector target = player->playerWatch->GetComponentLocation();
+	FVector target = watch->GetActorLocation();
 	FVector dir = target - me;
 	dir.Normalize();
 

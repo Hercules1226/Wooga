@@ -501,7 +501,7 @@ void ASJ_WoogaGameModeBase::CollectTitle()
 	if (nextDelayTime >= 6.0f)
 	{
 		// 배고픔과 채집 안내 UI
-		collectAndHungry = GetWorld()->SpawnActor<ASJ_Actor_CollectAndHungryUI>(bpCollectAndHungry, Param);
+		// collectAndHungry = GetWorld()->SpawnActor<ASJ_Actor_CollectAndHungryUI>(bpCollectAndHungry, Param);
 
 		// 제목 없애기
 		titleUI->Destroy();
@@ -512,7 +512,15 @@ void ASJ_WoogaGameModeBase::CollectTitle()
 		// 딜레이변수 초기화
 		nextDelayTime = 0;
 
-		SetState(EFlowState::HowToCollectActorUI);
+		// 사과 캐싱하고 아웃라인 켜주기
+		apple = Cast<AApple>(UGameplayStatics::GetActorOfClass(GetWorld(), AApple::StaticClass()));
+
+		apple->outLine->SetVisibility(true);
+
+		// 사과 채집과 먹기 UI
+		eatAppleUI = GetWorld()->SpawnActor<ASJ_Actor_EatAppleUI>(bpEatAppleUI, Param);
+
+		SetState(EFlowState::CollectAndEat);
 	}
 }
 void ASJ_WoogaGameModeBase::HowToCollectActorUI()
@@ -537,7 +545,7 @@ void ASJ_WoogaGameModeBase::HowToCollectActorUI()
 			eatAppleUI = GetWorld()->SpawnActor<ASJ_Actor_EatAppleUI>(bpEatAppleUI, Param);
 
 			// 사용 UI 없애기
-			collectAndHungry->Destroy();
+			// collectAndHungry->Destroy();
 
 			bIsDelay = false;
 			nextDelayTime = 0;
