@@ -40,7 +40,7 @@ void ASJ_Actor_CatchFish::OnOverlap(UPrimitiveComponent* OverlappedComponent, AA
 {
 	sumjji = Cast<ACable>(OtherActor);
 
-	if (OtherComp == sumjji->rockComp)
+	if (sumjji)
 	{
 		// ½¿º£Âî¸£°³¿¡ Âñ¸®¸é
 		catchFishAnimInst->isDie = true;

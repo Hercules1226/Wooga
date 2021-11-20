@@ -16,6 +16,9 @@ public:
 	ASJ_Actor_EscapeFish();
 
 	UPROPERTY(EditAnywhere, Category = Fish)
+	class USceneComponent* root;
+
+	UPROPERTY(EditAnywhere, Category = Fish)
 		class USkeletalMeshComponent* fish;
 
 	UPROPERTY()
@@ -32,6 +35,6 @@ public:
 	UPROPERTY()
 	class ASJ_Actor_CatchFish* catchFish;
 
-	UPROPERTY()
-	float speed;
+	UPROPERTY(EditAnywhere, Category = Speed)
+	float speed = 500;
 };

@@ -13,8 +13,11 @@ ASJ_Actor_EscapeFish::ASJ_Actor_EscapeFish()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
+	SetRootComponent(root);
+
 	fish = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Fish"));
-	SetRootComponent(fish);
+	fish->SetupAttachment(root);
 }
 
 // Called when the game starts or when spawned
