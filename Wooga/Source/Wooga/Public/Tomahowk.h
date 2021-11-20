@@ -34,6 +34,8 @@ public:
 		class UStaticMeshComponent* meshComp2;
 	UPROPERTY(EditAnywhere, Category = Setting)
 		class UStaticMeshComponent* meshComp3;
+	UPROPERTY(EditAnywhere, Category = Setting)
+		class UStaticMeshComponent* meshComp4;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
 		class UMaterialInstance* medium;
