@@ -181,7 +181,7 @@ void AVR_Player::BeginPlay()
 
 	playerWatch->SetHiddenInGame(true);
 
-	playerWatch->OnComponentBeginOverlap.AddDynamic(this, &AVR_Player::OverlapKnowledgePoint);
+	// playerWatch->OnComponentBeginOverlap.AddDynamic(this, &AVR_Player::OverlapKnowledgePoint);
 
 
 }

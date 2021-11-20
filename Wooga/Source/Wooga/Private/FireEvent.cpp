@@ -50,7 +50,7 @@ void AFireEvent::Tick(float DeltaTime)
 	FVector startScale = GetActorScale3D();
 	FVector endScale = FVector(0.001f, 0.001f, 0.001f);
 
-	FVector setScale = FMath::Lerp(startScale, endScale, DeltaTime * 2);
+	FVector setScale = FMath::Lerp(startScale, endScale, DeltaTime );
 	SetActorScale3D(setScale);
 }
 

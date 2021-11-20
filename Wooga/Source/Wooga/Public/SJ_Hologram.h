@@ -34,6 +34,7 @@ public:
 
 	class AVR_Player* player;
 	class ASJ_WoogaGameModeBase* gameMode;
+	class AWatch* watch;
 
 	EHologramState holoState;
 	void SetState(EHologramState state);

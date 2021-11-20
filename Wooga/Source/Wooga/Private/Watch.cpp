@@ -47,12 +47,15 @@ void AWatch::Tick(float DeltaTime)
 		break;
 	}
 
+	/*
 	if(player->camLoc)
 	{
 	FVector dir = player->camLoc->GetRelativeLocation() - rootComp->GetRelativeLocation();
 	dir.Normalize();
 	SetActorRotation(dir.ToOrientationRotator());
 	}
+	*/
+	
 }
 
 EBlinkState AWatch::GetState()

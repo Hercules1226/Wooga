@@ -51,7 +51,7 @@ public:
 		class UHapticFeedbackEffect_Base* watchHaptic;
 
 		UPROPERTY(EditAnywhere, Category = Material)
-		class UMaterial* watchOneMaterial;
+		class UMaterialInstance* watchOneMaterial;
 
 		UPROPERTY()
 		float playTime;

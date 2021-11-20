@@ -11,6 +11,7 @@
 #include "NiagaraSystem.h"
 #include "FireEvent.h"
 #include <Components/PostProcessComponent.h>
+#include "Watch.h"
 
 // Sets default values
 ASJ_Hologram::ASJ_Hologram()
@@ -38,6 +39,8 @@ void ASJ_Hologram::BeginPlay()
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
 
 	gameMode = Cast<ASJ_WoogaGameModeBase>(GetWorld()->GetAuthGameMode());
+
+	watch = Cast<AWatch>(UGameplayStatics::GetActorOfClass(GetWorld(), AWatch::StaticClass()));
 	/*
 	FVector playerLoc = player->GetActorLocation();
 	FVector me = GetActorLocation();
@@ -127,16 +130,15 @@ void ASJ_Hologram::TurnOnHologram()
 	// 홀로그램 생성
 	createTime +=GetWorld()->DeltaTimeSeconds;
 
-	startParam = FMath::Lerp(-0.4f, 0.5f, createTime * 0.5f);
+	startParam = FMath::Lerp(0.0f, 1.0f, createTime * 0.5f);
 
-	meshComp->SetScalarParameterValueOnMaterials(TEXT("Time"), startParam);
+	meshComp->SetScalarParameterValueOnMaterials(TEXT("opa"), startParam);
 
 	if (createTime >= 2.0f)
 	{
 		UGameplayStatics::PlaySound2D(GetWorld(), FDHologramSound);
 		createTime = 0;
 
-		// holoPost->bEnabled = false;
 		SetState(EHologramState::PlayHologram);
 	}
 }
@@ -163,15 +165,15 @@ void ASJ_Hologram::TurnOffHologram()
 {
 	destroyTime += GetWorld()->DeltaTimeSeconds;
 
-	destroyParam = FMath::Lerp(0.5f, -0.4f, destroyTime * 0.5f);
+	destroyParam = FMath::Lerp(1.0f, 0.0f, destroyTime * 0.5f);
 
-	meshComp->SetScalarParameterValueOnMaterials(TEXT("Time"), destroyParam);
+	meshComp->SetScalarParameterValueOnMaterials(TEXT("opa"), destroyParam);
 
-	if (player->isKnowledgeIn == true)
+	if (watch->isKnowledgeIn == true)
 	{
 		destroyTime = 0;
 		SetState(EHologramState::TurnOnHologram);
-		player->isKnowledgeIn = false;
+		watch->isKnowledgeIn = false;
 		Destroy();
 	}
 }
