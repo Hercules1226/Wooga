@@ -1324,7 +1324,7 @@ void UGrabActorComponent::LGripTomahowk(AActor* grabActor)
 
 			tomahowkL->AttachToComponent(player->leftHandLoc, attachRules, TEXT("LGrabPoint"));
 			// 왼손 쥐는 애니메이션
-			player->handComp->targetGripValueLeft = 0.7f;
+			player->handComp->targetGripValueLeft = 0.9f;
 
 
 			// 오브젝트를 잡았을때 위치 잡기
@@ -1357,7 +1357,7 @@ void UGrabActorComponent::RGripTomahowk(AActor* grabActor)
 
 			tomahowkR->AttachToComponent(player->rightHandLoc, attachRules, TEXT("RGrabPoint"));
 			// 왼손 쥐는 애니메이션
-			player->handComp->targetGripValueRight = 0.7f;
+			player->handComp->targetGripValueRight = 0.9f;
 
 
 			// 오브젝트를 잡았을때 위치 잡기

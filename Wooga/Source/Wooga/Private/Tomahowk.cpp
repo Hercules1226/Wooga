@@ -22,6 +22,8 @@ ATomahowk::ATomahowk()
 	meshComp2->SetupAttachment(meshComp);
 	meshComp3 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh Component3"));
 	meshComp3->SetupAttachment(meshComp);
+	meshComp4 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh Component4"));
+	meshComp4->SetupAttachment(meshComp);
 
 
 	medium = CreateDefaultSubobject<UMaterialInstance>(TEXT("Medium"));
@@ -86,7 +88,7 @@ void ATomahowk::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, clas
 				if (OtherComp == player->mouthComp)
 				{
 					meshComp1->SetHiddenInGame(true);
-					meshComp->SetHiddenInGame(false);
+					meshComp4->SetHiddenInGame(false);
 					bisBone = true;
 				}
 			}

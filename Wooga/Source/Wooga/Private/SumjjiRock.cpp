@@ -73,7 +73,7 @@ void ASumjjiRock::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cl
 	{
 		if (currentTime >= 1.f)
 		{
-			if (OverlappedComp == rock1 && OtherComp == bone->meshComp)
+			if (OverlappedComp == rock1 && OtherComp == bone->meshComp4)
 			{
 				// Nuckback
 				myPos = player->leftHand->GetRelativeLocation();
@@ -97,7 +97,7 @@ void ASumjjiRock::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cl
 
 			if (bisRock2 == true)
 			{
-				if (OverlappedComp == rock2 && OtherComp == bone->meshComp)
+				if (OverlappedComp == rock2 && OtherComp == bone->meshComp4)
 				{
 					// Nuckback
 					myPos = player->leftHand->GetRelativeLocation();
@@ -122,7 +122,7 @@ void ASumjjiRock::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cl
 
 			if (bisRock3 == true)
 			{
-				if (OverlappedComp == rock3 && OtherComp == bone->meshComp)
+				if (OverlappedComp == rock3 && OtherComp == bone->meshComp4)
 				{
 					// Nuckback
 					myPos = player->leftHand->GetRelativeLocation();
@@ -147,7 +147,7 @@ void ASumjjiRock::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cl
 
 			if (bisRock4 == true)
 			{
-				if (OverlappedComp == rock4 && OtherComp == bone->meshComp)
+				if (OverlappedComp == rock4 && OtherComp == bone->meshComp4)
 				{
 					// Nuckback
 					myPos = player->leftHand->GetRelativeLocation();
