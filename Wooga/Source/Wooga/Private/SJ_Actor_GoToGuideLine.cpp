@@ -46,33 +46,23 @@ void ASJ_Actor_GoToGuideLine::BeginPlay()
 	}
 	else if (gameModeBase->flowState == EFlowState::CompleteCollect || gameModeBase->flowState == EFlowState::GoToFistAxCourse)
 	{
-		FVector p2 = FVector(7473, 8344, 1270);
+		FVector p2 = FVector(7693, 8586, 1270);
 
 		SetActorLocation(p2);
 
-		FRotator r2 = FRotator(0, 60, 0);
+		FRotator r2 = FRotator(0, 50, 0);
 
 		SetActorRotation(r2);
 	}
-	else if (gameModeBase->flowState == EFlowState::HitBoar || gameModeBase->flowState == EFlowState::MakeHandAx)
+	else if (gameModeBase->flowState == EFlowState::CuttingPig)
 	{
-		FVector p3 = FVector(7484, 8390, 1140);
+		FVector p3 = FVector(5279, 7747, 1260);
 
 		SetActorLocation(p3);
 
-		FRotator r3 = FRotator(0, 130.0f, 0);
+		FRotator r3 = FRotator(0, -50, 0);
 
 		SetActorRotation(r3);
-	}
-	else if (gameModeBase->flowState == EFlowState::CuttingPig)
-	{
-		FVector p4 = FVector(5279, 7747, 1260);
-
-		SetActorLocation(p4);
-
-		FRotator r4 = FRotator(0, -50, 0);
-
-		SetActorRotation(r4);
 	}
 
 	range->OnComponentBeginOverlap.AddDynamic(this, &ASJ_Actor_GoToGuideLine::RangeIn);

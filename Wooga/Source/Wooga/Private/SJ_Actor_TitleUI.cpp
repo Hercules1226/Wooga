@@ -58,19 +58,26 @@ void ASJ_Actor_TitleUI::BeginPlay()
 
 		SetActorRotation(dir.Rotation());
 	}
+	// ÁÖ¸Ôµµ³¢ Á¦¸ñ
 	else if (gameMode->flowState == EFlowState::GoToFistAxCourse || gameMode->flowState == EFlowState::HandAxTitle)
 	{
+		/*
 		FVector playerLoc = player->GetActorLocation();
 		FVector me = GetActorLocation();
 
 		FVector p = player->GetActorLocation() + player->GetActorForwardVector() * 200 + player->GetActorUpVector() * 50;
+		*/
 
-		SetActorLocation(p);
+		FVector p2 = FVector(7624, 8522, 1290);
+
+		SetActorLocation(p2);
 
 		FVector dir = player->GetActorLocation() - GetActorLocation();
 		dir.Normalize();
 
-		SetActorRotation(dir.Rotation());
+		FRotator r2 = FRotator(0, 50, 0);
+
+		SetActorRotation(r2);
 	}
 	else if (gameMode->flowState == EFlowState::GoToFireUse || gameMode->flowState == EFlowState::FireUseTitle)
 	{

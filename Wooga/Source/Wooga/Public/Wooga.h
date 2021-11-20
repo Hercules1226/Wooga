@@ -54,9 +54,9 @@ enum class EHologramState : uint8
 UENUM(BlueprintType)
 enum class EBlinkState : uint8
 {
-	OnOpacity,
-	PlayOpacity,
-	OffOpacity
+	Idle,
+	Blink,
+	UnBlink
 };
 
 UENUM(BlueprintType)

@@ -32,4 +32,7 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = Settings)
 		class AVR_Player* player;
+
+		UPROPERTY()
+		class AWatch* watch;
 };
