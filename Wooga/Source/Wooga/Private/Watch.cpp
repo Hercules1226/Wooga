@@ -37,13 +37,13 @@ void AWatch::Tick(float DeltaTime)
 	switch (blinkFlow)
 	{
 	case EBlinkState::Idle:
-		OnOpacity();
+		Idle();
 		break;
 	case EBlinkState::Blink:
-		PlayOpacity();
+		Blink();
 		break;
 	case EBlinkState::UnBlink:
-		OffOpacity();
+		UnBlink();
 		break;
 	}
 
@@ -76,8 +76,9 @@ void AWatch::InKnowledgePoint(UPrimitiveComponent* OverlappedComponent, AActor* 
 			// 진동효과
 			GetWorld()->GetFirstPlayerController()->PlayHapticEffect(watchHaptic, EControllerHand::Left, 0.5f, false);
 
+			// 머티리얼 변경
 			watch->SetMaterial(0, watchOneMaterial);
-
+			SetState(EBlinkState::Blink);
 
 			knowledgePoint = 1;
 			isKnowledgeIn = true;
@@ -88,8 +89,7 @@ void AWatch::InKnowledgePoint(UPrimitiveComponent* OverlappedComponent, AActor* 
 // 지식이 들어오면 T_Base, TW_icon 텍스쳐 변경 -> 머티리얼 변경으로 대체
 // Amount 값을 0.1로 바로 변경 -> 시간이 지나면 다시 0으로 시간은 6초
 // Boost는 3초 동안 30으로 가야함 나머지 3초동안 0으로 다시 감 
-
-void AWatch::OnOpacity()
+void AWatch::Blink()
 {
 	playTime += GetWorld()->DeltaTimeSeconds;
 
@@ -107,11 +107,25 @@ void AWatch::OnOpacity()
 	}
 }
 
-void AWatch::PlayOpacity()
+void AWatch::UnBlink()
 {
+	playTime += GetWorld()->DeltaTimeSeconds;
+
+	float unBoostBlink = FMath::Lerp(30.0f, 0.0f, playTime);
+
+	watch->SetScalarParameterValueOnMaterials(TEXT("Boost"), unBoostBlink);
+
+	if (playTime >= 3.0f)
+	{
+		playTime = 0;
+		watch->SetScalarParameterValueOnMaterials(TEXT("Amount"), 0.0f);
+
+		SetState(EBlinkState::Idle);
+	}
 }
 
-void AWatch::OffOpacity()
+void AWatch::Idle()
 {
+	
 }
 

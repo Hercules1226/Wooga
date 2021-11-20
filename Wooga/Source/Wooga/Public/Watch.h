@@ -37,9 +37,9 @@ public:
 		UFUNCTION()
 		void InKnowledgePoint(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
-		void OnOpacity();
-		void PlayOpacity();
-		void OffOpacity();
+		void Blink();
+		void UnBlink();
+		void Idle();
 
 		UPROPERTY(VisibleAnywhere, Category = knowledge)
 		float knowledgePoint;
