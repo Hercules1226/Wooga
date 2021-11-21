@@ -54,8 +54,11 @@ public:
 	UPROPERTY()
 		class ASJ_Actor_CatchFish* catchFish;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
+		class UMaterial* welldone;
+
 	UPROPERTY()
-		float currentTime = 5;
+		float currentTime;
 
 	UPROPERTY()
 		class ASumjjiRock* sumjjiRock;
@@ -69,6 +72,12 @@ public:
 	UPROPERTY()
 		bool bisSumjjiRock = false;
 
-		UPROPERTY()
+	UPROPERTY()
 		bool biscatch = false;
+
+	UPROPERTY()
+		bool bisOverlab = false;
+
+	UPROPERTY()
+		bool bisWelldone = false;
 };
