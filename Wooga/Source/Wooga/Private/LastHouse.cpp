@@ -31,15 +31,6 @@ ALastHouse::ALastHouse()
 	tree4 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("tree4"));
 	tree4->SetupAttachment(sceneComponent);
 
-	tree5 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("tree5"));
-	tree5->SetupAttachment(sceneComponent);
-
-	tree6 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("tree6"));
-	tree6->SetupAttachment(sceneComponent);
-
-	tree7 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("tree7"));
-	tree7->SetupAttachment(sceneComponent);
-
 	offMaterial = CreateDefaultSubobject<UMaterial>(TEXT("Off Material"));
 
 	onMaterial = CreateDefaultSubobject<UMaterial>(TEXT("On Material"));
@@ -57,9 +48,6 @@ void ALastHouse::BeginPlay()
 	tree2->OnComponentBeginOverlap.AddDynamic(this, &ALastHouse::OnCollisionEnter);
 	tree3->OnComponentBeginOverlap.AddDynamic(this, &ALastHouse::OnCollisionEnter);
 	tree4->OnComponentBeginOverlap.AddDynamic(this, &ALastHouse::OnCollisionEnter);
-	tree5->OnComponentBeginOverlap.AddDynamic(this, &ALastHouse::OnCollisionEnter);
-	tree6->OnComponentBeginOverlap.AddDynamic(this, &ALastHouse::OnCollisionEnter);
-	tree7->OnComponentBeginOverlap.AddDynamic(this, &ALastHouse::OnCollisionEnter);
 
 	tree1->SetMaterial(0, offMaterial);
 }
@@ -75,7 +63,7 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 {
 	stick = Cast<AStick>(OtherActor);
 
-	if (stick)
+	if (OtherActor == stick)
 	{
 		if (player->grabComp->bisStickR == true)
 		{
@@ -84,6 +72,8 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 			stick->SetActorLocationAndRotation(tree1->GetComponentLocation(), tree1->GetComponentRotation());
 
 			tree1->SetMaterial(0, onMaterial);
+
+			stick->SetActorHiddenInGame(true);
 		}
 
 		if (player->grabComp->bisStickL == true)
@@ -94,6 +84,7 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 			stick->AttachToComponent(tree1, attachRules);
 
 			tree1->SetMaterial(0, onMaterial);
+			stick->SetActorHiddenInGame(true);
 		}
 	}
 }

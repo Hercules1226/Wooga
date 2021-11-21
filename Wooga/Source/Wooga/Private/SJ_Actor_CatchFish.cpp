@@ -25,6 +25,7 @@ ASJ_Actor_CatchFish::ASJ_Actor_CatchFish()
 void ASJ_Actor_CatchFish::BeginPlay()
 {
 	Super::BeginPlay();
+	sumjji = Cast<ACable>(UGameplayStatics::GetActorOfClass(GetWorld(), ACable::StaticClass()));
 
 	fish->OnComponentBeginOverlap.AddDynamic(this, &ASJ_Actor_CatchFish::OnOverlap);
 
@@ -40,7 +41,7 @@ void ASJ_Actor_CatchFish::Tick(float DeltaTime)
 
 void ASJ_Actor_CatchFish::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	sumjji = Cast<ACable>(OtherActor);
+	//sumjji = Cast<ACable>(OtherActor);
 
 	if (OtherComp == sumjji->rockComp)
 	{

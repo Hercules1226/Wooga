@@ -4,6 +4,9 @@
 #include "Cable.h"
 #include "String.h"
 #include "SumjjiRock.h"
+#include "VR_Player.h"
+#include "FireStraw.h"
+#include "Components/BoxComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SplineComponent.h"
 #include <Components/SkeletalMeshComponent.h>
@@ -37,6 +40,8 @@ ACable::ACable()
 
 	offMaterial = CreateDefaultSubobject<UMaterialInstance>(TEXT("Off Material"));
 
+	welldone = CreateDefaultSubobject<UMaterial>(TEXT("Welldone"));
+
 	//nia = CreateDefaultSubobject<UNiagaraComponent>(TEXT("Nia"));
 }
 
@@ -46,7 +51,7 @@ void ACable::BeginPlay()
 	Super::BeginPlay();
 	stickComp->OnComponentBeginOverlap.AddDynamic(this, &ACable::OnCollisionEnter);
 	rockComp->OnComponentBeginOverlap.AddDynamic(this, &ACable::OnCollisionEnter);
-
+	sumjjiRock = Cast<ASumjjiRock>(UGameplayStatics::GetActorOfClass(GetWorld(), ASumjjiRock::StaticClass()));
 	catchFish = Cast<ASJ_Actor_CatchFish>(UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_Actor_CatchFish::StaticClass()));
 }
 
@@ -60,11 +65,29 @@ void ACable::Tick(float DeltaTime)
 		currentTime += GetWorld()->DeltaTimeSeconds;
 		if (currentTime >= 5.f)
 		{
-			fish->SetCollisionProfileName(TEXT("Ragdoll"));
-			fish->SetSimulatePhysics(true);
+			/*fish->SetCollisionProfileName(TEXT("Ragdoll"));
+			fish->SetSimulatePhysics(true);*/
 			//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("FIIIIIIIIIIIIIIIIIIIIIIIIIIIsh!!")));
 
 			fish->SetActive(false);
+			currentTime = 0.f;
+			biscatch = false;
+		}
+	}
+
+	if (bisOverlab == true)
+	{
+		currentTime += GetWorld()->DeltaTimeSeconds;
+
+		if (currentTime >= 3.f)
+		{
+			fish->SetMaterial(0, welldone);
+			bisWelldone = true;
+			bisOverlab = false;
+			//disTime += GetWorld()->DeltaTimeSeconds;
+			//blend = FMath::Lerp(0.f, 1.f, disTime * 0.5f);
+
+		//	meshComp1->SetScalarParameterValueOnMaterials(TEXT("Amount"), blend);
 		}
 	}
 }
@@ -73,24 +96,42 @@ void ACable::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class A
 {
 	nia = Cast<UNiagaraComponent>(GetDefaultSubobjectByName(TEXT("Niagara")));
 	string = Cast<AString>(OtherActor);
-	sumjjiRock = Cast<ASumjjiRock>(OtherActor);
+	
+	auto fireStraw = Cast<AFireStraw>(OtherActor);
+	auto player = Cast<AVR_Player>(OtherActor);
 	//catchFish = Cast<ASJ_Actor_CatchFish>(OtherActor);
-
-
 
 	if (OtherActor == string)
 	{
-
 		//nia->SetHiddenInGame(false);
 			//UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), SpawnEffect, cableComp->GetComponentLocation(), cableComp->GetComponentRotation());
 		string->Destroy();
-		cableComp->SetHiddenInGame(false);
-
+		cableComp->SetMaterial(0, offMaterial);
 	}
 
 	if (OverlappedComp == rockComp && OtherActor == sumjjiRock)
 	{
 		rockComp->SetHiddenInGame(false);
+		cableComp->SetHiddenInGame(false);
+		rockComp->SetMaterial(0, onMaterial);
 		sumjjiRock->Destroy();
+	}
+
+	if (OtherActor == fireStraw)
+	{
+		bisOverlab = true;
+		currentTime = 0.f;
+	}
+
+
+	if (bisWelldone == true)
+	{
+		if (player)
+		{
+			if (OtherComp == player->mouthComp)
+			{
+				fish->SetHiddenInGame(true);
+			}
+		}
 	}
 }
