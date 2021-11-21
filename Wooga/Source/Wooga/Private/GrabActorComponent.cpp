@@ -206,7 +206,7 @@ void UGrabActorComponent::RightReleaseAction()
 		// 그 자리에서 떨어지게
 		appleR->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
 
-		appleR->boxComp->SetSimulatePhysics(true);
+		//appleR->boxComp->SetSimulatePhysics(true);
 
 		appleR = nullptr;
 		bisLeftGrab = false;
