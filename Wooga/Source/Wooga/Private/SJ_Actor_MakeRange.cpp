@@ -31,11 +31,11 @@ void ASJ_Actor_MakeRange::BeginPlay()
 
 	 if (gameMode->flowState == EFlowState::HitBoar)
 	{
-		FVector p = FVector(7665, 8294, 1190);
+		FVector p = FVector(7600, 8717, 1190);
 
 		SetActorLocation(p);
 
-		FRotator r = FRotator(0, 150, 0);
+		FRotator r = FRotator(0, -40, 0);
 
 		SetActorRotation(r);
 	}
@@ -48,11 +48,11 @@ void ASJ_Actor_MakeRange::Tick(float DeltaTime)
 
 	if (gameMode->flowState == EFlowState::CuttingPig)
 	{
-		FVector p1 = FVector(7401, 8470, 1200);
+		FVector p1 = FVector(7333, 8431, 1190);
 
 		SetActorLocation(p1);
 
-		FRotator r1 = FRotator(0, 330, 0);
+		FRotator r1 = FRotator(0, -30, 0);
 
 		SetActorRotation(r1);
 	}

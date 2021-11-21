@@ -56,6 +56,7 @@ void ASJ_Actor_MammothSpawnDestroy::TriggerIn(UPrimitiveComponent* OverlappedCom
 	if (mammoth)
 	{
 		mammoth->Destroy();
+		Destroy();
 	}
 }
 

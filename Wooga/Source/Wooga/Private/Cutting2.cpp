@@ -99,7 +99,7 @@ void ACutting2::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, clas
 				bisOverlabR = true;
 
 				player->rightHand->SetHiddenInGame(true);
-				fA->SetActorHiddenInGame(true);
+				// fA->SetActorHiddenInGame(true);
 
 				handle->SetMaterial(0, onMaterialHand);
 				handle->SetMaterial(1, onMaterialFA);

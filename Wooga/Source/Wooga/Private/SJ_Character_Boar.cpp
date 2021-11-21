@@ -44,9 +44,9 @@ void ASJ_Character_Boar::BeginPlay()
 
 	Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
-	FVector p = FVector(7010.0f, 6000.0f, 1200.0f);
+	FVector p = FVector(7187.0f, 5954.0f, 1200.0f);
 
-	// SetActorLocation(p);
+	SetActorLocation(p);
 
 	// 타격 포인트 얼굴에 붙여주기
 	FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;

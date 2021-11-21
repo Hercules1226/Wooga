@@ -6,6 +6,7 @@
 #include <Components/WidgetComponent.h>
 #include <Kismet/GameplayStatics.h>
 #include "SlicePig.h"
+#include "Tomahowk.h"
 
 // Sets default values
 ASJ_Actor_PickUpMeatUI::ASJ_Actor_PickUpMeatUI()
@@ -29,10 +30,10 @@ void ASJ_Actor_PickUpMeatUI::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	slicePig = Cast<ASlicePig>(UGameplayStatics::GetActorOfClass(GetWorld(), ASlicePig::StaticClass()));
+	tomahowk = Cast<ATomahowk>(UGameplayStatics::GetActorOfClass(GetWorld(), ATomahowk::StaticClass()));
 
-	FVector pigLoc = slicePig->GetActorLocation();
-	FVector p = pigLoc + FVector::UpVector * 200;
+	FVector pigLoc = tomahowk->GetActorLocation();
+	FVector p = pigLoc + FVector::UpVector * 100;
 	SetActorLocation(p);
 
 	FRotator r = FRotator(0, -40.0f, 0);

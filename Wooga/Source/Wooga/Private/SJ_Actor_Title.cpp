@@ -25,7 +25,7 @@ void ASJ_Actor_Title::BeginPlay()
 
 	if (gameMode->flowState == EFlowState::HowToGrabActorUI || gameMode->flowState == EFlowState::FireDiscoveryTitle)
 	{
-		FVector p1 = FVector(10875, 11859, 1290);
+		FVector p1 = FVector(10900, 11930, 1280);
 
 		SetActorLocation(p1);
 

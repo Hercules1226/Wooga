@@ -33,4 +33,5 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	class ASlicePig* slicePig;
+	class ATomahowk* tomahowk;
 };

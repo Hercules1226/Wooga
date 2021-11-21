@@ -36,6 +36,8 @@ void ASJ_Actor_Hammer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	playTime += DeltaTime;
+
 	FVector  me = GetActorLocation();
 	FVector  tar = boar->GetActorLocation();
 	FVector  dir = tar - me;
@@ -44,5 +46,11 @@ void ASJ_Actor_Hammer::Tick(float DeltaTime)
 	FVector p2 = boar->GetActorRightVector() * 170000;
 
 	hammer->AddForce(p2 * 12);
+
+	if (playTime >= 3.0f)
+	{
+		playTime = 0;
+		Destroy();
+	}
 }
 

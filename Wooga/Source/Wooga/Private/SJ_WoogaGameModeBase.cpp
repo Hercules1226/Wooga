@@ -59,10 +59,10 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	Super::BeginPlay();
 
 	// 맨 처음 불의 발견 교육으로 시작
-	 SetState(EFlowState::InGame);
+	// SetState(EFlowState::InGame);
 
 	// 테스트용 스테이트
-	// SetState(EFlowState::CompleteCollect);
+	SetState(EFlowState::CompleteCollect);
 
 	// 스폰 파라미터
 	Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
@@ -409,7 +409,7 @@ void ASJ_WoogaGameModeBase::Firing()
 	if (fireStraw->isClear == true)
 	{
 		// 지푸라기와 화로 아웃라인
-		firePosition->outLine->SetHiddenInGame(true);
+		// firePosition->outLine->SetHiddenInGame(true);
 		fireStraw->outLine->SetHiddenInGame(true);
 
 		// UI 꺼주기
@@ -645,10 +645,10 @@ void ASJ_WoogaGameModeBase::SeeMammoth()
 {
 	nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-	if (nextDelayTime >= 15.0f)
+	if (nextDelayTime >= 20.0f)
 	{
 		// 맘모스 스폰 액터 제거
-		mammothSpawn->Destroy();
+		// mammothSpawn->Destroy();
 
 		// 주먹도끼 돌 잡기 UI 생성
 		handAxUI = GetWorld()->SpawnActor<ASJ_Actor_GrabHandAxUI>(bpHandAxUI, Param);
@@ -701,7 +701,26 @@ void ASJ_WoogaGameModeBase::RunBoar()
 
 void ASJ_WoogaGameModeBase::HitBoar()
 {
-	if (boar->isHitBoar == true)
+	if (boar->boarState == EBoarState::Die)
+	{
+		// 사용된 UI 제거
+		hitBoarUI->Destroy();
+
+		// 주먹도끼 만들기 UI
+		makeHandAxUI = GetWorld()->SpawnActor<ASJ_Actor_MakeHandAxUI>(bpMakeHandAxUI, Param);
+
+		// 주먹도끼 제작을 위한 장소 이동
+		makeHandAxRange = GetWorld()->SpawnActor<ASJ_Actor_MakeRange>(bpMakeHandAxRange, Param);
+
+		// 숨겨뒀던 죽은 돼지를 소환
+		slicePig->SetActorHiddenInGame(false);
+
+		SetState(EFlowState::MakeHandAx);
+	}
+
+	// 수정전 로직
+/*
+if (boar->isHitBoar == true)
 	{
 		// UI 꺼주기
 		bIsUIClose = true;
@@ -727,6 +746,8 @@ void ASJ_WoogaGameModeBase::HitBoar()
 			SetState(EFlowState::MakeHandAx);
 		}
 	}
+*/
+	
 }
 void ASJ_WoogaGameModeBase::MakeHandAx()
 {
@@ -844,6 +865,11 @@ void ASJ_WoogaGameModeBase::CuttingPig()
 		{
 			// 가이드라인 생성
 			goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpFIreUseGuideLine, Param);
+
+			slicePig->Destroy();
+			sliceMeat->Destroy();
+			cutting->Destroy();
+			cuttingTwo->Destroy();
 
 			// 고기 들고가기 UI생성
 			pickUpMeatUI = GetWorld()->SpawnActor<ASJ_Actor_PickUpMeatUI>(bpPickUpMeatUI, Param);
