@@ -47,4 +47,8 @@ public:
 	float startParam;
 	UPROPERTY()
 	float endParam;
+
+	// 제목사운드
+	UPROPERTY(EditAnywhere, Category = Sound)
+	class USoundBase* titleSound;
 };

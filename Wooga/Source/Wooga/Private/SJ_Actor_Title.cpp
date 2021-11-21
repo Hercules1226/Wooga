@@ -4,6 +4,7 @@
 #include "SJ_Actor_Title.h"
 #include <Components/StaticMeshComponent.h>
 #include "SJ_WoogaGameModeBase.h"
+#include <Kismet/GameplayStatics.h>
 
 // Sets default values
 ASJ_Actor_Title::ASJ_Actor_Title()
@@ -20,6 +21,9 @@ void ASJ_Actor_Title::BeginPlay()
 {
 	Super::BeginPlay();
 
+	// 제목 사운드 재생
+	UGameplayStatics::PlaySound2D(GetWorld(), titleSound);
+
 	// 게임모드 캐싱
 	gameMode = Cast<ASJ_WoogaGameModeBase>(GetWorld()->GetAuthGameMode());
 
@@ -33,7 +37,16 @@ void ASJ_Actor_Title::BeginPlay()
 
 		SetActorRotation(r1);
 	}
+	else if (gameMode->flowState == EFlowState::GoToSpear || gameMode->flowState == EFlowState::SpearTitle)
+	{
+		FVector p5 = FVector(4190, 6828, 1280);
 
+		SetActorLocation(p5);
+
+		FRotator r5 = FRotator(0, 160, 0);
+
+		SetActorRotation(r5);
+	}
 
 	SetState(ETitleState::On);
 }

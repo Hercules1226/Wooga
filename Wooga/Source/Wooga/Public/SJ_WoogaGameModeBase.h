@@ -297,7 +297,7 @@ public:
 
 	// 돼지 정육 기능
 	UPROPERTY()
-		class ACutting2* pigCutting;
+		class ACutting* pigCutting;
 
 	// 불의 활용 가이드라인
 	UPROPERTY(EditAnywhere, Category = GuideLine)
@@ -332,4 +332,24 @@ public:
 	// 슴베찌르개까지 가이드라인
 	UPROPERTY(EditAnywhere, Category = GuideLine)
 	TSubclassOf<class ASJ_Actor_GoToGuideLine> bpSpearGuideLine;
+
+	// 뼈를 들고 이동하시오 UI
+	UPROPERTY()
+	class ASJ_Actor_GrabTomahowkUI* grabTomahowk;
+	UPROPERTY(EditAnywhere, Category = UI)
+	TSubclassOf<class ASJ_Actor_GrabTomahowkUI> bpGrabTomahowkUI;
+
+	// 슴베찌르개
+	void SpearTitle();
+	void MakeSpear();
+	void TakeRock();
+	void ConnectSpear();
+	void TieSpear();
+	void CompleteSpear();
+	void HuntFish();
+	void CatchFish();
+
+	// 슴베찌르개 제목
+	UPROPERTY(EditAnywhere, Category = Title)
+	TSubclassOf<class ASJ_Actor_Title> bpSpearTitle;
 };

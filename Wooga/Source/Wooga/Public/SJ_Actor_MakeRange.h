@@ -40,4 +40,7 @@ public:
 
 	UPROPERTY()
 	bool isPlayerIn;
+
+	UPROPERTY()
+	float returnTime;
 };
