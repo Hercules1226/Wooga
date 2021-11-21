@@ -51,7 +51,10 @@ enum class EFlowState : uint8
 	TieSpear,
 	CompleteSpear,
 	HuntFish,
-	CatchFish
+	CatchFish,
+	GoToCookFish,
+	CookFish,
+	EatFish
 };
 
 UENUM(BlueprintType)

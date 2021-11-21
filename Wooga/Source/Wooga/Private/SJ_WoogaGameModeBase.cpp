@@ -55,6 +55,12 @@
 #include "Cable.h"
 #include "SJ_Actor_TieSpearUI.h"
 #include "String.h"
+#include "SJ_Actor_HuntFishUI.h"
+#include "SJ_Actor_CatchFish.h"
+#include "SJ_Actor_CatchFishUI.h"
+#include "SJ_Actor_GoFryFishUI.h"
+#include "SJ_Actor_CookFishUI.h"
+#include "SJ_Actor_EatFishUI.h"
 
 ASJ_WoogaGameModeBase::ASJ_WoogaGameModeBase()
 {
@@ -227,6 +233,15 @@ void ASJ_WoogaGameModeBase::Tick(float DeltaSeconds)
 		break;
 	case EFlowState::CatchFish:
 		CatchFish();
+		break;
+	case EFlowState::GoToCookFish:
+		GoToCookFish();
+		break;
+	case EFlowState::CookFish:
+		CookFish();
+		break;
+	case EFlowState::EatFish:
+		EatFish();
 		break;
 	}
 
@@ -1074,6 +1089,9 @@ void ASJ_WoogaGameModeBase::SpearTitle()
 		// 딜레이 변수 초기화
 		nextDelayTime = 0;
 
+		// 제작 범위 생성
+		makeHandAxRange = GetWorld()->SpawnActor<ASJ_Actor_MakeRange>(bpMakeHandAxRange, Param);
+
 		goToGuideLine->Destroy();
 		SetState(EFlowState::MakeSpear);
 	}
@@ -1099,7 +1117,7 @@ void ASJ_WoogaGameModeBase::MakeSpear()
 
 			// 딜레이 변수
 			nextDelayTime = 0;
-			
+
 			SetState(EFlowState::TakeRock);
 		}
 	}
@@ -1175,6 +1193,9 @@ void ASJ_WoogaGameModeBase::TieSpear()
 			// 사용 UI 제거
 			tieSpearUI->Destroy();
 
+			makeHandAxRange->Destroy();
+
+			// 홀로그램 생성
 			hologram = GetWorld()->SpawnActor<ASJ_Hologram>(bpSpearHologram, Param);
 
 			// 딜레이 변수 초기화
@@ -1191,15 +1212,89 @@ void ASJ_WoogaGameModeBase::CompleteSpear()
 
 	if (nextDelayTime >= 17.0f)
 	{
+		// 범위 생성
+		makeHandAxRange = GetWorld()->SpawnActor<ASJ_Actor_MakeRange>(bpMakeHandAxRange, Param);
+
+		// 물고기 사냥 UI
+		huntFishUI = GetWorld()->SpawnActor<ASJ_Actor_HuntFishUI>(bpHuntFishUI, Param);
+
+		// 딜레이 변수 초기화
+		nextDelayTime = 0;
 		SetState(EFlowState::HuntFish);
 	}
 }
 
 void ASJ_WoogaGameModeBase::HuntFish()
 {
+	if (makeHandAxRange->isPlayerIn == true)
+	{
+		bIsUIClose = true;
+
+		nextDelayTime += GetWorld()->DeltaTimeSeconds;
+
+		if (nextDelayTime >= 2.0f)
+		{
+			// 사용 UI 제거
+			huntFishUI->Destroy();
+
+			catchFishUI = GetWorld()->SpawnActor<ASJ_Actor_CatchFishUI>(bpHuntFishUI, Param);
+			// 잡을 물고기
+			catchFish = Cast<ASJ_Actor_CatchFish>(UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_Actor_CatchFish::StaticClass()));
+			catchFish->outlineFish->SetVisibility(true);
+
+			// 딜레이변수 초기화
+			nextDelayTime = 0;
+			SetState(EFlowState::CatchFish);
+		}
+	}
 }
 
 void ASJ_WoogaGameModeBase::CatchFish()
 {
+	if (catchFish->isAttacked == true)
+	{
+		bIsUIClose = true;
+
+		nextDelayTime += GetWorld()->DeltaTimeSeconds;
+
+		if (nextDelayTime >= 2.0f)
+		{
+			// 사용 UI 제거
+			catchFish->Destroy();
+
+			goFryFishUI = GetWorld()->SpawnActor<ASJ_Actor_GoFryFishUI>(bpGoFryFishUI, Param);
+			makeHandAxRange = GetWorld()->SpawnActor<ASJ_Actor_MakeRange>(bpGoToFry, Param);
+
+			// 딜레이변수 초기화
+			nextDelayTime = 0;
+			SetState(EFlowState::GoToCookFish);
+		}
+	}
+}
+void ASJ_WoogaGameModeBase::GoToCookFish()
+{
+	if (makeHandAxRange->isPlayerIn == true)
+	{
+		bIsUIClose = true;
+
+		nextDelayTime += GetWorld()->DeltaTimeSeconds;
+		if (nextDelayTime >= 2.0f)
+		{
+			goFryFishUI->Destroy();
+
+			cookFishUI = GetWorld()->SpawnActor<ASJ_Actor_CookFishUI>(bpCookFishUI, Param);
+			// 딜레이 변수 초기화
+			nextDelayTime = 0;
+			SetState(EFlowState::CookFish);
+		}
+	}
+}
+void ASJ_WoogaGameModeBase::CookFish()
+{
+	// 익히기 코드
+}
+void ASJ_WoogaGameModeBase::EatFish()
+{
+	// 먹기 코드
 }
 #pragma  endregion
