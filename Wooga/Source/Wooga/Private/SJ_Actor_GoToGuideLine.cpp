@@ -64,6 +64,16 @@ void ASJ_Actor_GoToGuideLine::BeginPlay()
 
 		SetActorRotation(r3);
 	}
+	else if (gameModeBase->flowState == EFlowState::CompleteFireUse || gameModeBase->flowState == EFlowState::GoToSpear)
+	{
+		FVector p4 = FVector(4219, 6887, 1260);
+		
+		SetActorLocation(p4);
+
+		FRotator r4 = FRotator(0, 70, 0);
+
+		SetActorRotation(r4);
+	}
 
 	range->OnComponentBeginOverlap.AddDynamic(this, &ASJ_Actor_GoToGuideLine::RangeIn);
 }

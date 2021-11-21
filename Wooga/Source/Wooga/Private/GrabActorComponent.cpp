@@ -292,7 +292,7 @@ void UGrabActorComponent::RightReleaseAction()
 		sumjjiR->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
 
 		sumjjiR->stickComp->SetSimulatePhysics(true);
-		//sumjjiL->outLine->SetVisibility(true);
+		//sumjjiL->outLine->SetVisibility(false);
 
 		sumjjiR = nullptr;
 		bisLeftGrab = false;

@@ -10,7 +10,7 @@
 // Sets default values
 ASJ_Actor_MakeRange::ASJ_Actor_MakeRange()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	range = CreateDefaultSubobject<UBoxComponent>(TEXT("Range"));
@@ -24,12 +24,12 @@ ASJ_Actor_MakeRange::ASJ_Actor_MakeRange()
 void ASJ_Actor_MakeRange::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 	range->OnComponentBeginOverlap.AddDynamic(this, &ASJ_Actor_MakeRange::OnPlayerOverlap);
 
 	gameMode = Cast<ASJ_WoogaGameModeBase>(GetWorld()->GetAuthGameMode());
 
-	 if (gameMode->flowState == EFlowState::HitBoar)
+	if (gameMode->flowState == EFlowState::HitBoar)
 	{
 		FVector p = FVector(7600, 8717, 1190);
 
@@ -39,13 +39,44 @@ void ASJ_Actor_MakeRange::BeginPlay()
 
 		SetActorRotation(r);
 	}
+	else if (gameMode->flowState == EFlowState::MakeSpear || gameMode->flowState == EFlowState::SpearTitle)
+	{
+		// ½¿º£Âî¸£°³ ¸¸µé±â
+		FVector p2 = FVector(4392, 6799, 1190);
+
+		SetActorLocation(p2);
+
+		FRotator r2 = FRotator(0, 90, 0);
+
+		SetActorRotation(r2);
+	}
+	else if (gameMode->flowState == EFlowState::CompleteSpear || gameMode->flowState == EFlowState::HuntFish)
+	{
+		FVector p3 = FVector(4070, 6600, 1185);
+
+		SetActorLocation(p3);
+
+		FRotator r3 = FRotator(0, 70, 0);
+
+		SetActorRotation(r3);
+	}
+	else if(gameMode->flowState == EFlowState::CatchFish || gameMode->flowState == EFlowState::GoToCookFish)
+	{
+		FVector p4 = FVector(5097, 7816, 1190);
+
+		SetActorLocation(p4);
+
+		FRotator r4 = FRotator(0, -120, 0);
+
+		SetActorRotation(r4);
+	}
 }
 
 // Called every frame
 void ASJ_Actor_MakeRange::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	
+
 	if (isPlayerIn == true)
 	{
 		returnTime += DeltaTime;
@@ -55,30 +86,6 @@ void ASJ_Actor_MakeRange::Tick(float DeltaTime)
 			returnTime = 0;
 			isPlayerIn = false;
 		}
-	}
-
-	if (gameMode->flowState == EFlowState::CuttingPig)
-	{
-		// µÅÁö ÀÚ¸£±â
-		FVector p1 = FVector(7333, 8431, 1190);
-
-		SetActorLocation(p1);
-
-		FRotator r1 = FRotator(0, -30, 0);
-
-		SetActorRotation(r1);
-	}
-
-	if (gameMode->flowState == EFlowState::MakeSpear)
-	{
-		// ½¿º£Âî¸£°³ ¸¸µé±â
-		FVector p2 = FVector(4392, 6799, 1210);
-
-		SetActorLocation(p2);
-
-		FRotator r2 = FRotator(0, 90, 0);
-
-		SetActorRotation(r2);
 	}
 }
 

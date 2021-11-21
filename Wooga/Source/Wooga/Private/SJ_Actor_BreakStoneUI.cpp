@@ -27,11 +27,11 @@ void ASJ_Actor_BreakStoneUI::BeginPlay()
 {
 	Super::BeginPlay();
 
-	FVector p = FVector(4496, 6722, 1157);
+	FVector p = FVector(4396, 6667, 1262);
 
 	SetActorLocation(p);
 
-	FRotator r = FRotator(0, -25, 0);
+	FRotator r = FRotator(0, 85, 0);
 
 	SetActorRotation(r);
 	

@@ -348,6 +348,9 @@ public:
 	void CompleteSpear();
 	void HuntFish();
 	void CatchFish();
+	void GoToCookFish();
+	void CookFish();
+	void EatFish();
 
 	// 슴베찌르개 제목
 	UPROPERTY(EditAnywhere, Category = Title)
@@ -386,4 +389,42 @@ public:
 	//  슴베찌르개 홀로그램
 	UPROPERTY(EditAnywhere, Category = Hologram)
 	TSubclassOf<class ASJ_Hologram> bpSpearHologram;
+
+	// 물고기 사냥 UI
+	UPROPERTY()
+	class ASJ_Actor_HuntFishUI* huntFishUI;
+	UPROPERTY(EditAnywhere, Category = UI)
+	TSubclassOf<class ASJ_Actor_HuntFishUI> bpHuntFishUI;
+
+	// 물고기 잡기 UI 
+	UPROPERTY()
+	class ASJ_Actor_CatchFishUI* catchFishUI;
+	UPROPERTY(EditAnywhere, Category = UI)
+	TSubclassOf<class ASJ_Actor_CatchFishUI> bpCatchFishUI;
+
+	// 잡을 물고기
+	UPROPERTY()
+	class ASJ_Actor_CatchFish* catchFish;
+
+	// 물고기 요리 UI
+	UPROPERTY()
+	class ASJ_Actor_GoFryFishUI* goFryFishUI;
+	UPROPERTY(EditAnywhere, Category = UI)
+	TSubclassOf<class ASJ_Actor_GoFryFishUI> bpGoFryFishUI;
+
+	// 화롯대 유도 가이드라인
+	UPROPERTY(EditAnywhere, Category = Range)
+	TSubclassOf<class ASJ_Actor_MakeRange> bpGoToFry;
+
+	// 물고기 익히기 UI
+	UPROPERTY()
+	class ASJ_Actor_CookFishUI* cookFishUI;
+	UPROPERTY(EditAnywhere, Category = UI)
+	TSubclassOf<class ASJ_Actor_CookFishUI> bpCookFishUI;
+
+	// 물고기 먹기 UI
+	UPROPERTY()
+	class ASJ_Actor_EatFishUI* eatFishUI;
+	UPROPERTY(EditAnywhere, Category = UI)
+	TSubclassOf<class ASJ_Actor_EatFishUI> bpEatFishUI;
 };
