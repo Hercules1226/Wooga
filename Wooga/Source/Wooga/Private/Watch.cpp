@@ -5,6 +5,12 @@
 #include "VR_Player.h"
 #include <Kismet/GameplayStatics.h>
 #include "FireEvent.h"
+#include "Icon1.h"
+#include "Icon2.h"
+#include "Icon3.h"
+#include "Icon4.h"
+#include "Icon5.h"
+#include "Icon6.h"
 
 // Sets default values
 AWatch::AWatch()
@@ -25,6 +31,19 @@ void AWatch::BeginPlay()
 	Super::BeginPlay();
 	
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
+
+	icon1 = Cast<AIcon1>(UGameplayStatics::GetActorOfClass(GetWorld(), AIcon1::StaticClass()));
+
+	icon2 = Cast<AIcon2>(UGameplayStatics::GetActorOfClass(GetWorld(), AIcon2::StaticClass()));
+
+	icon3 = Cast<AIcon3>(UGameplayStatics::GetActorOfClass(GetWorld(), AIcon3::StaticClass()));
+
+	icon4 = Cast<AIcon4>(UGameplayStatics::GetActorOfClass(GetWorld(), AIcon4::StaticClass()));
+
+	icon5 = Cast<AIcon5>(UGameplayStatics::GetActorOfClass(GetWorld(), AIcon5::StaticClass()));
+
+	icon6 = Cast<AIcon6>(UGameplayStatics::GetActorOfClass(GetWorld(), AIcon6::StaticClass()));
+
 
 	watch->OnComponentBeginOverlap.AddDynamic(this, &AWatch::InKnowledgePoint);
 }
@@ -55,6 +74,17 @@ void AWatch::Tick(float DeltaTime)
 	SetActorRotation(dir.ToOrientationRotator());
 	}
 	*/
+
+	if (bisEnd == false)
+	{
+		GetWorld()->SpawnActor<AIcon1>(icon1Factory, GetTransform());
+		GetWorld()->SpawnActor<AIcon2>(Icon2Factory, GetTransform());
+		GetWorld()->SpawnActor<AIcon3>(Icon3Factory, GetTransform());
+		GetWorld()->SpawnActor<AIcon4>(Icon4Factory, GetTransform());
+		GetWorld()->SpawnActor<AIcon5>(Icon5Factory, GetTransform());
+		GetWorld()->SpawnActor<AIcon6>(Icon6Factory, GetTransform());
+		bisEnd = true;
+	}
 	
 }
 

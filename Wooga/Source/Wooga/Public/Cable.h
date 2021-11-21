@@ -69,6 +69,12 @@ public:
 	UPROPERTY()
 		class UNiagaraComponent* nia;
 
+	UPROPERTY(EditAnywhere, Category = "Sound")
+		USoundBase* eatSound;
+
+	UPROPERTY(EditAnywhere, Category = "Explosion")
+		class UParticleSystem* explosionFactory;
+
 	UPROPERTY(EditAnywhere, Category = Setting)
 		FVector grabOffset;
 

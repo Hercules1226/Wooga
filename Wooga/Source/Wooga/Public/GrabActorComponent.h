@@ -173,6 +173,12 @@ public:
 	UPROPERTY(EditAnywhere, Category = AAA)
 		float grabRange = 15;
 
+	UPROPERTY(EditAnywhere, Category = Sound)
+		class USoundBase* grabSound;
+
+	UPROPERTY(EditAnywhere, Category = Sound)
+		class USoundBase* appleSound;
+
 	UPROPERTY()
 		bool bIsShowing = false;
 	UPROPERTY()

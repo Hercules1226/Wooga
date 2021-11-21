@@ -30,6 +30,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = MoveSettings)
 		float rotateSpeed = 50.f;
 
+	UPROPERTY()
+		float currentTime;
+
 private:
 	void MoveHorizontal(float value);
 	void MoveVertical(float value);
@@ -49,6 +52,12 @@ private:
 	UPROPERTY()
 		FVector hmdLocation;
 
+	UPROPERTY(EditAnywhere, Category = "Sound")
+		USoundBase* walkSound;
+
 	UPROPERTY()
 		bool bisMove = true;
+
+	UPROPERTY()
+		bool bisWalk = false;
 };

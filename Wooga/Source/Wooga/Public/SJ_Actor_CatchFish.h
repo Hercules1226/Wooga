@@ -35,6 +35,12 @@ public:
 	UPROPERTY()
 	class USJ_CatchFishAnimInstance* catchFishAnimInst;
 
+	UPROPERTY(EditAnywhere, Category = "Explosion")
+		class UParticleSystem* explosionFactory;
+
+	UPROPERTY(EditAnywhere, Category = Sound)
+		class USoundBase* explosionSound;
+
 	UPROPERTY()
 	bool isAttacked;
 

@@ -10,8 +10,8 @@ UCLASS()
 class WOOGA_API AWatch : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AWatch();
 
@@ -19,7 +19,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -34,25 +34,63 @@ public:
 	UPROPERTY(EditAnywhere, Category = Settings)
 		class AVR_Player* player;
 
-		UFUNCTION()
+	UFUNCTION()
 		void InKnowledgePoint(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
-		void Blink();
-		void UnBlink();
-		void Idle();
+	void Blink();
+	void UnBlink();
+	void Idle();
 
-		UPROPERTY(VisibleAnywhere, Category = knowledge)
+	UPROPERTY(VisibleAnywhere, Category = knowledge)
 		float knowledgePoint;
 
-		UPROPERTY()
+	UPROPERTY()
 		bool isKnowledgeIn;
 
-		UPROPERTY(EditAnywhere, Category = Haptic)
+	UPROPERTY(EditAnywhere, Category = Haptic)
 		class UHapticFeedbackEffect_Base* watchHaptic;
 
-		UPROPERTY(EditAnywhere, Category = Material)
+	UPROPERTY(EditAnywhere, Category = Material)
 		class UMaterialInstance* watchOneMaterial;
 
-		UPROPERTY()
+	UPROPERTY()
 		float playTime;
+
+	UPROPERTY(EditAnywhere, Category = Settings)
+		class AIcon1* icon1;
+
+	UPROPERTY(EditAnywhere, Category = Settings)
+		class AIcon2* icon2;
+
+	UPROPERTY(EditAnywhere, Category = Settings)
+		class AIcon3* icon3;
+
+	UPROPERTY(EditAnywhere, Category = Settings)
+		class AIcon4* icon4;
+
+	UPROPERTY(EditAnywhere, Category = Settings)
+		class AIcon5* icon5;
+
+	UPROPERTY(EditAnywhere, Category = Settings)
+		class AIcon6* icon6;
+
+	UPROPERTY(EditDefaultsOnly, Category = "EnemyFactory")
+		TSubclassOf<class AIcon1> icon1Factory;
+
+	UPROPERTY(EditDefaultsOnly, Category = "EnemyFactory")
+		TSubclassOf<class AIcon2> Icon2Factory;
+
+	UPROPERTY(EditDefaultsOnly, Category = "EnemyFactory")
+		TSubclassOf<class AIcon3> Icon3Factory;
+
+	UPROPERTY(EditDefaultsOnly, Category = "EnemyFactory")
+		TSubclassOf<class AIcon4> Icon4Factory;
+
+	UPROPERTY(EditDefaultsOnly, Category = "EnemyFactory")
+		TSubclassOf<class AIcon5> Icon5Factory;
+
+	UPROPERTY(EditDefaultsOnly, Category = "EnemyFactory")
+		TSubclassOf<class AIcon6> Icon6Factory;
+	UPROPERTY()
+		bool bisEnd = false;
 };

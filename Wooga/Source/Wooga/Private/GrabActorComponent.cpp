@@ -130,6 +130,11 @@ void UGrabActorComponent::RightGrabAction()
 		return;
 	}
 
+	if (grabActor)
+	{
+		UGameplayStatics::PlaySound2D(GetWorld(), grabSound);
+	}
+
 	RGripFireRock(grabActor);
 	RGripFireRock2(grabActor);
 	RGripFirePosition(grabActor);
@@ -222,7 +227,7 @@ void UGrabActorComponent::RightReleaseAction()
 		// 그 자리에서 떨어지게
 		stickR->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
 
-		stickR->boxComp->SetSimulatePhysics(true);
+		//stickR->boxComp->SetSimulatePhysics(true);
 
 
 		stickR = nullptr;
@@ -363,6 +368,11 @@ void UGrabActorComponent::LeftGrabAction()
 	if (grabActor == nullptr)
 	{
 		return;
+	}
+
+	if (grabActor)
+	{
+		UGameplayStatics::PlaySound2D(GetWorld(), grabSound);
 	}
 
 	LGripFireRock(grabActor);
@@ -781,7 +791,7 @@ void UGrabActorComponent::RGripApple(AActor* grabActor)
 			stemR->bottomLoc->SetEnableGravity(true);
 			stemL->bottomLoc->SetSimulatePhysics(true);
 			stemL->bottomLoc->SetEnableGravity(true);*/
-
+			UGameplayStatics::PlaySound2D(GetWorld(), appleSound);
 
 			appleR->AttachToComponent(player->rightHandLoc, attachRules, TEXT("RGrabPoint"));
 
@@ -826,7 +836,7 @@ void UGrabActorComponent::LGripApple(AActor* grabActor)
 			stemR->bottomLoc->SetEnableGravity(true);
 			stemL->bottomLoc->SetSimulatePhysics(true);
 			stemL->bottomLoc->SetEnableGravity(true);*/
-
+			UGameplayStatics::PlaySound2D(GetWorld(), appleSound);
 
 			appleL->AttachToComponent(player->leftHandLoc, attachRules, TEXT("LGrabPoint"));
 

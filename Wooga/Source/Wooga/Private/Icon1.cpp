@@ -3,6 +3,8 @@
 
 #include "Icon1.h"
 #include "Components/StaticMeshComponent.h"
+#include "IconSpot.h"
+#include <Kismet/GameplayStatics.h>
 
 // Sets default values
 AIcon1::AIcon1()
@@ -22,6 +24,7 @@ void AIcon1::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	spot = Cast<AIconSpot>(UGameplayStatics::GetActorOfClass(GetWorld(), AIconSpot::StaticClass()));
 }
 
 // Called every frame
@@ -29,21 +32,32 @@ void AIcon1::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	FVector me = meshComp->GetComponentLocation();
-	//FVector target = spot1->GetActorLocation();
-	//FVector dir = target - me;
-	//dir.Normalize();
-	float speed = 100.0f;
+	if(spot)
+	{
+		FVector me = meshComp->GetComponentLocation();
+		FVector target = spot->spot1->GetComponentLocation() + FVector(0.f, 0.f, 40.f);
+		FVector dir = target - me;
+		dir.Normalize();
 
-	//FVector p = me + dir * speed * DeltaTime;
-	
-	//SetActorLocation(p);
+		float speed = 300.0f;
 
-	FVector startScale = GetActorScale3D();
-	FVector endScale = FVector(3.f, 3.f, 3.f);
+		FVector p = me + dir * speed * DeltaTime;
 
-	FVector setScale = FMath::Lerp(startScale, endScale, DeltaTime);
+		SetActorLocation(p);
 
-	SetActorScale3D(setScale);
+		FVector startScale = GetActorScale3D();
+		FVector endScale = FVector(15.f, 15.f, 15.f);
+
+		FVector setScale = FMath::Lerp(startScale, endScale, DeltaTime * 2.5f);
+		SetActorScale3D(setScale);
+
+		if (FVector::Dist(me, target) < 5.f)
+		{
+			SetActorLocation(target);
+			icon->SetHiddenInGame(true);
+		}
+	}
 }
+
+	
 

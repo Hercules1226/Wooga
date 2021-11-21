@@ -8,6 +8,7 @@
 #include "HandActorComponent.h"
 #include <Camera/CameraComponent.h>
 #include "SJ_WoogaGameModeBase.h"
+#include <Kismet/GameplayStatics.h>
 
 // Sets default values for this component's properties
 UMoveActorComponent::UMoveActorComponent()
@@ -37,6 +38,17 @@ void UMoveActorComponent::BeginPlay()
 void UMoveActorComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	currentTime += DeltaTime;
+
+	if (bisWalk == true)
+	{
+		if (currentTime >= 0.5f)
+		{
+			UGameplayStatics::PlaySound2D(GetWorld(), walkSound);
+			currentTime = 0;
+		}
+	}
 }
 
 void UMoveActorComponent::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -65,12 +77,24 @@ void UMoveActorComponent::MoveVertical(float value)
 {
 	if (bisMove == true)
 	{
+		bisWalk = true;
 		auto cam = Cast<UCameraComponent>(player->GetDefaultSubobjectByName(TEXT("MainCamera")));
 
 		FVector dir = cam->GetForwardVector() * value;
 		dir.Z = 0;
 
 		player->SetActorLocation(player->GetActorLocation() + dir * moveSpeed * GetWorld()->DeltaTimeSeconds);
+
+		if (value >= 0.5f)
+		{
+			bisWalk = true;
+		}
+
+		if (value < 0.5f)
+		{
+			bisWalk = false;
+			currentTime = 0;
+		}
 	}
 }
 

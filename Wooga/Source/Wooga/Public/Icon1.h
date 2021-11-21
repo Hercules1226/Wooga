@@ -28,4 +28,13 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = Setting)
 		class UStaticMeshComponent* icon;
+
+	UPROPERTY(EditAnywhere, Category = Setting)
+		class UStaticMeshComponent* holo;
+
+	UPROPERTY()
+	class AIconSpot* spot;
+
+	UPROPERTY()
+		bool bisfinish = false;
 };
