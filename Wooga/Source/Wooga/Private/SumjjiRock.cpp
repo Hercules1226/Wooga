@@ -28,6 +28,10 @@ ASumjjiRock::ASumjjiRock()
 	rock4 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Rock4"));
 	rock4->SetupAttachment(sumjji);
 
+	outLine = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Outline"));
+	outLine->SetupAttachment(sumjji);
+	outLine->SetCollisionProfileName(TEXT("NoCollision"));
+
 	onMaterial = CreateDefaultSubobject<UMaterialInstance>(TEXT("On Material"));
 
 	offMaterial = CreateDefaultSubobject<UMaterialInstance>(TEXT("off Material"));
@@ -47,6 +51,7 @@ void ASumjjiRock::BeginPlay()
 	bone = Cast<ATomahowk>(UGameplayStatics::GetActorOfClass(GetWorld(), ATomahowk::StaticClass()));
 	rock1->SetMaterial(0, onMaterial);
 
+	outLine->SetVisibility(false);
 }
 
 // Called every frame

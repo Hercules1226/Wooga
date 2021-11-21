@@ -41,6 +41,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = Settings)
 		class UStaticMeshComponent* rock4;
 
+	UPROPERTY(EditAnywhere, Category = Setting)
+		class UStaticMeshComponent* outLine;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
 		class UMaterialInstance* onMaterial;
 

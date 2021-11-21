@@ -27,5 +27,8 @@ public:
 		class UStaticMeshComponent* meshComp;
 
 	UPROPERTY(EditAnywhere, Category = Setting)
+		class UStaticMeshComponent* outLine;
+
+	UPROPERTY(EditAnywhere, Category = Setting)
 		FVector grabOffset;
 };

@@ -31,6 +31,16 @@ ALastHouse::ALastHouse()
 	tree4 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("tree4"));
 	tree4->SetupAttachment(sceneComponent);
 
+	base = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Base"));
+	base->SetupAttachment(sceneComponent);
+
+	complete = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Complete"));
+	complete->SetupAttachment(sceneComponent);
+
+	complete2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Complete2"));
+	complete2->SetupAttachment(sceneComponent);
+
+
 	offMaterial = CreateDefaultSubobject<UMaterial>(TEXT("Off Material"));
 
 	onMaterial = CreateDefaultSubobject<UMaterial>(TEXT("On Material"));
@@ -56,6 +66,21 @@ void ALastHouse::BeginPlay()
 void ALastHouse::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	if (bisfinish == true)
+	{
+		currentTime += DeltaTime;
+
+		if (currentTime >= baseTime)
+		{
+			base->SetHiddenInGame(false);
+		}
+
+		if (currentTime >= completeTime)
+		{
+			complete->SetHiddenInGame(false);
+			complete2->SetHiddenInGame(false);
+		}
+	}
 
 }
 
@@ -63,17 +88,99 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 {
 	stick = Cast<AStick>(OtherActor);
 
-	if (OtherActor == stick)
+	// 1
+	if (check1 == true)
+	{
+		if (OverlappedComp == tree1 && OtherActor == stick)
+		{
+			if (player->grabComp->bisStickR == true)
+			{
+				player->grabComp->RightReleaseAction();
+
+				stick->SetActorLocationAndRotation(tree1->GetComponentLocation(), tree1->GetComponentRotation());
+
+				tree1->SetMaterial(0, onMaterial);
+				tree2->SetMaterial(0, offMaterial);
+
+				stick->SetActorHiddenInGame(true);
+
+				check2 = true;
+				check1 = false;
+			}
+
+			if (player->grabComp->bisStickL == true)
+			{
+				player->grabComp->LeftReleaseAction();
+
+				FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
+				stick->AttachToComponent(tree1, attachRules);
+
+				tree1->SetMaterial(0, onMaterial);
+				tree2->SetMaterial(0, offMaterial);
+				stick->SetActorHiddenInGame(true);
+
+				check2 = true;
+				check1 = false;
+			}
+		}
+	}
+
+	// 2
+	if (check2 == true)
+	{
+		if (OverlappedComp == tree2 && OtherActor == stick)
+		{
+			if (player->grabComp->bisStickR == true)
+			{
+				player->grabComp->RightReleaseAction();
+
+				stick->SetActorLocationAndRotation(tree2->GetComponentLocation(), tree2->GetComponentRotation());
+
+				tree2->SetMaterial(0, onMaterial);
+				tree3->SetMaterial(0, offMaterial);
+
+				stick->SetActorHiddenInGame(true);
+
+				check3 = true;
+				check2 = false;
+			}
+
+			if (player->grabComp->bisStickL == true)
+			{
+				player->grabComp->LeftReleaseAction();
+
+				FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
+				stick->AttachToComponent(tree2, attachRules);
+
+				tree2->SetMaterial(0, onMaterial);
+				tree3->SetMaterial(0, offMaterial);
+				stick->SetActorHiddenInGame(true);
+
+				check3 = true;
+				check2 = false;
+			}
+		}
+	}
+
+	// 3
+	if (check3 == true)
+	{
+	}
+	if (OverlappedComp == tree3 && OtherActor == stick)
 	{
 		if (player->grabComp->bisStickR == true)
 		{
 			player->grabComp->RightReleaseAction();
 
-			stick->SetActorLocationAndRotation(tree1->GetComponentLocation(), tree1->GetComponentRotation());
+			stick->SetActorLocationAndRotation(tree3->GetComponentLocation(), tree3->GetComponentRotation());
 
-			tree1->SetMaterial(0, onMaterial);
+			tree3->SetMaterial(0, onMaterial);
+			tree4->SetMaterial(0, offMaterial);
 
 			stick->SetActorHiddenInGame(true);
+
+			check4 = true;
+			check3 = false;
 		}
 
 		if (player->grabComp->bisStickL == true)
@@ -81,10 +188,48 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 			player->grabComp->LeftReleaseAction();
 
 			FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
-			stick->AttachToComponent(tree1, attachRules);
+			stick->AttachToComponent(tree3, attachRules);
 
-			tree1->SetMaterial(0, onMaterial);
+			tree3->SetMaterial(0, onMaterial);
+			tree4->SetMaterial(0, offMaterial);
 			stick->SetActorHiddenInGame(true);
+
+			check4 = true;
+			check3 = false;
+		}
+	}
+
+	// 4
+	if (OverlappedComp == tree4 && OtherActor == stick)
+	{
+		if (player->grabComp->bisStickR == true)
+		{
+			player->grabComp->RightReleaseAction();
+
+			stick->SetActorLocationAndRotation(tree1->GetComponentLocation(), tree4->GetComponentRotation());
+
+			tree4->SetMaterial(0, onMaterial);
+
+			stick->SetActorHiddenInGame(true);
+
+			bisfinish = true;
+			check4 = false;
+		}
+
+		if (player->grabComp->bisStickL == true)
+		{
+			player->grabComp->LeftReleaseAction();
+
+			FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
+			stick->AttachToComponent(tree4, attachRules);
+
+			tree4->SetMaterial(0, onMaterial);
+			stick->SetActorHiddenInGame(true);
+
+			bisfinish = true;
+			check4 = false;
+
+			currentTime = 0.f;
 		}
 	}
 }

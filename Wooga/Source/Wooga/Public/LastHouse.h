@@ -41,6 +41,15 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
 		class UStaticMeshComponent* tree4;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
+		class UStaticMeshComponent* base;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
+		class UStaticMeshComponent* complete;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
+		class UStaticMeshComponent* complete2;
+
 public:
 
 	UPROPERTY()
@@ -56,11 +65,23 @@ public:
 		class UMaterial* onMaterial;
 
 	UPROPERTY()
-		bool check1 = false;
+		float currentTime = 0;
+
+	UPROPERTY()
+		float baseTime = 3.f;
+
+	UPROPERTY()
+		float completeTime = 6.f;
+
+	UPROPERTY()
+		bool check1 = true;
 	UPROPERTY()
 		bool check2 = false;
 	UPROPERTY()
 		bool check3 = false;
 	UPROPERTY()
 		bool check4 = false;
+
+	UPROPERTY()
+		bool bisfinish = false;
 };
