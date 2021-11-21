@@ -40,6 +40,9 @@ public:
 		class UStaticMeshComponent* rockComp;
 
 	UPROPERTY(EditAnywhere, Category = Settings)
+		class UStaticMeshComponent* outLine;
+
+	UPROPERTY(EditAnywhere, Category = Settings)
 		class USkeletalMeshComponent* fish;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)

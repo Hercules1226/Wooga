@@ -30,6 +30,10 @@ ACable::ACable()
 	rockComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Rock Component"));
 	rockComp->SetupAttachment(stickComp);
 
+	outLine = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Outline"));
+	outLine->SetupAttachment(stickComp);
+	outLine->SetCollisionProfileName(TEXT("NoCollision"));
+
 	fish = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Fish"));
 	fish->SetupAttachment(stickComp);
 
@@ -53,6 +57,8 @@ void ACable::BeginPlay()
 	rockComp->OnComponentBeginOverlap.AddDynamic(this, &ACable::OnCollisionEnter);
 	sumjjiRock = Cast<ASumjjiRock>(UGameplayStatics::GetActorOfClass(GetWorld(), ASumjjiRock::StaticClass()));
 	catchFish = Cast<ASJ_Actor_CatchFish>(UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_Actor_CatchFish::StaticClass()));
+
+	outLine->SetVisibility(false);
 }
 
 // Called every frame

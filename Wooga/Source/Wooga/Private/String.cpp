@@ -12,6 +12,11 @@ AString::AString()
 
 	meshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh Component"));
 	SetRootComponent(meshComp);
+
+	outLine = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Outline"));
+	outLine->SetupAttachment(meshComp);
+	outLine->SetCollisionProfileName(TEXT("NoCollision"));
+
 }
 
 // Called when the game starts or when spawned
@@ -19,6 +24,7 @@ void AString::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	outLine->SetVisibility(false);
 }
 
 // Called every frame
