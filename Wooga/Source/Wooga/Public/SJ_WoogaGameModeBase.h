@@ -57,6 +57,8 @@ public:
 	class ACutting2* cuttingTwo;
 	UPROPERTY()
 	class ASliceMeat* sliceMeat;
+	UPROPERTY()
+	class ATomahowk* tomahowk;
 
 	// 라이트 설정
 	class ASJ_Actor_LevelLight* levelLight;
@@ -87,8 +89,10 @@ public:
 	// 불의 발견 제목 UI
 	class ASJ_Actor_TitleUI* titleUI;
 
-	UPROPERTY(EditAnywhere, Category = UI)
-		TSubclassOf<class ASJ_Actor_TitleUI> bpFDTitle;
+	class ASJ_Actor_Title* title;
+	UPROPERTY(EditAnywhere, Category = Title)
+	TSubclassOf<class ASJ_Actor_Title> bpFDTitle;
+
 
 	// 부싯돌
 	class AFireRock* fireRockOne;
@@ -136,11 +140,12 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = Hologram)
 	TSubclassOf<class ASJ_Hologram> bpFDHologram;
+
 	UPROPERTY()
-		class ASJ_Actor_Hologram* hologramActor;
+	class ASJ_Actor_Hologram* hologramActor;
 
 	UPROPERTY(EditAnywhere, Category = Hologram)
-		TSubclassOf<class ASJ_Actor_Hologram> fireDisCoveryHologram;
+	TSubclassOf<class ASJ_Actor_Hologram> fireDisCoveryHologram;
 
 	// 플레이어 워치 안내 UI
 	class ASJ_Actor_WatchInformUI* watchInformUI;
@@ -184,7 +189,9 @@ public:
 
 	// 채집 홀로그램
 	UPROPERTY(EditAnywhere, Category = Hologram)
-		TSubclassOf<class ASJ_Actor_Hologram> bpCollectHologram;
+	TSubclassOf<class ASJ_Hologram> bpCollectHologram;
+	UPROPERTY(EditAnywhere, Category = Hologram)
+	TSubclassOf<class ASJ_Actor_Hologram> bpCollectHologramActor;
 
 	// 사냥(주먹도끼)
 	void HandAxTitle();
@@ -258,15 +265,19 @@ public:
 
 	// 주먹도끼 홀로그램
 	UPROPERTY(EditAnywhere, Category = Hologram)
-		TSubclassOf<class ASJ_Actor_Hologram> bpHandAxHologram;
+	TSubclassOf<class ASJ_Hologram> bpHandAxHologram;
+	UPROPERTY(EditAnywhere, Category = Hologram)
+		TSubclassOf<class ASJ_Actor_Hologram> bpHandAxHologramActor;
 
 	// 불의 활용
 	void CuttingPig();
-	void TestFunc();
 	void GoToFireUse();
 	void FireUseTitle();
 	void FiringTwo();
-	void CookAndEat();
+	void CookMeat();
+	void EatMeat();
+	void CompleteFireUse();
+	void GoToSpear();
 
 	// 생성 할 장작
 	UPROPERTY(EditAnywhere, Category = FireStraw)
@@ -301,4 +312,24 @@ public:
 		class ASJ_Actor_FireTwoUI* fireTwoUI;
 	UPROPERTY(EditAnywhere, Category = UI)
 		TSubclassOf<class ASJ_Actor_FireTwoUI> bpFireTwoUI;
+
+	// 요리 UI
+	UPROPERTY()
+	class ASJ_Actor_CookUI* cookUI;
+	UPROPERTY(EditAnywhere, Category = UI)
+	TSubclassOf<class ASJ_Actor_CookUI> bpCookUI;
+
+	// 먹기 UI
+	UPROPERTY()
+	class ASJ_Actor_EatMeatUI* eatMeatUI;
+	UPROPERTY(EditAnywhere, Category = UI)
+	TSubclassOf<class ASJ_Actor_EatMeatUI> bpEatMeatUI;
+
+	// 불의 활용 홀로그램 
+	UPROPERTY(EditAnywhere, Category = Hologram)
+	TSubclassOf<class ASJ_Hologram> bpFireUseHologram;
+
+	// 슴베찌르개까지 가이드라인
+	UPROPERTY(EditAnywhere, Category = GuideLine)
+	TSubclassOf<class ASJ_Actor_GoToGuideLine> bpSpearGuideLine;
 };

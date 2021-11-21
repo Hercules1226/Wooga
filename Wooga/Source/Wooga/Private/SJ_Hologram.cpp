@@ -12,6 +12,7 @@
 #include "FireEvent.h"
 #include <Components/PostProcessComponent.h>
 #include "Watch.h"
+#include <Components/WidgetComponent.h>
 
 // Sets default values
 ASJ_Hologram::ASJ_Hologram()
@@ -22,9 +23,11 @@ ASJ_Hologram::ASJ_Hologram()
 	rootComp = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
 	SetRootComponent(rootComp);
 
-	meshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComp"));
-	meshComp->SetupAttachment(rootComp);
-	meshComp->CreateDynamicMaterialInstance(0);
+	holoWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("HologramWidget"));
+	holoWidget->SetupAttachment(rootComp);
+
+	backgroundWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("BackgroundWidget"));
+	backgroundWidget->SetupAttachment(rootComp);
 
 	holoPost = CreateDefaultSubobject<UPostProcessComponent>(TEXT("HologramPostProcess"));
 	holoPost->SetupAttachment(rootComp);
@@ -41,7 +44,7 @@ void ASJ_Hologram::BeginPlay()
 	gameMode = Cast<ASJ_WoogaGameModeBase>(GetWorld()->GetAuthGameMode());
 
 	watch = Cast<AWatch>(UGameplayStatics::GetActorOfClass(GetWorld(), AWatch::StaticClass()));
-	/*
+	
 	FVector playerLoc = player->GetActorLocation();
 	FVector me = GetActorLocation();
 
@@ -62,11 +65,11 @@ void ASJ_Hologram::BeginPlay()
 	// Ã¤Áý È¦·Î±×·¥
 	if (gameMode->flowState == EFlowState::CollectAndEat || gameMode->flowState == EFlowState::CompleteCollect)
 	{
-		FVector p2 = FVector(9575, 10053, 1280);
+		FVector p2 = FVector(9581, 9961, 1315);
 
 		SetActorLocation(p2);
 
-		FRotator r2 = FRotator(0, 50, 0);
+		FRotator r2 = FRotator(0, 60, 0);
 
 		SetActorRotation(r2);
 
@@ -76,15 +79,30 @@ void ASJ_Hologram::BeginPlay()
 	// ÁÖ¸Ôµµ³¢ È¦·Î±×·¥
 	if (gameMode->flowState == EFlowState::CompleteHandAx || gameMode->flowState == EFlowState::DirectlyHit)
 	{
-		FVector p3 = FVector(7370, 8030, 1320);
+		FVector p3 = FVector(7383, 8571, 1285);
 
 		SetActorLocation(p3);
 
 		FRotator r3 = FRotator(0, 50, 0);
 
 		SetActorRotation(r3);
+
+		playChangeTime = 12.0f;
 	}
-	*/
+	// ºÒÀÇ È°¿ë È¦·Î±×·¥
+	if (gameMode->flowState == EFlowState::EatMeat || gameMode->flowState == EFlowState::CompleteFireUse)
+	{
+		FVector p4 = FVector(4998, 8021, 1280);
+
+		SetActorLocation(p4);
+
+		FRotator r4 = FRotator(0, -40, 0);
+
+		SetActorRotation(r4);
+
+		playChangeTime = 21.0f;
+	}
+	
 	/*
 	 FVector dir = player->GetActorLocation() - GetActorLocation();
 	dir.Normalize();
@@ -130,10 +148,6 @@ void ASJ_Hologram::TurnOnHologram()
 	// È¦·Î±×·¥ »ý¼º
 	createTime +=GetWorld()->DeltaTimeSeconds;
 
-	startParam = FMath::Lerp(0.0f, 1.0f, createTime * 0.5f);
-
-	meshComp->SetScalarParameterValueOnMaterials(TEXT("opa"), startParam);
-
 	if (createTime >= 2.0f)
 	{
 		UGameplayStatics::PlaySound2D(GetWorld(), FDHologramSound);
@@ -165,15 +179,9 @@ void ASJ_Hologram::TurnOffHologram()
 {
 	destroyTime += GetWorld()->DeltaTimeSeconds;
 
-	destroyParam = FMath::Lerp(1.0f, 0.0f, destroyTime * 0.5f);
-
-	meshComp->SetScalarParameterValueOnMaterials(TEXT("opa"), destroyParam);
-
-	if (watch->isKnowledgeIn == true)
+	if (destroyTime >= 2.0f)
 	{
 		destroyTime = 0;
-		SetState(EHologramState::TurnOnHologram);
-		watch->isKnowledgeIn = false;
 		Destroy();
 	}
 }

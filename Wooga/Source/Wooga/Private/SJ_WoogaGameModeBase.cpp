@@ -44,6 +44,10 @@
 #include "Cutting2.h"
 #include "SJ_Actor_MakeRange.h"
 #include "SJ_Actor_LevelLight.h"
+#include "SJ_Actor_Title.h"
+#include "Tomahowk.h"
+#include "SJ_Actor_CookUI.h"
+#include "SJ_Actor_EatMeatUI.h"
 
 ASJ_WoogaGameModeBase::ASJ_WoogaGameModeBase()
 {
@@ -55,10 +59,10 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	Super::BeginPlay();
 
 	// 맨 처음 불의 발견 교육으로 시작
-	// SetState(EFlowState::InGame);
+	 SetState(EFlowState::InGame);
 
 	// 테스트용 스테이트
-	SetState(EFlowState::CompleteCollect);
+	// SetState(EFlowState::CompleteCollect);
 
 	// 스폰 파라미터
 	Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
@@ -81,6 +85,10 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	// 자를 고기
 	sliceMeat = Cast<ASliceMeat>(UGameplayStatics::GetActorOfClass(GetWorld(), ASliceMeat::StaticClass()));
 	sliceMeat->SetActorHiddenInGame(true);
+
+	// 잘린고기
+	tomahowk = Cast<ATomahowk>(UGameplayStatics::GetActorOfClass(GetWorld(), ATomahowk::StaticClass()));
+	tomahowk->SetActorHiddenInGame(true);
 
 	// 라이트
 	levelLight = Cast<ASJ_Actor_LevelLight>(UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_Actor_LevelLight::StaticClass()));
@@ -168,8 +176,6 @@ void ASJ_WoogaGameModeBase::Tick(float DeltaSeconds)
 	case EFlowState::CuttingPig:
 		CuttingPig();
 		break;
-	case EFlowState::TestFunc:
-		break;
 	case EFlowState::GoToFireUse:
 		GoToFireUse();
 		break;
@@ -179,8 +185,17 @@ void ASJ_WoogaGameModeBase::Tick(float DeltaSeconds)
 	case EFlowState::FiringTwo:
 		FiringTwo();
 		break;
-	case EFlowState::CookAndEat:
-		CookAndEat();
+	case EFlowState::CookMeat:
+		CookMeat();
+		break;
+	case  EFlowState::EatMeat:
+		EatMeat();
+		break;
+	case EFlowState::CompleteFireUse:
+		CompleteFireUse();
+		break;
+	case EFlowState::GoToSpear:
+		GoToSpear();
 		break;
 	}
 
@@ -288,7 +303,8 @@ void ASJ_WoogaGameModeBase::GrabActorUI()
 			howToGrab->Destroy();
 
 			// 불의 발견 제목
-			titleUI = GetWorld()->SpawnActor<ASJ_Actor_TitleUI>(bpFDTitle, Param);
+			// titleUI = GetWorld()->SpawnActor<ASJ_Actor_TitleUI>(bpFDTitle, Param);
+			title = GetWorld()->SpawnActor<ASJ_Actor_Title>(bpFDTitle, Param);
 
 			SetState(EFlowState::FireDiscoveryTitle);
 		}
@@ -313,9 +329,6 @@ void ASJ_WoogaGameModeBase::FireDiscoveryTitle()
 
 		// 불씨 UI 생성
 		howToFire = GetWorld()->SpawnActor<ASJ_HowToFireUIActor>(howToFireUIActor, Param);
-
-		// 사용된 UI 제거
-		titleUI->Destroy();
 
 		// 딜레이변수 초기화
 		nextDelayTime = 0;
@@ -406,7 +419,7 @@ void ASJ_WoogaGameModeBase::Firing()
 		if (nextDelayTime >= 2.0f)
 		{
 			// 홀로그램 생성
-			hologramActor = GetWorld()->SpawnActor< ASJ_Actor_Hologram>(fireDisCoveryHologram, Param);
+			hologram = GetWorld()->SpawnActor<ASJ_Hologram>(bpFDHologram, Param);
 
 			// 딜레이 변수 초기화
 			nextDelayTime = 0;
@@ -430,7 +443,7 @@ void ASJ_WoogaGameModeBase::CompleteFireCourse()
 	// 홀로그램이 꺼지면 시계로 들어가는 기능
 	nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-	if (nextDelayTime >= 17.0f)
+	if (nextDelayTime >= 18.0f)
 	{
 		// 임무 완료 사운드
 		//UGameplayStatics::PlaySound2D(GetWorld(), uiSound);
@@ -567,7 +580,7 @@ void ASJ_WoogaGameModeBase::CollectAndEat()
 		if (nextDelayTime >= 2.0f)
 		{
 			// 채집 홀로그램 생성
-			hologramActor = GetWorld()->SpawnActor< ASJ_Actor_Hologram>(bpCollectHologram, Param);
+			hologram = GetWorld()->SpawnActor< ASJ_Hologram>(bpCollectHologram, Param);
 
 			// 사용된 UI 삭제
 			eatAppleUI->Destroy();
@@ -782,7 +795,7 @@ void ASJ_WoogaGameModeBase::DirectHit()
 			nextDelayTime = 0;
 
 			// 주먹도끼 홀로그램 생성
-			hologramActor = GetWorld()->SpawnActor<ASJ_Actor_Hologram>(bpHandAxHologram, Param);
+			hologram = GetWorld()->SpawnActor<ASJ_Hologram>(bpHandAxHologram, Param);
 
 			SetState(EFlowState::CompleteHandAx);
 		}
@@ -823,6 +836,8 @@ void ASJ_WoogaGameModeBase::CuttingPig()
 		// UI 꺼주기
 		bIsUIClose = true;
 
+		tomahowk->SetActorHiddenInGame(false);
+
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
 		if (nextDelayTime >= 2.0f)
@@ -854,33 +869,7 @@ void ASJ_WoogaGameModeBase::CuttingPig()
 		}
 	}
 }
-void ASJ_WoogaGameModeBase::TestFunc()
-{
-	nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-	if (nextDelayTime >= 3.0f)
-	{
-		// 가이드라인 생성
-		goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpFIreUseGuideLine, Param);
-
-		// 고기 들고가기 UI생성
-		pickUpMeatUI = GetWorld()->SpawnActor<ASJ_Actor_PickUpMeatUI>(bpPickUpMeatUI, Param);
-
-		// 도착 했을때 장작이 보이게 장작생성
-		fireStraw = GetWorld()->SpawnActor<AFireStraw>(bpFireStraw, Param);
-
-		// 장작에 숨만 불어 넣으면 불이 켜지도록 하게 하기 위한 변수 세팅
-		fireStraw->bisReadyFire = true;
-		fireStraw->bisOverlab = false;
-		fireStraw->bisSmog = false;
-		fireStraw->isClear = false;
-
-		// 딜레이 변수 초기화
-		nextDelayTime = 0;
-
-		SetState(EFlowState::GoToFireUse);
-	}
-}
 void ASJ_WoogaGameModeBase::GoToFireUse()
 {
 	if (goToGuideLine->isTrigger == true)
@@ -894,6 +883,7 @@ void ASJ_WoogaGameModeBase::GoToFireUse()
 		SetState(EFlowState::FireUseTitle);
 	}
 }
+
 void ASJ_WoogaGameModeBase::FireUseTitle()
 {
 	// 이때 이동을 막자
@@ -925,19 +915,81 @@ void ASJ_WoogaGameModeBase::FiringTwo()
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-		if (nextDelayTime >= 3.0f)
+		if (nextDelayTime >= 2.0f)
 		{
+			// 요리 UI 생성
+			cookUI = GetWorld()->SpawnActor<ASJ_Actor_CookUI>(bpCookUI, Param);
 			// 딜레이 변수 초기화
 			nextDelayTime = 0;
 
 			// 사용 UI 파괴
 			fireTwoUI->Destroy();
 
-			SetState(EFlowState::CookAndEat);
+			SetState(EFlowState::CookMeat);
 		}
 	}
 }
-void ASJ_WoogaGameModeBase::CookAndEat()
+void ASJ_WoogaGameModeBase::CookMeat()
+{
+	if (tomahowk->bisWelldone == true)
+	{
+		// UI 꺼주기
+		bIsUIClose = true;
+
+		nextDelayTime += GetWorld()->DeltaTimeSeconds;
+
+		if (nextDelayTime >= 2.0f)
+		{
+			// 먹기 UI 생성
+			eatMeatUI = GetWorld()->SpawnActor<ASJ_Actor_EatMeatUI>(bpEatMeatUI, Param);
+			// 딜레이 변수 초기화
+			nextDelayTime = 0;
+			// 사용 UI 파괴
+			cookUI->Destroy();
+
+			SetState(EFlowState::EatMeat);
+		}
+	}
+}
+void ASJ_WoogaGameModeBase::EatMeat()
+{
+	if (tomahowk->bisBone == true)
+	{
+		// UI 꺼주기
+		bIsUIClose = true;
+
+		nextDelayTime += GetWorld()->DeltaTimeSeconds;
+
+		if (nextDelayTime >= 2.0f)
+		{
+			// 홀로그램 생성 
+			hologram = GetWorld()->SpawnActor<ASJ_Hologram>(bpFireUseHologram, Param);
+
+			// 딜레이 변수 초기화
+			nextDelayTime = 0;
+
+			// 먹기 UI 제거
+			eatMeatUI->Destroy();
+
+			SetState(EFlowState::CompleteFireUse);
+		}
+	}
+}
+void ASJ_WoogaGameModeBase::CompleteFireUse()
+{
+	nextDelayTime += GetWorld()->DeltaTimeSeconds;
+
+	if (nextDelayTime >= 27.0f)
+	{
+		goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpSpearGuideLine, Param);
+
+		// 딜레이 변수 초기화
+		nextDelayTime = 0;
+
+		SetState(EFlowState::GoToSpear);
+	}
+}
+void ASJ_WoogaGameModeBase::GoToSpear()
 {
 }
 #pragma  endregion

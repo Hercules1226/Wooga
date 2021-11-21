@@ -36,11 +36,13 @@ enum class EFlowState : uint8
 	CompleteHandAx,
 	// 불의 활용
 	CuttingPig,
-	TestFunc,
 	GoToFireUse,
 	FireUseTitle,
 	FiringTwo,
-	CookAndEat
+	CookMeat,
+	EatMeat,
+	CompleteFireUse,
+	GoToSpear
 };
 
 UENUM(BlueprintType)
@@ -74,5 +76,13 @@ enum class ELightState : uint8
 	Stay,
 	Day,
 	Night
+};
+
+UENUM(BlueprintType)
+enum class ETitleState : uint8
+{
+	On,
+	Stay,
+	Off
 };
 

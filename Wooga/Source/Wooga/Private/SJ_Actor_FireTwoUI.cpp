@@ -27,11 +27,11 @@ void ASJ_Actor_FireTwoUI::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	FVector p = FVector(5180, 8007, 1290);
+	FVector p = FVector(5170, 7985, 1290);
 
 	SetActorLocation(p);
 
-	FRotator r = FRotator(0, -50, 0);
+	FRotator r = FRotator(0, -80, 0);
 
 	SetActorRotation(r);
 }

@@ -9,6 +9,7 @@
 #include "Components/PointLightComponent.h"
 #include <Kismet/GameplayStatics.h>
 #include <Components/AudioComponent.h>
+#include "SJ_WoogaGameModeBase.h"
 
 // Sets default values
 AFireStraw::AFireStraw()
@@ -36,6 +37,16 @@ AFireStraw::AFireStraw()
 void AFireStraw::BeginPlay()
 {
 	Super::BeginPlay();
+
+	gameMode = Cast<ASJ_WoogaGameModeBase>(GetWorld()->GetAuthGameMode());
+
+	if (gameMode->flowState == EFlowState::CuttingPig || gameMode->flowState == EFlowState::GoToFireUse)
+	{
+		FVector p = FVector(5173, 8000, 1177);
+
+		SetActorLocation(p);
+	}
+
 	boxComp->OnComponentBeginOverlap.AddDynamic(this, &AFireStraw::OnCollisionEnter);
 
 	outLine->SetVisibility(false);

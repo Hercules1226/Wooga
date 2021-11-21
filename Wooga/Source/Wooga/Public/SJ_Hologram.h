@@ -18,8 +18,11 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = Hologram)
 		class USceneComponent* rootComp;
 
-	UPROPERTY(VisibleAnywhere, Category = Hologram)
-		class UStaticMeshComponent* meshComp;
+	UPROPERTY(EditAnywhere, Category = Hologram)
+	class UWidgetComponent* holoWidget;
+
+	UPROPERTY(EditAnywhere, Category = Hologram)
+	class UWidgetComponent* backgroundWidget;
 
 	UPROPERTY(EditAnywhere, Category = Hologram)
 	class UPostProcessComponent* holoPost;

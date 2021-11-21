@@ -45,6 +45,9 @@ public:
 		class UParticleSystem* fireFactory;
 
 	UPROPERTY()
+	class ASJ_WoogaGameModeBase* gameMode;
+
+	UPROPERTY()
 		bool bisOverlab = false;
 	UPROPERTY()
 		bool bisSmog = false;

@@ -49,7 +49,7 @@ void ASJ_Actor_TitleUI::BeginPlay()
 	}
 	else if (gameMode->flowState == EFlowState::GoToCollectCourse || gameMode->flowState == EFlowState::CollectTitle)
 	{
-		FVector p1 = FVector(9850, 10150, 1270);
+		FVector p1 = FVector(9850, 10150, 1290);
 
 		SetActorLocation(p1);
 
@@ -68,7 +68,7 @@ void ASJ_Actor_TitleUI::BeginPlay()
 		FVector p = player->GetActorLocation() + player->GetActorForwardVector() * 200 + player->GetActorUpVector() * 50;
 		*/
 
-		FVector p2 = FVector(7624, 8522, 1290);
+		FVector p2 = FVector(7769, 8503, 1290);
 
 		SetActorLocation(p2);
 
@@ -81,7 +81,7 @@ void ASJ_Actor_TitleUI::BeginPlay()
 	}
 	else if (gameMode->flowState == EFlowState::GoToFireUse || gameMode->flowState == EFlowState::FireUseTitle)
 	{
-		FVector p3 = FVector(5201, 7838, 1270);
+		FVector p3 = FVector(5201, 7838, 1290);
 
 		SetActorLocation(p3);
 

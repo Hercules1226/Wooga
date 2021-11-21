@@ -19,12 +19,40 @@ void USJ_UI_Hologram::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 
 	nextDelayTime += InDeltaTime;
 
-	// ÁÖ¸Ôµµ³¢
-	if (nextDelayTime >= 15.0f)
+	if (gameModeBase->flowState == EFlowState::Firing || gameModeBase->flowState == EFlowState::CompleteFireDiscovery)
 	{
-		PlayAnimation(CloseUI);
+		if (nextDelayTime >= 14.0f)
+		{
+			PlayAnimation(CloseUI);
 
-nextDelayTime = 0;
+			nextDelayTime = 0;
+		}
 	}
-	
+	else if (gameModeBase->flowState == EFlowState::CollectAndEat || gameModeBase->flowState == EFlowState::CompleteCollect)
+	{
+		if (nextDelayTime >= 12.0f)
+		{
+			PlayAnimation(CloseUI);
+
+			nextDelayTime = 0;
+		}
+	}
+	else if (gameModeBase->flowState == EFlowState::CompleteHandAx)
+	{
+		if (nextDelayTime >= 14.0f)
+		{
+			PlayAnimation(CloseUI);
+
+			nextDelayTime = 0;
+		}
+	}
+	else if (gameModeBase->flowState == EFlowState::CompleteFireUse)
+	{
+		if (nextDelayTime >= 23.0f)
+		{
+			PlayAnimation(CloseUI);
+
+			nextDelayTime = 0;
+		}
+	}
 }
