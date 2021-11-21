@@ -41,15 +41,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
 		class UStaticMeshComponent* tree4;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
-		class UStaticMeshComponent* tree5;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
-		class UStaticMeshComponent* tree6;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
-		class UStaticMeshComponent* tree7;
-
 public:
 
 	UPROPERTY()
@@ -63,4 +54,13 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
 		class UMaterial* onMaterial;
+
+	UPROPERTY()
+		bool check1 = false;
+	UPROPERTY()
+		bool check2 = false;
+	UPROPERTY()
+		bool check3 = false;
+	UPROPERTY()
+		bool check4 = false;
 };
