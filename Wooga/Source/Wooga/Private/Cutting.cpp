@@ -133,9 +133,8 @@ void ACutting::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 			//fA->Destroy();
 			SetActorHiddenInGame(true);
 			bisSound = true;
-			//Destroy();
+			//rootComp->SetActive(false);
 		}
 	}
-
 }
 
