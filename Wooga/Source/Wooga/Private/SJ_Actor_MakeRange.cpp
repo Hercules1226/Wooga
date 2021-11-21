@@ -45,9 +45,21 @@ void ASJ_Actor_MakeRange::BeginPlay()
 void ASJ_Actor_MakeRange::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	
+	if (isPlayerIn == true)
+	{
+		returnTime += DeltaTime;
+
+		if (returnTime >= 3.0f)
+		{
+			returnTime = 0;
+			isPlayerIn = false;
+		}
+	}
 
 	if (gameMode->flowState == EFlowState::CuttingPig)
 	{
+		// µÅÁö ÀÚ¸£±â
 		FVector p1 = FVector(7333, 8431, 1190);
 
 		SetActorLocation(p1);
@@ -55,6 +67,18 @@ void ASJ_Actor_MakeRange::Tick(float DeltaTime)
 		FRotator r1 = FRotator(0, -30, 0);
 
 		SetActorRotation(r1);
+	}
+
+	if (gameMode->flowState == EFlowState::MakeSpear)
+	{
+		// ½¿º£Âî¸£°³ ¸¸µé±â
+		FVector p2 = FVector(4392, 6799, 1210);
+
+		SetActorLocation(p2);
+
+		FRotator r2 = FRotator(0, 90, 0);
+
+		SetActorRotation(r2);
 	}
 }
 

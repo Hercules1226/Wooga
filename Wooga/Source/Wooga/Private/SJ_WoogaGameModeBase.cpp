@@ -48,6 +48,7 @@
 #include "Tomahowk.h"
 #include "SJ_Actor_CookUI.h"
 #include "SJ_Actor_EatMeatUI.h"
+#include "SJ_Actor_GrabTomahowkUI.h"
 
 ASJ_WoogaGameModeBase::ASJ_WoogaGameModeBase()
 {
@@ -59,10 +60,10 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	Super::BeginPlay();
 
 	// 맨 처음 불의 발견 교육으로 시작
-	// SetState(EFlowState::InGame);
+	SetState(EFlowState::InGame);
 
 	// 테스트용 스테이트
-	SetState(EFlowState::CompleteCollect);
+	// SetState(EFlowState::CompleteCollect);
 
 	// 스폰 파라미터
 	Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
@@ -79,12 +80,12 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	cutting->SetActorHiddenInGame(true);
 
 	// 정육 포인트2
-	cuttingTwo = Cast<ACutting2>(UGameplayStatics::GetActorOfClass(GetWorld(), ACutting2::StaticClass()));
-	cuttingTwo->SetActorHiddenInGame(true);
+	// cuttingTwo = Cast<ACutting2>(UGameplayStatics::GetActorOfClass(GetWorld(), ACutting2::StaticClass()));
+	// cuttingTwo->SetActorHiddenInGame(true);
 
 	// 자를 고기
-	sliceMeat = Cast<ASliceMeat>(UGameplayStatics::GetActorOfClass(GetWorld(), ASliceMeat::StaticClass()));
-	sliceMeat->SetActorHiddenInGame(true);
+	// sliceMeat = Cast<ASliceMeat>(UGameplayStatics::GetActorOfClass(GetWorld(), ASliceMeat::StaticClass()));
+	// sliceMeat->SetActorHiddenInGame(true);
 
 	// 잘린고기
 	tomahowk = Cast<ATomahowk>(UGameplayStatics::GetActorOfClass(GetWorld(), ATomahowk::StaticClass()));
@@ -196,6 +197,30 @@ void ASJ_WoogaGameModeBase::Tick(float DeltaSeconds)
 		break;
 	case EFlowState::GoToSpear:
 		GoToSpear();
+		break;
+	case EFlowState::SpearTitle:
+		SpearTitle();
+		break;
+	case EFlowState::MakeSpear:
+		MakeSpear();
+		break;
+	case EFlowState::TakeRock:
+		TakeRock();
+		break;
+	case  EFlowState::ConnectSpear:
+		ConnectSpear();
+		break;
+	case EFlowState::TieSpear:
+		TieSpear();
+		break;
+	case EFlowState::CompleteSpear:
+		CompleteSpear();
+		break;
+	case EFlowState::HuntFish:
+		HuntFish();
+		break;
+	case EFlowState::CatchFish:
+		CatchFish();
 		break;
 	}
 
@@ -747,7 +772,7 @@ if (boar->isHitBoar == true)
 		}
 	}
 */
-	
+
 }
 void ASJ_WoogaGameModeBase::MakeHandAx()
 {
@@ -830,13 +855,14 @@ void ASJ_WoogaGameModeBase::CompleteHandAx()
 	{
 		// 간이 가이드라인 제거
 		//goToGuideLine->Destroy();
+		makeHandAxRange->Destroy();
 
 		// 돼지 정육 UI 생성
 		cuttingPigUI = GetWorld()->SpawnActor<ASJ_Actor_CuttingPigUI>(bpCuttingPigUI, Param);
 
 		cutting->SetActorHiddenInGame(false);
-		cuttingTwo->SetActorHiddenInGame(false);
-		sliceMeat->SetActorHiddenInGame(false);
+		//	cuttingTwo->SetActorHiddenInGame(false);
+		// sliceMeat->SetActorHiddenInGame(false);
 
 		//딜레이 변수 초기화
 		nextDelayTime = 0;
@@ -850,7 +876,7 @@ void ASJ_WoogaGameModeBase::CompleteHandAx()
 void ASJ_WoogaGameModeBase::CuttingPig()
 {
 	// 돼지 정육 완료 기능 가지고 있는 액터
-	pigCutting = Cast<ACutting2>(UGameplayStatics::GetActorOfClass(GetWorld(), ACutting2::StaticClass()));
+	pigCutting = Cast<ACutting>(UGameplayStatics::GetActorOfClass(GetWorld(), ACutting::StaticClass()));
 
 	if (pigCutting->bisfinish == true)
 	{
@@ -867,9 +893,9 @@ void ASJ_WoogaGameModeBase::CuttingPig()
 			goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpFIreUseGuideLine, Param);
 
 			slicePig->Destroy();
-			sliceMeat->Destroy();
+			// sliceMeat->Destroy();
 			cutting->Destroy();
-			cuttingTwo->Destroy();
+			// cuttingTwo->Destroy();
 
 			// 고기 들고가기 UI생성
 			pickUpMeatUI = GetWorld()->SpawnActor<ASJ_Actor_PickUpMeatUI>(bpPickUpMeatUI, Param);
@@ -1007,7 +1033,11 @@ void ASJ_WoogaGameModeBase::CompleteFireUse()
 
 	if (nextDelayTime >= 27.0f)
 	{
+		// 슴베찌르개 가이드라인
 		goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpSpearGuideLine, Param);
+
+		// 뼈를 들고 이동하시오 UI
+		grabTomahowk = GetWorld()->SpawnActor<ASJ_Actor_GrabTomahowkUI>(bpGrabTomahowkUI, Param);
 
 		// 딜레이 변수 초기화
 		nextDelayTime = 0;
@@ -1017,7 +1047,71 @@ void ASJ_WoogaGameModeBase::CompleteFireUse()
 }
 void ASJ_WoogaGameModeBase::GoToSpear()
 {
+	if (goToGuideLine->isTrigger == true)
+	{
+		// 사용 UI 제거
+		grabTomahowk->Destroy();
+		title = GetWorld()->SpawnActor<ASJ_Actor_Title>(bpSpearTitle, Param);
+
+		SetState(EFlowState::SpearTitle);
+	}
 }
 #pragma  endregion
 
+#pragma region SpearFunction
+void ASJ_WoogaGameModeBase::SpearTitle()
+{
+	nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
+	if (nextDelayTime >= 6.0f)
+	{
+		// 딜레이 변수 초기화
+		nextDelayTime = 0;
+
+		goToGuideLine->Destroy();
+		SetState(EFlowState::MakeSpear);
+	}
+}
+
+void ASJ_WoogaGameModeBase::MakeSpear()
+{
+	if (makeHandAxRange->isPlayerIn == true)
+	{
+		// UI 꺼주기
+		bIsUIClose = true;
+
+		nextDelayTime += GetWorld()->DeltaTimeSeconds;
+
+		if (nextDelayTime >= 2.0f)
+		{
+			nextDelayTime = 0;
+
+			SetState(EFlowState::TakeRock);
+		}
+	}
+}
+
+void ASJ_WoogaGameModeBase::TakeRock()
+{
+}
+
+void ASJ_WoogaGameModeBase::ConnectSpear()
+{
+}
+
+void ASJ_WoogaGameModeBase::TieSpear()
+{
+}
+
+void ASJ_WoogaGameModeBase::CompleteSpear()
+{
+}
+
+void ASJ_WoogaGameModeBase::HuntFish()
+{
+}
+
+void ASJ_WoogaGameModeBase::CatchFish()
+{
+}
+#pragma  endregion
