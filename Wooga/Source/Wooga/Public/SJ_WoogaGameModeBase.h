@@ -352,4 +352,38 @@ public:
 	// ½¿º£Âî¸£°³ Á¦¸ñ
 	UPROPERTY(EditAnywhere, Category = Title)
 	TSubclassOf<class ASJ_Actor_Title> bpSpearTitle;
+
+	// »À¸¦ ÀÌ¿ëÇØ µ¹À» ´ÙµëÀ¸¼¼¿ä
+	UPROPERTY()
+	class ASJ_Actor_BreakStoneUI* breakStoneUI;
+	UPROPERTY(EditAnywhere, Category = UI)
+	TSubclassOf<class ASJ_Actor_BreakStoneUI> bpBreakStoneUI;
+
+	// ½¿º£
+	UPROPERTY()
+	class ASumjjiRock* sumjjiRock;
+
+	// ³ª¹µ°¡Áö¸¦ ÁÖ¿ö ½¿º£¿Í ¿¬°á
+	UPROPERTY()
+	class ASJ_Actor_ConnectSpearUI* connectSpearUI;
+	UPROPERTY(EditAnywhere, Category = UI)
+	TSubclassOf<class ASJ_Actor_ConnectSpearUI> bpConnectSpearUI;
+
+	// ½¿º£ ¸·´ë±â
+	UPROPERTY()
+	class ACable* cable;
+
+	// ³ª¹«°¡Áö ¹­±â UI
+	UPROPERTY()
+	class ASJ_Actor_TieSpearUI* tieSpearUI;
+	UPROPERTY(EditAnywhere, Category = UI)
+	TSubclassOf<class ASJ_Actor_TieSpearUI> bpTieSpearUI;
+
+	// µ¢Äð
+	UPROPERTY()
+	class AString* string;
+
+	//  ½¿º£Âî¸£°³ È¦·Î±×·¥
+	UPROPERTY(EditAnywhere, Category = Hologram)
+	TSubclassOf<class ASJ_Hologram> bpSpearHologram;
 };

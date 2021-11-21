@@ -55,4 +55,13 @@ void USJ_UI_Hologram::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 			nextDelayTime = 0;
 		}
 	}
+	else if (gameModeBase->flowState == EFlowState::CompleteSpear)
+	{
+		if (nextDelayTime >= 15.0f)
+		{
+			PlayAnimation(CloseUI);
+
+			nextDelayTime = 0;
+		}
+	}
 }

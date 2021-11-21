@@ -83,4 +83,10 @@ public:
 
 	UPROPERTY()
 		bool bisWelldone = false;
+
+	UPROPERTY()
+	bool bIsConnect;
+
+	UPROPERTY()
+	bool bIsTie;
 };

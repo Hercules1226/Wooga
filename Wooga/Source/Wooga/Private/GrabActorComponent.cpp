@@ -1086,7 +1086,7 @@ void UGrabActorComponent::RGripSumjji(AActor* grabActor)
 			//fireRock->SetActorHiddenInGame(false);
 			//FAttachmentTransformRules attachRules = FAttachmentTransformRules::KeepWorldTransform;
 			FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
-
+			sumjjiR->rockComp->SetHiddenInGame(false);
 			sumjjiR->stickComp->SetSimulatePhysics(false);
 			sumjjiR->stickComp->SetEnableGravity(false);
 			//sumjjiL->outLine->SetVisibility(false);

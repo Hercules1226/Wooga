@@ -113,6 +113,8 @@ void ACable::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class A
 			//UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), SpawnEffect, cableComp->GetComponentLocation(), cableComp->GetComponentRotation());
 		string->Destroy();
 		cableComp->SetMaterial(0, offMaterial);
+
+		bIsTie = true;
 	}
 
 	if (OverlappedComp == rockComp && OtherActor == sumjjiRock)
@@ -121,6 +123,8 @@ void ACable::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class A
 		cableComp->SetHiddenInGame(false);
 		rockComp->SetMaterial(0, onMaterial);
 		sumjjiRock->Destroy();
+
+		bIsConnect = true;
 	}
 
 	if (OtherActor == fireStraw)

@@ -102,6 +102,15 @@ void ASJ_Hologram::BeginPlay()
 
 		playChangeTime = 21.0f;
 	}
+	// ½¿º£Âî¸£°³ È¦·Î±×·¥
+	if (gameMode->flowState == EFlowState::TieSpear || gameMode->flowState == EFlowState::CompleteSpear)
+	{
+		FVector p5 = FVector(4110, 6760, 1280);
+
+		SetActorLocation(p5);
+
+		playChangeTime = 13.0f;
+	}
 	
 	/*
 	 FVector dir = player->GetActorLocation() - GetActorLocation();

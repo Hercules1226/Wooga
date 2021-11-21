@@ -49,6 +49,12 @@
 #include "SJ_Actor_CookUI.h"
 #include "SJ_Actor_EatMeatUI.h"
 #include "SJ_Actor_GrabTomahowkUI.h"
+#include "SJ_Actor_BreakStoneUI.h"
+#include "SumjjiRock.h"
+#include "SJ_Actor_ConnectSpearUI.h"
+#include "Cable.h"
+#include "SJ_Actor_TieSpearUI.h"
+#include "String.h"
 
 ASJ_WoogaGameModeBase::ASJ_WoogaGameModeBase()
 {
@@ -60,10 +66,10 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	Super::BeginPlay();
 
 	// 맨 처음 불의 발견 교육으로 시작
-	SetState(EFlowState::InGame);
+	// SetState(EFlowState::InGame);
 
 	// 테스트용 스테이트
-	// SetState(EFlowState::CompleteCollect);
+	SetState(EFlowState::CompleteCollect);
 
 	// 스폰 파라미터
 	Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
@@ -1084,27 +1090,109 @@ void ASJ_WoogaGameModeBase::MakeSpear()
 
 		if (nextDelayTime >= 2.0f)
 		{
-			nextDelayTime = 0;
+			// 슴베찌르개 
+			sumjjiRock = Cast<ASumjjiRock>(UGameplayStatics::GetActorOfClass(GetWorld(), ASumjjiRock::StaticClass()));
+			sumjjiRock->outLine->SetVisibility(true);
 
+			// 뼈를 이용해 다듬으세요UI 생성
+			breakStoneUI = GetWorld()->SpawnActor<ASJ_Actor_BreakStoneUI>(bpBreakStoneUI, Param);
+
+			// 딜레이 변수
+			nextDelayTime = 0;
+			
 			SetState(EFlowState::TakeRock);
 		}
 	}
 }
 
+// 돌 다듬기
 void ASJ_WoogaGameModeBase::TakeRock()
 {
+	if (sumjjiRock->bisRockFin == true)
+	{
+		// UI 꺼주기
+		bIsUIClose = true;
+
+		nextDelayTime += GetWorld()->DeltaTimeSeconds;
+
+		if (nextDelayTime >= 2.0f)
+		{
+			// 사용 UI 제거
+			breakStoneUI->Destroy();
+
+			// 슴베 연결 UI 생성
+			connectSpearUI = GetWorld()->SpawnActor<ASJ_Actor_ConnectSpearUI>(bpConnectSpearUI, Param);
+
+			cable = Cast<ACable>(UGameplayStatics::GetActorOfClass(GetWorld(), ACable::StaticClass()));
+			// 아웃라인 켜주기
+			cable->outLine->SetVisibility(true);
+
+			// 딜레이 변수 초기화
+			nextDelayTime = 0;
+
+			SetState(EFlowState::ConnectSpear);
+		}
+	}
 }
 
+// 슴베 연결하기
 void ASJ_WoogaGameModeBase::ConnectSpear()
 {
+	if (cable->bIsConnect == true)
+	{
+		// UI 꺼주기
+		bIsUIClose = true;
+
+		nextDelayTime += GetWorld()->DeltaTimeSeconds;
+
+		if (nextDelayTime >= 2.0f)
+		{
+			// 사용 UI 제거
+			connectSpearUI->Destroy();
+
+			tieSpearUI = GetWorld()->SpawnActor<ASJ_Actor_TieSpearUI>(bpTieSpearUI, Param);
+
+			string = Cast<AString>(UGameplayStatics::GetActorOfClass(GetWorld(), AString::StaticClass()));
+
+			nextDelayTime = 0;
+
+			SetState(EFlowState::TieSpear);
+		}
+	}
 }
 
+// 슴베 묶기
 void ASJ_WoogaGameModeBase::TieSpear()
 {
+	if (cable->bIsTie == true)
+	{
+		bIsUIClose = true;
+
+		nextDelayTime += GetWorld()->DeltaTimeSeconds;
+
+		if (nextDelayTime >= 2.0f)
+		{
+			// 사용 UI 제거
+			tieSpearUI->Destroy();
+
+			hologram = GetWorld()->SpawnActor<ASJ_Hologram>(bpSpearHologram, Param);
+
+			// 딜레이 변수 초기화
+			nextDelayTime = 0;
+
+			SetState(EFlowState::CompleteSpear);
+		}
+	}
 }
 
 void ASJ_WoogaGameModeBase::CompleteSpear()
 {
+	nextDelayTime += GetWorld()->DeltaTimeSeconds;
+
+	if (nextDelayTime >= 17.0f)
+	{
+		SetState(EFlowState::HuntFish);
+	}
 }
 
 void ASJ_WoogaGameModeBase::HuntFish()
