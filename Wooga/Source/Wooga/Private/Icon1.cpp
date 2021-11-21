@@ -12,6 +12,9 @@ AIcon1::AIcon1()
 
 	meshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh Component"));
 	SetRootComponent(meshComp);
+
+	icon = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Icon"));
+	icon->SetupAttachment(meshComp);
 }
 
 // Called when the game starts or when spawned

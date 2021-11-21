@@ -25,4 +25,7 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = Setting)
 		class UStaticMeshComponent* meshComp;
+
+	UPROPERTY(EditAnywhere, Category = Setting)
+		class UStaticMeshComponent* icon;
 };
