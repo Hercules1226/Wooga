@@ -64,7 +64,7 @@ void ASJ_Actor_GoToGuideLine::BeginPlay()
 
 		SetActorRotation(r3);
 	}
-	else if (gameModeBase->flowState == EFlowState::CompleteFireUse || gameModeBase->flowState == EFlowState::GoToSpear)
+	else if (gameModeBase->flowState == EFlowState::CompleteFireUse || gameModeBase->flowState == EFlowState::GoToSpear || gameModeBase->flowState == EFlowState::TestFunc)
 	{
 		FVector p4 = FVector(4219, 6887, 1260);
 		

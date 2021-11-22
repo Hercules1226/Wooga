@@ -26,8 +26,8 @@ void AIcon2::BeginPlay()
 
 	spot = Cast<AIconSpot>(UGameplayStatics::GetActorOfClass(GetWorld(), AIconSpot::StaticClass()));
 
-	FRotator targetRot = spot->spot2->GetRelativeRotation();
-	SetActorRotation(targetRot);
+	//FRotator targetRot = spot->spot2->GetRelativeRotation();
+	//SetActorRotation(targetRot);
 }
 
 // Called every frame

@@ -42,6 +42,7 @@ enum class EFlowState : uint8
 	CookMeat,
 	EatMeat,
 	CompleteFireUse,
+	TestFunc,
 	GoToSpear,
 	// ½¿º£Âî¸£°³
 	SpearTitle,

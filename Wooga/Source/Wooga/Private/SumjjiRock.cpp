@@ -172,7 +172,7 @@ void ASumjjiRock::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cl
 					currentTime = 0.f;
 
 					bisRockFin = true;
-					bone->Destroy();
+					bone->SetActorHiddenInGame(true);
 				}
 			}
 		}

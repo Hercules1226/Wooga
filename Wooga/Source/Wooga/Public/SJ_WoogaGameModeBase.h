@@ -465,4 +465,6 @@ public:
 	// 움집 홀로그램
 	UPROPERTY(EditAnywhere, Category = Hologram)
 	TSubclassOf<class ASJ_Hologram> bpHutHologram;
+
+	void TestFunc();
 };

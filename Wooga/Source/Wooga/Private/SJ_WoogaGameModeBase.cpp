@@ -225,6 +225,9 @@ void ASJ_WoogaGameModeBase::Tick(float DeltaSeconds)
 	case  EFlowState::ConnectSpear:
 		ConnectSpear();
 		break;
+	case EFlowState::TestFunc:
+		TestFunc();
+		break;
 	case EFlowState::TieSpear:
 		TieSpear();
 		break;
@@ -946,9 +949,9 @@ void ASJ_WoogaGameModeBase::CuttingPig()
 			fireStraw->isClear = false;
 
 			// 사용 UI 제거
-			cuttingPigUI->Destroy();
+			//6cuttingPigUI->Destroy();
 			// 발판 제거
-			makeHandAxRange->Destroy();
+			//makeHandAxRange->Destroy();
 
 			// 딜레이 변수 초기화
 			nextDelayTime = 0;
@@ -1081,6 +1084,26 @@ void ASJ_WoogaGameModeBase::CompleteFireUse()
 		SetState(EFlowState::GoToSpear);
 	}
 }
+
+void ASJ_WoogaGameModeBase::TestFunc()
+{
+	nextDelayTime += GetWorld()->DeltaTimeSeconds;
+
+	if (nextDelayTime >= 2.0f)
+	{
+		// 슴베찌르개 가이드라인
+		goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpSpearGuideLine, Param);
+
+		// 뼈를 들고 이동하시오 UI
+		grabTomahowk = GetWorld()->SpawnActor<ASJ_Actor_GrabTomahowkUI>(bpGrabTomahowkUI, Param);
+
+		// 딜레이 변수 초기화
+		nextDelayTime = 0;
+
+		SetState(EFlowState::GoToSpear);
+	}
+}
+
 void ASJ_WoogaGameModeBase::GoToSpear()
 {
 	if (goToGuideLine->isTrigger == true)
@@ -1250,9 +1273,10 @@ void ASJ_WoogaGameModeBase::HuntFish()
 		if (nextDelayTime >= 2.0f)
 		{
 			// 사용 UI 제거
-			huntFishUI->Destroy();
+			// huntFishUI->Destroy();
+			huntFishUI->SetActorHiddenInGame(true);
 
-			catchFishUI = GetWorld()->SpawnActor<ASJ_Actor_CatchFishUI>(bpHuntFishUI, Param);
+			catchFishUI = GetWorld()->SpawnActor<ASJ_Actor_CatchFishUI>(bpCatchFishUI, Param);
 			// 잡을 물고기
 			catchFish = Cast<ASJ_Actor_CatchFish>(UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_Actor_CatchFish::StaticClass()));
 			catchFish->outlineFish->SetVisibility(true);
@@ -1361,7 +1385,7 @@ void ASJ_WoogaGameModeBase::GoToHut()
 	{
 		// 사용 UI 제거
 		goToHutUI->Destroy();
-		
+
 		// 제목 생성
 		title = GetWorld()->SpawnActor<ASJ_Actor_Title>(bpHutTitle, Param);
 
@@ -1411,5 +1435,6 @@ void ASJ_WoogaGameModeBase::CompleteHut()
 {
 	// 플레이타임 18초 로직타임 22초
 }
+
 #pragma endregion
 
