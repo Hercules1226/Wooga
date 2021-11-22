@@ -53,6 +53,22 @@ public:
 	UPROPERTY(EditAnywhere, Category = Material)
 		class UMaterialInstance* watchOneMaterial;
 
+	UPROPERTY(EditAnywhere, Category = Material)
+		class UMaterialInstance* watchTwoMaterial;
+
+	UPROPERTY(EditAnywhere, Category = Material)
+		class UMaterialInstance* watchThreeMaterial;
+
+	UPROPERTY(EditAnywhere, Category = Material)
+		class UMaterialInstance* watchFourMaterial;
+
+	UPROPERTY(EditAnywhere, Category = Material)
+		class UMaterialInstance* watchFiveMaterial;
+
+	UPROPERTY(EditAnywhere, Category = Material)
+		class UMaterialInstance* watchSixMaterial;
+
+
 	UPROPERTY()
 		float playTime;
 

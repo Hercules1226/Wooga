@@ -93,7 +93,6 @@ public:
 	UPROPERTY(EditAnywhere, Category = Title)
 	TSubclassOf<class ASJ_Actor_Title> bpFDTitle;
 
-
 	// 부싯돌
 	class AFireRock* fireRockOne;
 	class AFireRock2* fireRockTwo;
@@ -134,7 +133,6 @@ public:
 		TSubclassOf<class ASJ_Actor_BreatheFireUI> bpBreatheFireUI;
 
 	// 불의 발견 홀로그램
-
 	UPROPERTY()
 	class ASJ_Hologram* hologram;
 
@@ -166,6 +164,9 @@ public:
 	// 채집하기 제목 
 	UPROPERTY(EditAnywhere, Category = UI)
 		TSubclassOf<class ASJ_Actor_TitleUI> bpCollectTitleUI;
+
+	UPROPERTY(EditAnywhere, Category = Title)
+		TSubclassOf<class ASJ_Actor_Title> bpCollectTitle;
 
 	// 채집 교육
 	void CollectTitle();
@@ -211,6 +212,9 @@ public:
 	// 주먹도끼 제목(사냥하기)
 	UPROPERTY(EditAnywhere, Category = UI)
 		TSubclassOf<class ASJ_Actor_TitleUI> bpHandAxTitleUI;
+
+	UPROPERTY(EditAnywhere, Category = Title)
+		TSubclassOf<class ASJ_Actor_Title> bpHandAxTitle;
 
 	// 맘모스 생성 
 	class ASJ_Actor_MammothSpawnDestroy* mammothSpawn;
@@ -304,8 +308,8 @@ public:
 		TSubclassOf<class ASJ_Actor_GoToGuideLine> bpFIreUseGuideLine;
 
 	// 불의 활용 제목
-	UPROPERTY(EditAnywhere, Category = UI)
-		TSubclassOf<class ASJ_Actor_TitleUI> bpFireUseTitle;
+	UPROPERTY(EditAnywhere, Category = Title)
+		TSubclassOf<class ASJ_Actor_Title> bpFireUseTitle;
 
 	// 숨을 불어 넣어주세요 UI
 	UPROPERTY()

@@ -64,6 +64,9 @@ public:
 		float currentTime;
 
 	UPROPERTY()
+		float currentTime2;
+
+	UPROPERTY()
 		class ASumjjiRock* sumjjiRock;
 
 	UPROPERTY()
@@ -95,4 +98,7 @@ public:
 
 	UPROPERTY()
 	bool bIsTie;
+
+	UPROPERTY()
+	bool bisEat = false;
 };

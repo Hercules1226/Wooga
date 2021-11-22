@@ -72,10 +72,10 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	Super::BeginPlay();
 
 	// 맨 처음 불의 발견 교육으로 시작
-	// SetState(EFlowState::InGame);
+	SetState(EFlowState::InGame);
 
 	// 테스트용 스테이트
-	SetState(EFlowState::CompleteCollect);
+	// SetState(EFlowState::CompleteCollect);
 
 	// 스폰 파라미터
 	Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
@@ -543,7 +543,7 @@ void ASJ_WoogaGameModeBase::GoToCollectState()
 		fireStraw->Destroy();
 
 		// 채집하기 제목 UI 생성
-		titleUI = GetWorld()->SpawnActor<class ASJ_Actor_TitleUI>(bpCollectTitleUI, Param);
+		title = GetWorld()->SpawnActor<class ASJ_Actor_Title>(bpCollectTitle, Param);
 
 		// 채집 상태로 넘어가기
 		SetState(EFlowState::CollectTitle);
@@ -656,7 +656,7 @@ void ASJ_WoogaGameModeBase::GoToFistAxCourse()
 	if (goToGuideLine->isTrigger == true)
 	{
 		// 주먹도끼(사냥하기) 제목 생성
-		titleUI = GetWorld()->SpawnActor<ASJ_Actor_TitleUI>(bpHandAxTitleUI, Param);
+		title = GetWorld()->SpawnActor<ASJ_Actor_Title>(bpHandAxTitle, Param);
 
 		SetState(EFlowState::HandAxTitle);
 	}
@@ -951,7 +951,7 @@ void ASJ_WoogaGameModeBase::GoToFireUse()
 		pickUpMeatUI->Destroy();
 
 		// 불의 활용 UI 생성
-		titleUI = GetWorld()->SpawnActor<ASJ_Actor_TitleUI>(bpFireUseTitle, Param);
+		title = GetWorld()->SpawnActor<ASJ_Actor_Title>(bpFireUseTitle, Param);
 
 		SetState(EFlowState::FireUseTitle);
 	}
@@ -1292,9 +1292,34 @@ void ASJ_WoogaGameModeBase::GoToCookFish()
 void ASJ_WoogaGameModeBase::CookFish()
 {
 	// 익히기 코드
+
+	if (cable->bisWelldone == true)
+	{
+		bIsUIClose = true;
+
+		nextDelayTime += GetWorld()->DeltaTimeSeconds;
+
+		if (nextDelayTime >= 2.0f)
+		{
+			// 사용 UI 제거
+			cookFishUI->Destroy();
+
+			// 익힌 물고기 먹기 UI
+			eatFishUI = GetWorld()->SpawnActor<ASJ_Actor_EatFishUI>(bpEatFishUI, Param);
+
+			// 딜레이 변수 초기화
+			nextDelayTime = 0;
+			SetState(EFlowState::EatFish);
+		}
+
+	}
 }
 void ASJ_WoogaGameModeBase::EatFish()
 {
 	// 먹기 코드
+	if (cable->bisEat == true)
+	{
+
+	}
 }
 #pragma  endregion

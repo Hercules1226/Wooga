@@ -31,7 +31,8 @@ void ASJ_Actor_MakeHandAxUI::BeginPlay()
 	slicePig = Cast<ASlicePig>(UGameplayStatics::GetActorOfClass(GetWorld(), ASlicePig::StaticClass()));
 
 	FVector pigLoc = slicePig->GetActorLocation();
-	FVector p = pigLoc + FVector::UpVector * 200;
+
+	FVector p = FVector(7547, 8761, 1300);
 	SetActorLocation(p);
 
 	FRotator r = FRotator(0, -40.0f, 0);

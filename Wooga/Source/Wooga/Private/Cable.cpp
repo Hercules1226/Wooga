@@ -83,9 +83,9 @@ void ACable::Tick(float DeltaTime)
 
 	if (bisOverlab == true)
 	{
-		currentTime += GetWorld()->DeltaTimeSeconds;
+		currentTime2 += GetWorld()->DeltaTimeSeconds;
 
-		if (currentTime >= 3.f)
+		if (currentTime2 >= 3.f)
 		{
 			fish->SetMaterial(0, welldone);
 			bisWelldone = true;
@@ -130,7 +130,7 @@ void ACable::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class A
 	if (OtherActor == fireStraw)
 	{
 		bisOverlab = true;
-		currentTime = 0.f;
+		currentTime2 = 0.f;
 	}
 
 
@@ -143,6 +143,7 @@ void ACable::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class A
 				FVector location = this->GetActorLocation();
 				UGameplayStatics::PlaySound2D(GetWorld(), eatSound);
 				fish->SetHiddenInGame(true);
+				bisEat = true;
 			}
 		}
 	}

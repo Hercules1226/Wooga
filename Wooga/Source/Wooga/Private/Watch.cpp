@@ -75,7 +75,9 @@ void AWatch::Tick(float DeltaTime)
 	}
 	*/
 
-	if (bisEnd == false)
+
+	/*
+	 if (bisEnd == false)
 	{
 		GetWorld()->SpawnActor<AIcon1>(icon1Factory, GetTransform());
 		GetWorld()->SpawnActor<AIcon2>(Icon2Factory, GetTransform());
@@ -85,6 +87,8 @@ void AWatch::Tick(float DeltaTime)
 		GetWorld()->SpawnActor<AIcon6>(Icon6Factory, GetTransform());
 		bisEnd = true;
 	}
+	*/
+	
 	
 }
 
@@ -104,6 +108,7 @@ void AWatch::InKnowledgePoint(UPrimitiveComponent* OverlappedComponent, AActor* 
 
 	if (OtherActor == fireEvent)
 	{
+		// 불의 활용
 		if (knowledgePoint == 0)
 		{
 			// 진동효과
@@ -114,6 +119,71 @@ void AWatch::InKnowledgePoint(UPrimitiveComponent* OverlappedComponent, AActor* 
 			SetState(EBlinkState::Blink);
 
 			knowledgePoint = 1;
+			isKnowledgeIn = true;
+			OtherActor->Destroy();
+		}
+		// 채집
+		if (knowledgePoint == 1)
+		{
+			// 진동효과
+			GetWorld()->GetFirstPlayerController()->PlayHapticEffect(watchHaptic, EControllerHand::Left, 0.5f, false);
+
+			watch->SetMaterial(0, watchTwoMaterial);
+			SetState(EBlinkState::Blink);
+
+			knowledgePoint = 2;
+			isKnowledgeIn = true;
+			OtherActor->Destroy();
+		}
+		// 주먹도끼
+		if (knowledgePoint == 2)
+		{
+			// 진동효과
+			GetWorld()->GetFirstPlayerController()->PlayHapticEffect(watchHaptic, EControllerHand::Left, 0.5f, false);
+
+			watch->SetMaterial(0, watchThreeMaterial);
+			SetState(EBlinkState::Blink);
+
+			knowledgePoint = 3;
+			isKnowledgeIn = true;
+			OtherActor->Destroy();
+		}
+		// 불의 활용
+		if (knowledgePoint == 3)
+		{
+			// 진동효과
+			GetWorld()->GetFirstPlayerController()->PlayHapticEffect(watchHaptic, EControllerHand::Left, 0.5f, false);
+
+			watch->SetMaterial(0, watchFourMaterial);
+			SetState(EBlinkState::Blink);
+
+			knowledgePoint = 4;
+			isKnowledgeIn = true;
+			OtherActor->Destroy();
+		}
+		// 슴베찌르개
+		if (knowledgePoint == 4)
+		{
+			// 진동효과
+			GetWorld()->GetFirstPlayerController()->PlayHapticEffect(watchHaptic, EControllerHand::Left, 0.5f, false);
+
+			watch->SetMaterial(0, watchFiveMaterial);
+			SetState(EBlinkState::Blink);
+
+			knowledgePoint = 5;
+			isKnowledgeIn = true;
+			OtherActor->Destroy();
+		}
+		// 움집
+		if (knowledgePoint == 5)
+		{
+			// 진동효과
+			GetWorld()->GetFirstPlayerController()->PlayHapticEffect(watchHaptic, EControllerHand::Left, 0.5f, false);
+
+			watch->SetMaterial(0, watchSixMaterial);
+			SetState(EBlinkState::Blink);
+
+			knowledgePoint = 6;
 			isKnowledgeIn = true;
 			OtherActor->Destroy();
 		}
