@@ -37,4 +37,7 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = Speed)
 	float speed = 500;
+
+	UPROPERTY()
+	float destroyTime;
 };

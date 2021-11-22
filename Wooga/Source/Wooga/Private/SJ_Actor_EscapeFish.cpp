@@ -50,6 +50,14 @@ void ASJ_Actor_EscapeFish::Tick(float DeltaTime)
 		SetActorRotation(dir.Rotation());
 
 		escapeFishAnimInst->isRun = true;
+
+		destroyTime += DeltaTime;
+
+		if (destroyTime >= 1.0f)
+		{
+			destroyTime = 0;
+			Destroy();
+		}
 	}
 }
 
