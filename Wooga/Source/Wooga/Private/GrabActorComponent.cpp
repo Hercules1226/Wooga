@@ -291,8 +291,8 @@ void UGrabActorComponent::RightReleaseAction()
 		// 그 자리에서 떨어지게
 		sumjjiR->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
 
-		sumjjiR->stickComp->SetSimulatePhysics(true);
-		sumjjiL->outLine->SetVisibility(false);
+		//sumjjiR->stickComp->SetSimulatePhysics(true);
+		//sumjjiL->outLine->SetVisibility(false);
 
 		sumjjiR = nullptr;
 		bisLeftGrab = false;
@@ -309,7 +309,7 @@ void UGrabActorComponent::RightReleaseAction()
 		sumjjiRockR->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
 
 		sumjjiRockR->sumjji->SetSimulatePhysics(true);
-		sumjjiRockR->outLine->SetVisibility(false);
+		//sumjjiRockR->outLine->SetVisibility(false);
 
 		sumjjiRockR = nullptr;
 		bisLeftGrab = false;
@@ -326,7 +326,7 @@ void UGrabActorComponent::RightReleaseAction()
 		stringR->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
 
 		stringR->meshComp->SetSimulatePhysics(true);
-		stringR->outLine->SetVisibility(true);
+		// stringR->outLine->SetVisibility(true);
 
 		stringR = nullptr;
 		bisLeftGrab = false;

@@ -75,10 +75,10 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	Super::BeginPlay();
 
 	// 맨 처음 불의 발견 교육으로 시작
-	// SetState(EFlowState::InGame);
+	 SetState(EFlowState::InGame);
 
 	// 테스트용 스테이트
-	SetState(EFlowState::CompleteCollect);
+	// SetState(EFlowState::CompleteCollect);
 
 	// 스폰 파라미터
 	Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
@@ -1418,7 +1418,7 @@ void ASJ_WoogaGameModeBase::MakeHut()
 		bIsUIClose = true;
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
-		if (nextDelayTime >= 2.0f)
+		if (nextDelayTime >= 10.0f)
 		{
 			makeHutUI->Destroy();
 
@@ -1434,6 +1434,7 @@ void ASJ_WoogaGameModeBase::MakeHut()
 void ASJ_WoogaGameModeBase::CompleteHut()
 {
 	// 플레이타임 18초 로직타임 22초
+	UGameplayStatics::OpenLevel(this, TEXT("Outro"));
 }
 
 #pragma endregion
