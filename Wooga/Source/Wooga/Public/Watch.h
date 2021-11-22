@@ -68,6 +68,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = Material)
 		class UMaterialInstance* watchSixMaterial;
 
+	UPROPERTY()
+		float currentTime;
+
 
 	UPROPERTY()
 		float playTime;
