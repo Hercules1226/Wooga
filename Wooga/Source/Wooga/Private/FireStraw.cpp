@@ -38,21 +38,6 @@ void AFireStraw::BeginPlay()
 {
 	Super::BeginPlay();
 
-	gameMode = Cast<ASJ_WoogaGameModeBase>(GetWorld()->GetAuthGameMode());
-
-	if (gameMode->flowState == EFlowState::CuttingPig || gameMode->flowState == EFlowState::GoToFireUse)
-	{
-		FVector p = FVector(5173, 8000, 1177);
-
-		SetActorLocation(p);
-
-		FVector s = FVector(0.4f, 0.4f, 0.4f);
-
-		SetActorRelativeScale3D(s);
-	}
-
-
-
 	boxComp->OnComponentBeginOverlap.AddDynamic(this, &AFireStraw::OnCollisionEnter);
 
 	outLine->SetVisibility(false);

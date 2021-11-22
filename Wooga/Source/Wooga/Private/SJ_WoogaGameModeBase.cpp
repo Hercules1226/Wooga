@@ -939,8 +939,11 @@ void ASJ_WoogaGameModeBase::CuttingPig()
 			// 고기 들고가기 UI생성
 			pickUpMeatUI = GetWorld()->SpawnActor<ASJ_Actor_PickUpMeatUI>(bpPickUpMeatUI, Param);
 
+			FVector fireStrawPosition = FVector(5173, 8000, 1177);
+			FRotator fireStrawRotation = FRotator(0, 0,0);
+
 			// 도착 했을때 장작이 보이게 장작생성
-			fireStraw = GetWorld()->SpawnActor<AFireStraw>(bpFireStraw, Param);
+			fireStraw = GetWorld()->SpawnActor<AFireStraw>(bpFireStraw, fireStrawPosition, fireStrawRotation, Param);
 
 			// 장작에 숨만 불어 넣으면 불이 켜지도록 하게 하기 위한 변수 세팅
 			fireStraw->bisReadyFire = true;
