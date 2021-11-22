@@ -15,7 +15,7 @@
 // Sets default values
 AWatch::AWatch()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	rootComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh Component"));
@@ -29,7 +29,7 @@ AWatch::AWatch()
 void AWatch::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
 
 	icon1 = Cast<AIcon1>(UGameplayStatics::GetActorOfClass(GetWorld(), AIcon1::StaticClass()));
@@ -66,33 +66,37 @@ void AWatch::Tick(float DeltaTime)
 		break;
 	}
 
-	
-	if(player->camLoc)
+
+	if (player->camLoc)
 	{
-	FVector dir = player->camLoc->GetRelativeLocation() - rootComp->GetRelativeLocation();
-	dir.Normalize();
-	SetActorRotation(dir.ToOrientationRotator());
+		FVector dir = player->camLoc->GetRelativeLocation() - rootComp->GetRelativeLocation();
+		dir.Normalize();
+		SetActorRotation(dir.ToOrientationRotator());
 	}
-	
 
 
-	
-	 if (bisEnd == false)
+
+
+	if (bisEnd == false)
 	{
-		GetWorld()->SpawnActor<AIcon1>(icon1Factory, GetTransform());
-		GetWorld()->SpawnActor<AIcon2>(Icon2Factory, GetTransform());
-		GetWorld()->SpawnActor<AIcon3>(Icon3Factory, GetTransform());
-		GetWorld()->SpawnActor<AIcon4>(Icon4Factory, GetTransform());
-		GetWorld()->SpawnActor<AIcon5>(Icon5Factory, GetTransform());
-		GetWorld()->SpawnActor<AIcon6>(Icon6Factory, GetTransform());
+		currentTime += DeltaTime;
+		if (currentTime >= 5.f)
+		{
+			GetWorld()->SpawnActor<AIcon1>(icon1Factory, GetTransform());
+			GetWorld()->SpawnActor<AIcon2>(Icon2Factory, GetTransform());
+			GetWorld()->SpawnActor<AIcon3>(Icon3Factory, GetTransform());
+			GetWorld()->SpawnActor<AIcon4>(Icon4Factory, GetTransform());
+			GetWorld()->SpawnActor<AIcon5>(Icon5Factory, GetTransform());
+			GetWorld()->SpawnActor<AIcon6>(Icon6Factory, GetTransform());
 
-		watch->SetHiddenInGame(true);
+			/*watch->SetHiddenInGame(true);*/
 
-		bisEnd = true;
+			bisEnd = true;
+		}
 	}
-	
-	
-	
+
+
+
 }
 
 EBlinkState AWatch::GetState()
@@ -232,6 +236,6 @@ void AWatch::UnBlink()
 
 void AWatch::Idle()
 {
-	
+
 }
 

@@ -26,8 +26,8 @@ void AIcon2::BeginPlay()
 
 	spot = Cast<AIconSpot>(UGameplayStatics::GetActorOfClass(GetWorld(), AIconSpot::StaticClass()));
 
-	FRotator targetRot = spot->spot2->GetRelativeRotation();
-	SetActorRotation(targetRot);
+	/*FRotator targetRot = spot->spot2->GetRelativeRotation();
+	SetActorRotation(targetRot);*/
 }
 
 // Called every frame
@@ -42,7 +42,7 @@ void AIcon2::Tick(float DeltaTime)
 		FVector dir = target - me;
 		dir.Normalize();
 
-		float speed = 300.0f;
+		float speed = 200.0f;
 
 		FVector p = me + dir * speed * DeltaTime;
 
