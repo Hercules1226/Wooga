@@ -102,7 +102,7 @@ void ACable::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class A
 {
 	nia = Cast<UNiagaraComponent>(GetDefaultSubobjectByName(TEXT("Niagara")));
 	string = Cast<AString>(OtherActor);
-	
+
 	auto fireStraw = Cast<AFireStraw>(OtherActor);
 	auto player = Cast<AVR_Player>(OtherActor);
 	//catchFish = Cast<ASJ_Actor_CatchFish>(OtherActor);
@@ -113,7 +113,7 @@ void ACable::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class A
 			//UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), SpawnEffect, cableComp->GetComponentLocation(), cableComp->GetComponentRotation());
 		string->Destroy();
 		cableComp->SetMaterial(0, offMaterial);
-
+		UGameplayStatics::PlaySound2D(GetWorld(), clearSound);
 		bIsTie = true;
 	}
 
@@ -123,13 +123,19 @@ void ACable::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class A
 		cableComp->SetHiddenInGame(false);
 		rockComp->SetMaterial(0, onMaterial);
 		sumjjiRock->Destroy();
-
+		UGameplayStatics::PlaySound2D(GetWorld(), clearSound);
 		bIsConnect = true;
 	}
 
-	if (OtherComp == fireStraw->boxComp)
+	if (OtherActor == fireStraw)
 	{
 		bisOverlab = true;
+
+		if (bisfire == true)
+		{
+			UGameplayStatics::PlaySound2D(GetWorld(), fireSound);
+			bisfire = false;
+		}
 		currentTime2 = 0.f;
 	}
 
@@ -143,7 +149,12 @@ void ACable::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class A
 				FVector location = this->GetActorLocation();
 				UGameplayStatics::PlaySound2D(GetWorld(), eatSound);
 				fish->SetHiddenInGame(true);
-				bisEat = true;
+
+				if (bisEat == false)
+				{
+					UGameplayStatics::PlaySound2D(GetWorld(), eatSound);
+					bisEat = true;
+				}
 			}
 		}
 	}

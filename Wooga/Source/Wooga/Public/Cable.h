@@ -75,6 +75,12 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Sound")
 		USoundBase* eatSound;
 
+	UPROPERTY(EditAnywhere, Category = "Sound")
+		USoundBase* fireSound;
+
+	UPROPERTY(EditAnywhere, Category = "Sound")
+		USoundBase* clearSound;
+
 	UPROPERTY(EditAnywhere, Category = "Explosion")
 		class UParticleSystem* explosionFactory;
 
@@ -101,4 +107,7 @@ public:
 
 	UPROPERTY()
 	bool bisEat = false;
+
+	UPROPERTY()
+		bool bisfire = true;
 };

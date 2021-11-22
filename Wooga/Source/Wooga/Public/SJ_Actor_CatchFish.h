@@ -10,30 +10,30 @@ UCLASS()
 class WOOGA_API ASJ_Actor_CatchFish : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	ASJ_Actor_CatchFish();
 
 	UPROPERTY(EditAnywhere, Category = Fish)
-	class USkeletalMeshComponent* fish;
+		class USkeletalMeshComponent* fish;
 
 	UPROPERTY(EditAnywhere, Category = fish)
-	class USkeletalMeshComponent* outlineFish;
+		class USkeletalMeshComponent* outlineFish;
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION()
-	void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+		void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	UPROPERTY()
-	class USJ_CatchFishAnimInstance* catchFishAnimInst;
+		class USJ_CatchFishAnimInstance* catchFishAnimInst;
 
 	UPROPERTY(EditAnywhere, Category = "Explosion")
 		class UParticleSystem* explosionFactory;
@@ -42,8 +42,11 @@ public:
 		class USoundBase* explosionSound;
 
 	UPROPERTY()
-	bool isAttacked;
+		bool isAttacked;
 
 	UPROPERTY()
-	class ACable* sumjji;
+		bool biscatch = true;
+
+		UPROPERTY()
+		class ACable* sumjji;
 };

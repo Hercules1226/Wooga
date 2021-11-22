@@ -66,17 +66,17 @@ void AWatch::Tick(float DeltaTime)
 		break;
 	}
 
-	/*
+	
 	if(player->camLoc)
 	{
 	FVector dir = player->camLoc->GetRelativeLocation() - rootComp->GetRelativeLocation();
 	dir.Normalize();
 	SetActorRotation(dir.ToOrientationRotator());
 	}
-	*/
+	
 
 
-	/*
+	
 	 if (bisEnd == false)
 	{
 		GetWorld()->SpawnActor<AIcon1>(icon1Factory, GetTransform());
@@ -85,9 +85,12 @@ void AWatch::Tick(float DeltaTime)
 		GetWorld()->SpawnActor<AIcon4>(Icon4Factory, GetTransform());
 		GetWorld()->SpawnActor<AIcon5>(Icon5Factory, GetTransform());
 		GetWorld()->SpawnActor<AIcon6>(Icon6Factory, GetTransform());
+
+		watch->SetHiddenInGame(true);
+
 		bisEnd = true;
 	}
-	*/
+	
 	
 	
 }

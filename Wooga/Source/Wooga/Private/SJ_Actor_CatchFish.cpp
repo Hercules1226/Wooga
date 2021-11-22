@@ -48,10 +48,13 @@ void ASJ_Actor_CatchFish::OnOverlap(UPrimitiveComponent* OverlappedComponent, AA
 		// ½¿º£Âî¸£°³¿¡ Âñ¸®¸é
 		catchFishAnimInst->isDie = true;
 		isAttacked = true;
-
+		
+		if(biscatch == true)
+		{
 		UGameplayStatics::PlaySound2D(GetWorld(), explosionSound);
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), explosionFactory, GetActorLocation() + FVector(0.f, 0.0f, -30.f));
-
+		biscatch = false;
+		}
 		outlineFish->SetVisibility(false);
 
 		fish->SetHiddenInGame(true);
