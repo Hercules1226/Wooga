@@ -1,12 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "SJ_Actor_FireTwoUI.h"
+#include "SJ_Actor_GoToHutUI.h"
 #include <Components/StaticMeshComponent.h>
 #include <Components/WidgetComponent.h>
 
 // Sets default values
-ASJ_Actor_FireTwoUI::ASJ_Actor_FireTwoUI()
+ASJ_Actor_GoToHutUI::ASJ_Actor_GoToHutUI()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -17,28 +17,26 @@ ASJ_Actor_FireTwoUI::ASJ_Actor_FireTwoUI()
 	plane = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Plane"));
 	plane->SetupAttachment(rootComp);
 
-	fireTwoUI = CreateDefaultSubobject<UWidgetComponent>(TEXT("Widget Comp"));
-	fireTwoUI->SetupAttachment(rootComp);
-	fireTwoUI->SetCollisionProfileName(TEXT("NoCollision"));
-
+	goToHutUI = CreateDefaultSubobject<UWidgetComponent>(TEXT("Widget Comp"));
+	goToHutUI->SetupAttachment(rootComp);
 }
 
 // Called when the game starts or when spawned
-void ASJ_Actor_FireTwoUI::BeginPlay()
+void ASJ_Actor_GoToHutUI::BeginPlay()
 {
 	Super::BeginPlay();
-	
-	FVector p = FVector(5170, 7985, 1290);
+
+	FVector p = FVector(5216, 8016, 1310);
 
 	SetActorLocation(p);
 
-	FRotator r = FRotator(0, -80, 0);
+	FRotator r = FRotator(0, -130, 0);
 
 	SetActorRotation(r);
 }
 
 // Called every frame
-void ASJ_Actor_FireTwoUI::Tick(float DeltaTime)
+void ASJ_Actor_GoToHutUI::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 

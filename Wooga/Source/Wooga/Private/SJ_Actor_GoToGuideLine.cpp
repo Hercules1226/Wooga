@@ -74,6 +74,16 @@ void ASJ_Actor_GoToGuideLine::BeginPlay()
 
 		SetActorRotation(r4);
 	}
+	else if (gameModeBase->flowState == EFlowState::EatFish || gameModeBase->flowState == EFlowState::GoToHut)
+	{
+		FVector p5 = FVector(4442, 7988, 1270);
+
+		SetActorLocation(p5);
+
+		FRotator r5 = FRotator(0, -20, 0);
+
+		SetActorRotation(r5);
+	}
 
 	range->OnComponentBeginOverlap.AddDynamic(this, &ASJ_Actor_GoToGuideLine::RangeIn);
 }

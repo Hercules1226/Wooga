@@ -111,6 +111,19 @@ void ASJ_Hologram::BeginPlay()
 
 		playChangeTime = 13.0f;
 	}
+	// 움집 홀로그램
+	if (gameMode->flowState == EFlowState::MakeHut || gameMode->flowState == EFlowState::CompleteHut)
+	{
+		FVector p6  = FVector(3783, 7816, 1290);
+
+		SetActorLocation(p6);
+
+		FRotator r6 = FRotator(0, -30, 0);
+
+		SetActorRotation(r6);
+
+		playChangeTime = 18.0f;
+ 	}
 	
 	/*
 	 FVector dir = player->GetActorLocation() - GetActorLocation();

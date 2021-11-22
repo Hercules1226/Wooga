@@ -431,4 +431,38 @@ public:
 	class ASJ_Actor_EatFishUI* eatFishUI;
 	UPROPERTY(EditAnywhere, Category = UI)
 	TSubclassOf<class ASJ_Actor_EatFishUI> bpEatFishUI;
+
+	// 움집제작
+	void GoToHut();
+	void HutTitle();
+	void MakeHut();
+	void CompleteHut();
+
+	// 움집 제작 가이드라인
+	UPROPERTY(EditAnywhere, Category = GuiedLine)
+	TSubclassOf<class ASJ_Actor_GoToGuideLine> bpHutGuideLine;
+
+	// 움집 가이드라인 UI
+	UPROPERTY()
+	class ASJ_Actor_GoToHutUI* goToHutUI;
+	UPROPERTY(EditAnywhere, Category = UI)
+	TSubclassOf<class ASJ_Actor_GoToHutUI> bpGoToHutUI;
+
+	// 움집 제목
+	UPROPERTY(EditAnywhere, Category = Title)
+	TSubclassOf<class ASJ_Actor_Title> bpHutTitle;
+
+	// 움집 제작 UI
+	UPROPERTY()
+	class ASJ_Actor_MakeHutUI* makeHutUI;
+	UPROPERTY(EditAnywhere, Category = UI )
+	TSubclassOf<class ASJ_Actor_MakeHutUI> bpMakeHutUI;
+
+	// 움집
+	UPROPERTY()
+	class ALastHouse* lastHouse;
+
+	// 움집 홀로그램
+	UPROPERTY(EditAnywhere, Category = Hologram)
+	TSubclassOf<class ASJ_Hologram> bpHutHologram;
 };

@@ -61,6 +61,9 @@
 #include "SJ_Actor_GoFryFishUI.h"
 #include "SJ_Actor_CookFishUI.h"
 #include "SJ_Actor_EatFishUI.h"
+#include "SJ_Actor_GoToHutUI.h"
+#include "SJ_Actor_MakeHutUI.h"
+#include "LastHouse.h"
 
 ASJ_WoogaGameModeBase::ASJ_WoogaGameModeBase()
 {
@@ -72,10 +75,10 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	Super::BeginPlay();
 
 	// 맨 처음 불의 발견 교육으로 시작
-	SetState(EFlowState::InGame);
+	// SetState(EFlowState::InGame);
 
 	// 테스트용 스테이트
-	// SetState(EFlowState::CompleteCollect);
+	SetState(EFlowState::CompleteCollect);
 
 	// 스폰 파라미터
 	Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
@@ -242,6 +245,18 @@ void ASJ_WoogaGameModeBase::Tick(float DeltaSeconds)
 		break;
 	case EFlowState::EatFish:
 		EatFish();
+		break;
+	case  EFlowState::GoToHut:
+		GoToHut();
+		break;
+	case EFlowState::HutTitle:
+		HutTitle();
+		break;
+	case EFlowState::MakeHut:
+		MakeHut();
+		break;
+	case EFlowState::CompleteHut:
+		CompleteHut();
 		break;
 	}
 
@@ -563,10 +578,10 @@ void ASJ_WoogaGameModeBase::CollectTitle()
 		// collectAndHungry = GetWorld()->SpawnActor<ASJ_Actor_CollectAndHungryUI>(bpCollectAndHungry, Param);
 
 		// 제목 없애기
-		titleUI->Destroy();
+		// titleUI->Destroy();
 
 		// 가이드라인 없애기
-		goToGuideLine->Destroy();
+		// goToGuideLine->Destroy();
 
 		// 딜레이변수 초기화
 		nextDelayTime = 0;
@@ -673,10 +688,10 @@ void ASJ_WoogaGameModeBase::HandAxTitle()
 	if (nextDelayTime >= 6.0f)
 	{
 		// 제목 없애기
-		titleUI->Destroy();
+		// titleUI->Destroy();
 
 		// 가이드라인 없애기
-		goToGuideLine->Destroy();
+		//goToGuideLine->Destroy();
 
 		// 딜레이변수 초기화
 		nextDelayTime = 0;
@@ -965,10 +980,10 @@ void ASJ_WoogaGameModeBase::FireUseTitle()
 	if (nextDelayTime >= 6.0f)
 	{
 		// 제목 없애기
-		titleUI->Destroy();
+		//titleUI->Destroy();
 
 		// 가이드라인 없애기
-		goToGuideLine->Destroy();
+		//goToGuideLine->Destroy();
 
 		// 숨을 불어 넣어주세요 UI 생성
 		fireTwoUI = GetWorld()->SpawnActor<ASJ_Actor_FireTwoUI>(bpFireTwoUI, Param);
@@ -1092,7 +1107,7 @@ void ASJ_WoogaGameModeBase::SpearTitle()
 		// 제작 범위 생성
 		makeHandAxRange = GetWorld()->SpawnActor<ASJ_Actor_MakeRange>(bpMakeHandAxRange, Param);
 
-		goToGuideLine->Destroy();
+		// goToGuideLine->Destroy();
 		SetState(EFlowState::MakeSpear);
 	}
 }
@@ -1291,8 +1306,6 @@ void ASJ_WoogaGameModeBase::GoToCookFish()
 }
 void ASJ_WoogaGameModeBase::CookFish()
 {
-	// 익히기 코드
-
 	if (cable->bisWelldone == true)
 	{
 		bIsUIClose = true;
@@ -1316,10 +1329,87 @@ void ASJ_WoogaGameModeBase::CookFish()
 }
 void ASJ_WoogaGameModeBase::EatFish()
 {
-	// 먹기 코드
 	if (cable->bisEat == true)
 	{
+		bIsUIClose = true;
 
+		nextDelayTime += GetWorld()->DeltaTimeSeconds;
+		if (nextDelayTime >= 2.0f)
+		{
+			// 사용 UI 제거
+			eatFishUI->Destroy();
+
+			// 움집 가이드라인
+			goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpHutGuideLine, Param);
+
+			// 움집 가이드라인 UI
+			goToHutUI = GetWorld()->SpawnActor<ASJ_Actor_GoToHutUI>(bpGoToHutUI, Param);
+
+			// 딜레이 변수 초기화
+			nextDelayTime = 0;
+			SetState(EFlowState::GoToHut);
+		}
 	}
 }
+
 #pragma  endregion
+
+#pragma region HutFuntion
+void ASJ_WoogaGameModeBase::GoToHut()
+{
+	if (goToGuideLine->isTrigger == true)
+	{
+		// 사용 UI 제거
+		goToHutUI->Destroy();
+		
+		// 제목 생성
+		title = GetWorld()->SpawnActor<ASJ_Actor_Title>(bpHutTitle, Param);
+
+		SetState(EFlowState::HutTitle);
+	}
+}
+void ASJ_WoogaGameModeBase::HutTitle()
+{
+	nextDelayTime += GetWorld()->DeltaTimeSeconds;
+
+	if (nextDelayTime >= 6.0f)
+	{
+		// 움집만들기 UI 생성
+		makeHutUI = GetWorld()->SpawnActor<ASJ_Actor_MakeHutUI>(bpMakeHutUI, Param);
+		// 가이드라인 제거
+		// goToGuideLine->Destroy();
+
+		// 딜레이 변수 초기화
+		nextDelayTime = 0;
+
+		SetState(EFlowState::MakeSpear);
+	}
+}
+void ASJ_WoogaGameModeBase::MakeHut()
+{
+	lastHouse = Cast<ALastHouse>(UGameplayStatics::GetActorOfClass(GetWorld(), ALastHouse::StaticClass()));
+
+	if (lastHouse->bisClear)
+	{
+		bIsUIClose = true;
+
+		nextDelayTime += GetWorld()->DeltaTimeSeconds;
+		if (nextDelayTime >= 2.0f)
+		{
+			makeHutUI->Destroy();
+
+			hologram = GetWorld()->SpawnActor<ASJ_Hologram>(bpHutHologram, Param);
+
+			// 딜레이 변수 초기화
+			nextDelayTime = 0;
+
+			SetState(EFlowState::CompleteHut);
+		}
+	}
+}
+void ASJ_WoogaGameModeBase::CompleteHut()
+{
+	// 플레이타임 18초 로직타임 22초
+}
+#pragma endregion
+

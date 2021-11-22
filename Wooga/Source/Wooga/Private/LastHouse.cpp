@@ -77,8 +77,10 @@ void ALastHouse::Tick(float DeltaTime)
 
 		if (currentTime >= completeTime)
 		{
+			
 			complete->SetHiddenInGame(false);
 			complete2->SetHiddenInGame(false);
+			bisClear = true;
 		}
 	}
 

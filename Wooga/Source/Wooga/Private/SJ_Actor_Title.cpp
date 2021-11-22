@@ -55,7 +55,7 @@ void ASJ_Actor_Title::BeginPlay()
 
 		SetActorLocation(p2);
 
-		FRotator r2 = FRotator(0, 50, 0);
+		FRotator r2 = FRotator(0, 140, 0);
 
 		SetActorRotation(r2);
 	}
@@ -66,7 +66,7 @@ void ASJ_Actor_Title::BeginPlay()
 
 		SetActorLocation(p3);
 
-		FRotator r3 = FRotator(0, -50, 0);
+		FRotator r3 = FRotator(0, 50, 0);
 
 		SetActorRotation(r3);
 	}
@@ -80,6 +80,17 @@ void ASJ_Actor_Title::BeginPlay()
 		FRotator r4 = FRotator(0, 160, 0);
 
 		SetActorRotation(r4);
+	}
+	// ¿òÁý
+	else if (gameMode->flowState == EFlowState::GoToHut || gameMode->flowState == EFlowState::HutTitle)
+	{
+		FVector  p5 = FVector(4262, 8042, 1280);
+
+		SetActorLocation(p5);
+
+		FRotator  r5 = FRotator(0, 80, 0);
+
+		SetActorRotation(r5);
 	}
 
 	SetState(ETitleState::On);

@@ -54,7 +54,12 @@ enum class EFlowState : uint8
 	CatchFish,
 	GoToCookFish,
 	CookFish,
-	EatFish
+	EatFish,
+	// 움집 제작
+	GoToHut,
+	HutTitle,
+	MakeHut,
+	CompleteHut
 };
 
 UENUM(BlueprintType)
