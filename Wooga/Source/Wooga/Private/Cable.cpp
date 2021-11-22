@@ -127,7 +127,7 @@ void ACable::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class A
 		bIsConnect = true;
 	}
 
-	if (OtherActor == fireStraw)
+	if (OtherComp == fireStraw->boxComp)
 	{
 		bisOverlab = true;
 		currentTime2 = 0.f;
