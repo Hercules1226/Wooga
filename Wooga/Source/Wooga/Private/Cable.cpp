@@ -149,10 +149,14 @@ void ACable::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class A
 				FVector location = this->GetActorLocation();
 				UGameplayStatics::PlaySound2D(GetWorld(), eatSound);
 				fish->SetHiddenInGame(true);
+				SetActorHiddenInGame(true);
+				stickComp->SetCollisionProfileName(TEXT("NoCollision"));
+				
 
 				if (bisEat == false)
 				{
-					UGameplayStatics::PlaySound2D(GetWorld(), eatSound);
+					//UGameplayStatics::PlaySound2D(GetWorld(), eatSound);
+					
 					bisEat = true;
 				}
 			}

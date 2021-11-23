@@ -223,11 +223,11 @@ void UGrabActorComponent::RightReleaseAction()
 
 	if (stickR)
 	{
-		stickR->boxComp->SetEnableGravity(true);
+		stickR->boxComp->SetEnableGravity(false);
 		// 그 자리에서 떨어지게
 		stickR->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
 
-		//stickR->boxComp->SetSimulatePhysics(true);
+		stickR->boxComp->SetSimulatePhysics(false);
 
 
 		stickR = nullptr;
@@ -291,7 +291,7 @@ void UGrabActorComponent::RightReleaseAction()
 		// 그 자리에서 떨어지게
 		sumjjiR->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
 
-		//sumjjiR->stickComp->SetSimulatePhysics(true);
+		sumjjiR->stickComp->SetSimulatePhysics(true);
 		//sumjjiL->outLine->SetVisibility(false);
 
 		sumjjiR = nullptr;
@@ -462,11 +462,11 @@ void UGrabActorComponent::LeftReleaseAction()
 
 	if (stickL)
 	{
-		stickL->boxComp->SetEnableGravity(true);
+		//stickL->boxComp->SetEnableGravity(true);
 		// 그 자리에서 떨어지게
 		stickL->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
 
-		stickL->boxComp->SetSimulatePhysics(false);
+		//stickL->boxComp->SetSimulatePhysics(true);
 
 		stickL = nullptr;
 		bisLeftGrab = false;

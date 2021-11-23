@@ -114,8 +114,10 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 			{
 				player->grabComp->LeftReleaseAction();
 
-				FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
-				stick->AttachToComponent(tree1, attachRules);
+				/*FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
+				stick->AttachToComponent(tree1, attachRules);*/
+
+				stick->SetActorLocationAndRotation(tree1->GetComponentLocation(), tree1->GetComponentRotation());
 
 				tree1->SetMaterial(0, onMaterial);
 				tree2->SetMaterial(0, offMaterial);
@@ -151,8 +153,10 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 			{
 				player->grabComp->LeftReleaseAction();
 
-				FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
-				stick->AttachToComponent(tree2, attachRules);
+				/*FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
+				stick->AttachToComponent(tree2, attachRules);*/
+
+				stick->SetActorLocationAndRotation(tree2->GetComponentLocation(), tree2->GetComponentRotation());
 
 				tree2->SetMaterial(0, onMaterial);
 				tree3->SetMaterial(0, offMaterial);
@@ -188,8 +192,8 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 			{
 				player->grabComp->LeftReleaseAction();
 
-				FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
-				stick->AttachToComponent(tree3, attachRules);
+				stick->SetActorLocationAndRotation(tree3->GetComponentLocation(), tree3->GetComponentRotation());
+
 
 				tree3->SetMaterial(0, onMaterial);
 				tree4->SetMaterial(0, offMaterial);
@@ -210,7 +214,7 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 			{
 				player->grabComp->RightReleaseAction();
 
-				stick->SetActorLocationAndRotation(tree1->GetComponentLocation(), tree4->GetComponentRotation());
+				stick->SetActorLocationAndRotation(tree4->GetComponentLocation(), tree4->GetComponentRotation());
 
 				tree4->SetMaterial(0, onMaterial);
 
@@ -224,8 +228,8 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 			{
 				player->grabComp->LeftReleaseAction();
 
-				FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
-				stick->AttachToComponent(tree4, attachRules);
+				stick->SetActorLocationAndRotation(tree4->GetComponentLocation(), tree4->GetComponentRotation());
+
 
 				tree4->SetMaterial(0, onMaterial);
 				stick->SetActorHiddenInGame(true);

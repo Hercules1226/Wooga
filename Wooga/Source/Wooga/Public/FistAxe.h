@@ -133,6 +133,9 @@ public:
 		bool bisOverlab = false;
 
 	UPROPERTY()
+		bool bisStartBreak = false;
+
+	UPROPERTY()
 		bool bisD1 = false;
 
 	UPROPERTY()

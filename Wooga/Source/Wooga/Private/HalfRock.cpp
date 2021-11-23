@@ -38,9 +38,9 @@ void AHalfRock::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (player->grabComp->bisGrabFistAxeL)
+	if (fistAxe->bisD15 == true)
 	{
-		// 오른손 잡으면 true 처리
+		SetActorHiddenInGame(true);
 	}
 }
 
