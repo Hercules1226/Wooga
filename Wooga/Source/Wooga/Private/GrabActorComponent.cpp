@@ -77,7 +77,7 @@ void UGrabActorComponent::RightDrawGrabLine()
 	FVector startPos = player->rightHandLoc->GetComponentLocation();
 
 	FCollisionObjectQueryParams objParams;
-	objParams.AddObjectTypesToQuery(ECC_WorldDynamic);
+	objParams.AddObjectTypesToQuery(ECC_GameTraceChannel3);
 	objParams.AddObjectTypesToQuery(ECC_PhysicsBody);
 
 	FCollisionQueryParams queryParams;
@@ -102,7 +102,7 @@ void UGrabActorComponent::LeftDrawGrabLine()
 	FVector startPos = player->leftHandLoc->GetComponentLocation();
 
 	FCollisionObjectQueryParams objParams;
-	objParams.AddObjectTypesToQuery(ECC_WorldDynamic);
+	objParams.AddObjectTypesToQuery(ECC_GameTraceChannel3);
 	objParams.AddObjectTypesToQuery(ECC_PhysicsBody);
 
 	FCollisionQueryParams queryParams;
@@ -246,23 +246,23 @@ void UGrabActorComponent::RightReleaseAction()
 			fistAxe->fakeHand->SetHiddenInGame(true);
 		}
 
-		//if (fistAxe->bisD1 == true)
-		//{
-		//	if (bisGrabFistAxeL == false)
-		//	{
-		//		fistAxeR->fist->SetEnableGravity(true);
-		//		fistAxeR->fist->SetSimulatePhysics(true);
-		//	
-		//	// 그 자리에서 떨어지게
-		//	fistAxeR->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
-		//	}
+		if (fistAxe->bisD1 == true)
+		{
+			if (bisGrabFistAxeL == false)
+			{
+				fistAxeR->fist->SetEnableGravity(true);
+				fistAxeR->fist->SetSimulatePhysics(true);
+			
+			// 그 자리에서 떨어지게
+			fistAxeR->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+			}
 
-		//	fistAxeR = nullptr;
-		//	bisRightGrab = false;
-		//	bisfistAxeR = false;
-		//}
-		//// 완손 피는 애니메이션
-		//player->handComp->targetGripValueRight = 0.0f;
+			fistAxeR = nullptr;
+			bisRightGrab = false;
+			bisfistAxeR = false;
+		}
+		// 완손 피는 애니메이션
+		player->handComp->targetGripValueRight = 0.0f;
 	}
 
 	if (halfRock)
@@ -338,11 +338,13 @@ void UGrabActorComponent::RightReleaseAction()
 
 	if (tomahowkR)
 	{
-		tomahowkR->meshComp->SetEnableGravity(true);
+		//tomahowkR->meshComp->SetEnableGravity(true);
+		tomahowkR->meshComp1->SetEnableGravity(true);
 		// 그 자리에서 떨어지게
 		tomahowkR->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
 
-		tomahowkR->meshComp->SetSimulatePhysics(true);
+		//tomahowkR->meshComp->SetSimulatePhysics(true);
+		tomahowkR->meshComp1->SetSimulatePhysics(true);
 		//sumjjiL->outLine->SetVisibility(true);
 
 		tomahowkR = nullptr;
@@ -546,10 +548,14 @@ void UGrabActorComponent::LeftReleaseAction()
 	if (tomahowkL)
 	{
 		tomahowkL->meshComp->SetEnableGravity(true);
+		tomahowkL->meshComp1->SetEnableGravity(true);
+
 		// 그 자리에서 떨어지게
 		tomahowkL->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
 
 		tomahowkL->meshComp->SetSimulatePhysics(true);
+		tomahowkL->meshComp1->SetSimulatePhysics(true);
+
 		//sumjjiL->outLine->SetVisibility(true);
 
 		tomahowkL = nullptr;
@@ -622,7 +628,7 @@ void UGrabActorComponent::LGripFireRock(AActor* grabActor)
 
 			fireRockL->AttachToComponent(player->leftHandLoc, attachRules, TEXT("LGrabPoint"));
 			// 왼손 쥐는 애니메이션
-			player->handComp->targetGripValueLeft = 0.7f;
+			player->handComp->targetGripValueLeft = 0.6f;
 
 
 			// 오브젝트를 잡았을때 위치 잡기
@@ -689,7 +695,7 @@ void UGrabActorComponent::RGripFireRock2(AActor* grabActor)
 
 			fireRock2R->AttachToComponent(player->rightHandLoc, attachRules, TEXT("RGrabPoint"));
 			// 왼손 쥐는 애니메이션
-			player->handComp->targetGripValueRight = 0.7f;
+			player->handComp->targetGripValueRight = 0.6f;
 
 
 			// 오브젝트를 잡았을때 위치 잡기
@@ -1328,7 +1334,9 @@ void UGrabActorComponent::LGripTomahowk(AActor* grabActor)
 			//FAttachmentTransformRules attachRules = FAttachmentTransformRules::KeepWorldTransform;
 			FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
 
-			tomahowkL->meshComp->SetSimulatePhysics(false);
+			//tomahowkL->meshComp->SetSimulatePhysics(false);
+			tomahowkL->meshComp1->SetSimulatePhysics(false);
+			//tomahowkL->meshComp->SetEnableGravity(false);
 			tomahowkL->meshComp->SetEnableGravity(false);
 			//sumjjiL->outLine->SetVisibility(false);
 
@@ -1362,7 +1370,9 @@ void UGrabActorComponent::RGripTomahowk(AActor* grabActor)
 			FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
 
 			tomahowkR->meshComp->SetSimulatePhysics(false);
+			tomahowkR->meshComp1->SetSimulatePhysics(false);
 			tomahowkR->meshComp->SetEnableGravity(false);
+			tomahowkR->meshComp1->SetEnableGravity(false);
 			//sumjjiL->outLine->SetVisibility(false);
 
 			tomahowkR->AttachToComponent(player->rightHandLoc, attachRules, TEXT("RGrabPoint"));

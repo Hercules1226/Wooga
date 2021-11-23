@@ -171,7 +171,7 @@ public:
 		FVector grabOffset;
 
 	UPROPERTY(EditAnywhere, Category = AAA)
-		float grabRange = 15;
+		float grabRange = 7.5;
 
 	UPROPERTY(EditAnywhere, Category = Sound)
 		class USoundBase* grabSound;
