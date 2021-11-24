@@ -125,9 +125,9 @@ void AWatch::InKnowledgePoint(UPrimitiveComponent* OverlappedComponent, AActor* 
 			watch->SetMaterial(0, watchOneMaterial);
 			SetState(EBlinkState::Blink);
 
-			knowledgePoint = 1;
-			isKnowledgeIn = true;
+			//isKnowledgeIn = true;
 			OtherActor->Destroy();
+			knowledgePoint = 1;
 		}
 		// Ã¤Áý
 		if (knowledgePoint == 1)
@@ -137,10 +137,10 @@ void AWatch::InKnowledgePoint(UPrimitiveComponent* OverlappedComponent, AActor* 
 
 			watch->SetMaterial(0, watchTwoMaterial);
 			SetState(EBlinkState::Blink);
-
-			knowledgePoint = 2;
-			isKnowledgeIn = true;
+			
+			//isKnowledgeIn = true;
 			OtherActor->Destroy();
+			knowledgePoint = 2;
 		}
 		// ÁÖ¸Ôµµ³¢
 		if (knowledgePoint == 2)
@@ -150,10 +150,10 @@ void AWatch::InKnowledgePoint(UPrimitiveComponent* OverlappedComponent, AActor* 
 
 			watch->SetMaterial(0, watchThreeMaterial);
 			SetState(EBlinkState::Blink);
-
-			knowledgePoint = 3;
-			isKnowledgeIn = true;
+			
+			//isKnowledgeIn = true;
 			OtherActor->Destroy();
+			knowledgePoint = 3;
 		}
 		// ºÒÀÇ È°¿ë
 		if (knowledgePoint == 3)
@@ -163,10 +163,10 @@ void AWatch::InKnowledgePoint(UPrimitiveComponent* OverlappedComponent, AActor* 
 
 			watch->SetMaterial(0, watchFourMaterial);
 			SetState(EBlinkState::Blink);
-
-			knowledgePoint = 4;
-			isKnowledgeIn = true;
+			
+			//isKnowledgeIn = true;
 			OtherActor->Destroy();
+			knowledgePoint = 4;
 		}
 		// ½¿º£Âî¸£°³
 		if (knowledgePoint == 4)
@@ -176,10 +176,10 @@ void AWatch::InKnowledgePoint(UPrimitiveComponent* OverlappedComponent, AActor* 
 
 			watch->SetMaterial(0, watchFiveMaterial);
 			SetState(EBlinkState::Blink);
-
-			knowledgePoint = 5;
-			isKnowledgeIn = true;
+			
+			//isKnowledgeIn = true;
 			OtherActor->Destroy();
+			knowledgePoint = 5;
 		}
 		// ¿òÁý
 		if (knowledgePoint == 5)
@@ -189,10 +189,10 @@ void AWatch::InKnowledgePoint(UPrimitiveComponent* OverlappedComponent, AActor* 
 
 			watch->SetMaterial(0, watchSixMaterial);
 			SetState(EBlinkState::Blink);
-
-			knowledgePoint = 6;
-			isKnowledgeIn = true;
+			
+			//isKnowledgeIn = true;
 			OtherActor->Destroy();
+			knowledgePoint = 6;
 		}
 	}
 }
