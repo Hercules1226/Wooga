@@ -7,6 +7,7 @@
 #include "VR_Player.h"
 #include "FireStraw.h"
 #include "Components/BoxComponent.h"
+#include "GrabActorComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SplineComponent.h"
 #include <Components/SkeletalMeshComponent.h>
@@ -149,6 +150,7 @@ void ACable::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class A
 				FVector location = this->GetActorLocation();
 				UGameplayStatics::PlaySound2D(GetWorld(), eatSound);
 				fish->SetHiddenInGame(true);
+				player->grabComp->RightReleaseAction();
 				SetActorHiddenInGame(true);
 				stickComp->SetCollisionProfileName(TEXT("NoCollision"));
 				

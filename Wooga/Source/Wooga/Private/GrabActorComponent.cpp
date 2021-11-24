@@ -223,14 +223,12 @@ void UGrabActorComponent::RightReleaseAction()
 
 	if (stickR)
 	{
-		stickR->boxComp->SetEnableGravity(false);
+		stickR->boxComp->SetEnableGravity(true);
+		stickR->boxComp->SetSimulatePhysics(true);
 		// 그 자리에서 떨어지게
 		stickR->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
 
-		stickR->boxComp->SetSimulatePhysics(false);
-
-
-		stickR = nullptr;
+		//stickR = nullptr;
 		bisLeftGrab = false;
 		bisStickR = false;
 
@@ -462,13 +460,14 @@ void UGrabActorComponent::LeftReleaseAction()
 
 	if (stickL)
 	{
-		//stickL->boxComp->SetEnableGravity(true);
+		stickL->boxComp->SetSimulatePhysics(true);
+		stickL->boxComp->SetEnableGravity(true);
+		
 		// 그 자리에서 떨어지게
 		stickL->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
 
-		//stickL->boxComp->SetSimulatePhysics(true);
 
-		stickL = nullptr;
+		//stickL = nullptr;
 		bisLeftGrab = false;
 
 		// 완손 피는 애니메이션
