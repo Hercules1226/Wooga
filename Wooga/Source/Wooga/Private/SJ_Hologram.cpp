@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ // Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "SJ_Hologram.h"
@@ -40,10 +40,9 @@ void ASJ_Hologram::BeginPlay()
 	Super::BeginPlay();
 
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
-
-	gameMode = Cast<ASJ_WoogaGameModeBase>(GetWorld()->GetAuthGameMode());
-
 	watch = Cast<AWatch>(UGameplayStatics::GetActorOfClass(GetWorld(), AWatch::StaticClass()));
+	
+	gameMode = Cast<ASJ_WoogaGameModeBase>(GetWorld()->GetAuthGameMode());
 	
 	FVector playerLoc = player->GetActorLocation();
 	FVector me = GetActorLocation();
@@ -133,7 +132,6 @@ void ASJ_Hologram::BeginPlay()
 	*/
 	
 	SetState(EHologramState::TurnOnHologram);
-
 }
 
 // Called every frame

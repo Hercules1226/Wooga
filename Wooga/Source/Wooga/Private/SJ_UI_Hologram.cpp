@@ -18,7 +18,7 @@ void USJ_UI_Hologram::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 	Super::NativeTick(MyGeometry, InDeltaTime);
 
 	nextDelayTime += InDeltaTime;
-
+	
 	if (gameModeBase->flowState == EFlowState::Firing || gameModeBase->flowState == EFlowState::CompleteFireDiscovery)
 	{
 		if (nextDelayTime >= 14.0f)
