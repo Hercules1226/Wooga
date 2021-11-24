@@ -15,6 +15,12 @@ public:
 	// Sets default values for this actor's properties
 	ALastHouse();
 
+	UPROPERTY(EditAnywhere, Category=Data)
+	TArray<AActor*> enemies;
+
+	UPROPERTY(EditAnywhere, Category=Data)
+	TSubclassOf<AActor> subEnemy;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
