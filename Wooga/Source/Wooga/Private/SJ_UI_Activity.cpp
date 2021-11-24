@@ -19,7 +19,6 @@ void USJ_UI_Activity::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 {
 	Super::NativeTick(MyGeometry, InDeltaTime);
 
-
 	if (gameMode->bIsUIClose == true)
 	{
 		PlayAnimation(CloseUI);
