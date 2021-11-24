@@ -1213,6 +1213,8 @@ void ASJ_WoogaGameModeBase::ConnectSpear()
 
 			string = Cast<AString>(UGameplayStatics::GetActorOfClass(GetWorld(), AString::StaticClass()));
 
+			string->outLine->SetVisibility(true);
+
 			nextDelayTime = 0;
 
 			SetState(EFlowState::TieSpear);
@@ -1409,7 +1411,7 @@ void ASJ_WoogaGameModeBase::HutTitle()
 		// 딜레이 변수 초기화
 		nextDelayTime = 0;
 
-		SetState(EFlowState::MakeSpear);
+		SetState(EFlowState::MakeHut);
 	}
 }
 void ASJ_WoogaGameModeBase::MakeHut()

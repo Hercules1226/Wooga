@@ -127,7 +127,7 @@ void ACutting::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 		if (OtherActor == detachRock)
 		{
 			player->leftHand->SetHiddenInGame(false);
-			fA->SetActorHiddenInGame(false);
+			fA->SetActorHiddenInGame(true);
 			bisfinish = true;
 			//UGameplayStatics::PlaySound2D(GetWorld(), cuttingSound);
 			//fA->Destroy();
