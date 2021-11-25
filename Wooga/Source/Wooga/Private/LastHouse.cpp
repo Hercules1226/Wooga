@@ -31,15 +31,18 @@ ALastHouse::ALastHouse()
 	tree4 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("tree4"));
 	tree4->SetupAttachment(sceneComponent);
 
-	base = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Base"));
-	base->SetupAttachment(sceneComponent);
+	for (int i = 0; i < stickCount; i++)
+	{
+		FString stickName = "stick" + FString::FromInt(i + 1);
+		stickArray.Add(CreateDefaultSubobject<UStaticMeshComponent>(FName(*stickName)));
+		stickArray[i]->SetupAttachment(sceneComponent);
+	}
 
 	complete = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Complete"));
 	complete->SetupAttachment(sceneComponent);
 
 	complete2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Complete2"));
 	complete2->SetupAttachment(sceneComponent);
-
 
 	offMaterial = CreateDefaultSubobject<UMaterial>(TEXT("Off Material"));
 
@@ -53,37 +56,44 @@ void ALastHouse::BeginPlay()
 
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
 
-
 	tree1->OnComponentBeginOverlap.AddDynamic(this, &ALastHouse::OnCollisionEnter);
 	tree2->OnComponentBeginOverlap.AddDynamic(this, &ALastHouse::OnCollisionEnter);
 	tree3->OnComponentBeginOverlap.AddDynamic(this, &ALastHouse::OnCollisionEnter);
 	tree4->OnComponentBeginOverlap.AddDynamic(this, &ALastHouse::OnCollisionEnter);
 
 	tree1->SetMaterial(0, offMaterial);
+
+	//enemies[0]->Create
 }
 
 // Called every frame
 void ALastHouse::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (bisfinish == true)
+	if (bisfinish == false)
 	{
 		currentTime += DeltaTime;
 
-		if (currentTime >= baseTime)
+
+
+		if(currentTime >= baseTime)
 		{
-			base->SetHiddenInGame(false);
+			for (int i = 0; i < stickCount-1; i++)
+			{
+			
+				stickArray[i]->SetHiddenInGame(false);
+				currentTime = 0;
+			}
 		}
 
-		if (currentTime >= completeTime)
+		/*if (currentTime >= completeTime)
 		{
-			
+
 			complete->SetHiddenInGame(false);
 			complete2->SetHiddenInGame(false);
 			bisClear = true;
-		}
+		}*/
 	}
-
 }
 
 void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -255,7 +265,7 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 				bisfinish = true;
 				check4 = false;
 
-				
+
 			}
 		}
 	}

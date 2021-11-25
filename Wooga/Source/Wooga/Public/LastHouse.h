@@ -16,10 +16,13 @@ public:
 	ALastHouse();
 
 	UPROPERTY(EditAnywhere, Category=Data)
-	TArray<AActor*> enemies;
+	TArray<UStaticMeshComponent*> stickArray;
 
-	UPROPERTY(EditAnywhere, Category=Data)
-	TSubclassOf<AActor> subEnemy;
+	UPROPERTY(EditAnywhere, Category = Data)
+	int32 stickCount = 22;
+
+	/*UPROPERTY(EditAnywhere, Category=Data)
+	TSubclassOf<AActor> subEnemy;*/
 
 protected:
 	// Called when the game starts or when spawned
@@ -48,9 +51,6 @@ public:
 		class UStaticMeshComponent* tree4;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
-		class UStaticMeshComponent* base;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
 		class UStaticMeshComponent* complete;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
@@ -71,10 +71,13 @@ public:
 		class UMaterial* onMaterial;
 
 	UPROPERTY()
+		float creatCount = 0;
+
+	UPROPERTY()
 		float currentTime = 0;
 
 	UPROPERTY()
-		float baseTime = 3.f;
+		float baseTime = 0.5f;
 
 	UPROPERTY()
 		float completeTime = 6.f;
