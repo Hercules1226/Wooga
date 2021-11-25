@@ -46,6 +46,8 @@ void AApple::BeginPlay()
 	boxComp->OnComponentBeginOverlap.AddDynamic(this, &AApple::OnCollisionEnter);
 
 	outLine->SetVisibility(false);
+
+	meshComp->SetRenderCustomDepth(true);
 }
 
 // Called every frame

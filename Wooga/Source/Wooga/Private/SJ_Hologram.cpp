@@ -23,14 +23,11 @@ ASJ_Hologram::ASJ_Hologram()
 	rootComp = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
 	SetRootComponent(rootComp);
 
-	holoWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("HologramWidget"));
-	holoWidget->SetupAttachment(rootComp);
-
-	backgroundWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("BackgroundWidget"));
-	backgroundWidget->SetupAttachment(rootComp);
+	holoPlane = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Hologram"));
+	holoPlane->SetupAttachment(rootComp);
 
 	holoPost = CreateDefaultSubobject<UPostProcessComponent>(TEXT("HologramPostProcess"));
-	holoPost->SetupAttachment(rootComp);
+	// holoPost->SetupAttachment(rootComp);
 
 }
 
@@ -42,8 +39,9 @@ void ASJ_Hologram::BeginPlay()
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
 	watch = Cast<AWatch>(UGameplayStatics::GetActorOfClass(GetWorld(), AWatch::StaticClass()));
 	
+	/*
 	gameMode = Cast<ASJ_WoogaGameModeBase>(GetWorld()->GetAuthGameMode());
-	
+
 	FVector playerLoc = player->GetActorLocation();
 	FVector me = GetActorLocation();
 
@@ -122,7 +120,9 @@ void ASJ_Hologram::BeginPlay()
 		SetActorRotation(r6);
 
 		playChangeTime = 18.0f;
- 	}
+	}
+	*/
+	
 	
 	/*
 	 FVector dir = player->GetActorLocation() - GetActorLocation();
@@ -168,6 +168,10 @@ void ASJ_Hologram::TurnOnHologram()
 	// 홀로그램 생성
 	createTime +=GetWorld()->DeltaTimeSeconds;
 
+	startParam = FMath::Lerp(-1.0f, 1.0f, createTime);
+
+	holoPlane->SetScalarParameterValueOnMaterials(TEXT("Dissolve"), startParam);
+
 	if (createTime >= 2.0f)
 	{
 		UGameplayStatics::PlaySound2D(GetWorld(), FDHologramSound);
@@ -184,14 +188,18 @@ void ASJ_Hologram::PlayHologram()
 
 	if (playTime >= playChangeTime)
 	{
-		SetState(EHologramState::TurnOffHologram);
-
 		FActorSpawnParameters Param;
 		Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
 		GetWorld()->SpawnActor<AFireEvent>(knowledgePoint,  GetActorLocation(), GetActorRotation(), Param);
 
 		playTime = 0;
+
+		Destroy();
+		// 홀로그램 비활성화 코드
+		// holoPost-> bEnabled = false;
+
+		 // SetState(EHologramState::TurnOffHologram);
 	}
 }
 

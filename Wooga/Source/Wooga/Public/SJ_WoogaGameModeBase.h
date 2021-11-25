@@ -99,6 +99,7 @@ public:
 
 	// 불의 발견 교육
 	void FireDiscoveryTitle();
+	void HowToFIreDiscovery();
 	void HowToFireUI();
 	void HowToFireUINext();
 	void Firing();

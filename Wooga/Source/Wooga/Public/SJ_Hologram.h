@@ -19,13 +19,10 @@ public:
 		class USceneComponent* rootComp;
 
 	UPROPERTY(EditAnywhere, Category = Hologram)
-	class UWidgetComponent* holoWidget;
+		class UStaticMeshComponent* holoPlane;
 
-	UPROPERTY(EditAnywhere, Category = Hologram)
-	class UWidgetComponent* backgroundWidget;
-
-	UPROPERTY(EditAnywhere, Category = Hologram)
-	class UPostProcessComponent* holoPost;
+		UPROPERTY(EditAnywhere, Category = Hologram)
+		class UPostProcessComponent* holoPost;
 
 protected:
 	// Called when the game starts or when spawned

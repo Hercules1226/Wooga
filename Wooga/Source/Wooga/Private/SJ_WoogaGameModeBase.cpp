@@ -129,6 +129,9 @@ void ASJ_WoogaGameModeBase::Tick(float DeltaSeconds)
 	case EFlowState::FireDiscoveryTitle:
 		FireDiscoveryTitle();
 		break;
+	case EFlowState::HowToFireDiscovery:
+		HowToFIreDiscovery();
+		break;
 	case EFlowState::HowToFireUI:
 		HowToFireUI();
 		break;
@@ -397,7 +400,19 @@ void ASJ_WoogaGameModeBase::FireDiscoveryTitle()
 		// µô·¹ÀÌº¯¼ö ÃÊ±âÈ­
 		nextDelayTime = 0;
 
-		SetState(EFlowState::HowToFireUI);
+		SetState(EFlowState::HowToFireDiscovery);
+	}
+}
+
+void ASJ_WoogaGameModeBase::HowToFIreDiscovery()
+{
+	if (player->isClose == true)
+	{
+		bIsDelay = true;
+	}
+	if (bIsDelay == true)
+	{
+		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 	}
 }
 
@@ -415,7 +430,7 @@ void ASJ_WoogaGameModeBase::HowToFireUI()
 		// UI ²¨ÁÖ±â
 		bIsUIClose = true;
 
-		if (nextDelayTime >= 2.0f)
+		if (nextDelayTime >= 1.0f)
 		{
 			// ºÎ½Ëµ¹ ¾Æ¿ô¶óÀÎ ²¨ÁÖ±â
 			fireRockOne->outLine->SetHiddenInGame(true);
@@ -451,7 +466,7 @@ void ASJ_WoogaGameModeBase::HowToFireUINext()
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-		if (nextDelayTime >= 2.0f)
+		if (nextDelayTime >= 1.0f)
 		{
 			breatheFireUI = GetWorld()->SpawnActor<ASJ_Actor_BreatheFireUI>(bpBreatheFireUI, Param);
 
@@ -480,7 +495,7 @@ void ASJ_WoogaGameModeBase::Firing()
 		bIsUIClose = true;
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
-		if (nextDelayTime >= 2.0f)
+		if (nextDelayTime >= 1.0f)
 		{
 			// È¦·Î±×·¥ »ý¼º
 			hologram = GetWorld()->SpawnActor<ASJ_Hologram>(bpFDHologram, Param);
