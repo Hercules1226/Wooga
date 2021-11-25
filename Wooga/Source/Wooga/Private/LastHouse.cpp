@@ -70,20 +70,15 @@ void ALastHouse::BeginPlay()
 void ALastHouse::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (bisfinish == false)
+	if (bisfinish == true)
 	{
 		currentTime += DeltaTime;
-
-
-
-		if(currentTime >= baseTime)
+		
+		if (creatCount < 20)
 		{
-			for (int i = 0; i < stickCount-1; i++)
-			{
-			
-				stickArray[i]->SetHiddenInGame(false);
-				currentTime = 0;
-			}
+			/*FTimerHandle createTimer;
+			GetWorld()->GetTimerManager().SetTimer(createTimer, this, &ALastHouse::CreateStick, 1.0f, false);*/
+			CreateStick();
 		}
 
 		/*if (currentTime >= completeTime)
@@ -269,5 +264,22 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 			}
 		}
 	}
+}
+
+void ALastHouse::CreateStick()
+{
+	if (creatCount < 21)
+	{
+		if (currentTime > 0.2f)
+		{
+			stickArray[creatCount]->SetHiddenInGame(false);
+			creatCount++;
+			currentTime = 0;
+			/*FTimerHandle createTimer;
+			GetWorld()->GetTimerManager().SetTimer(createTimer, 1.f, false, 0.f);*/
+		}
+	}
+
+	
 }
 

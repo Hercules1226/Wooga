@@ -21,6 +21,8 @@ public:
 	UPROPERTY(EditAnywhere, Category = Data)
 	int32 stickCount = 22;
 
+	UPROPERTY()
+	int32 creatCount = 0;
 	/*UPROPERTY(EditAnywhere, Category=Data)
 	TSubclassOf<AActor> subEnemy;*/
 
@@ -34,6 +36,8 @@ public:
 
 	UFUNCTION()
 		void OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	void CreateStick();
 
 	UPROPERTY(EditAnywhere, Category = Settings)
 		class USceneComponent* sceneComponent;
@@ -58,6 +62,7 @@ public:
 
 public:
 
+
 	UPROPERTY()
 		class AStick* stick;
 
@@ -69,9 +74,6 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
 		class UMaterial* onMaterial;
-
-	UPROPERTY()
-		float creatCount = 0;
 
 	UPROPERTY()
 		float currentTime = 0;
