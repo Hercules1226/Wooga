@@ -1228,6 +1228,8 @@ void ASJ_WoogaGameModeBase::ConnectSpear()
 
 			string = Cast<AString>(UGameplayStatics::GetActorOfClass(GetWorld(), AString::StaticClass()));
 
+			string->outLine->SetVisibility(true);
+
 			nextDelayTime = 0;
 
 			SetState(EFlowState::TieSpear);

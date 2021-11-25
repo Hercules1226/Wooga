@@ -83,15 +83,12 @@ void ATomahowk::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, clas
 	{
 		if (player)
 		{
-			if (player->grabComp->bisTomahowkL == true || player->grabComp->bisTomahowkR == true)
-			{
 				if (OtherComp == player->mouthComp)
 				{
 					meshComp1->SetHiddenInGame(true);
 					meshComp4->SetHiddenInGame(false);
 					bisBone = true;
 				}
-			}
 		}
 	}
 }

@@ -336,14 +336,13 @@ void UGrabActorComponent::RightReleaseAction()
 
 	if (tomahowkR)
 	{
-		//tomahowkR->meshComp->SetEnableGravity(true);
-		tomahowkR->meshComp1->SetEnableGravity(true);
+		tomahowkR->meshComp->SetEnableGravity(true);
+
 		// 그 자리에서 떨어지게
 		tomahowkR->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
 
-		//tomahowkR->meshComp->SetSimulatePhysics(true);
-		tomahowkR->meshComp1->SetSimulatePhysics(true);
-		//sumjjiL->outLine->SetVisibility(true);
+		tomahowkR->meshComp->SetSimulatePhysics(true);
+		// stringR->outLine->SetVisibility(true);
 
 		tomahowkR = nullptr;
 		bisLeftGrab = false;
@@ -351,6 +350,7 @@ void UGrabActorComponent::RightReleaseAction()
 
 		// 왼손 피는 애니메이션
 		player->handComp->targetGripValueRight = 0.0f;
+		
 	}
 
 	//}
@@ -546,14 +546,17 @@ void UGrabActorComponent::LeftReleaseAction()
 
 	if (tomahowkL)
 	{
+		//tomahowkL->meshComp->SetEnableGravity(true);
 		tomahowkL->meshComp->SetEnableGravity(true);
-		tomahowkL->meshComp1->SetEnableGravity(true);
+		//tomahowkL->meshComp4->SetEnableGravity(true);
 
 		// 그 자리에서 떨어지게
 		tomahowkL->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
 
+		//tomahowkL->meshComp->SetSimulatePhysics(true);
 		tomahowkL->meshComp->SetSimulatePhysics(true);
-		tomahowkL->meshComp1->SetSimulatePhysics(true);
+		//tomahowkL->meshComp4->SetSimulatePhysics(true);
+
 
 		//sumjjiL->outLine->SetVisibility(true);
 
@@ -562,7 +565,7 @@ void UGrabActorComponent::LeftReleaseAction()
 		bisTomahowkL = false;
 
 		// 왼손 피는 애니메이션
-		player->handComp->targetGripValueRight = 0.0f;
+		player->handComp->targetGripValueLeft = 0.0f;
 	}
 
 
@@ -1334,7 +1337,7 @@ void UGrabActorComponent::LGripTomahowk(AActor* grabActor)
 			FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
 
 			//tomahowkL->meshComp->SetSimulatePhysics(false);
-			tomahowkL->meshComp1->SetSimulatePhysics(false);
+			tomahowkL->meshComp->SetSimulatePhysics(false);
 			//tomahowkL->meshComp->SetEnableGravity(false);
 			tomahowkL->meshComp->SetEnableGravity(false);
 			//sumjjiL->outLine->SetVisibility(false);
@@ -1368,10 +1371,10 @@ void UGrabActorComponent::RGripTomahowk(AActor* grabActor)
 			//FAttachmentTransformRules attachRules = FAttachmentTransformRules::KeepWorldTransform;
 			FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
 
+			//tomahowkL->meshComp->SetSimulatePhysics(false);
 			tomahowkR->meshComp->SetSimulatePhysics(false);
-			tomahowkR->meshComp1->SetSimulatePhysics(false);
+			//tomahowkL->meshComp->SetEnableGravity(false);
 			tomahowkR->meshComp->SetEnableGravity(false);
-			tomahowkR->meshComp1->SetEnableGravity(false);
 			//sumjjiL->outLine->SetVisibility(false);
 
 			tomahowkR->AttachToComponent(player->rightHandLoc, attachRules, TEXT("RGrabPoint"));
