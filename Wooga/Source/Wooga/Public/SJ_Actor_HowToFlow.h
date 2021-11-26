@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "Wooga.h"
 #include "GameFramework/Actor.h"
 #include "SJ_Actor_HowToFlow.generated.h"
 
@@ -32,7 +32,32 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-		UPROPERTY(EditAnywhere, Category = Setting)
-		struct FPostProcessSettings satSet;
+	UPROPERTY()
+	class ASJ_WoogaGameModeBase* gameMode;
 
+	UPROPERTY()
+	class AVR_Player* player;
+
+	UPROPERTY(EditAnywhere, Category = Setting)
+	struct FPostProcessSettings startParam;
+
+	UPROPERTY(EditAnywhere, Category = Setting)
+		struct FPostProcessSettings onParam;
+
+	UPROPERTY(EditAnywhere, Category = Setting)
+		struct FPostProcessSettings offParam;
+
+	UPROPERTY()
+	float onTime;
+	UPROPERTY()
+	float offTime;
+
+	// Ä¸½¶È­
+	ESaturateState saturateState;
+	ESaturateState GetState();
+	void SetState(ESaturateState state);
+
+	void OnSature();
+	void Stay();
+	void OffSature();
 };

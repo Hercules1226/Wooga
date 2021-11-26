@@ -111,6 +111,12 @@ public:
 	//UPROPERTY(EditAnywhere, Category = Sound)
 	//class USoundBase* uiSound;
 
+	// 불피우기 전체 안내 UI
+	UPROPERTY()
+	class ASJ_Actor_HowToFlow* howToFlow;
+	UPROPERTY(EditAnywhere, Category = UI)
+	TSubclassOf<class ASJ_Actor_HowToFlow> bpFDHowToFlow;
+
 	// 불지피는 방법 알려주는 UI
 	class ASJ_HowToFireUIActor* howToFire;
 

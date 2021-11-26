@@ -39,7 +39,6 @@ void ASJ_Hologram::BeginPlay()
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
 	watch = Cast<AWatch>(UGameplayStatics::GetActorOfClass(GetWorld(), AWatch::StaticClass()));
 	
-	/*
 	gameMode = Cast<ASJ_WoogaGameModeBase>(GetWorld()->GetAuthGameMode());
 
 	FVector playerLoc = player->GetActorLocation();
@@ -121,8 +120,6 @@ void ASJ_Hologram::BeginPlay()
 
 		playChangeTime = 18.0f;
 	}
-	*/
-	
 	
 	/*
 	 FVector dir = player->GetActorLocation() - GetActorLocation();

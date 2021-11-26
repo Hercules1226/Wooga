@@ -386,16 +386,7 @@ void ASJ_WoogaGameModeBase::FireDiscoveryTitle()
 
 	if (nextDelayTime >= 6.0f)
 	{
-		// ºÎ½Ëµ¹ Ä³½Ì
-		fireRockOne = Cast<AFireRock>(UGameplayStatics::GetActorOfClass(GetWorld(), AFireRock::StaticClass()));
-		fireRockTwo = Cast<AFireRock2>(UGameplayStatics::GetActorOfClass(GetWorld(), AFireRock2::StaticClass()));
-
-		// ºÎ½Ëµ¹ ¾Æ¿ô¶óÀÎ
-		fireRockOne->outLine->SetVisibility(true);
-		fireRockTwo->outLine->SetVisibility(true);
-
-		// ºÒ¾¾ UI »ý¼º
-		howToFire = GetWorld()->SpawnActor<ASJ_HowToFireUIActor>(howToFireUIActor, Param);
+		howToFlow = GetWorld()->SpawnActor<ASJ_Actor_HowToFlow>(bpFDHowToFlow, Param);
 
 		// µô·¹ÀÌº¯¼ö ÃÊ±âÈ­
 		nextDelayTime = 0;
@@ -413,6 +404,24 @@ void ASJ_WoogaGameModeBase::HowToFIreDiscovery()
 	if (bIsDelay == true)
 	{
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
+
+		if (nextDelayTime >= 1.0f)
+		{
+			// ºÎ½Ëµ¹ Ä³½Ì
+			fireRockOne = Cast<AFireRock>(UGameplayStatics::GetActorOfClass(GetWorld(), AFireRock::StaticClass()));
+			fireRockTwo = Cast<AFireRock2>(UGameplayStatics::GetActorOfClass(GetWorld(), AFireRock2::StaticClass()));
+
+			// ºÎ½Ëµ¹ ¾Æ¿ô¶óÀÎ
+			fireRockOne->outLine->SetVisibility(true);
+			fireRockTwo->outLine->SetVisibility(true);
+
+			// ºÒ¾¾ UI »ý¼º
+			howToFire = GetWorld()->SpawnActor<ASJ_HowToFireUIActor>(howToFireUIActor, Param);
+
+			nextDelayTime = 0;
+
+			SetState(EFlowState::HowToFireUI);
+		}
 	}
 }
 
