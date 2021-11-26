@@ -29,11 +29,11 @@ void ASJ_Actor_Title::BeginPlay()
 
 	if (gameMode->flowState == EFlowState::HowToGrabActorUI || gameMode->flowState == EFlowState::FireDiscoveryTitle)
 	{
-		FVector p1 = FVector(10900, 11930, 1280);
+		FVector p1 = FVector(10903, 11908, 1290);
 
 		SetActorLocation(p1);
 
-		FRotator r1 = FRotator(0, 160, 0);
+		FRotator r1 = FRotator(0, 154, 0);
 
 		SetActorRotation(r1);
 	}

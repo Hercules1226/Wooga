@@ -34,7 +34,7 @@ void ASJ_Actor_GoToGuideLine::BeginPlay()
 	
 	gameModeBase = Cast<ASJ_WoogaGameModeBase>(GetWorld()->GetAuthGameMode());
 
-	if (gameModeBase->flowState == EFlowState::InformWatch || gameModeBase->flowState == EFlowState::GoToCollectCourse)
+	if (gameModeBase->flowState == EFlowState::SpawnCollectGuideLine)
 	{
 		FVector p1 = FVector(9897.0f, 10207.0f, 1260.0);
 
@@ -44,7 +44,7 @@ void ASJ_Actor_GoToGuideLine::BeginPlay()
 
 		SetActorRotation(r1);
 	}
-	else if (gameModeBase->flowState == EFlowState::CompleteCollect || gameModeBase->flowState == EFlowState::GoToFistAxCourse)
+	else if (gameModeBase->flowState == EFlowState::SpawnHandAxGuideLine)
 	{
 		FVector p2 = FVector(7810, 8579, 1260);
 

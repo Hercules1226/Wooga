@@ -147,20 +147,26 @@ void ASJ_WoogaGameModeBase::Tick(float DeltaSeconds)
 	case EFlowState::InformWatch:
 		InformWatch();
 		break;
+	case  EFlowState::SpawnCollectGuideLine:
+		SpawnCollectGuideLine();
+		break;
 	case EFlowState::GoToCollectCourse:
 		GoToCollectState();
 		break;
 	case EFlowState::CollectTitle:
 		CollectTitle();
 		break;
-	case EFlowState::HowToCollectActorUI:
-		HowToCollectActorUI();
+	case EFlowState::HowToCollect:
+		HowToCollect();
 		break;
 	case EFlowState::CollectAndEat:
 		CollectAndEat();
 		break;
 	case EFlowState::CompleteCollect:
 		CompleteCollect();
+		break;
+	case EFlowState::SpawnHandAxGuideLine:
+		SpawnHandAxGuideLine();
 		break;
 	case EFlowState::GoToFistAxCourse:
 		GoToFistAxCourse();
@@ -533,9 +539,6 @@ void ASJ_WoogaGameModeBase::CompleteFireCourse()
 
 	if (nextDelayTime >= 18.0f)
 	{
-		// 임무 완료 사운드
-		//UGameplayStatics::PlaySound2D(GetWorld(), uiSound);
-
 		// 딜레이 변수 초기화
 		nextDelayTime = 0;
 
@@ -561,9 +564,6 @@ void ASJ_WoogaGameModeBase::InformWatch()
 
 	if (nextDelayTime >= 3.0f)
 	{
-		// 가이드라인 생성
-		goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpCollectGuideLine, Param);
-
 		// 라이팅 낮 상태로 변경
 		levelLight->isDay = true;
 
@@ -573,8 +573,16 @@ void ASJ_WoogaGameModeBase::InformWatch()
 		bIsDelay = false;
 		nextDelayTime = 0;
 
-		SetState(EFlowState::GoToCollectCourse);
+		SetState(EFlowState::SpawnCollectGuideLine);
 	}
+}
+
+void ASJ_WoogaGameModeBase::SpawnCollectGuideLine()
+{
+	// 가이드라인 생성
+	goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpCollectGuideLine, Param);
+
+	SetState(EFlowState::GoToCollectCourse);
 }
 
 void ASJ_WoogaGameModeBase::GoToCollectState()
@@ -601,32 +609,22 @@ void ASJ_WoogaGameModeBase::CollectTitle()
 
 	if (nextDelayTime >= 6.0f)
 	{
-		// 배고픔과 채집 안내 UI
-		// collectAndHungry = GetWorld()->SpawnActor<ASJ_Actor_CollectAndHungryUI>(bpCollectAndHungry, Param);
-
-		// 제목 없애기
-		// titleUI->Destroy();
-
 		// 가이드라인 없애기
-		// goToGuideLine->Destroy();
+		goToGuideLine->Destroy();
 
 		// 딜레이변수 초기화
 		nextDelayTime = 0;
 
-		// 사과 캐싱하고 아웃라인 켜주기
-		apple = Cast<AApple>(UGameplayStatics::GetActorOfClass(GetWorld(), AApple::StaticClass()));
+		// 채집하기 안내 UI
+		howToFlow = GetWorld()->SpawnActor<ASJ_Actor_HowToFlow>(bpCollectHowToFlow, Param);
 
-		apple->outLine->SetVisibility(true);
-
-		// 사과 채집과 먹기 UI
-		eatAppleUI = GetWorld()->SpawnActor<ASJ_Actor_EatAppleUI>(bpEatAppleUI, Param);
-
-		SetState(EFlowState::CollectAndEat);
+		SetState(EFlowState::HowToCollect);
 	}
 }
-void ASJ_WoogaGameModeBase::HowToCollectActorUI()
+
+void ASJ_WoogaGameModeBase::HowToCollect()
 {
-	// UI를 끄면 다음 상태로 넘어가기
+	// UI 를 끄면
 	if (player->isClose == true)
 	{
 		bIsDelay = true;
@@ -635,7 +633,7 @@ void ASJ_WoogaGameModeBase::HowToCollectActorUI()
 	{
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-		if (nextDelayTime >= 2.0f)
+		if (nextDelayTime >= 1.0f)
 		{
 			// 사과 캐싱하고 아웃라인 켜주기
 			apple = Cast<AApple>(UGameplayStatics::GetActorOfClass(GetWorld(), AApple::StaticClass()));
@@ -645,10 +643,7 @@ void ASJ_WoogaGameModeBase::HowToCollectActorUI()
 			// 사과 채집과 먹기 UI
 			eatAppleUI = GetWorld()->SpawnActor<ASJ_Actor_EatAppleUI>(bpEatAppleUI, Param);
 
-			// 사용 UI 없애기
-			// collectAndHungry->Destroy();
-
-			bIsDelay = false;
+			// 딜레이변수 초기화
 			nextDelayTime = 0;
 
 			SetState(EFlowState::CollectAndEat);
@@ -665,7 +660,7 @@ void ASJ_WoogaGameModeBase::CollectAndEat()
 
 		bIsUIClose = true;
 
-		if (nextDelayTime >= 2.0f)
+		if (nextDelayTime >= 1.0f)
 		{
 			// 채집 홀로그램 생성
 			hologram = GetWorld()->SpawnActor< ASJ_Hologram>(bpCollectHologram, Param);
@@ -685,12 +680,17 @@ void ASJ_WoogaGameModeBase::CompleteCollect()
 
 	if (nextDelayTime >= 15.0f)
 	{
-		// 아웃라인 생성
-		goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpHandAxGuideLine, Param);
-
 		nextDelayTime = 0;
-		SetState(EFlowState::GoToFistAxCourse);
+		SetState(EFlowState::SpawnHandAxGuideLine);
 	}
+}
+
+void ASJ_WoogaGameModeBase::SpawnHandAxGuideLine()
+{
+	// 가이드라인 생성
+	goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpHandAxGuideLine, Param);
+
+	SetState(EFlowState::GoToFistAxCourse);
 }
 
 void ASJ_WoogaGameModeBase::GoToFistAxCourse()
@@ -714,11 +714,8 @@ void ASJ_WoogaGameModeBase::HandAxTitle()
 
 	if (nextDelayTime >= 6.0f)
 	{
-		// 제목 없애기
-		// titleUI->Destroy();
-
 		// 가이드라인 없애기
-		//goToGuideLine->Destroy();
+		goToGuideLine->Destroy();
 
 		// 딜레이변수 초기화
 		nextDelayTime = 0;
@@ -964,7 +961,7 @@ void ASJ_WoogaGameModeBase::CuttingPig()
 			pickUpMeatUI = GetWorld()->SpawnActor<ASJ_Actor_PickUpMeatUI>(bpPickUpMeatUI, Param);
 
 			FVector fireStrawPosition = FVector(5173, 8000, 1177);
-			FRotator fireStrawRotation = FRotator(0, 0,0);
+			FRotator fireStrawRotation = FRotator(0, 0, 0);
 
 			// 도착 했을때 장작이 보이게 장작생성
 			fireStraw = GetWorld()->SpawnActor<AFireStraw>(bpFireStraw, fireStrawPosition, fireStrawRotation, Param);

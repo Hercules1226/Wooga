@@ -38,6 +38,13 @@ public:
 	UPROPERTY()
 	class AVR_Player* player;
 
+	// 머티리얼 디졸브 변수
+	UPROPERTY()
+	float startDissolveParam;
+	UPROPERTY()
+	float endDissolveParam;
+
+	// 포스트프로세스 변수
 	UPROPERTY(EditAnywhere, Category = Setting)
 	struct FPostProcessSettings startParam;
 
@@ -47,6 +54,7 @@ public:
 	UPROPERTY(EditAnywhere, Category = Setting)
 		struct FPostProcessSettings offParam;
 
+	// 켜지고 꺼지는 시간
 	UPROPERTY()
 	float onTime;
 	UPROPERTY()

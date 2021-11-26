@@ -105,6 +105,7 @@ public:
 	void Firing();
 	void CompleteFireCourse();
 	void InformWatch();
+	void SpawnCollectGuideLine();
 	void GoToCollectState();
 
 	// UI Sound
@@ -146,12 +147,6 @@ public:
 	UPROPERTY(EditAnywhere, Category = Hologram)
 	TSubclassOf<class ASJ_Hologram> bpFDHologram;
 
-	UPROPERTY()
-	class ASJ_Actor_Hologram* hologramActor;
-
-	UPROPERTY(EditAnywhere, Category = Hologram)
-	TSubclassOf<class ASJ_Actor_Hologram> fireDisCoveryHologram;
-
 	// 플레이어 워치 안내 UI
 	class ASJ_Actor_WatchInformUI* watchInformUI;
 
@@ -177,15 +172,14 @@ public:
 
 	// 채집 교육
 	void CollectTitle();
-	void HowToCollectActorUI();
+	void HowToCollect();
 	void CollectAndEat();
 	void CompleteCollect();
+	void SpawnHandAxGuideLine();
 	void GoToFistAxCourse();
 
-	// 배고픔과 채집 안내 UI
-	class ASJ_Actor_CollectAndHungryUI* collectAndHungry;
 	UPROPERTY(EditAnywhere, Category = UI)
-		TSubclassOf<class ASJ_Actor_CollectAndHungryUI> bpCollectAndHungry;
+	TSubclassOf<class ASJ_Actor_HowToFlow> bpCollectHowToFlow;
 
 	// 사과
 	class AApple* apple;
@@ -198,8 +192,6 @@ public:
 	// 채집 홀로그램
 	UPROPERTY(EditAnywhere, Category = Hologram)
 	TSubclassOf<class ASJ_Hologram> bpCollectHologram;
-	UPROPERTY(EditAnywhere, Category = Hologram)
-	TSubclassOf<class ASJ_Actor_Hologram> bpCollectHologramActor;
 
 	// 사냥(주먹도끼)
 	void HandAxTitle();

@@ -49,7 +49,7 @@ void ASJ_Hologram::BeginPlay()
 	// 불의 발견 홀로그램
 	if (gameMode->flowState == EFlowState::Firing || gameMode->flowState == EFlowState::CompleteFireDiscovery)
 	{
-		FVector p1 = FVector(10875, 11859, 1290);
+		FVector p1 = FVector(10874, 11825, 1290);
 
 		SetActorLocation(p1);
 
@@ -61,11 +61,11 @@ void ASJ_Hologram::BeginPlay()
 	// 채집 홀로그램
 	if (gameMode->flowState == EFlowState::CollectAndEat || gameMode->flowState == EFlowState::CompleteCollect)
 	{
-		FVector p2 = FVector(9581, 9961, 1315);
+		FVector p2 = FVector(9476, 10068, 1315);
 
 		SetActorLocation(p2);
 
-		FRotator r2 = FRotator(0, 60, 0);
+		FRotator r2 = FRotator(0, 50, 0);
 
 		SetActorRotation(r2);
 
@@ -120,14 +120,7 @@ void ASJ_Hologram::BeginPlay()
 
 		playChangeTime = 18.0f;
 	}
-	
-	/*
-	 FVector dir = player->GetActorLocation() - GetActorLocation();
-	dir.Normalize();
 
-	SetActorRotation(dir.Rotation());
-	*/
-	
 	SetState(EHologramState::TurnOnHologram);
 }
 
@@ -169,7 +162,7 @@ void ASJ_Hologram::TurnOnHologram()
 
 	holoPlane->SetScalarParameterValueOnMaterials(TEXT("Dissolve"), startParam);
 
-	if (createTime >= 2.0f)
+	if (createTime >= 1.0f)
 	{
 		UGameplayStatics::PlaySound2D(GetWorld(), FDHologramSound);
 		createTime = 0;
@@ -204,7 +197,7 @@ void ASJ_Hologram::TurnOffHologram()
 {
 	destroyTime += GetWorld()->DeltaTimeSeconds;
 
-	if (destroyTime >= 2.0f)
+	if (destroyTime >= 1.0f)
 	{
 		destroyTime = 0;
 		Destroy();

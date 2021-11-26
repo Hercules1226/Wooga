@@ -18,12 +18,14 @@ enum class EFlowState : uint8
 	Firing,
 	CompleteFireDiscovery,
 	InformWatch,
+	SpawnCollectGuideLine,
 	GoToCollectCourse,
 	// Ã¤Áý
 	CollectTitle,
-	HowToCollectActorUI,
+	HowToCollect,
 	CollectAndEat,
 	CompleteCollect,
+	SpawnHandAxGuideLine,
 	GoToFistAxCourse,
 	// »ç³É(ÁÖ¸Ôµµ³¢)
 	HandAxTitle,

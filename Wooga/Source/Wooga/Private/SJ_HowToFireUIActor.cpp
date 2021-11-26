@@ -26,7 +26,7 @@ void ASJ_HowToFireUIActor::BeginPlay()
 {
 	Super::BeginPlay();
 
-	FVector f = FVector(11060.0f, 11860.0f, 1260.0);
+	FVector f = FVector(11090, 11860, 1270);
 	SetActorLocation(f);
 }
 
