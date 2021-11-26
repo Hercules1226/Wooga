@@ -23,6 +23,24 @@ AWatch::AWatch()
 
 	watch = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Watch"));
 	watch->SetupAttachment(rootComp);
+
+	part1 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Part1"));
+	//part1->SetupAttachment(rootComp);
+
+	part2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Part2"));
+	//part2->SetupAttachment(rootComp);
+
+	part3 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Part3"));
+	//part3->SetupAttachment(rootComp);
+
+	part4 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Part4"));
+	//part4->SetupAttachment(rootComp);
+
+	part5 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Part5"));
+	//part5->SetupAttachment(rootComp);
+
+	part6 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Part6"));
+	//part6->SetupAttachment(rootComp);
 }
 
 // Called when the game starts or when spawned
@@ -69,9 +87,29 @@ void AWatch::Tick(float DeltaTime)
 
 	if (player->camLoc)
 	{
-		FVector dir = player->camLoc->GetRelativeLocation() - rootComp->GetRelativeLocation();
-		dir.Normalize();
-		SetActorRotation(dir.ToOrientationRotator());
+		FVector dir1 = player->camLoc->GetRelativeLocation() - part1->GetRelativeLocation();
+		dir1.Normalize();
+		SetActorRotation(dir1.ToOrientationRotator());
+
+		FVector dir2 = player->camLoc->GetRelativeLocation() - part2->GetRelativeLocation();
+		dir2.Normalize();
+		SetActorRotation(dir2.ToOrientationRotator());
+
+		FVector dir3 = player->camLoc->GetRelativeLocation() - part3->GetRelativeLocation();
+		dir3.Normalize();
+		SetActorRotation(dir3.ToOrientationRotator());
+
+		FVector dir4 = player->camLoc->GetRelativeLocation() - part4->GetRelativeLocation();
+		dir4.Normalize();
+		SetActorRotation(dir4.ToOrientationRotator());
+
+		FVector dir5 = player->camLoc->GetRelativeLocation() - part5->GetRelativeLocation();
+		dir5.Normalize();
+		SetActorRotation(dir5.ToOrientationRotator());
+
+		FVector dir6 = player->camLoc->GetRelativeLocation() - part6->GetRelativeLocation();
+		dir6.Normalize();
+		SetActorRotation(dir6.ToOrientationRotator());
 	}
 
 

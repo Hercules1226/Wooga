@@ -34,5 +34,5 @@ public:
 		class AVR_Player* player;
 
 		UPROPERTY()
-		class AWatch* watch;
+		class AWatch1* watch;
 };

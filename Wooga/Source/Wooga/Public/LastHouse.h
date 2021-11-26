@@ -55,6 +55,9 @@ public:
 		class UStaticMeshComponent* tree4;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
+		class UStaticMeshComponent* base;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
 		class UStaticMeshComponent* complete;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
