@@ -31,6 +31,9 @@ ALastHouse::ALastHouse()
 	tree4 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("tree4"));
 	tree4->SetupAttachment(sceneComponent);
 
+	base = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Base"));
+	base->SetupAttachment(sceneComponent);
+
 	for (int i = 0; i < stickCount; i++)
 	{
 		FString stickName = "stick" + FString::FromInt(i + 1);
@@ -70,26 +73,28 @@ void ALastHouse::BeginPlay()
 void ALastHouse::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	currentTime += DeltaTime;
 	if (bisfinish == true)
 	{
-		currentTime += DeltaTime;
 		
-		if (creatCount < 20)
-		{
-			/*FTimerHandle createTimer;
-			GetWorld()->GetTimerManager().SetTimer(createTimer, this, &ALastHouse::CreateStick, 1.0f, false);*/
-			CreateStick();
-		}
-
-		/*if (currentTime >= completeTime)
-		{
-
-			complete->SetHiddenInGame(false);
-			complete2->SetHiddenInGame(false);
-			bisClear = true;
-		}*/
+		FTimerHandle createTimer;
+		GetWorld()->GetTimerManager().SetTimer(createTimer, this, &ALastHouse::CreateStick, 3.0f, false);
+		//CreateStick();
 	}
+	if (creatCount == 20)
+	{
+		base->SetHiddenInGame(true);
+	}
+
+	/*if (currentTime >= completeTime)
+	{
+
+		complete->SetHiddenInGame(false);
+		complete2->SetHiddenInGame(false);
+		bisClear = true;
+	}*/
 }
+
 
 void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
@@ -242,6 +247,7 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 
 				bisfinish = true;
 				check4 = false;
+
 			}
 
 			if (player->grabComp->bisStickL == true)
@@ -259,8 +265,6 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 				currentTime = 0.f;
 				bisfinish = true;
 				check4 = false;
-
-
 			}
 		}
 	}
@@ -279,7 +283,12 @@ void ALastHouse::CreateStick()
 			GetWorld()->GetTimerManager().SetTimer(createTimer, 1.f, false, 0.f);*/
 		}
 	}
+	if (creatCount == 20)
+	{
+		
+		bisfinish = false;
+	}
 
-	
+
 }
 

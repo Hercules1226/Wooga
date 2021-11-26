@@ -53,6 +53,10 @@ AVR_Player::AVR_Player()
 	// Camera Location 에 붙임
 	camLoc->SetupAttachment(playerCam);
 
+	camLookAt = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("CamLookAt"));
+	// Camera Location 에 붙임
+	camLookAt->SetupAttachment(playerCam);
+
 	headComp = CreateDefaultSubobject<UBoxComponent>(TEXT("Head Component"));
 	headComp->SetupAttachment(cameraRoot);
 	//headComp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
@@ -192,6 +196,7 @@ void AVR_Player::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	UHeadMountedDisplayFunctionLibrary::GetOrientationAndPosition(headRotate, headLocation);
+	
 	headRotateYaw = headRotate.Yaw;
 	headRotatePitch = headRotate.Pitch;
 

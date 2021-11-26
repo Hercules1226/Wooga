@@ -31,6 +31,24 @@ public:
 		class UStaticMeshComponent* rootComp;
 	UPROPERTY(EditAnywhere, Category = Setting)
 		class UStaticMeshComponent* watch;
+
+	UPROPERTY(EditAnywhere, Category = Setting)
+		class UStaticMeshComponent* part1;
+
+	UPROPERTY(EditAnywhere, Category = Setting)
+		class UStaticMeshComponent* part2;
+
+	UPROPERTY(EditAnywhere, Category = Setting)
+		class UStaticMeshComponent* part3;
+
+	UPROPERTY(EditAnywhere, Category = Setting)
+		class UStaticMeshComponent* part4;
+
+	UPROPERTY(EditAnywhere, Category = Setting)
+		class UStaticMeshComponent* part5;
+
+	UPROPERTY(EditAnywhere, Category = Setting)
+		class UStaticMeshComponent* part6;
 	UPROPERTY(EditAnywhere, Category = Settings)
 		class AVR_Player* player;
 

@@ -6,7 +6,7 @@
 #include <Kismet/GameplayStatics.h>
 #include "VR_Player.h"
 #include <Components/WidgetComponent.h>
-#include "Watch.h"
+#include "Watch1.h"
 
 // Sets default values
 AFireEvent::AFireEvent()
@@ -28,7 +28,7 @@ void AFireEvent::BeginPlay()
 
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
 
-	watch = Cast<AWatch>(UGameplayStatics::GetActorOfClass(GetWorld(), AWatch::StaticClass()));
+	watch = Cast<AWatch1>(UGameplayStatics::GetActorOfClass(GetWorld(), AWatch1::StaticClass()));
 }
 
 // Called every frame

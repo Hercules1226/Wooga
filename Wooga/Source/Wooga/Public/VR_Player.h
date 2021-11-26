@@ -40,6 +40,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = PlayerSettings)
 		class UStaticMeshComponent* camLoc;
 
+	UPROPERTY(EditAnywhere, Category = PlayerSettings)
+		class UStaticMeshComponent* camLookAt;
+
 	UPROPERTY(EditAnywhere, Category = PickUPSettings)
 		class UBoxComponent* headComp;
 
@@ -107,7 +110,6 @@ public:
 
 public:
 	void ResetHMD();
-
 
 	UPROPERTY()
 		FRotator hmdRotation;
