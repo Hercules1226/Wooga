@@ -788,7 +788,7 @@ void UGrabActorComponent::RGripApple(AActor* grabActor)
 
 			appleR->boxComp->SetSimulatePhysics(false);
 			appleR->boxComp->SetEnableGravity(true);
-			appleR->outLine->SetHiddenInGame(true);
+			appleR->outLine->SetVisibility(false);
 
 			/*stemR->midLoc->SetSimulatePhysics(true);
 			stemR->midLoc->SetEnableGravity(true);
@@ -833,7 +833,7 @@ void UGrabActorComponent::LGripApple(AActor* grabActor)
 
 			appleL->boxComp->SetSimulatePhysics(false);
 			appleL->boxComp->SetEnableGravity(true);
-			appleL->outLine->SetHiddenInGame(true);
+			appleL->outLine->SetVisibility(false);
 
 			/*stemR->midLoc->SetSimulatePhysics(true);
 			stemR->midLoc->SetEnableGravity(true);
@@ -878,6 +878,7 @@ void UGrabActorComponent::RGripStick(AActor* grabActor)
 
 			stickR->boxComp->SetSimulatePhysics(false);
 			stickR->boxComp->SetEnableGravity(false);
+			stickR->outLine->SetVisibility(false);
 
 
 			stickR->AttachToComponent(player->rightHandLoc, attachRules, TEXT("RGrabPoint"));
@@ -911,6 +912,7 @@ void UGrabActorComponent::LGripStick(AActor* grabActor)
 
 			stickL->boxComp->SetSimulatePhysics(false);
 			stickL->boxComp->SetEnableGravity(false);
+			stickL->outLine->SetVisibility(false);
 
 			stickL->AttachToComponent(player->leftHandLoc, attachRules, TEXT("LGrabPoint"));
 			// 오른손 쥐는 애니메이션
@@ -942,7 +944,6 @@ void UGrabActorComponent::LGripFistAxe(AActor* grabActor)
 
 			fistAxeL->fist->SetSimulatePhysics(false);
 			fistAxeL->fist->SetEnableGravity(false);
-
 
 			fistAxeL->AttachToComponent(player->leftFALoc, attachRules, TEXT("LFAPoint"));
 			// 오른손 쥐는 애니메이션
@@ -1074,7 +1075,7 @@ void UGrabActorComponent::LGripSumjji(AActor* grabActor)
 
 			sumjjiL->stickComp->SetSimulatePhysics(false);
 			sumjjiL->stickComp->SetEnableGravity(false);
-			//sumjjiL->outLine->SetVisibility(false);
+			sumjjiL->outLine->SetVisibility(false);
 
 			sumjjiL->AttachToComponent(player->leftHandLoc, attachRules, TEXT("LGrabPoint"));
 			// 왼손 쥐는 애니메이션
@@ -1107,7 +1108,7 @@ void UGrabActorComponent::RGripSumjji(AActor* grabActor)
 			sumjjiR->rockComp->SetHiddenInGame(false);
 			sumjjiR->stickComp->SetSimulatePhysics(false);
 			sumjjiR->stickComp->SetEnableGravity(false);
-			//sumjjiL->outLine->SetVisibility(false);
+			sumjjiL->outLine->SetVisibility(false);
 
 			sumjjiR->AttachToComponent(player->rightHandLoc, attachRules, TEXT("RGrabPoint"));
 			// 왼손 쥐는 애니메이션
@@ -1140,7 +1141,7 @@ void UGrabActorComponent::LGripSumjjiRock(AActor* grabActor)
 
 			sumjjiRockL->sumjji->SetSimulatePhysics(false);
 			sumjjiRockL->sumjji->SetEnableGravity(false);
-			//sumjjiL->outLine->SetVisibility(false);
+			sumjjiRockL->outLine->SetVisibility(false);
 
 			sumjjiRockL->AttachToComponent(player->leftHandLoc, attachRules, TEXT("LGrabPoint"));
 			// 왼손 쥐는 애니메이션
@@ -1173,7 +1174,7 @@ void UGrabActorComponent::RGripSumjjiRock(AActor* grabActor)
 
 			sumjjiRockR->sumjji->SetSimulatePhysics(false);
 			sumjjiRockR->sumjji->SetEnableGravity(false);
-			//sumjjiL->outLine->SetVisibility(false);
+			sumjjiRockR->outLine->SetVisibility(false);
 
 			sumjjiRockR->AttachToComponent(player->rightHandLoc, attachRules, TEXT("RGrabPoint"));
 			// 왼손 쥐는 애니메이션
@@ -1206,7 +1207,7 @@ void UGrabActorComponent::LGripString(AActor* grabActor)
 
 			stringL->meshComp->SetSimulatePhysics(false);
 			stringL->meshComp->SetEnableGravity(false);
-			//sumjjiL->outLine->SetVisibility(false);
+			stringL->outLine->SetVisibility(false);
 
 			stringL->AttachToComponent(player->leftHandLoc, attachRules, TEXT("LGrabPoint"));
 			// 왼손 쥐는 애니메이션
@@ -1239,7 +1240,7 @@ void UGrabActorComponent::RGripString(AActor* grabActor)
 
 			stringR->meshComp->SetSimulatePhysics(false);
 			stringR->meshComp->SetEnableGravity(false);
-			//sumjjiL->outLine->SetVisibility(false);
+			stringR->outLine->SetVisibility(false);
 
 			stringR->AttachToComponent(player->rightHandLoc, attachRules, TEXT("RGrabPoint"));
 			// 왼손 쥐는 애니메이션
@@ -1272,7 +1273,6 @@ void UGrabActorComponent::LGripBone(AActor* grabActor)
 
 			boneL->meshComp->SetSimulatePhysics(false);
 			boneL->meshComp->SetEnableGravity(false);
-			//sumjjiL->outLine->SetVisibility(false);
 
 			boneL->AttachToComponent(player->leftHandLoc, attachRules, TEXT("LGrabPoint"));
 			// 왼손 쥐는 애니메이션
@@ -1340,7 +1340,7 @@ void UGrabActorComponent::LGripTomahowk(AActor* grabActor)
 			tomahowkL->meshComp->SetSimulatePhysics(false);
 			//tomahowkL->meshComp->SetEnableGravity(false);
 			tomahowkL->meshComp->SetEnableGravity(false);
-			//sumjjiL->outLine->SetVisibility(false);
+			// tomahowkL->outLine->SetVisibility(false);
 
 			tomahowkL->AttachToComponent(player->leftHandLoc, attachRules, TEXT("LGrabPoint"));
 			// 왼손 쥐는 애니메이션

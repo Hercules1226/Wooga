@@ -40,6 +40,8 @@ public:
 
 	// 머티리얼 디졸브 변수
 	UPROPERTY()
+	float beginDissolveParam;
+	UPROPERTY()
 	float startDissolveParam;
 	UPROPERTY()
 	float endDissolveParam;

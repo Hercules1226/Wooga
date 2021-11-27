@@ -76,7 +76,7 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	Super::BeginPlay();
 
 	// 맨 처음 불의 발견 교육으로 시작
-	SetState(EFlowState::InGame);
+	SetState(EFlowState::SpawnCollectGuideLine);
 
 	// 테스트용 스테이트
 	//SetState(EFlowState::CompleteCollect);
@@ -603,7 +603,7 @@ void ASJ_WoogaGameModeBase::GoToCollectState()
 	if (goToGuideLine->isTrigger == true)
 	{
 		// 장작을 다시 사용해 주기 위한 세팅
-		fireStraw->Destroy();
+		// fireStraw->Destroy();
 
 		// 채집하기 제목 UI 생성
 		title = GetWorld()->SpawnActor<class ASJ_Actor_Title>(bpCollectTitle, Param);

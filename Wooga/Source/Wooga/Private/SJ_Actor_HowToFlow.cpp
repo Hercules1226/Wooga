@@ -98,7 +98,6 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 	howToPost->Settings = startParam;
 	*/
 	
-
 	howToPlane->SetRenderCustomDepth(true);
 }
 
@@ -178,10 +177,11 @@ void ASJ_Actor_HowToFlow::OffSature()
 	offParam.ColorSaturation = FVector4(1.0f, 1.0f, 1.0f, offValue);
 	howToPost->Settings = offParam;
 	*/
-	
 
 	if (offTime >= 1.0f)
 	{
+		offTime = 0;
+		SetState(ESaturateState::OnSature);
 		Destroy();
 	}
 }
