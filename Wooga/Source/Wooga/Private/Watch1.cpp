@@ -32,11 +32,19 @@ void AWatch1::BeginPlay()
 void AWatch1::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	currentTime+= DeltaTime;
 	if (player->camLoc)
 	{
-		FVector dir = player->camLookAt->GetComponentLocation() - watch->GetComponentLocation();
-		dir.Normalize();
-		SetActorRotation(dir.ToOrientationRotator());
+		//if (currentTime >= 1.f)
+		{
+			dir = player->camLookAt->GetComponentLocation() - watch->GetComponentLocation();
+			dir.Normalize();
+			currentTime = 0;
+		}
+		WatchLookat();
+
+		//SetActorRotation(dir.ToOrientationRotator());
+
 	}
 
 	// ending
@@ -52,5 +60,10 @@ void AWatch1::Tick(float DeltaTime)
 		}
 	}
 	*/
+}
+
+void AWatch1::WatchLookat()
+{
+	SetActorRotation(dir.ToOrientationRotator());
 }
 

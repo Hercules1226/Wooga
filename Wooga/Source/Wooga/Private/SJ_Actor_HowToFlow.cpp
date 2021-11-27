@@ -182,6 +182,7 @@ void ASJ_Actor_HowToFlow::OffSature()
 
 	if (offTime >= 1.0f)
 	{
+		SetState(ESaturateState::OnSature);
 		Destroy();
 	}
 }
