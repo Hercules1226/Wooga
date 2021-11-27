@@ -64,6 +64,7 @@
 #include "SJ_Actor_GoToHutUI.h"
 #include "SJ_Actor_MakeHutUI.h"
 #include "LastHouse.h"
+#include "SJ_Actor_HowToFlow.h"
 
 ASJ_WoogaGameModeBase::ASJ_WoogaGameModeBase()
 {
@@ -174,6 +175,9 @@ void ASJ_WoogaGameModeBase::Tick(float DeltaSeconds)
 	case  EFlowState::HandAxTitle:
 		HandAxTitle();
 		break;
+	case EFlowState::HowToHunt:
+		HowToHunt();
+		break;
 	case EFlowState::SeeMammoth:
 		SeeMammoth();
 		break;
@@ -188,6 +192,9 @@ void ASJ_WoogaGameModeBase::Tick(float DeltaSeconds)
 		break;
 	case EFlowState::MakeHandAx:
 		MakeHandAx();
+		break;
+	case EFlowState::HowToMakeHandAx:
+		HowToMakeHandAx();
 		break;
 	case EFlowState::IndirectnessHit:
 		IndirectHit();
@@ -228,6 +235,9 @@ void ASJ_WoogaGameModeBase::Tick(float DeltaSeconds)
 	case EFlowState::MakeSpear:
 		MakeSpear();
 		break;
+	case EFlowState::HowTomakeSpear:
+		HowToMakeSpear();
+		break;
 	case EFlowState::TakeRock:
 		TakeRock();
 		break;
@@ -263,6 +273,9 @@ void ASJ_WoogaGameModeBase::Tick(float DeltaSeconds)
 		break;
 	case EFlowState::HutTitle:
 		HutTitle();
+		break;
+	case EFlowState::HowToMakeHut:
+		HowToMakeHut();
 		break;
 	case EFlowState::MakeHut:
 		MakeHut();
@@ -717,13 +730,36 @@ void ASJ_WoogaGameModeBase::HandAxTitle()
 		// 가이드라인 없애기
 		goToGuideLine->Destroy();
 
+		// 사냥 하는 법 소환
+		howToFlow = GetWorld()->SpawnActor<ASJ_Actor_HowToFlow>(bpHowToHunt, Param);
+
 		// 딜레이변수 초기화
 		nextDelayTime = 0;
 
-		// 맘모스 생성
-		mammothSpawn = GetWorld()->SpawnActor<ASJ_Actor_MammothSpawnDestroy>(bpMammothSpawn, Param);
+		SetState(EFlowState::HowToHunt);
+	}
+}
+void ASJ_WoogaGameModeBase::HowToHunt()
+{
+	// UI 를 끄면
+	if (player->isClose == true)
+	{
+		bIsDelay = true;
+	}
+	if (bIsDelay == true)
+	{
+		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-		SetState(EFlowState::SeeMammoth);
+		if (nextDelayTime >= 1.0f)
+		{
+			// 맘모스 생성
+			mammothSpawn = GetWorld()->SpawnActor<ASJ_Actor_MammothSpawnDestroy>(bpMammothSpawn, Param);
+
+			// 딜레이변수 초기화
+			nextDelayTime = 0;
+
+			SetState(EFlowState::SeeMammoth);
+		}
 	}
 }
 void ASJ_WoogaGameModeBase::SeeMammoth()
@@ -758,7 +794,7 @@ void ASJ_WoogaGameModeBase::GrabHandAx()
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-		if (nextDelayTime >= 2.0f)
+		if (nextDelayTime >= 1.0f)
 		{
 			// 멧돼지 생성
 			boar = GetWorld()->SpawnActor<ASJ_Character_Boar>(bpRunboar, Param);
@@ -843,16 +879,35 @@ void ASJ_WoogaGameModeBase::MakeHandAx()
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-		if (nextDelayTime >= 2.0f)
+		if (nextDelayTime >= 1.0f)
 		{
 			makeHandAxUI->Destroy();
 
+			howToFlow = GetWorld()->SpawnActor<ASJ_Actor_HowToFlow>(bpHowToMakeHandAx, Param);
+
+			nextDelayTime = 0;
+
+			SetState(EFlowState::HowToMakeHandAx);
+		}
+	}
+}
+void ASJ_WoogaGameModeBase::HowToMakeHandAx()
+{
+	// UI 를 끄면
+	if (player->isClose == true)
+	{
+		bIsDelay = true;
+	}
+	if (bIsDelay == true)
+	{
+		nextDelayTime += GetWorld()->DeltaTimeSeconds;
+
+		if (nextDelayTime >= 1.0f)
+		{
 			// 간접떼기 UI 생성
 			indirectUI = GetWorld()->SpawnActor<ASJ_Actor_IndirectHitUI>(bpIndirectUI, Param);
 
-			// 임무 완료 사운드
-			//UGameplayStatics::PlaySound2D(GetWorld(), uiSound);
-
+			// 딜레이변수 초기화
 			nextDelayTime = 0;
 
 			SetState(EFlowState::IndirectnessHit);
@@ -868,7 +923,7 @@ void ASJ_WoogaGameModeBase::IndirectHit()
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-		if (nextDelayTime >= 2.0f)
+		if (nextDelayTime >= 1.0f)
 		{
 			// 직접떼기 UI 생성 
 			directUI = GetWorld()->SpawnActor<ASJ_Actor_DirectHitUI>(bpDirectHitUI, Param);
@@ -892,7 +947,7 @@ void ASJ_WoogaGameModeBase::DirectHit()
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
 
-		if (nextDelayTime >= 2.0f)
+		if (nextDelayTime >= 1.0f)
 		{
 			// 사용 UI 제거
 			directUI->Destroy();
@@ -947,7 +1002,7 @@ void ASJ_WoogaGameModeBase::CuttingPig()
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-		if (nextDelayTime >= 2.0f)
+		if (nextDelayTime >= 1.0f)
 		{
 			// 가이드라인 생성
 			goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpFIreUseGuideLine, Param);
@@ -1030,7 +1085,7 @@ void ASJ_WoogaGameModeBase::FiringTwo()
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-		if (nextDelayTime >= 2.0f)
+		if (nextDelayTime >= 1.0f)
 		{
 			// 요리 UI 생성
 			cookUI = GetWorld()->SpawnActor<ASJ_Actor_CookUI>(bpCookUI, Param);
@@ -1053,7 +1108,7 @@ void ASJ_WoogaGameModeBase::CookMeat()
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-		if (nextDelayTime >= 2.0f)
+		if (nextDelayTime >= 1.0f)
 		{
 			// 먹기 UI 생성
 			eatMeatUI = GetWorld()->SpawnActor<ASJ_Actor_EatMeatUI>(bpEatMeatUI, Param);
@@ -1075,7 +1130,7 @@ void ASJ_WoogaGameModeBase::EatMeat()
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-		if (nextDelayTime >= 2.0f)
+		if (nextDelayTime >= 1.0f)
 		{
 			// 홀로그램 생성 
 			hologram = GetWorld()->SpawnActor<ASJ_Hologram>(bpFireUseHologram, Param);
@@ -1113,7 +1168,7 @@ void ASJ_WoogaGameModeBase::TestFunc()
 {
 	nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-	if (nextDelayTime >= 2.0f)
+	if (nextDelayTime >= 1.0f)
 	{
 		// 슴베찌르개 가이드라인
 		goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpSpearGuideLine, Param);
@@ -1168,7 +1223,30 @@ void ASJ_WoogaGameModeBase::MakeSpear()
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-		if (nextDelayTime >= 2.0f)
+		if (nextDelayTime >= 1.0f)
+		{
+			howToFlow = GetWorld()->SpawnActor<ASJ_Actor_HowToFlow>(bpHowToMakeSpear, Param);
+
+			// 딜레이 변수
+			nextDelayTime = 0;
+
+			SetState(EFlowState::HowTomakeSpear);
+		}
+	}
+}
+
+void ASJ_WoogaGameModeBase::HowToMakeSpear()
+{
+	// UI 를 끄면
+	if (player->isClose == true)
+	{
+		bIsDelay = true;
+	}
+	if (bIsDelay == true)
+	{
+		nextDelayTime += GetWorld()->DeltaTimeSeconds;
+
+		if (nextDelayTime >= 1.0f)
 		{
 			// 슴베찌르개 
 			sumjjiRock = Cast<ASumjjiRock>(UGameplayStatics::GetActorOfClass(GetWorld(), ASumjjiRock::StaticClass()));
@@ -1177,7 +1255,7 @@ void ASJ_WoogaGameModeBase::MakeSpear()
 			// 뼈를 이용해 다듬으세요UI 생성
 			breakStoneUI = GetWorld()->SpawnActor<ASJ_Actor_BreakStoneUI>(bpBreakStoneUI, Param);
 
-			// 딜레이 변수
+			// 딜레이변수 초기화
 			nextDelayTime = 0;
 
 			SetState(EFlowState::TakeRock);
@@ -1195,7 +1273,7 @@ void ASJ_WoogaGameModeBase::TakeRock()
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-		if (nextDelayTime >= 2.0f)
+		if (nextDelayTime >= 1.0f)
 		{
 			// 사용 UI 제거
 			breakStoneUI->Destroy();
@@ -1225,7 +1303,7 @@ void ASJ_WoogaGameModeBase::ConnectSpear()
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-		if (nextDelayTime >= 2.0f)
+		if (nextDelayTime >= 1.0f)
 		{
 			// 사용 UI 제거
 			connectSpearUI->Destroy();
@@ -1252,7 +1330,7 @@ void ASJ_WoogaGameModeBase::TieSpear()
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-		if (nextDelayTime >= 2.0f)
+		if (nextDelayTime >= 1.0f)
 		{
 			// 사용 UI 제거
 			tieSpearUI->Destroy();
@@ -1296,7 +1374,7 @@ void ASJ_WoogaGameModeBase::HuntFish()
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-		if (nextDelayTime >= 2.0f)
+		if (nextDelayTime >= 1.0f)
 		{
 			// 사용 UI 제거
 			// huntFishUI->Destroy();
@@ -1322,7 +1400,7 @@ void ASJ_WoogaGameModeBase::CatchFish()
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-		if (nextDelayTime >= 2.0f)
+		if (nextDelayTime >= 1.0f)
 		{
 			// 사용 UI 제거
 			catchFish->Destroy();
@@ -1343,7 +1421,7 @@ void ASJ_WoogaGameModeBase::GoToCookFish()
 		bIsUIClose = true;
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
-		if (nextDelayTime >= 2.0f)
+		if (nextDelayTime >= 1.0f)
 		{
 			goFryFishUI->Destroy();
 
@@ -1362,7 +1440,7 @@ void ASJ_WoogaGameModeBase::CookFish()
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-		if (nextDelayTime >= 2.0f)
+		if (nextDelayTime >= 1.0f)
 		{
 			// 사용 UI 제거
 			cookFishUI->Destroy();
@@ -1384,7 +1462,7 @@ void ASJ_WoogaGameModeBase::EatFish()
 		bIsUIClose = true;
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
-		if (nextDelayTime >= 2.0f)
+		if (nextDelayTime >= 1.0f)
 		{
 			// 사용 UI 제거
 			eatFishUI->Destroy();
@@ -1425,14 +1503,38 @@ void ASJ_WoogaGameModeBase::HutTitle()
 	if (nextDelayTime >= 6.0f)
 	{
 		// 움집만들기 UI 생성
-		makeHutUI = GetWorld()->SpawnActor<ASJ_Actor_MakeHutUI>(bpMakeHutUI, Param);
+		howToFlow = GetWorld()->SpawnActor<ASJ_Actor_HowToFlow>(bpHowToMakeHut, Param);
+
 		// 가이드라인 제거
-		// goToGuideLine->Destroy();
+		goToGuideLine->Destroy();
 
 		// 딜레이 변수 초기화
 		nextDelayTime = 0;
 
-		SetState(EFlowState::MakeHut);
+		SetState(EFlowState::HowToMakeHut);
+	}
+}
+void ASJ_WoogaGameModeBase::HowToMakeHut()
+{
+	// UI 를 끄면
+	if (player->isClose == true)
+	{
+		bIsDelay = true;
+	}
+	if (bIsDelay == true)
+	{
+		nextDelayTime += GetWorld()->DeltaTimeSeconds;
+
+		if (nextDelayTime >= 1.0f)
+		{
+			// 움집만들기 UI 생성
+			makeHutUI = GetWorld()->SpawnActor<ASJ_Actor_MakeHutUI>(bpMakeHutUI, Param);
+
+			// 딜레이변수 초기화
+			nextDelayTime = 0;
+
+			SetState(EFlowState::MakeHut);
+		}
 	}
 }
 void ASJ_WoogaGameModeBase::MakeHut()

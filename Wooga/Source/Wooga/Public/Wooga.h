@@ -29,11 +29,13 @@ enum class EFlowState : uint8
 	GoToFistAxCourse,
 	// »ç³É(ÁÖ¸Ôµµ³¢)
 	HandAxTitle,
+	HowToHunt,
 	SeeMammoth,
 	GrabHandAx,
 	RunBoar,
 	HitBoar,
 	MakeHandAx,
+	HowToMakeHandAx,
 	IndirectnessHit,
 	DirectlyHit,
 	CompleteHandAx,
@@ -49,6 +51,7 @@ enum class EFlowState : uint8
 	GoToSpear,
 	// ½¿º£Âî¸£°³
 	SpearTitle,
+	HowTomakeSpear,
 	MakeSpear,
 	TakeRock,
 	ConnectSpear,
@@ -62,6 +65,7 @@ enum class EFlowState : uint8
 	// ¿òÁý Á¦ÀÛ
 	GoToHut,
 	HutTitle,
+	HowToMakeHut,
 	MakeHut,
 	CompleteHut
 };

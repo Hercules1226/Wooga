@@ -59,12 +59,45 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 
 		SetActorRotation(r3);
 	}
+	else if (gameMode->flowState == EFlowState::MakeHandAx)
+	{
+		FVector p4 = FVector(7545, 8703, 1310);
+
+		SetActorLocation(p4);
+
+		FRotator r4 = FRotator(0, -130, 0);
+
+		SetActorRotation(r4);
+	}
+	else if (gameMode->flowState == EFlowState::SpearTitle)
+	{
+		FVector p5 = FVector(4151, 6680, 1320);
+
+		SetActorLocation(p5);
+
+		FRotator r5 = FRotator(0, -20, 0);
+
+		SetActorRotation(r5);
+	}
+	else if (gameMode->flowState == EFlowState::HutTitle)
+	{
+		FVector p6 = FVector(4186, 8070, 1300);
+
+		SetActorLocation(p6);
+
+		FRotator r6 = FRotator(0, -110, 0);
+
+		SetActorRotation(r6);
+	}
 
 	SetState(ESaturateState::OnSature);
 
+	/*
 	startParam.bOverride_ColorSaturation = true;
 	startParam.ColorSaturation = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
 	howToPost->Settings = startParam;
+	*/
+	
 
 	howToPlane->SetRenderCustomDepth(true);
 }
@@ -106,10 +139,12 @@ void ASJ_Actor_HowToFlow::OnSature()
 	howToPlane->SetScalarParameterValueOnMaterials(TEXT("Dissolve"), startDissolveParam);
 
 	// 포스트프로세스 흑백 조절
+	/*
 	float satValue = FMath::Lerp(1.0f, 0.4f, onTime);
 	onParam.bOverride_ColorSaturation = true;
 	onParam.ColorSaturation = FVector4(1.0f, 1.0f, 1.0f, satValue);
 	howToPost->Settings = onParam;
+	*/
 
 	if (onTime >= 1.0f)
 	{
@@ -137,10 +172,13 @@ void ASJ_Actor_HowToFlow::OffSature()
 	howToPlane->SetScalarParameterValueOnMaterials(TEXT("Dissolve"), endDissolveParam);
 
 	// 포스트 흑백 조절
+	/*
 	float offValue = FMath::Lerp(0.4f, 1.0f, offTime);
 	offParam.bOverride_ColorSaturation = true;
 	offParam.ColorSaturation = FVector4(1.0f, 1.0f, 1.0f, offValue);
 	howToPost->Settings = offParam;
+	*/
+	
 
 	if (offTime >= 1.0f)
 	{

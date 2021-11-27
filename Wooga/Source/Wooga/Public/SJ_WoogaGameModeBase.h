@@ -195,11 +195,13 @@ public:
 
 	// 사냥(주먹도끼)
 	void HandAxTitle();
+	void HowToHunt();
 	void SeeMammoth();
 	void GrabHandAx();
 	void RunBoar();
 	void HitBoar();
 	void MakeHandAx();
+	void HowToMakeHandAx();
 	void IndirectHit();
 	void DirectHit();
 	void CompleteHandAx();
@@ -209,11 +211,12 @@ public:
 		TSubclassOf<class ASJ_Actor_GoToGuideLine> bpHandAxGuideLine;
 
 	// 주먹도끼 제목(사냥하기)
-	UPROPERTY(EditAnywhere, Category = UI)
-		TSubclassOf<class ASJ_Actor_TitleUI> bpHandAxTitleUI;
-
 	UPROPERTY(EditAnywhere, Category = Title)
 		TSubclassOf<class ASJ_Actor_Title> bpHandAxTitle;
+
+	// 사냥 하는법
+	UPROPERTY(EditAnywhere, Category = UI)
+	TSubclassOf<class ASJ_Actor_HowToFlow> bpHowToHunt;
 
 	// 맘모스 생성 
 	class ASJ_Actor_MammothSpawnDestroy* mammothSpawn;
@@ -256,6 +259,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = Range)
 	TSubclassOf<class ASJ_Actor_MakeRange> bpMakeHandAxRange;
 
+	UPROPERTY(EditAnywhere, Category = UI)
+	TSubclassOf<class ASJ_Actor_HowToFlow> bpHowToMakeHandAx;
+
 	// 간접떼기 UI
 	class ASJ_Actor_IndirectHitUI* indirectUI;
 	UPROPERTY(EditAnywhere, Category = UI)
@@ -269,8 +275,6 @@ public:
 	// 주먹도끼 홀로그램
 	UPROPERTY(EditAnywhere, Category = Hologram)
 	TSubclassOf<class ASJ_Hologram> bpHandAxHologram;
-	UPROPERTY(EditAnywhere, Category = Hologram)
-		TSubclassOf<class ASJ_Actor_Hologram> bpHandAxHologramActor;
 
 	// 불의 활용
 	void CuttingPig();
@@ -345,6 +349,7 @@ public:
 	// 슴베찌르개
 	void SpearTitle();
 	void MakeSpear();
+	void HowToMakeSpear();
 	void TakeRock();
 	void ConnectSpear();
 	void TieSpear();
@@ -358,6 +363,10 @@ public:
 	// 슴베찌르개 제목
 	UPROPERTY(EditAnywhere, Category = Title)
 	TSubclassOf<class ASJ_Actor_Title> bpSpearTitle;
+
+	// 슴베찌르개 만드는 방법 UI
+	UPROPERTY(EditAnywhere, Category = UI)
+	TSubclassOf<class ASJ_Actor_HowToFlow> bpHowToMakeSpear;
 
 	// 뼈를 이용해 돌을 다듬으세요
 	UPROPERTY()
@@ -434,6 +443,7 @@ public:
 	// 움집제작
 	void GoToHut();
 	void HutTitle();
+	void HowToMakeHut();
 	void MakeHut();
 	void CompleteHut();
 
@@ -450,6 +460,10 @@ public:
 	// 움집 제목
 	UPROPERTY(EditAnywhere, Category = Title)
 	TSubclassOf<class ASJ_Actor_Title> bpHutTitle;
+
+	// 움집 제작 방법
+	UPROPERTY(EditAnywhere, Category = UI)
+	TSubclassOf<class ASJ_Actor_HowToFlow> bpHowToMakeHut;
 
 	// 움집 제작 UI
 	UPROPERTY()
