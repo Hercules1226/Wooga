@@ -777,6 +777,7 @@ void ASJ_WoogaGameModeBase::SeeMammoth()
 		// 주먹도끼 돌 아웃라인
 		fistAxe = Cast<AFistAxe>(UGameplayStatics::GetActorOfClass(GetWorld(), AFistAxe::StaticClass()));
 		fistAxe->handHologramL->SetHiddenInGame(false);
+		fistAxe->bisStartBreak = true;
 
 		// 딜레이 변수 초기화
 		nextDelayTime = 0;

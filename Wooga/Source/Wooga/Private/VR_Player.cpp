@@ -259,7 +259,8 @@ void AVR_Player::ResetHMD()
 
 void AVR_Player::OverlapKnowledgePoint(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	auto fireEvent = Cast<AFireEvent>(OtherActor);
+/*
+auto fireEvent = Cast<AFireEvent>(OtherActor);
 	if (fireEvent)
 	{
 		// 불의 발견
@@ -290,6 +291,7 @@ void AVR_Player::OverlapKnowledgePoint(UPrimitiveComponent* OverlappedComp, AAct
 			OtherActor->Destroy();
 		}
 	}
+*/
 }
 
 void AVR_Player::TurnOff()
