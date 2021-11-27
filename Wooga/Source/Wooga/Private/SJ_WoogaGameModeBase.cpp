@@ -76,7 +76,7 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	Super::BeginPlay();
 
 	// 맨 처음 불의 발견 교육으로 시작
-	SetState(EFlowState::SpawnCollectGuideLine);
+	SetState(EFlowState::InGame);
 
 	// 테스트용 스테이트
 	//SetState(EFlowState::CompleteCollect);
@@ -631,6 +631,11 @@ void ASJ_WoogaGameModeBase::CollectTitle()
 		// 채집하기 안내 UI
 		howToFlow = GetWorld()->SpawnActor<ASJ_Actor_HowToFlow>(bpCollectHowToFlow, Param);
 
+		// 사과 캐싱하고 아웃라인 켜주기
+		apple = Cast<AApple>(UGameplayStatics::GetActorOfClass(GetWorld(), AApple::StaticClass()));
+
+		apple->outLine->SetVisibility(true);
+
 		SetState(EFlowState::HowToCollect);
 	}
 }
@@ -648,10 +653,7 @@ void ASJ_WoogaGameModeBase::HowToCollect()
 
 		if (nextDelayTime >= 1.0f)
 		{
-			// 사과 캐싱하고 아웃라인 켜주기
-			apple = Cast<AApple>(UGameplayStatics::GetActorOfClass(GetWorld(), AApple::StaticClass()));
-
-			apple->outLine->SetVisibility(true);
+			
 
 			// 사과 채집과 먹기 UI
 			eatAppleUI = GetWorld()->SpawnActor<ASJ_Actor_EatAppleUI>(bpEatAppleUI, Param);
