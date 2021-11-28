@@ -178,9 +178,6 @@ void ASJ_WoogaGameModeBase::Tick(float DeltaSeconds)
 	case EFlowState::HowToHunt:
 		HowToHunt();
 		break;
-	case EFlowState::SeeMammoth:
-		SeeMammoth();
-		break;
 	case EFlowState::GrabHandAx:
 		GrabHandAx();
 		break;
@@ -754,37 +751,19 @@ void ASJ_WoogaGameModeBase::HowToHunt()
 
 		if (nextDelayTime >= 1.0f)
 		{
-			// 맘모스 생성
-			mammothSpawn = GetWorld()->SpawnActor<ASJ_Actor_MammothSpawnDestroy>(bpMammothSpawn, Param);
+			// 주먹도끼 돌 잡기 UI 생성
+			handAxUI = GetWorld()->SpawnActor<ASJ_Actor_GrabHandAxUI>(bpHandAxUI, Param);
+
+			// 주먹도끼 돌 아웃라인
+			fistAxe = Cast<AFistAxe>(UGameplayStatics::GetActorOfClass(GetWorld(), AFistAxe::StaticClass()));
+			fistAxe->handHologramL->SetHiddenInGame(false);
+			fistAxe->bisStartBreak = false;
 
 			// 딜레이변수 초기화
 			nextDelayTime = 0;
 
-			SetState(EFlowState::SeeMammoth);
+			SetState(EFlowState::GrabHandAx);
 		}
-	}
-}
-void ASJ_WoogaGameModeBase::SeeMammoth()
-{
-	nextDelayTime += GetWorld()->DeltaTimeSeconds;
-
-	if (nextDelayTime >= 20.0f)
-	{
-		// 맘모스 스폰 액터 제거
-		// mammothSpawn->Destroy();
-
-		// 주먹도끼 돌 잡기 UI 생성
-		handAxUI = GetWorld()->SpawnActor<ASJ_Actor_GrabHandAxUI>(bpHandAxUI, Param);
-
-		// 주먹도끼 돌 아웃라인
-		fistAxe = Cast<AFistAxe>(UGameplayStatics::GetActorOfClass(GetWorld(), AFistAxe::StaticClass()));
-		fistAxe->handHologramL->SetHiddenInGame(false);
-		fistAxe->bisStartBreak = true;
-
-		// 딜레이 변수 초기화
-		nextDelayTime = 0;
-
-		SetState(EFlowState::GrabHandAx);
 	}
 }
 
@@ -801,6 +780,9 @@ void ASJ_WoogaGameModeBase::GrabHandAx()
 		{
 			// 멧돼지 생성
 			boar = GetWorld()->SpawnActor<ASJ_Character_Boar>(bpRunboar, Param);
+
+			// 맘모스 생성
+			mammothSpawn = GetWorld()->SpawnActor<ASJ_Actor_MammothSpawnDestroy>(bpMammothSpawn, Param);
 
 			// 돌잡기 UI 제거
 			handAxUI->Destroy();
@@ -830,70 +812,15 @@ void ASJ_WoogaGameModeBase::HitBoar()
 		// 사용된 UI 제거
 		hitBoarUI->Destroy();
 
-		// 주먹도끼 만들기 UI
-		makeHandAxUI = GetWorld()->SpawnActor<ASJ_Actor_MakeHandAxUI>(bpMakeHandAxUI, Param);
-
-		// 주먹도끼 제작을 위한 장소 이동
-		makeHandAxRange = GetWorld()->SpawnActor<ASJ_Actor_MakeRange>(bpMakeHandAxRange, Param);
+		howToFlow = GetWorld()->SpawnActor<ASJ_Actor_HowToFlow>(bpHowToMakeHandAx, Param);
 
 		// 숨겨뒀던 죽은 돼지를 소환
 		slicePig->SetActorHiddenInGame(false);
 
-		SetState(EFlowState::MakeHandAx);
-	}
-
-	// 수정전 로직
-/*
-if (boar->isHitBoar == true)
-	{
-		// UI 꺼주기
-		bIsUIClose = true;
-
-		nextDelayTime += GetWorld()->DeltaTimeSeconds;
-
-		if (nextDelayTime >= 2.0f)
-		{
-			// 사용된 UI 제거
-			hitBoarUI->Destroy();
-
-			// 주먹도끼 만들기 UI
-			makeHandAxUI = GetWorld()->SpawnActor<ASJ_Actor_MakeHandAxUI>(bpMakeHandAxUI, Param);
-
-			// 주먹도끼 제작을 위한 장소 이동
-			makeHandAxRange = GetWorld()->SpawnActor<ASJ_Actor_MakeRange>(bpMakeHandAxRange, Param);
-
-			// 숨겨뒀던 죽은 돼지를 소환
-			slicePig->SetActorHiddenInGame(false);
-
-			nextDelayTime = 0;
-
-			SetState(EFlowState::MakeHandAx);
-		}
-	}
-*/
-
-}
-void ASJ_WoogaGameModeBase::MakeHandAx()
-{
-	if (makeHandAxRange->isPlayerIn == true)
-	{
-		// UI 꺼주기
-		bIsUIClose = true;
-
-		nextDelayTime += GetWorld()->DeltaTimeSeconds;
-
-		if (nextDelayTime >= 1.0f)
-		{
-			makeHandAxUI->Destroy();
-
-			howToFlow = GetWorld()->SpawnActor<ASJ_Actor_HowToFlow>(bpHowToMakeHandAx, Param);
-
-			nextDelayTime = 0;
-
-			SetState(EFlowState::HowToMakeHandAx);
-		}
+		SetState(EFlowState::HowToMakeHandAx);
 	}
 }
+
 void ASJ_WoogaGameModeBase::HowToMakeHandAx()
 {
 	// UI 를 끄면
@@ -907,16 +834,46 @@ void ASJ_WoogaGameModeBase::HowToMakeHandAx()
 
 		if (nextDelayTime >= 1.0f)
 		{
+
+			// 주먹도끼 만들기 UI
+			makeHandAxUI = GetWorld()->SpawnActor<ASJ_Actor_MakeHandAxUI>(bpMakeHandAxUI, Param);
+
+			// 주먹도끼 제작을 위한 장소 이동
+			makeHandAxRange = GetWorld()->SpawnActor<ASJ_Actor_MakeRange>(bpMakeHandAxRange, Param);
+
+			// 딜레이변수 초기화
+			nextDelayTime = 0;
+
+			SetState(EFlowState::MakeHandAx);
+		}
+	}
+}
+
+void ASJ_WoogaGameModeBase::MakeHandAx()
+{
+	if (makeHandAxRange->isPlayerIn == true)
+	{
+		// UI 꺼주기
+		bIsUIClose = true;
+
+		nextDelayTime += GetWorld()->DeltaTimeSeconds;
+
+		if (nextDelayTime >= 1.0f)
+		{
+			makeHandAxUI->Destroy();
+
 			// 간접떼기 UI 생성
 			indirectUI = GetWorld()->SpawnActor<ASJ_Actor_IndirectHitUI>(bpIndirectUI, Param);
 
-			// 딜레이변수 초기화
+			fistAxe->bisStartBreak = true;
+
 			nextDelayTime = 0;
 
 			SetState(EFlowState::IndirectnessHit);
 		}
 	}
 }
+
 void ASJ_WoogaGameModeBase::IndirectHit()
 {
 	if (fistAxe->bisD1 == true)
