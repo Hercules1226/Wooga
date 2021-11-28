@@ -31,11 +31,11 @@ void ASJ_Actor_MakeRange::BeginPlay()
 
 	if (gameMode->flowState == EFlowState::HowToMakeHandAx)
 	{
-		FVector p = FVector(7600, 8717, 1190);
+		FVector p = FVector(7634, 8800, 1185);
 
 		SetActorLocation(p);
 
-		FRotator r = FRotator(0, -40, 0);
+		FRotator r = FRotator(0, -20, 0);
 
 		SetActorRotation(r);
 	}

@@ -241,9 +241,6 @@ void ASJ_WoogaGameModeBase::Tick(float DeltaSeconds)
 	case  EFlowState::ConnectSpear:
 		ConnectSpear();
 		break;
-	case EFlowState::TestFunc:
-		TestFunc();
-		break;
 	case EFlowState::TieSpear:
 		TieSpear();
 		break;
@@ -297,7 +294,7 @@ void ASJ_WoogaGameModeBase::Tick(float DeltaSeconds)
 			bIsUIClose = false;
 		}
 
-		if (uiChange >= 2.0f)
+		if (uiChange >= 1.0f)
 		{
 			uiChange = 0;
 			isDelay = false;
@@ -650,12 +647,11 @@ void ASJ_WoogaGameModeBase::HowToCollect()
 
 		if (nextDelayTime >= 1.0f)
 		{
-			
-
 			// 사과 채집과 먹기 UI
 			eatAppleUI = GetWorld()->SpawnActor<ASJ_Actor_EatAppleUI>(bpEatAppleUI, Param);
 
 			// 딜레이변수 초기화
+			bIsDelay = false;
 			nextDelayTime = 0;
 
 			SetState(EFlowState::CollectAndEat);
@@ -760,6 +756,7 @@ void ASJ_WoogaGameModeBase::HowToHunt()
 			fistAxe->bisStartBreak = false;
 
 			// 딜레이변수 초기화
+			bIsDelay = false;
 			nextDelayTime = 0;
 
 			SetState(EFlowState::GrabHandAx);
@@ -842,6 +839,7 @@ void ASJ_WoogaGameModeBase::HowToMakeHandAx()
 			makeHandAxRange = GetWorld()->SpawnActor<ASJ_Actor_MakeRange>(bpMakeHandAxRange, Param);
 
 			// 딜레이변수 초기화
+			bIsDelay = false;
 			nextDelayTime = 0;
 
 			SetState(EFlowState::MakeHandAx);
@@ -1124,25 +1122,6 @@ void ASJ_WoogaGameModeBase::CompleteFireUse()
 	}
 }
 
-void ASJ_WoogaGameModeBase::TestFunc()
-{
-	nextDelayTime += GetWorld()->DeltaTimeSeconds;
-
-	if (nextDelayTime >= 1.0f)
-	{
-		// 슴베찌르개 가이드라인
-		goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpSpearGuideLine, Param);
-
-		// 뼈를 들고 이동하시오 UI
-		grabTomahowk = GetWorld()->SpawnActor<ASJ_Actor_GrabTomahowkUI>(bpGrabTomahowkUI, Param);
-
-		// 딜레이 변수 초기화
-		nextDelayTime = 0;
-
-		SetState(EFlowState::GoToSpear);
-	}
-}
-
 void ASJ_WoogaGameModeBase::GoToSpear()
 {
 	if (goToGuideLine->isTrigger == true)
@@ -1216,6 +1195,7 @@ void ASJ_WoogaGameModeBase::HowToMakeSpear()
 			breakStoneUI = GetWorld()->SpawnActor<ASJ_Actor_BreakStoneUI>(bpBreakStoneUI, Param);
 
 			// 딜레이변수 초기화
+			bIsDelay = false;
 			nextDelayTime = 0;
 
 			SetState(EFlowState::TakeRock);
@@ -1491,6 +1471,7 @@ void ASJ_WoogaGameModeBase::HowToMakeHut()
 			makeHutUI = GetWorld()->SpawnActor<ASJ_Actor_MakeHutUI>(bpMakeHutUI, Param);
 
 			// 딜레이변수 초기화
+			bIsDelay = false;
 			nextDelayTime = 0;
 
 			SetState(EFlowState::MakeHut);

@@ -46,7 +46,7 @@ void ASJ_Actor_GoToGuideLine::BeginPlay()
 	}
 	else if (gameModeBase->flowState == EFlowState::SpawnHandAxGuideLine)
 	{
-		FVector p2 = FVector(7836, 8687, 1260);
+		FVector p2 = FVector(8038, 8928, 1260);
 
 		SetActorLocation(p2);
 
