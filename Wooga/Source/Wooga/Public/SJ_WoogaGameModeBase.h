@@ -196,7 +196,6 @@ public:
 	// 사냥(주먹도끼)
 	void HandAxTitle();
 	void HowToHunt();
-	void SeeMammoth();
 	void GrabHandAx();
 	void RunBoar();
 	void HitBoar();
@@ -280,6 +279,7 @@ public:
 	void CuttingPig();
 	void GoToFireUse();
 	void FireUseTitle();
+	void HowToFireUse();
 	void FiringTwo();
 	void CookMeat();
 	void EatMeat();
@@ -313,6 +313,9 @@ public:
 	// 불의 활용 제목
 	UPROPERTY(EditAnywhere, Category = Title)
 		TSubclassOf<class ASJ_Actor_Title> bpFireUseTitle;
+
+		UPROPERTY(EditAnywhere, Category = UI)
+		TSubclassOf<class ASJ_Actor_HowToFlow> bpHowToFireUse;
 
 	// 숨을 불어 넣어주세요 UI
 	UPROPERTY()

@@ -43,6 +43,7 @@ enum class EFlowState : uint8
 	CuttingPig,
 	GoToFireUse,
 	FireUseTitle,
+	HowToFireUse,
 	FiringTwo,
 	CookMeat,
 	EatMeat,

@@ -69,25 +69,35 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 
 		SetActorRotation(r4);
 	}
-	else if (gameMode->flowState == EFlowState::SpearTitle)
+	else if (gameMode->flowState == EFlowState::FireUseTitle)
 	{
-		FVector p5 = FVector(4151, 6680, 1320);
+		FVector p5 = FVector(5177, 7877, 1300);
 
 		SetActorLocation(p5);
 
-		FRotator r5 = FRotator(0, -20, 0);
+		FRotator r5 = FRotator(0, -140, 0);
 
 		SetActorRotation(r5);
 	}
-	else if (gameMode->flowState == EFlowState::HutTitle)
+	else if (gameMode->flowState == EFlowState::SpearTitle)
 	{
-		FVector p6 = FVector(4186, 8070, 1300);
+		FVector p6 = FVector(4151, 6680, 1320);
 
 		SetActorLocation(p6);
 
-		FRotator r6 = FRotator(0, -110, 0);
+		FRotator r6 = FRotator(0, -20, 0);
 
 		SetActorRotation(r6);
+	}
+	else if (gameMode->flowState == EFlowState::HutTitle)
+	{
+		FVector p7 = FVector(4186, 8070, 1300);
+
+		SetActorLocation(p7);
+
+		FRotator r7 = FRotator(0, -110, 0);
+
+		SetActorRotation(r7);
 	}
 
 	SetState(ESaturateState::OnSature);

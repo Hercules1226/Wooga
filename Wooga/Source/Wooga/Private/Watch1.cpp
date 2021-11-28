@@ -26,12 +26,27 @@ void AWatch1::BeginPlay()
 	Super::BeginPlay();
 
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
+
+	SetState(EBlinkState::Idle);
 }
 
 // Called every frame
 void AWatch1::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	switch (blinkState)
+	{
+	case EBlinkState::Idle:
+		Idle();
+		break;
+	case EBlinkState::Blink:
+		Blink();
+		break;
+	case EBlinkState::UnBlink:
+		UnBlink();
+		break;
+	}
 	currentTime+= DeltaTime;
 	if (player->camLoc)
 	{
@@ -60,6 +75,60 @@ void AWatch1::Tick(float DeltaTime)
 		}
 	}
 	*/
+}
+
+EBlinkState AWatch1::GetState()
+{
+	return EBlinkState();
+}
+
+void AWatch1::SetState(EBlinkState state)
+{
+	blinkState = state;
+}
+
+void AWatch1::Idle()
+{
+	if (isBlink == true)
+	{
+		SetState(EBlinkState::Blink);
+	}
+}
+
+void AWatch1::Blink()
+{
+	playTime += GetWorld()->DeltaTimeSeconds;
+
+	watch->SetScalarParameterValueOnMaterials(TEXT("Amount"), 0.1f);
+
+	float boostBlink = FMath::Lerp(0.0f, 30.0f, playTime);
+
+	watch->SetScalarParameterValueOnMaterials(TEXT("Boost"), boostBlink);
+
+	if (playTime >= 3.0f)
+	{
+		playTime = 0;
+
+		SetState(EBlinkState::UnBlink);
+	}
+}
+
+void AWatch1::UnBlink()
+{
+	playTime += GetWorld()->DeltaTimeSeconds;
+
+	float unBoostBlink = FMath::Lerp(30.0f, 0.0f, playTime);
+
+	watch->SetScalarParameterValueOnMaterials(TEXT("Boost"), unBoostBlink);
+
+	if (playTime >= 3.0f)
+	{
+		watch->SetScalarParameterValueOnMaterials(TEXT("Amount"), 0.0f);
+		isBlink = false;
+
+		playTime = 0;
+		SetState(EBlinkState::Idle);
+	}
 }
 
 void AWatch1::WatchLookat()
