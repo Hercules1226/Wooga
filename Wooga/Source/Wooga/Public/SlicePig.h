@@ -23,6 +23,9 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UFUNCTION()
+		void OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Setting)
 		class USceneComponent* rootComp;
 
@@ -36,13 +39,40 @@ public:
 		class UStaticMeshComponent* bottom;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Setting)
-		class UStaticMeshComponent* inside;
+		class UDecalComponent* decal1;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Setting)
-		class UStaticMeshComponent* inside2;
+		class UDecalComponent* decal2;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Setting)
+		class UDecalComponent* decal3;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Setting)
+		class UDecalComponent* decal4;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Setting)
+		class UDecalComponent* decal5;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Setting)
+		class UStaticMeshComponent* decalCollision1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Setting)
+		class UStaticMeshComponent* decalCollision2;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Setting)
+		class UStaticMeshComponent* decalCollision3;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Setting)
+		class UStaticMeshComponent* decalCollision4;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Setting)
+		class UStaticMeshComponent* decalCollision5;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Setting)
 		class UMaterialInstance* onMaterial;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Setting)
+		class UMaterialInstance* decalMaterial;
 
 	UPROPERTY()
 		float blend;
