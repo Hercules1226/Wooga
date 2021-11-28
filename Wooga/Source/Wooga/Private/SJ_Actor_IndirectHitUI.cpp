@@ -27,7 +27,7 @@ void ASJ_Actor_IndirectHitUI::BeginPlay()
 {
 	Super::BeginPlay();
 
-	FVector p = FVector(7595, 8669, 1283);
+	FVector p = FVector(7528, 8854, 1280);
 
 	SetActorLocation(p);
 

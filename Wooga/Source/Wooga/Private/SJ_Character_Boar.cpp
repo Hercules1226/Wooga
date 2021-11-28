@@ -11,6 +11,7 @@
 #include "SJ_Actor_BoarHitRock.h"
 #include "SlicePig.h"
 #include "SJ_Actor_Hammer.h"
+#include "DetachRock.h"
 
 // Sets default values
 ASJ_Character_Boar::ASJ_Character_Boar()
@@ -44,7 +45,7 @@ void ASJ_Character_Boar::BeginPlay()
 
 	Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
-	FVector p = FVector(7187.0f, 5954.0f, 1200.0f);
+	FVector p = FVector(6887.f, 5954.0f, 1200.0f);
 
 	SetActorLocation(p);
 
@@ -188,10 +189,11 @@ void ASJ_Character_Boar::HitPointTrigger(UPrimitiveComponent* OverlappedComponen
 void ASJ_Character_Boar::HitBoarBody(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	auto hitRock = Cast<ASJ_Actor_BoarHitRock>(OtherActor);
+	auto detachRock = Cast<ADetachRock>(OtherActor);
 
 	if (boarState == EBoarState::Hit)
 	{
-		if (OtherActor == hitRock)
+		if (OtherActor == hitRock || OtherActor == detachRock)
 		{
 			isHitBoar = true;
 			
