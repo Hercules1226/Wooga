@@ -53,7 +53,7 @@ void ASJ_Actor_EscapeFish::Tick(float DeltaTime)
 
 		destroyTime += DeltaTime;
 
-		if (destroyTime >= 1.0f)
+		if (destroyTime >= 3.0f)
 		{
 			destroyTime = 0;
 			Destroy();

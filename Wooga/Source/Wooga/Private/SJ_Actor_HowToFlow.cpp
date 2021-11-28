@@ -51,11 +51,11 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 	// 사냥하기 방법
 	else if (gameMode->flowState == EFlowState::HandAxTitle)
 	{
-		FVector p3 = FVector(7794, 8581, 1310);
+		FVector p3 = FVector(7820, 8700, 1300);
 
 		SetActorLocation(p3);
 
-		FRotator r3 = FRotator(0, -50, 0);
+		FRotator r3 = FRotator(0, -40, 0);
 
 		SetActorRotation(r3);
 	}

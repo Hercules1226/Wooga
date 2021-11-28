@@ -1108,7 +1108,7 @@ void UGrabActorComponent::RGripSumjji(AActor* grabActor)
 			sumjjiR->rockComp->SetHiddenInGame(false);
 			sumjjiR->stickComp->SetSimulatePhysics(false);
 			sumjjiR->stickComp->SetEnableGravity(false);
-			sumjjiL->outLine->SetVisibility(false);
+			sumjjiR->outLine->SetVisibility(false);
 
 			sumjjiR->AttachToComponent(player->rightHandLoc, attachRules, TEXT("RGrabPoint"));
 			// 왼손 쥐는 애니메이션

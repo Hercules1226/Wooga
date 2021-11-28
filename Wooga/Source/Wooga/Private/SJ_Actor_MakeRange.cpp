@@ -96,8 +96,6 @@ void ASJ_Actor_MakeRange::OnPlayerOverlap(UPrimitiveComponent* OverlappedCompone
 	if (OtherActor == player)
 	{
 		isPlayerIn = true;
-
-		UE_LOG(LogTemp, Warning, TEXT("PlayerIn"));
 	}
 }
 

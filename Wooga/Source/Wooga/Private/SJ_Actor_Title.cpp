@@ -51,7 +51,7 @@ void ASJ_Actor_Title::BeginPlay()
 	// ÁÖ¸Ôµµ³¢ Á¦¸ñ
 	else if (gameMode->flowState == EFlowState::GoToFistAxCourse || gameMode->flowState == EFlowState::HandAxTitle)
 	{
-		FVector p2 = FVector(7769, 8503, 1290);
+		FVector p2 = FVector(7845, 8700, 1316);
 
 		SetActorLocation(p2);
 

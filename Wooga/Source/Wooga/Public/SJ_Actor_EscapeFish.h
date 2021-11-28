@@ -36,7 +36,7 @@ public:
 	class ASJ_Actor_CatchFish* catchFish;
 
 	UPROPERTY(EditAnywhere, Category = Speed)
-	float speed = 500;
+	float speed = 300;
 
 	UPROPERTY()
 	float destroyTime;
