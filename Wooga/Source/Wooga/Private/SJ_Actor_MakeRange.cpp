@@ -29,7 +29,7 @@ void ASJ_Actor_MakeRange::BeginPlay()
 
 	gameMode = Cast<ASJ_WoogaGameModeBase>(GetWorld()->GetAuthGameMode());
 
-	if (gameMode->flowState == EFlowState::HitBoar)
+	if (gameMode->flowState == EFlowState::HowToMakeHandAx)
 	{
 		FVector p = FVector(7600, 8717, 1190);
 

@@ -37,11 +37,13 @@ void ASJ_Actor_GrabHandAxUI::BeginPlay()
 	FVector playerLoc = player->GetActorLocation();
 	FVector axeLoc = fistAxe->GetActorLocation();
 
-	FVector p = axeLoc + FVector::UpVector * 50.0f;
+	// FVector p = axeLoc + FVector::UpVector * 50.0f;
+
+	FVector p = FVector(7645, 8689, 1309);
 
 	SetActorLocation(p);
 
-	FRotator r = FRotator(0, -150.0f, 0);
+	FRotator r = FRotator(0, -76, 0);
 
 	FVector dir = playerLoc - me;
 	dir.Normalize();
