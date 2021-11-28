@@ -6,6 +6,7 @@
 #include "Materials/MaterialInstance.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SceneComponent.h"
+#include "Components/DecalComponent.h"
 #include <Kismet/GameplayStatics.h>
 
 
@@ -26,20 +27,53 @@ ASlicePig::ASlicePig()
 
 	bottom = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Bottom"));
 	bottom->SetupAttachment(rootComp);
-	
-	inside = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Inside"));
-	inside->SetupAttachment(rootComp);
-	
-	inside2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Inside2"));
-	inside2->SetupAttachment(rootComp);
+
+	decal1 = CreateDefaultSubobject<UDecalComponent>(TEXT("Decal1"));
+	decal1->SetupAttachment(rootComp);
+
+	decal2 = CreateDefaultSubobject<UDecalComponent>(TEXT("Decal2"));
+	decal2->SetupAttachment(rootComp);
+
+	decal3 = CreateDefaultSubobject<UDecalComponent>(TEXT("Decal3"));
+	decal3->SetupAttachment(rootComp);
+
+	decal4 = CreateDefaultSubobject<UDecalComponent>(TEXT("Decal4"));
+	decal4->SetupAttachment(rootComp);
+
+	decal5 = CreateDefaultSubobject<UDecalComponent>(TEXT("Decal5"));
+	decal5->SetupAttachment(rootComp);
+
+	decalCollision1 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("DecalCollision1"));
+	decalCollision1->SetupAttachment(rootComp);
+
+	decalCollision2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("DecalCollision2"));
+	decalCollision2->SetupAttachment(rootComp);
+
+	decalCollision3 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("DecalCollision3"));
+	decalCollision3->SetupAttachment(rootComp);
+
+	decalCollision4 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("DecalCollision4"));
+	decalCollision4->SetupAttachment(rootComp);
+
+	decalCollision5 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("DecalCollision5"));
+	decalCollision5->SetupAttachment(rootComp);
 	
 	onMaterial = CreateDefaultSubobject<UMaterialInstance>(TEXT("On Material"));
+	decalMaterial = CreateDefaultSubobject<UMaterialInstance>(TEXT("DecalMaterial"));
+
 }
 
 // Called when the game starts or when spawned
 void ASlicePig::BeginPlay()
 {
 	Super::BeginPlay();
+
+	decalCollision1->OnComponentBeginOverlap.AddDynamic(this, &ASlicePig::OnCollisionEnter);
+	decalCollision2->OnComponentBeginOverlap.AddDynamic(this, &ASlicePig::OnCollisionEnter);
+	decalCollision3->OnComponentBeginOverlap.AddDynamic(this, &ASlicePig::OnCollisionEnter);
+	decalCollision4->OnComponentBeginOverlap.AddDynamic(this, &ASlicePig::OnCollisionEnter);
+	decalCollision5->OnComponentBeginOverlap.AddDynamic(this, &ASlicePig::OnCollisionEnter);
+
 
 	cutting = Cast<ACutting>(UGameplayStatics::GetActorOfClass(GetWorld(), ACutting::StaticClass()));
 
@@ -54,6 +88,7 @@ void ASlicePig::BeginPlay()
 
 	bottomRot = bottom->GetRelativeRotation();
 	targetBottomRot = bottom->GetRelativeRotation() + FRotator(-2.f, 0.f, 0.f) * 3.f;
+
 }
 
 // Called every frame
@@ -82,7 +117,36 @@ void ASlicePig::Tick(float DeltaTime)
 			pigHead->SetScalarParameterValueOnMaterials(TEXT("Amount"), blend);
 			top->SetScalarParameterValueOnMaterials(TEXT("Amount"), blend);
 			bottom->SetScalarParameterValueOnMaterials(TEXT("Amount"), blend);
+
 		}
 	}
 
+}
+
+void ASlicePig::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	if (OtherComp == cutting->handle && OverlappedComp == decalCollision1)
+	{
+		decal1->SetMaterial(0, decalMaterial);
+	}
+
+	if (OtherComp == cutting->handle && OverlappedComp == decalCollision2)
+	{
+		decal2->SetMaterial(0, decalMaterial);
+	}
+
+	if (OtherComp == cutting->handle && OverlappedComp == decalCollision3)
+	{
+		decal3->SetMaterial(0, decalMaterial);
+	}
+
+	if (OtherComp == cutting->handle && OverlappedComp == decalCollision4)
+	{
+		decal4->SetMaterial(0, decalMaterial);
+	}
+
+	if (OtherComp == cutting->handle && OverlappedComp == decalCollision5)
+	{
+		decal5->SetMaterial(0, decalMaterial);
+	}
 }

@@ -103,7 +103,7 @@ void ACutting::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 			handle->SetMaterial(1, onMaterialFA);
 		}
 	}
-	
+
 
 	if (bisOverlabR == true)
 	{
