@@ -69,4 +69,21 @@ public:
 	UPROPERTY()
 	float playTime;
 
+	// ending
+
+	UPROPERTY()
+		class AIconSpot* spot;
+
+	UPROPERTY(EditAnywhere, Category = Settings)
+		class AIcon1* icon1;
+
+	UPROPERTY(EditDefaultsOnly, Category = "EnemyFactory")
+		TSubclassOf<class AIcon1> icon1Factory;
+
+	UPROPERTY()
+		float endingCurrentTime;
+
+	UPROPERTY()
+		bool bisfinish = false;
+
 };

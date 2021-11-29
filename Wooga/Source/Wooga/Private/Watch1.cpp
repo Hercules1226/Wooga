@@ -5,6 +5,9 @@
 #include "VR_Player.h"
 #include <Kismet/GameplayStatics.h>
 #include "FireEvent.h"
+#include "Components/StaticMeshComponent.h"
+#include "IconSpot.h"
+#include "Icon1.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
 
 // Sets default values
@@ -26,7 +29,8 @@ void AWatch1::BeginPlay()
 	Super::BeginPlay();
 
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
-
+	spot = Cast<AIconSpot>(UGameplayStatics::GetActorOfClass(GetWorld(), AIconSpot::StaticClass()));
+	icon1 = Cast<AIcon1>(UGameplayStatics::GetActorOfClass(GetWorld(), AIcon1::StaticClass()));
 	SetState(EBlinkState::Idle);
 }
 
@@ -62,19 +66,23 @@ void AWatch1::Tick(float DeltaTime)
 
 	}
 
-	// ending
-	/*
-	if (bisEnd == false)
+	/*Ending();*/
+	if (spot)
 	{
-		currentTime += DeltaTime;
-		if (currentTime >= 5.f)
+		if (bisEnd == false)
 		{
-			/*watch->SetHiddenInGame(true);
+			endingCurrentTime += DeltaTime;
+			if (endingCurrentTime >= 5.f)
+			{
+				GetWorld()->SpawnActor<AIcon1>(icon1Factory, GetTransform());
 
-			bisEnd = true;
+				SetActorHiddenInGame(true);
+
+				//SetActorRotation(dir.ToOrientationRotator());
+				bisEnd = true;
+			}
 		}
 	}
-	*/
 }
 
 EBlinkState AWatch1::GetState()
