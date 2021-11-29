@@ -29,13 +29,13 @@ void ASJ_Actor_MakeRange::BeginPlay()
 
 	gameMode = Cast<ASJ_WoogaGameModeBase>(GetWorld()->GetAuthGameMode());
 
-	if (gameMode->flowState == EFlowState::HowToMakeHandAx)
+	if (gameMode->flowState == EFlowState::HitBoar)
 	{
-		FVector p = FVector(7634, 8800, 1185);
+		FVector p = FVector(7745, 8823, 1193);
 
 		SetActorLocation(p);
 
-		FRotator r = FRotator(0, -20, 0);
+		FRotator r = FRotator(0, -60, 0);
 
 		SetActorRotation(r);
 	}

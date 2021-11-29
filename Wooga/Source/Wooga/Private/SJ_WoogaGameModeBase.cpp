@@ -76,7 +76,7 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	Super::BeginPlay();
 
 	// 맨 처음 불의 발견 교육으로 시작
-	SetState(EFlowState::SpawnHandAxGuideLine);
+	SetState(EFlowState::InGame);
 
 	// 테스트용 스테이트
 	//SetState(EFlowState::CompleteCollect);
@@ -516,20 +516,20 @@ void ASJ_WoogaGameModeBase::Firing()
 		// firePosition->outLine->SetHiddenInGame(true);
 		fireStraw->outLine->SetHiddenInGame(true);
 
+		// 사용된 UI 제거
+		breatheFireUI->Destroy();
+
 		// UI 꺼주기
 		bIsUIClose = true;
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
-		if (nextDelayTime >= 1.0f)
+		if (nextDelayTime >= 3.0f)
 		{
 			// 홀로그램 생성
 			hologram = GetWorld()->SpawnActor<ASJ_Hologram>(bpFDHologram, Param);
 
 			// 딜레이 변수 초기화
 			nextDelayTime = 0;
-
-			// 사용된 UI 제거
-			breatheFireUI->Destroy();
 
 			// 시계 햅틱 기능
 			GetWorld()->GetFirstPlayerController()->PlayHapticEffect(watchHaptic, EControllerHand::Left, 0.5f, false);
@@ -815,38 +815,17 @@ void ASJ_WoogaGameModeBase::HitBoar()
 			// 사용된 UI 제거
 			hitBoarUI->Destroy();
 
-			howToFlow = GetWorld()->SpawnActor<ASJ_Actor_HowToFlow>(bpHowToMakeHandAx, Param);
+			// 주먹도끼 만들기 UI
+			makeHandAxUI = GetWorld()->SpawnActor<ASJ_Actor_MakeHandAxUI>(bpMakeHandAxUI, Param);
+
+			// 주먹도끼 제작을 위한 장소 이동
+			makeHandAxRange = GetWorld()->SpawnActor<ASJ_Actor_MakeRange>(bpMakeHandAxRange, Param);
 
 			// 숨겨뒀던 죽은 돼지를 소환
 			slicePig->SetActorHiddenInGame(false);
 
-			SetState(EFlowState::HowToMakeHandAx);
+			SetState(EFlowState::MakeHandAx);
 		}
-	}
-}
-
-void ASJ_WoogaGameModeBase::HowToMakeHandAx()
-{
-	// UI 를 끄면
-	if (player->isClose == true)
-	{
-		bIsDelay = true;
-	}
-	if (bIsDelay == true)
-	{
-
-		// 주먹도끼 만들기 UI
-		makeHandAxUI = GetWorld()->SpawnActor<ASJ_Actor_MakeHandAxUI>(bpMakeHandAxUI, Param);
-
-		// 주먹도끼 제작을 위한 장소 이동
-		makeHandAxRange = GetWorld()->SpawnActor<ASJ_Actor_MakeRange>(bpMakeHandAxRange, Param);
-
-		// 딜레이변수 초기화
-		bIsDelay = false;
-		nextDelayTime = 0;
-
-		SetState(EFlowState::MakeHandAx);
-
 	}
 }
 
@@ -863,15 +842,35 @@ void ASJ_WoogaGameModeBase::MakeHandAx()
 		{
 			makeHandAxUI->Destroy();
 
-			// 간접떼기 UI 생성
-			indirectUI = GetWorld()->SpawnActor<ASJ_Actor_IndirectHitUI>(bpIndirectUI, Param);
-
-			fistAxe->bisStartBreak = true;
+			howToFlow = GetWorld()->SpawnActor<ASJ_Actor_HowToFlow>(bpHowToMakeHandAx, Param);
 
 			nextDelayTime = 0;
 
-			SetState(EFlowState::IndirectnessHit);
+			SetState(EFlowState::HowToMakeHandAx);
 		}
+	}
+}
+
+void ASJ_WoogaGameModeBase::HowToMakeHandAx()
+{
+	// UI 를 끄면
+	if (player->isClose == true)
+	{
+		bIsDelay = true;
+	}
+	if (bIsDelay == true)
+	{
+		// 간접떼기 UI 생성
+		indirectUI = GetWorld()->SpawnActor<ASJ_Actor_IndirectHitUI>(bpIndirectUI, Param);
+
+		fistAxe->bisStartBreak = true;
+
+		// 딜레이변수 초기화
+		bIsDelay = false;
+		nextDelayTime = 0;
+
+		SetState(EFlowState::IndirectnessHit);
+
 	}
 }
 
@@ -1046,6 +1045,7 @@ void ASJ_WoogaGameModeBase::HowToFireUse()
 
 		if (nextDelayTime >= 1.0f)
 		{
+			fireStraw->outLine->SetVisibility(true);
 			// 숨을 불어 넣어주세요 UI 생성
 			fireTwoUI = GetWorld()->SpawnActor<ASJ_Actor_FireTwoUI>(bpFireTwoUI, Param);
 
@@ -1168,8 +1168,7 @@ void ASJ_WoogaGameModeBase::SpearTitle()
 		// 딜레이 변수 초기화
 		nextDelayTime = 0;
 
-		// 제작 범위 생성
-		makeHandAxRange = GetWorld()->SpawnActor<ASJ_Actor_MakeRange>(bpMakeHandAxRange, Param);
+		howToFlow = GetWorld()->SpawnActor<ASJ_Actor_HowToFlow>(bpHowToMakeSpear, Param);
 
 		// goToGuideLine->Destroy();
 		SetState(EFlowState::HowTomakeSpear);
@@ -1189,7 +1188,8 @@ void ASJ_WoogaGameModeBase::HowToMakeSpear()
 
 		if (nextDelayTime >= 1.0f)
 		{
-			howToFlow = GetWorld()->SpawnActor<ASJ_Actor_HowToFlow>(bpHowToMakeSpear, Param);
+			// 제작 범위 생성
+			makeHandAxRange = GetWorld()->SpawnActor<ASJ_Actor_MakeRange>(bpMakeHandAxRange, Param);
 
 			// 딜레이변수 초기화
 			bIsDelay = false;

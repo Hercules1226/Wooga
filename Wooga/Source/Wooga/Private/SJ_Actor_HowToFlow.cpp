@@ -59,13 +59,14 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 
 		SetActorRotation(r3);
 	}
-	else if (gameMode->flowState == EFlowState::HitBoar)
+	// ÁÖ¸Ôµµ³¢ ¹æ¹ý
+	else if (gameMode->flowState == EFlowState::MakeHandAx)
 	{
-		FVector p4 = FVector(7524, 8777, 1290);
+		FVector p4 = FVector(7694, 8915, 1309);
 
 		SetActorLocation(p4);
 
-		FRotator r4 = FRotator(0, -130, 0);
+		FRotator r4 = FRotator(0, -140, 0);
 
 		SetActorRotation(r4);
 	}

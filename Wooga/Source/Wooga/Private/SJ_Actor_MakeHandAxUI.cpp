@@ -32,10 +32,10 @@ void ASJ_Actor_MakeHandAxUI::BeginPlay()
 
 	FVector pigLoc = slicePig->GetActorLocation();
 
-	FVector p = FVector(7555, 8720, 1315);
+	FVector p = FVector(7564, 8740, 1288);
 	SetActorLocation(p);
 
-	FRotator r = FRotator(0, -3, 0);
+	FRotator r = FRotator(0, 10, 0);
 	SetActorRotation(r);
 }
 

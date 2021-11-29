@@ -26,7 +26,7 @@ void ASJ_Actor_CookUI::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	FVector p = FVector(5170, 7985, 1290);
+	FVector p = FVector(5151, 8090, 1290);
 
 	SetActorLocation(p);
 

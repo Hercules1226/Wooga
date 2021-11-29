@@ -32,11 +32,11 @@ void ASJ_Actor_CuttingPigUI::BeginPlay()
 
 	FVector pigLoc = slicePig->GetActorLocation();
 	// FVector p = pigLoc + FVector::UpVector * 200;
-	FVector p = FVector(7500, 8664, 1300);
+	FVector p = FVector(7542, 8712, 1275);
 	SetActorLocation(p);
 
-	//FRotator r = FRotator(0, 0, 0);
-	//SetActorRotation(r);
+	FRotator r = FRotator(0, 40, 0);
+	SetActorRotation(r);
 }
 
 // Called every frame
