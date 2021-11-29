@@ -40,30 +40,13 @@ void AWatch2::Tick(float DeltaTime)
 
 	if (player->camLoc)
 	{
-
-		/*if (currentTime >= 1.f)
-		{
-			dir = player->camLookAt->GetComponentLocation() - watch->GetComponentLocation();
-
-			curRot = watch->GetComponentRotation();
-			targetrot = dir.ToOrientationRotator();
-		}*/
-
-		FVector dir2 = player->camLookAt->GetComponentLocation() - watch->GetComponentLocation();
-		dir2.Normalize();
-		FRotator targetrot2 = dir2.ToOrientationRotator();
-		FRotator curRot3 = watch->GetComponentRotation();
-		curRot3 = FMath::Lerp(curRot3, targetrot, 5 * DeltaTime);
-		watch->SetWorldRotation(curRot3);
-	}
-
-	/*if (player->camLoc)
-	{
-		dir = player->camLookAt->GetComponentLocation() - watch->GetComponentLocation();
+		dir = player->camLookAt->GetComponentLocation() - GetActorLocation();
 		dir.Normalize();
-		SetActorRotation(dir.ToOrientationRotator());
-
-	}*/
+		targetrot = dir.ToOrientationRotator();
+		curRot = GetActorRotation();
+		curRot = FMath::Lerp(curRot, targetrot, 3 * DeltaTime);
+		SetActorRotation(curRot);
+	}
 
 	/*Ending();*/
 	if (spot)
