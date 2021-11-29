@@ -82,7 +82,7 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 	}
 	else if (gameMode->flowState == EFlowState::SpearTitle)
 	{
-		FVector p6 = FVector(4151, 6680, 1320);
+		FVector p6 = FVector(4178, 6708, 1320);
 
 		SetActorLocation(p6);
 
@@ -92,11 +92,11 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 	}
 	else if (gameMode->flowState == EFlowState::HutTitle)
 	{
-		FVector p7 = FVector(4186, 8070, 1300);
+		FVector p7 = FVector(4042, 7900, 1300);
 
 		SetActorLocation(p7);
 
-		FRotator r7 = FRotator(0, -110, 0);
+		FRotator r7 = FRotator(0, -145, 0);
 
 		SetActorRotation(r7);
 	}

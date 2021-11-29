@@ -84,11 +84,11 @@ void ASJ_Actor_Title::BeginPlay()
 	// ¿òÁý
 	else if (gameMode->flowState == EFlowState::GoToHut || gameMode->flowState == EFlowState::HutTitle)
 	{
-		FVector  p5 = FVector(4262, 8042, 1280);
+		FVector  p5 = FVector(4078, 7887, 1280);
 
 		SetActorLocation(p5);
 
-		FRotator  r5 = FRotator(0, 80, 0);
+		FRotator  r5 = FRotator(0, 40, 0);
 
 		SetActorRotation(r5);
 	}
