@@ -19,6 +19,9 @@ public:
 	class USceneComponent* rootComp;
 
 	UPROPERTY(EditAnywhere, Category = KnowledegePoint)
+	class USkeletalMeshComponent* skeletalMesh;
+
+	UPROPERTY(EditAnywhere, Category = KnowledegePoint)
 	class UStaticMeshComponent* meshComp;
 
 protected:
@@ -60,7 +63,7 @@ public:
 	FVector p;
 
 	UPROPERTY()
-	float speed = 200;
+	float speed = 100;
 
 	UFUNCTION()
 	void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
