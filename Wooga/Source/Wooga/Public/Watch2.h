@@ -57,4 +57,14 @@ public:
 
 	UPROPERTY()
 	bool isBlink;
+
+	// È¸Àü
+	UPROPERTY()
+	FVector dir;
+
+	UPROPERTY()
+	FRotator targetrot;
+
+	UPROPERTY()
+	FRotator curRot;
 };

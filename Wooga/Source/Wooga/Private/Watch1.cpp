@@ -51,19 +51,14 @@ void AWatch1::Tick(float DeltaTime)
 		UnBlink();
 		break;
 	}
-	currentTime+= DeltaTime;
 	if (player->camLoc)
 	{
-		//if (currentTime >= 1.f)
-		{
-			dir = player->camLookAt->GetComponentLocation() - watch->GetComponentLocation();
-			dir.Normalize();
-			currentTime = 0;
-		}
-		WatchLookat();
-
-		//SetActorRotation(dir.ToOrientationRotator());
-
+		dir = player->camLookAt->GetComponentLocation() - GetActorLocation();
+		dir.Normalize();
+		targetrot = dir.ToOrientationRotator();
+		curRot = GetActorRotation();
+		curRot = FMath::Lerp(curRot, targetrot, 1 * DeltaTime);
+		SetActorRotation(curRot);
 	}
 
 	/*Ending();*/

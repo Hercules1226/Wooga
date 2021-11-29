@@ -43,15 +43,6 @@ public:
 		class AVR_Player* player;
 
 	UPROPERTY()
-		FVector watchLoc;
-
-	UPROPERTY()
-		FRotator myRot;
-	
-	UPROPERTY()
-		FVector dir;
-
-	UPROPERTY()
 		float speed = 10.f;
 
 	UPROPERTY()
@@ -86,4 +77,13 @@ public:
 	UPROPERTY()
 		bool bisfinish = false;
 
+	// È¸Àü
+	UPROPERTY()
+		FVector dir;
+
+	UPROPERTY()
+		FRotator targetrot;
+
+	UPROPERTY()
+		FRotator curRot;
 };
