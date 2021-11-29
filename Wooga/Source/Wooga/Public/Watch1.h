@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "Wooga.h"
 #include "GameFramework/Actor.h"
 #include "Watch1.generated.h"
 
@@ -15,6 +15,12 @@ public:
 	// Sets default values for this actor's properties
 	AWatch1();
 
+	UPROPERTY(EditAnywhere, Category = Setting)
+		class USceneComponent* rootComp;
+
+	UPROPERTY(EditAnywhere, Category = Setting)
+		class UStaticMeshComponent* watch;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -23,16 +29,16 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	EBlinkState blinkState;
+	EBlinkState GetState();
+	void SetState(EBlinkState state);
+
+	void Idle();
+	void Blink();
+	void UnBlink();
+
 	void WatchLookat();
-
-	void Ending();
-
-	UPROPERTY(EditAnywhere, Category = Setting)
-		class USceneComponent* rootComp;
-
-	UPROPERTY(EditAnywhere, Category = Setting)
-		class UStaticMeshComponent* watch;
-
+	
 	UPROPERTY()
 		class AVR_Player* player;
 
@@ -57,20 +63,10 @@ public:
 	UPROPERTY()
 		bool bisStartFollow = true;
 
-	// ending
+	UPROPERTY()
+	bool isBlink;
 
 	UPROPERTY()
-		class AIconSpot* spot;
+	float playTime;
 
-	UPROPERTY(EditAnywhere, Category = Settings)
-		class AIcon1* icon1;
-
-	UPROPERTY(EditDefaultsOnly, Category = "EnemyFactory")
-		TSubclassOf<class AIcon1> icon1Factory;
-
-	UPROPERTY()
-	float endingCurrentTime;
-
-	UPROPERTY()
-		bool bisfinish = false;
 };

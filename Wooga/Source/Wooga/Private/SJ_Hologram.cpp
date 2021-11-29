@@ -9,10 +9,10 @@
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraComponent.h"
 #include "NiagaraSystem.h"
-#include "FireEvent.h"
 #include <Components/PostProcessComponent.h>
 #include "Watch.h"
 #include <Components/WidgetComponent.h>
+#include "SJ_Actor_KnowledgePoint.h"
 
 // Sets default values
 ASJ_Hologram::ASJ_Hologram()
@@ -181,7 +181,7 @@ void ASJ_Hologram::PlayHologram()
 		FActorSpawnParameters Param;
 		Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
-		GetWorld()->SpawnActor<AFireEvent>(knowledgePoint,  GetActorLocation(), GetActorRotation(), Param);
+		GetWorld()->SpawnActor<ASJ_Actor_KnowledgePoint>(bpKnowledgePoint, GetActorLocation(), GetActorRotation(), Param);
 
 		playTime = 0;
 

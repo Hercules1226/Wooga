@@ -211,6 +211,9 @@ void ASJ_WoogaGameModeBase::Tick(float DeltaSeconds)
 	case EFlowState::FireUseTitle:
 		FireUseTitle();
 		break;
+	case EFlowState::HowToFireUse:
+		HowToFireUse();
+		break;
 	case EFlowState::FiringTwo:
 		FiringTwo();
 		break;
@@ -1019,19 +1022,39 @@ void ASJ_WoogaGameModeBase::FireUseTitle()
 
 	if (nextDelayTime >= 6.0f)
 	{
-		// 제목 없애기
-		//titleUI->Destroy();
-
 		// 가이드라인 없애기
 		//goToGuideLine->Destroy();
 
-		// 숨을 불어 넣어주세요 UI 생성
-		fireTwoUI = GetWorld()->SpawnActor<ASJ_Actor_FireTwoUI>(bpFireTwoUI, Param);
+		howToFlow = GetWorld()->SpawnActor<ASJ_Actor_HowToFlow>(bpHowToFireUse, Param);
 
 		// 딜레이변수 초기화
 		nextDelayTime = 0;
 
-		SetState(EFlowState::FiringTwo);
+		SetState(EFlowState::HowToFireUse);
+	}
+}
+void ASJ_WoogaGameModeBase::HowToFireUse()
+{
+	// UI 를 끄면
+	if (player->isClose == true)
+	{
+		bIsDelay = true;
+	}
+	if (bIsDelay == true)
+	{
+		nextDelayTime += GetWorld()->DeltaTimeSeconds;
+
+		if (nextDelayTime >= 1.0f)
+		{
+			// 숨을 불어 넣어주세요 UI 생성
+			fireTwoUI = GetWorld()->SpawnActor<ASJ_Actor_FireTwoUI>(bpFireTwoUI, Param);
+
+			// 딜레이변수 초기화
+			bIsDelay = false;
+			nextDelayTime = 0;
+
+			SetState(EFlowState::FiringTwo);
+		}
 	}
 }
 void ASJ_WoogaGameModeBase::FiringTwo()

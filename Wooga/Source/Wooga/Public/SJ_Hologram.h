@@ -57,8 +57,8 @@ public:
 	UPROPERTY(EditAnywhere, Category = "FX")
 		class UNiagaraSystem* destroyFX;
 
-	UPROPERTY(EditAnywhere, Category = Point)
-		TSubclassOf<class AFireEvent> knowledgePoint;
+	UPROPERTY(EditAnywhere, Category = KnowledgePoint)
+	TSubclassOf<class ASJ_Actor_KnowledgePoint> bpKnowledgePoint;
 
 	UPROPERTY(EditAnywhere, Category = Sound)
 		class USoundBase* FDHologramSound;
