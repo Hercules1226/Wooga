@@ -25,6 +25,8 @@ public:
 
 	void WatchLookat();
 
+	void Ending();
+
 	UPROPERTY(EditAnywhere, Category = Setting)
 		class USceneComponent* rootComp;
 
@@ -54,4 +56,21 @@ public:
 
 	UPROPERTY()
 		bool bisStartFollow = true;
+
+	// ending
+
+	UPROPERTY()
+		class AIconSpot* spot;
+
+	UPROPERTY(EditAnywhere, Category = Settings)
+		class AIcon1* icon1;
+
+	UPROPERTY(EditDefaultsOnly, Category = "EnemyFactory")
+		TSubclassOf<class AIcon1> icon1Factory;
+
+	UPROPERTY()
+	float endingCurrentTime;
+
+	UPROPERTY()
+		bool bisfinish = false;
 };

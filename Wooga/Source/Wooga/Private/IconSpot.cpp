@@ -10,7 +10,6 @@
 #include "Icon5.h"
 #include "Icon6.h"
 
-
 // Sets default values
 AIconSpot::AIconSpot()
 {

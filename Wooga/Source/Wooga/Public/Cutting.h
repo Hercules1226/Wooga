@@ -27,13 +27,13 @@ public:
 		void OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 public:
-	UPROPERTY(EditAnywhere, Category = Setting)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Setting)
 		class USceneComponent* rootComp;
 
-	UPROPERTY(EditAnywhere, Category = Setting)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Setting)
 		class UStaticMeshComponent* handle;
 
-	UPROPERTY(EditAnywhere, Category = Setting)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Setting)
 		class UStaticMeshComponent* line;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Setting)

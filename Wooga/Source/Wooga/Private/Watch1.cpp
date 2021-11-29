@@ -3,9 +3,12 @@
 
 #include "Watch1.h"
 #include "VR_Player.h"
-#include <Kismet/GameplayStatics.h>
+#include "Components/StaticMeshComponent.h"
+#include "IconSpot.h"
 #include "FireEvent.h"
+#include "Icon1.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
+#include <Kismet/GameplayStatics.h>
 
 // Sets default values
 AWatch1::AWatch1()
@@ -26,13 +29,15 @@ void AWatch1::BeginPlay()
 	Super::BeginPlay();
 
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
+	spot = Cast<AIconSpot>(UGameplayStatics::GetActorOfClass(GetWorld(), AIconSpot::StaticClass()));
+	icon1 = Cast<AIcon1>(UGameplayStatics::GetActorOfClass(GetWorld(), AIcon1::StaticClass()));
 }
 
 // Called every frame
 void AWatch1::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	currentTime+= DeltaTime;
+	currentTime += DeltaTime;
 	if (player->camLoc)
 	{
 		//if (currentTime >= 1.f)
@@ -42,28 +47,31 @@ void AWatch1::Tick(float DeltaTime)
 			currentTime = 0;
 		}
 		WatchLookat();
+		/*Ending();*/
 
-		//SetActorRotation(dir.ToOrientationRotator());
-
-	}
-
-	// ending
-	/*
-	if (bisEnd == false)
-	{
-		currentTime += DeltaTime;
-		if (currentTime >= 5.f)
+		if (bisEnd == false)
 		{
-			/*watch->SetHiddenInGame(true);
+			endingCurrentTime += DeltaTime;
+			if (endingCurrentTime >= 5.f)
+			{
+				GetWorld()->SpawnActor<AIcon1>(icon1Factory, GetTransform());
 
-			bisEnd = true;
+				SetActorHiddenInGame(true);
+
+				//SetActorRotation(dir.ToOrientationRotator());
+				bisEnd = true;
+			}
 		}
 	}
-	*/
 }
 
 void AWatch1::WatchLookat()
 {
 	SetActorRotation(dir.ToOrientationRotator());
+}
+
+void AWatch1::Ending()
+{
+
 }
 
