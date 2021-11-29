@@ -56,11 +56,5 @@ public:
 		bool bisfinish = false;
 
 	UPROPERTY()
-	FRotator curRot;
-
-	UPROPERTY()
-	FRotator targetrot;
-
-	UPROPERTY()
-	FVector dir;
+	bool isBlink;
 };
