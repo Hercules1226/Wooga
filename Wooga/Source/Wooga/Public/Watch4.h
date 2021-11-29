@@ -37,4 +37,21 @@ public:
 
 	UPROPERTY()
 		bool bisEnd = false;
+
+	// ending
+
+	UPROPERTY()
+		class AIconSpot* spot;
+
+	UPROPERTY(EditAnywhere, Category = Settings)
+		class AIcon4* icon4;
+
+	UPROPERTY(EditDefaultsOnly, Category = "EnemyFactory")
+		TSubclassOf<class AIcon4> icon4Factory;
+
+	UPROPERTY()
+		float endingCurrentTime;
+
+	UPROPERTY()
+		bool bisfinish = false;
 };

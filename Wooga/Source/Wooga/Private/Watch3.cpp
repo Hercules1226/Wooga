@@ -5,6 +5,9 @@
 #include "VR_Player.h"
 #include <Kismet/GameplayStatics.h>
 #include "FireEvent.h"
+#include "Components/StaticMeshComponent.h"
+#include "IconSpot.h"
+#include "Icon3.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
 
 // Sets default values
@@ -26,6 +29,8 @@ void AWatch3::BeginPlay()
 	Super::BeginPlay();
 
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
+	spot = Cast<AIconSpot>(UGameplayStatics::GetActorOfClass(GetWorld(), AIconSpot::StaticClass()));
+	icon3 = Cast<AIcon3>(UGameplayStatics::GetActorOfClass(GetWorld(), AIcon3::StaticClass()));
 }
 
 // Called every frame
@@ -38,20 +43,24 @@ void AWatch3::Tick(float DeltaTime)
 		FVector dir = player->camLookAt->GetComponentLocation() - watch->GetComponentLocation();
 		dir.Normalize();
 		SetActorRotation(dir.ToOrientationRotator());
+
 	}
 
-	// ending
-	/*
+	/*Ending();*/
+
 	if (bisEnd == false)
 	{
-		currentTime += DeltaTime;
-		if (currentTime >= 5.f)
+		endingCurrentTime += DeltaTime;
+		if (endingCurrentTime >= 6.f)
 		{
-			/*watch->SetHiddenInGame(true);
+			GetWorld()->SpawnActor<AIcon3>(icon3Factory, GetTransform());
+			
+			SetActorHiddenInGame(true);
 
+
+			//SetActorRotation(dir.ToOrientationRotator());
 			bisEnd = true;
 		}
 	}
-	*/
 }
 

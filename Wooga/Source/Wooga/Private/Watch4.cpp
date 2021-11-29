@@ -5,6 +5,9 @@
 #include "VR_Player.h"
 #include <Kismet/GameplayStatics.h>
 #include "FireEvent.h"
+#include "Components/StaticMeshComponent.h"
+#include "IconSpot.h"
+#include "Icon4.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
 
 // Sets default values
@@ -26,6 +29,8 @@ void AWatch4::BeginPlay()
 	Super::BeginPlay();
 	
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
+	spot = Cast<AIconSpot>(UGameplayStatics::GetActorOfClass(GetWorld(), AIconSpot::StaticClass()));
+	icon4 = Cast<AIcon4>(UGameplayStatics::GetActorOfClass(GetWorld(), AIcon4::StaticClass()));
 }
 
 // Called every frame
@@ -40,18 +45,20 @@ void AWatch4::Tick(float DeltaTime)
 		SetActorRotation(dir.ToOrientationRotator());
 	}
 
-	// ending
-	/*
+	/*Ending();*/
+
 	if (bisEnd == false)
 	{
-		currentTime += DeltaTime;
-		if (currentTime >= 5.f)
+		endingCurrentTime += DeltaTime;
+		if (endingCurrentTime >= 6.5f)
 		{
-			/*watch->SetHiddenInGame(true);
+			GetWorld()->SpawnActor<AIcon4>(icon4Factory, GetTransform());
 
+			SetActorHiddenInGame(true);
+
+			//SetActorRotation(dir.ToOrientationRotator());
 			bisEnd = true;
 		}
 	}
-	*/
 }
 
