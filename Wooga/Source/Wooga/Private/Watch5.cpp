@@ -46,18 +46,20 @@ void AWatch5::Tick(float DeltaTime)
 	}
 
 	/*Ending();*/
-
-	if (bisEnd == false)
+	if (spot)
 	{
-		endingCurrentTime += DeltaTime;
-		if (endingCurrentTime >= 7.f)
+		if (bisEnd == false)
 		{
-			GetWorld()->SpawnActor<AIcon5>(icon5Factory, GetTransform());
+			endingCurrentTime += DeltaTime;
+			if (endingCurrentTime >= 7.f)
+			{
+				GetWorld()->SpawnActor<AIcon5>(icon5Factory, GetTransform());
 
-			SetActorHiddenInGame(true);
+				SetActorHiddenInGame(true);
 
-			//SetActorRotation(dir.ToOrientationRotator());
-			bisEnd = true;
+				//SetActorRotation(dir.ToOrientationRotator());
+				bisEnd = true;
+			}
 		}
 	}
 }

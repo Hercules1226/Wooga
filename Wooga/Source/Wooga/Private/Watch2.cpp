@@ -13,7 +13,7 @@
 // Sets default values
 AWatch2::AWatch2()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	rootComp = CreateDefaultSubobject<USceneComponent>(TEXT("Root Component"));
@@ -46,18 +46,20 @@ void AWatch2::Tick(float DeltaTime)
 	}
 
 	/*Ending();*/
-
-	if (bisEnd == false)
+	if (spot)
 	{
-		endingCurrentTime += DeltaTime;
-		if (endingCurrentTime >= 5.5f)
+		if (bisEnd == false)
 		{
-			GetWorld()->SpawnActor<AIcon2>(icon2Factory, GetTransform());
+			endingCurrentTime += DeltaTime;
+			if (endingCurrentTime >= 5.5f)
+			{
+				GetWorld()->SpawnActor<AIcon2>(icon2Factory, GetTransform());
 
-			SetActorHiddenInGame(true);
+				SetActorHiddenInGame(true);
 
-			//SetActorRotation(dir.ToOrientationRotator());
-			bisEnd = true;
+				//SetActorRotation(dir.ToOrientationRotator());
+				bisEnd = true;
+			}
 		}
 	}
 }
