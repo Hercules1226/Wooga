@@ -52,4 +52,7 @@ public:
 
 	UPROPERTY()
 		bool bisfinish = false;
+
+	UPROPERTY()
+		bool isBlink;
 };

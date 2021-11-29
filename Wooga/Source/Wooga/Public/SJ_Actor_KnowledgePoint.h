@@ -71,4 +71,6 @@ public:
 	UPROPERTY(EditAnywhere, Category = Haptic)
 		class UHapticFeedbackEffect_Base* watchHaptic;
 
+		void KnowledgeIn(AActor*  watch, float point);
+
 };

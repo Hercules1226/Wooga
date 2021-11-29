@@ -76,7 +76,7 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	Super::BeginPlay();
 
 	// 맨 처음 불의 발견 교육으로 시작
-	SetState(EFlowState::InGame);
+	SetState(EFlowState::SpawnHandAxGuideLine);
 
 	// 테스트용 스테이트
 	//SetState(EFlowState::CompleteCollect);
@@ -834,23 +834,19 @@ void ASJ_WoogaGameModeBase::HowToMakeHandAx()
 	}
 	if (bIsDelay == true)
 	{
-		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-		if (nextDelayTime >= 1.0f)
-		{
+		// 주먹도끼 만들기 UI
+		makeHandAxUI = GetWorld()->SpawnActor<ASJ_Actor_MakeHandAxUI>(bpMakeHandAxUI, Param);
 
-			// 주먹도끼 만들기 UI
-			makeHandAxUI = GetWorld()->SpawnActor<ASJ_Actor_MakeHandAxUI>(bpMakeHandAxUI, Param);
+		// 주먹도끼 제작을 위한 장소 이동
+		makeHandAxRange = GetWorld()->SpawnActor<ASJ_Actor_MakeRange>(bpMakeHandAxRange, Param);
 
-			// 주먹도끼 제작을 위한 장소 이동
-			makeHandAxRange = GetWorld()->SpawnActor<ASJ_Actor_MakeRange>(bpMakeHandAxRange, Param);
+		// 딜레이변수 초기화
+		bIsDelay = false;
+		nextDelayTime = 0;
 
-			// 딜레이변수 초기화
-			bIsDelay = false;
-			nextDelayTime = 0;
+		SetState(EFlowState::MakeHandAx);
 
-			SetState(EFlowState::MakeHandAx);
-		}
 	}
 }
 
@@ -1176,28 +1172,7 @@ void ASJ_WoogaGameModeBase::SpearTitle()
 		makeHandAxRange = GetWorld()->SpawnActor<ASJ_Actor_MakeRange>(bpMakeHandAxRange, Param);
 
 		// goToGuideLine->Destroy();
-		SetState(EFlowState::MakeSpear);
-	}
-}
-
-void ASJ_WoogaGameModeBase::MakeSpear()
-{
-	if (makeHandAxRange->isPlayerIn == true)
-	{
-		// UI 꺼주기
-		bIsUIClose = true;
-
-		nextDelayTime += GetWorld()->DeltaTimeSeconds;
-
-		if (nextDelayTime >= 1.0f)
-		{
-			howToFlow = GetWorld()->SpawnActor<ASJ_Actor_HowToFlow>(bpHowToMakeSpear, Param);
-
-			// 딜레이 변수
-			nextDelayTime = 0;
-
-			SetState(EFlowState::HowTomakeSpear);
-		}
+		SetState(EFlowState::HowTomakeSpear);
 	}
 }
 
@@ -1214,6 +1189,28 @@ void ASJ_WoogaGameModeBase::HowToMakeSpear()
 
 		if (nextDelayTime >= 1.0f)
 		{
+			howToFlow = GetWorld()->SpawnActor<ASJ_Actor_HowToFlow>(bpHowToMakeSpear, Param);
+
+			// 딜레이변수 초기화
+			bIsDelay = false;
+			nextDelayTime = 0;
+
+			SetState(EFlowState::MakeSpear);
+		}
+	}
+}
+
+void ASJ_WoogaGameModeBase::MakeSpear()
+{
+	if (makeHandAxRange->isPlayerIn == true)
+	{
+		// UI 꺼주기
+		bIsUIClose = true;
+
+		nextDelayTime += GetWorld()->DeltaTimeSeconds;
+
+		if (nextDelayTime >= 1.0f)
+		{
 			// 슴베찌르개 
 			sumjjiRock = Cast<ASumjjiRock>(UGameplayStatics::GetActorOfClass(GetWorld(), ASumjjiRock::StaticClass()));
 			sumjjiRock->outLine->SetVisibility(true);
@@ -1221,8 +1218,7 @@ void ASJ_WoogaGameModeBase::HowToMakeSpear()
 			// 뼈를 이용해 다듬으세요UI 생성
 			breakStoneUI = GetWorld()->SpawnActor<ASJ_Actor_BreakStoneUI>(bpBreakStoneUI, Param);
 
-			// 딜레이변수 초기화
-			bIsDelay = false;
+			// 딜레이 변수
 			nextDelayTime = 0;
 
 			SetState(EFlowState::TakeRock);
