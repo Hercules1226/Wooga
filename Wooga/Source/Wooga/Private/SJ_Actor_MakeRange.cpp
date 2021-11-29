@@ -39,7 +39,7 @@ void ASJ_Actor_MakeRange::BeginPlay()
 
 		SetActorRotation(r);
 	}
-	else if (gameMode->flowState == EFlowState::MakeSpear || gameMode->flowState == EFlowState::SpearTitle)
+	else if (gameMode->flowState == EFlowState::HowTomakeSpear)
 	{
 		// ½¿º£Âî¸£°³ ¸¸µé±â
 		FVector p2 = FVector(4392, 6799, 1190);
@@ -50,19 +50,19 @@ void ASJ_Actor_MakeRange::BeginPlay()
 
 		SetActorRotation(r2);
 	}
-	else if (gameMode->flowState == EFlowState::CompleteSpear || gameMode->flowState == EFlowState::HuntFish)
+	else if (gameMode->flowState == EFlowState::CompleteSpear)
 	{
-		FVector p3 = FVector(4070, 6600, 1185);
+		FVector p3 = FVector(4378, 6817, 1190);
 
 		SetActorLocation(p3);
 
-		FRotator r3 = FRotator(0, 70, 0);
+		FRotator r3 = FRotator(0, 100, 0);
 
 		SetActorRotation(r3);
 	}
 	else if(gameMode->flowState == EFlowState::CatchFish || gameMode->flowState == EFlowState::GoToCookFish)
 	{
-		FVector p4 = FVector(5097, 7816, 1190);
+		FVector p4 = FVector(5100, 7836, 1183);
 
 		SetActorLocation(p4);
 

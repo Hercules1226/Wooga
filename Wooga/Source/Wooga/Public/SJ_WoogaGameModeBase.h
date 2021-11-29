@@ -371,6 +371,12 @@ public:
 	UPROPERTY(EditAnywhere, Category = UI)
 	TSubclassOf<class ASJ_Actor_HowToFlow> bpHowToMakeSpear;
 
+	// 슴베찌르개 제작 UI
+	UPROPERTY()
+	class ASJ_Actor_MakeSpearUI* makeSpearUI;
+	UPROPERTY(EditAnywhere, Category = UI)
+	TSubclassOf<class ASJ_Actor_MakeSpearUI> bpMakeSpearUI;
+
 	// 뼈를 이용해 돌을 다듬으세요
 	UPROPERTY()
 	class ASJ_Actor_BreakStoneUI* breakStoneUI;

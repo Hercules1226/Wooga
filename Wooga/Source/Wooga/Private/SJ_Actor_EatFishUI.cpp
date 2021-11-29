@@ -27,7 +27,7 @@ void ASJ_Actor_EatFishUI::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	FVector p = FVector(5216, 8016, 1310);
+	FVector p = FVector(5254, 8061, 1310);
 
 	SetActorLocation(p);
 

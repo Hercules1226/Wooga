@@ -65,6 +65,7 @@
 #include "SJ_Actor_MakeHutUI.h"
 #include "LastHouse.h"
 #include "SJ_Actor_HowToFlow.h"
+#include "SJ_Actor_MakeSpearUI.h"
 
 ASJ_WoogaGameModeBase::ASJ_WoogaGameModeBase()
 {
@@ -106,6 +107,10 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	// 잘린고기
 	tomahowk = Cast<ATomahowk>(UGameplayStatics::GetActorOfClass(GetWorld(), ATomahowk::StaticClass()));
 	tomahowk->SetActorHiddenInGame(true);
+
+	// 움집
+	lastHouse = Cast<ALastHouse>(UGameplayStatics::GetActorOfClass(GetWorld(), ALastHouse::StaticClass()));
+	lastHouse->SetActorHiddenInGame(true);
 
 	// 라이트
 	levelLight = Cast<ASJ_Actor_LevelLight>(UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_Actor_LevelLight::StaticClass()));
@@ -1022,7 +1027,7 @@ void ASJ_WoogaGameModeBase::FireUseTitle()
 	if (nextDelayTime >= 6.0f)
 	{
 		// 가이드라인 없애기
-		//goToGuideLine->Destroy();
+		goToGuideLine->Destroy();
 
 		howToFlow = GetWorld()->SpawnActor<ASJ_Actor_HowToFlow>(bpHowToFireUse, Param);
 
@@ -1165,10 +1170,12 @@ void ASJ_WoogaGameModeBase::SpearTitle()
 
 	if (nextDelayTime >= 6.0f)
 	{
+		howToFlow = GetWorld()->SpawnActor<ASJ_Actor_HowToFlow>(bpHowToMakeSpear, Param);
+
+		goToGuideLine->Destroy();
+
 		// 딜레이 변수 초기화
 		nextDelayTime = 0;
-
-		howToFlow = GetWorld()->SpawnActor<ASJ_Actor_HowToFlow>(bpHowToMakeSpear, Param);
 
 		// goToGuideLine->Destroy();
 		SetState(EFlowState::HowTomakeSpear);
@@ -1190,6 +1197,9 @@ void ASJ_WoogaGameModeBase::HowToMakeSpear()
 		{
 			// 제작 범위 생성
 			makeHandAxRange = GetWorld()->SpawnActor<ASJ_Actor_MakeRange>(bpMakeHandAxRange, Param);
+
+			// 슴베찌르개 제작 UI
+			makeSpearUI = GetWorld()->SpawnActor<ASJ_Actor_MakeSpearUI>(bpMakeSpearUI, Param);
 
 			// 딜레이변수 초기화
 			bIsDelay = false;
@@ -1214,6 +1224,8 @@ void ASJ_WoogaGameModeBase::MakeSpear()
 			// 슴베찌르개 
 			sumjjiRock = Cast<ASumjjiRock>(UGameplayStatics::GetActorOfClass(GetWorld(), ASumjjiRock::StaticClass()));
 			sumjjiRock->outLine->SetVisibility(true);
+
+			makeSpearUI->Destroy();
 
 			// 뼈를 이용해 다듬으세요UI 생성
 			breakStoneUI = GetWorld()->SpawnActor<ASJ_Actor_BreakStoneUI>(bpBreakStoneUI, Param);
@@ -1387,6 +1399,7 @@ void ASJ_WoogaGameModeBase::GoToCookFish()
 		if (nextDelayTime >= 1.0f)
 		{
 			goFryFishUI->Destroy();
+			makeHandAxRange->Destroy();
 
 			cookFishUI = GetWorld()->SpawnActor<ASJ_Actor_CookFishUI>(bpCookFishUI, Param);
 			// 딜레이 변수 초기화
@@ -1493,6 +1506,8 @@ void ASJ_WoogaGameModeBase::HowToMakeHut()
 			// 움집만들기 UI 생성
 			makeHutUI = GetWorld()->SpawnActor<ASJ_Actor_MakeHutUI>(bpMakeHutUI, Param);
 
+			lastHouse->SetActorHiddenInGame(false);
+
 			// 딜레이변수 초기화
 			bIsDelay = false;
 			nextDelayTime = 0;
@@ -1503,8 +1518,6 @@ void ASJ_WoogaGameModeBase::HowToMakeHut()
 }
 void ASJ_WoogaGameModeBase::MakeHut()
 {
-	lastHouse = Cast<ALastHouse>(UGameplayStatics::GetActorOfClass(GetWorld(), ALastHouse::StaticClass()));
-
 	if (lastHouse->bisClear)
 	{
 		bIsUIClose = true;
