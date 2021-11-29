@@ -99,13 +99,12 @@ void AWatch1::Blink()
 {
 	playTime += GetWorld()->DeltaTimeSeconds;
 
-	watch->SetScalarParameterValueOnMaterials(TEXT("Amount"), 0.1f);
+	float amountOnParam = FMath::Lerp(0.0f, 0.5f, playTime);
 
-	float boostBlink = FMath::Lerp(0.0f, 30.0f, playTime);
+	watch->SetScalarParameterValueOnMaterials(TEXT("Amount"), amountOnParam * 0.1);
 
-	watch->SetScalarParameterValueOnMaterials(TEXT("Boost"), boostBlink);
 
-	if (playTime >= 3.0f)
+	if (playTime >= 5.0f)
 	{
 		playTime = 0;
 
@@ -117,13 +116,13 @@ void AWatch1::UnBlink()
 {
 	playTime += GetWorld()->DeltaTimeSeconds;
 
-	float unBoostBlink = FMath::Lerp(30.0f, 0.0f, playTime);
+	float amountOffParam = FMath::Lerp(0.5f,0.0f, playTime);
 
-	watch->SetScalarParameterValueOnMaterials(TEXT("Boost"), unBoostBlink);
+	watch->SetScalarParameterValueOnMaterials(TEXT("Amount"), amountOffParam * 0.1);
 
-	if (playTime >= 3.0f)
+	if (playTime >= 5.0f)
 	{
-		watch->SetScalarParameterValueOnMaterials(TEXT("Amount"), 0.0f);
+		
 		isBlink = false;
 
 		playTime = 0;

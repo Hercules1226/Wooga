@@ -3,6 +3,7 @@
 
 #include "SJ_Actor_KnowledgePoint.h"
 #include <Components/StaticMeshComponent.h>
+#include <Components/SkeletalMeshComponent.h>
 #include <Kismet/GameplayStatics.h>
 #include "VR_Player.h"
 #include "Watch1.h"
@@ -15,6 +16,9 @@ ASJ_Actor_KnowledgePoint::ASJ_Actor_KnowledgePoint()
 
 	rootComp = CreateDefaultSubobject<USceneComponent>(TEXT("RootComp"));
 	SetRootComponent(rootComp);
+
+	skeletalMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeletalMesh"));
+	skeletalMesh->SetupAttachment(rootComp);
 
 	meshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComp"));
 	meshComp->SetupAttachment(rootComp);
