@@ -75,11 +75,11 @@ void ASJ_Hologram::BeginPlay()
 	// ÁÖ¸Ôµµ³¢ È¦·Î±×·¥
 	if (gameMode->flowState == EFlowState::CompleteHandAx || gameMode->flowState == EFlowState::DirectlyHit)
 	{
-		FVector p3 = FVector(7513, 8548, 1340);
+		FVector p3 = FVector(7424, 8759, 1330);
 
 		SetActorLocation(p3);
 
-		FRotator r3 = FRotator(0, 25, 0);
+		FRotator r3 = FRotator(0, 30, 0);
 
 		SetActorRotation(r3);
 

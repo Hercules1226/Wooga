@@ -809,15 +809,19 @@ void ASJ_WoogaGameModeBase::HitBoar()
 {
 	if (boar->boarState == EBoarState::Die)
 	{
-		// »ç¿ëµÈ UI Á¦°Å
-		hitBoarUI->Destroy();
+		nextDelayTime += GetWorld()->DeltaTimeSeconds;
+		if (nextDelayTime >= 1.0f)
+		{
+			// »ç¿ëµÈ UI Á¦°Å
+			hitBoarUI->Destroy();
 
-		howToFlow = GetWorld()->SpawnActor<ASJ_Actor_HowToFlow>(bpHowToMakeHandAx, Param);
+			howToFlow = GetWorld()->SpawnActor<ASJ_Actor_HowToFlow>(bpHowToMakeHandAx, Param);
 
-		// ¼û°Üµ×´ø Á×Àº µÅÁö¸¦ ¼ÒÈ¯
-		slicePig->SetActorHiddenInGame(false);
+			// ¼û°Üµ×´ø Á×Àº µÅÁö¸¦ ¼ÒÈ¯
+			slicePig->SetActorHiddenInGame(false);
 
-		SetState(EFlowState::HowToMakeHandAx);
+			SetState(EFlowState::HowToMakeHandAx);
+		}
 	}
 }
 

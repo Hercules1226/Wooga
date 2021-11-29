@@ -27,13 +27,13 @@ void ASJ_Actor_IndirectHitUI::BeginPlay()
 {
 	Super::BeginPlay();
 
-	FVector p = FVector(7528, 8854, 1280);
+	FVector p = FVector(7478, 8854, 1280);
 
 	SetActorLocation(p);
 
-	FRotator r = FRotator(0, -62, 0);
+	// FRotator r = FRotator(0, -62, 0);
 
-	SetActorRotation(r);
+	// SetActorRotation(r);
 	
 }
 
