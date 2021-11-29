@@ -74,6 +74,9 @@ public:
 	UPROPERTY()
 		FVector myPos;
 
+	UPROPERTY(EditAnywhere, Category = "Sound")
+		USoundBase* Sound;
+
 public:
 	UPROPERTY()
 		bool bisOverlab = false;

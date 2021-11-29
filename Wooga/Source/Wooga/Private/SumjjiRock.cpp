@@ -87,6 +87,8 @@ void ASumjjiRock::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cl
 				player->leftHand->SetRelativeLocation(myPos);
 				bisOverlab = true;
 
+				UGameplayStatics::PlaySound2D(GetWorld(), Sound);
+
 				rock1->SetSimulatePhysics(true);
 				rock1->SetEnableGravity(true);
 
@@ -110,6 +112,8 @@ void ASumjjiRock::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cl
 					myPos = knockbackPos;
 					player->leftHand->SetRelativeLocation(myPos);
 					bisOverlab = true;
+
+					UGameplayStatics::PlaySound2D(GetWorld(), Sound);
 
 					rock2->SetSimulatePhysics(true);
 					rock2->SetEnableGravity(true);
@@ -136,6 +140,8 @@ void ASumjjiRock::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cl
 					player->leftHand->SetRelativeLocation(myPos);
 					bisOverlab = true;
 
+					UGameplayStatics::PlaySound2D(GetWorld(), Sound);
+
 					rock3->SetSimulatePhysics(true);
 					rock3->SetEnableGravity(true);
 
@@ -160,6 +166,8 @@ void ASumjjiRock::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cl
 					myPos = knockbackPos;
 					player->leftHand->SetRelativeLocation(myPos);
 					bisOverlab = true;
+
+					UGameplayStatics::PlaySound2D(GetWorld(), Sound);
 
 					rock4->SetSimulatePhysics(true);
 					rock4->SetEnableGravity(true);
