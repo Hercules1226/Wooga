@@ -60,9 +60,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
 		class UStaticMeshComponent* complete;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
-		class UStaticMeshComponent* complete2;
-
 public:
 
 
@@ -82,10 +79,19 @@ public:
 		float currentTime = 0;
 
 	UPROPERTY()
+		float currentTime2 = 0;
+
+	UPROPERTY()
 		float baseTime = 0.5f;
 
 	UPROPERTY()
 		float completeTime = 6.f;
+
+	UPROPERTY()
+		float disTime;
+
+	UPROPERTY()
+		float blend;
 
 	UPROPERTY()
 		bool check1 = true;
