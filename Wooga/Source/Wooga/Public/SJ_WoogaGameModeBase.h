@@ -266,8 +266,12 @@ public:
 	UPROPERTY(EditAnywhere, Category = Range)
 	TSubclassOf<class ASJ_Actor_MakeRange> bpMakeHandAxRange;
 
+	// 林冈档尝 父靛绰 规过
 	UPROPERTY(EditAnywhere, Category = UI)
 	TSubclassOf<class ASJ_Actor_HowToFlow> bpHowToMakeHandAx;
+
+	UPROPERTY(EditAnywhere, Category = HitPoint)
+	TSubclassOf<AActor> bpHitPoint;
 
 	// 埃立都扁 UI
 	class ASJ_Actor_IndirectHitUI* indirectUI;

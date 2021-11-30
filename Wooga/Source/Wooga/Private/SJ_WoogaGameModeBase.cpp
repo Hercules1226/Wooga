@@ -890,6 +890,9 @@ void ASJ_WoogaGameModeBase::HowToMakeHandAx()
 			// 간접떼기 UI 생성
 			indirectUI = GetWorld()->SpawnActor<ASJ_Actor_IndirectHitUI>(bpIndirectUI, Param);
 
+			// 타격 포인트
+			GetWorld()->SpawnActor<AActor>(bpHitPoint, FVector(7700, 8880, 1230), FRotator(0, 0, 0), Param);
+
 			fistAxe->bisStartBreak = true;
 
 			// 딜레이변수 초기화
