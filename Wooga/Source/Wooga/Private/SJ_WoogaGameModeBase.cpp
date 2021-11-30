@@ -78,7 +78,7 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	Super::BeginPlay();
 
 	// 맨 처음 불의 발견 교육으로 시작
-	SetState(EFlowState::SpawnHandAxGuideLine);
+	SetState(EFlowState::InGame);
 
 	// 테스트용 스테이트
 	//SetState(EFlowState::CompleteCollect);

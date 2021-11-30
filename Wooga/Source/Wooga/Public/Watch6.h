@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "Wooga.h"
 #include "GameFramework/Actor.h"
 #include "Watch6.generated.h"
 
@@ -32,11 +32,31 @@ public:
 	UPROPERTY()
 		class AVR_Player* player;
 
+	EBlinkState blinkState;
+	EBlinkState GetState();
+	void SetState(EBlinkState state);
+
+	void Idle();
+	void Blink();
+	void UnBlink();
+
+	UPROPERTY()
+		float speed = 10.f;
+
 	UPROPERTY()
 		float currentTime;
 
 	UPROPERTY()
 		bool bisEnd = false;
+
+	UPROPERTY()
+		bool bisStartFollow = true;
+
+	UPROPERTY()
+		bool isBlink;
+
+	UPROPERTY()
+		float playTime;
 
 	UPROPERTY()
 		class AIconSpot* spot;
@@ -52,9 +72,6 @@ public:
 
 	UPROPERTY()
 		bool bisfinish = false;
-
-	UPROPERTY()
-		bool isBlink;
 
 	// È¸Àü
 	UPROPERTY()
