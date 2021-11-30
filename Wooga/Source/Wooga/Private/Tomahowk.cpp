@@ -36,7 +36,6 @@ void ATomahowk::BeginPlay()
 	Super::BeginPlay();
 	//meshComp->OnComponentBeginOverlap.AddDynamic(this, &ATomahowk::OnCollisionBoneEnter);
 	meshComp1->OnComponentBeginOverlap.AddDynamic(this, &ATomahowk::OnCollisionEnter);
-
 }
 
 // Called every frame

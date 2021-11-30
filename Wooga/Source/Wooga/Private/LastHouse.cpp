@@ -44,9 +44,6 @@ ALastHouse::ALastHouse()
 	complete = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Complete"));
 	complete->SetupAttachment(sceneComponent);
 
-	complete2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Complete2"));
-	complete2->SetupAttachment(sceneComponent);
-
 	offMaterial = CreateDefaultSubobject<UMaterial>(TEXT("Off Material"));
 
 	onMaterial = CreateDefaultSubobject<UMaterial>(TEXT("On Material"));
@@ -76,14 +73,26 @@ void ALastHouse::Tick(float DeltaTime)
 	currentTime += DeltaTime;
 	if (bisfinish == true)
 	{
-		
+
 		FTimerHandle createTimer;
 		GetWorld()->GetTimerManager().SetTimer(createTimer, this, &ALastHouse::CreateStick, 3.0f, false);
 		//CreateStick();
 	}
-	if (creatCount == 20)
+	if (creatCount >= 15)
 	{
-		base->SetHiddenInGame(true);
+		currentTime2 += DeltaTime;
+		if (currentTime2 <= 4.f)
+		{
+			disTime += GetWorld()->DeltaTimeSeconds;
+			blend = FMath::Lerp(1.f, 0.5f, disTime * 0.5f);
+			complete->SetScalarParameterValueOnMaterials(TEXT("Length"), blend);
+			//complete->SetScalarParameterValueOnMaterials(TEXT("Length"), blend);
+			if (currentTime2 >= 10.f)
+			{
+				bisClear = true;
+			}
+		}
+
 	}
 
 	/*if (currentTime >= completeTime)
@@ -276,6 +285,7 @@ void ALastHouse::CreateStick()
 	{
 		if (currentTime > 0.2f)
 		{
+			base->SetHiddenInGame(true);
 			stickArray[creatCount]->SetHiddenInGame(false);
 			creatCount++;
 			currentTime = 0;
@@ -285,7 +295,7 @@ void ALastHouse::CreateStick()
 	}
 	if (creatCount == 20)
 	{
-		
+
 		bisfinish = false;
 	}
 
