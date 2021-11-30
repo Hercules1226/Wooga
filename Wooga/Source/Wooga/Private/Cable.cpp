@@ -148,7 +148,6 @@ void ACable::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class A
 			if (OtherComp == player->mouthComp)
 			{
 				FVector location = this->GetActorLocation();
-				UGameplayStatics::PlaySound2D(GetWorld(), eatSound);
 				fish->SetHiddenInGame(true);
 				player->grabComp->RightReleaseAction();
 				SetActorHiddenInGame(true);
@@ -157,7 +156,7 @@ void ACable::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class A
 
 				if (bisEat == false)
 				{
-					//UGameplayStatics::PlaySound2D(GetWorld(), eatSound);
+					UGameplayStatics::PlaySound2D(GetWorld(), eatSound);
 					
 					bisEat = true;
 				}

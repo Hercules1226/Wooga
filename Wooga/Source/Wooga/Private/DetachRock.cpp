@@ -31,10 +31,10 @@ void ADetachRock::Tick(float DeltaTime)
 
 void ADetachRock::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	halfRock = Cast<AHalfRock>(OtherActor);
+	/*halfRock = Cast<AHalfRock>(OtherActor);
 	if (OtherActor == halfRock)
 	{
 		Destroy();
-	}
+	}*/
 }
 

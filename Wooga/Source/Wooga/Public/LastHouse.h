@@ -75,6 +75,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
 		class UMaterial* onMaterial;
 
+	UPROPERTY(EditAnywhere, Category = Sound)
+		class USoundBase* overlabSound;
+
+	UPROPERTY(EditAnywhere, Category = Sound)
+		class USoundBase* sound;
+
 	UPROPERTY()
 		float currentTime = 0;
 
