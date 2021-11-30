@@ -74,6 +74,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Setting)
 		class UMaterialInstance* decalMaterial;
 
+	UPROPERTY(EditAnywhere, Category = "Fire")
+		class UParticleSystem* particleFactory;
+
 	UPROPERTY(EditAnywhere, Category = "Sound")
 		USoundBase* sound;
 
@@ -124,4 +127,7 @@ public:
 
 	UPROPERTY()
 		bool sound5 = false;
+
+	UPROPERTY()
+		int32 effectOn = 0;
 };

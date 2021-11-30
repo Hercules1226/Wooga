@@ -26,6 +26,9 @@ public:
 	UFUNCTION()
 		void OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Setting)
+		class USceneComponent* rootComp;
+
 	UPROPERTY(EditAnywhere, Category = Settings)
 		class UStaticMeshComponent* sumjji;
 

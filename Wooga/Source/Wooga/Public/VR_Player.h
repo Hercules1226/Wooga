@@ -63,6 +63,8 @@ public:
 		class USceneComponent* leftHandLoc;
 	UPROPERTY(EditAnywhere, Category = PlayerSettings)
 		class USceneComponent* leftFALoc;
+	UPROPERTY(EditAnywhere, Category = PlayerSettings)
+		class USceneComponent* leftSRLoc;
 	// ¿À¸¥¼Õ
 	UPROPERTY(EditAnywhere, Category = PlayerSettings)
 		class USkeletalMeshComponent* rightHand;

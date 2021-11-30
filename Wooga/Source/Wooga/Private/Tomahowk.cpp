@@ -6,6 +6,7 @@
 #include "Components/BoxComponent.h"
 #include "GrabActorComponent.h"
 #include "VR_Player.h"
+#include <Kismet/GameplayStatics.h>
 
 // Sets default values
 ATomahowk::ATomahowk()
@@ -24,7 +25,6 @@ ATomahowk::ATomahowk()
 	meshComp3->SetupAttachment(meshComp);
 	meshComp4 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh Component4"));
 	meshComp4->SetupAttachment(meshComp);
-
 
 	medium = CreateDefaultSubobject<UMaterialInstance>(TEXT("Medium"));
 	welldone = CreateDefaultSubobject<UMaterialInstance>(TEXT("Welldone"));
@@ -51,6 +51,11 @@ void ATomahowk::Tick(float DeltaTime)
 		{
 			meshComp1->SetMaterial(0, medium);
 
+			if (bisBake == false)
+			{
+				UGameplayStatics::PlaySound2D(GetWorld(), bakeSound);
+				bisBake = true;
+			}
 			//disTime += GetWorld()->DeltaTimeSeconds;
 			//blend = FMath::Lerp(0.f, 1.f, disTime * 0.5f);
 
@@ -82,12 +87,19 @@ void ATomahowk::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, clas
 	{
 		if (player)
 		{
-				if (OtherComp == player->mouthComp)
+			if (OtherComp == player->mouthComp)
+			{
+				meshComp1->SetHiddenInGame(true);
+				meshComp4->SetHiddenInGame(false);
+
+				if (bisEat == false)
 				{
-					meshComp1->SetHiddenInGame(true);
-					meshComp4->SetHiddenInGame(false);
-					bisBone = true;
+					UGameplayStatics::PlaySound2D(GetWorld(), sound);
+					bisEat = true;
 				}
+
+
+			}
 		}
 	}
 }

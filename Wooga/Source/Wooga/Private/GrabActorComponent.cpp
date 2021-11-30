@@ -1143,7 +1143,7 @@ void UGrabActorComponent::LGripSumjjiRock(AActor* grabActor)
 			sumjjiRockL->sumjji->SetEnableGravity(false);
 			sumjjiRockL->outLine->SetVisibility(false);
 
-			sumjjiRockL->AttachToComponent(player->leftHandLoc, attachRules, TEXT("LGrabPoint"));
+			sumjjiRockL->AttachToComponent(player->leftSRLoc, attachRules, TEXT("LGrabPoint"));
 			// ¿Þ¼Õ Áã´Â ¾Ö´Ï¸ÞÀÌ¼Ç
 			player->handComp->targetGripValueLeft = 0.7f;
 

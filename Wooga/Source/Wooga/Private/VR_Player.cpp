@@ -111,6 +111,15 @@ AVR_Player::AVR_Player()
 	// 물체를 잡을때의 Rotation 값
 	leftFALoc->SetRelativeRotation(FRotator(0.f, 0.f, 0.f));
 
+	// 왼손으로 물체를 잡을때의 위치 값
+	leftSRLoc = CreateDefaultSubobject<USceneComponent>(TEXT("LeftSRLoc"));
+	// 왼손에 붙여줌
+	leftSRLoc->SetupAttachment(leftHand);
+	// 물체를 잡을때의 Location 값 
+	leftSRLoc->SetRelativeLocation(FVector(10.f, 0.f, -3.f));
+	// 물체를 잡을때의 Rotation 값
+	leftSRLoc->SetRelativeRotation(FRotator(0.f, 0.f, 0.f));
+
 	// 오른손 Skeletal 생성
 	rightHand = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Right Hand"));
 	//RightController 에 붙임

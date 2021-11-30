@@ -61,6 +61,12 @@ public:
 	UPROPERTY()
 		class AIconSpot* spot;
 
+	UPROPERTY()
+		class ASJ_Actor_KnowledgePoint* pointMachine;
+
+	UPROPERTY(EditAnywhere, Category = "Fire")
+		class UParticleSystem* effectFactory;
+
 	UPROPERTY(EditAnywhere, Category = Settings)
 		class AIcon6* icon6;
 

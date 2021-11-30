@@ -10,33 +10,33 @@ UCLASS()
 class WOOGA_API ASJ_Actor_KnowledgePoint : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	ASJ_Actor_KnowledgePoint();
-	
-	UPROPERTY(EditAnywhere, Category = KnowledegePoint)
-	class USceneComponent* rootComp;
 
 	UPROPERTY(EditAnywhere, Category = KnowledegePoint)
-	class USkeletalMeshComponent* skeletalMesh;
+		class USceneComponent* rootComp;
 
 	UPROPERTY(EditAnywhere, Category = KnowledegePoint)
-	class UStaticMeshComponent* meshComp;
+		class USkeletalMeshComponent* skeletalMesh;
+
+	UPROPERTY(EditAnywhere, Category = KnowledegePoint)
+		class UStaticMeshComponent* meshComp;
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY()
-	class AVR_Player* player;
+		class AVR_Player* player;
 
 	UPROPERTY()
-	class AWatch1* watch1;
+		class AWatch1* watch1;
 
 	UPROPERTY()
 		class AWatch2* watch2;
@@ -54,23 +54,40 @@ public:
 		class AWatch6* watch6;
 
 	UPROPERTY()
-	FVector me;
+		FVector me;
 	UPROPERTY()
-	FVector target;
+		FVector target;
 	UPROPERTY()
-	FVector dir;
+		FVector dir;
 	UPROPERTY()
-	FVector p;
+		FVector p;
 
 	UPROPERTY()
-	float speed = 100;
+		float speed = 100;
 
 	UFUNCTION()
-	void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+		void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	UPROPERTY(EditAnywhere, Category = Haptic)
 		class UHapticFeedbackEffect_Base* watchHaptic;
 
-		void KnowledgeIn(AActor*  watch, float point);
+	void KnowledgeIn(AActor* watch, float point);
 
+	UPROPERTY()
+		bool bisTouch1 = false;
+
+	UPROPERTY()
+		bool bisTouch2 = false;
+
+	UPROPERTY()
+		bool bisTouch3 = false;
+
+	UPROPERTY()
+		bool bisTouch4 = false;
+
+	UPROPERTY()
+		bool bisTouch5 = false;
+
+	UPROPERTY()
+		bool bisTouch6 = false;
 };

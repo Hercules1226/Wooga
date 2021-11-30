@@ -100,6 +100,7 @@ void ASlicePig::Tick(float DeltaTime)
 	{
 		if (cutting->bisfinish == true)
 		{
+
 			topPos = FMath::Lerp(topPos, targetTopPos, GetWorld()->DeltaTimeSeconds * 2);
 			bottomPos = FMath::Lerp(bottomPos, targetBottomPos, GetWorld()->DeltaTimeSeconds * 2);
 
@@ -112,15 +113,25 @@ void ASlicePig::Tick(float DeltaTime)
 			//bottom->SetRelativeRotation(bottomRot);
 
 			disTime += GetWorld()->DeltaTimeSeconds;
-			blend = FMath::Lerp(0.f, 1.f, disTime * 0.5f);
+			blend = FMath::Lerp(0.f, 1.f, disTime * 2.f);
 
 			pigHead->SetScalarParameterValueOnMaterials(TEXT("Amount"), blend);
 			top->SetScalarParameterValueOnMaterials(TEXT("Amount"), blend);
 			bottom->SetScalarParameterValueOnMaterials(TEXT("Amount"), blend);
 
+			if (effectOn == 0)
+			{
+				effectOn = 1;
+			}
+
 		}
 	}
 
+	if (effectOn == 1)
+	{
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), particleFactory, GetActorLocation() + FVector(0.f, 0.0f, 40.f));
+		effectOn = 2;
+	}
 }
 
 void ASlicePig::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -131,7 +142,7 @@ void ASlicePig::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, clas
 		if (sound1 == true)
 		{
 			UGameplayStatics::PlaySound2D(GetWorld(), sound);
-			
+
 			sound2 = true;
 			sound1 = false;
 		}

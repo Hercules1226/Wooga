@@ -87,6 +87,7 @@ void ALastHouse::Tick(float DeltaTime)
 			blend = FMath::Lerp(1.f, 0.5f, disTime * 0.5f);
 			complete->SetScalarParameterValueOnMaterials(TEXT("Length"), blend);
 			//complete->SetScalarParameterValueOnMaterials(TEXT("Length"), blend);
+
 			if (currentTime2 >= 10.f)
 			{
 				bisClear = true;

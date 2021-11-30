@@ -43,6 +43,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
 		class UMaterialInstance* welldone;
 
+	UPROPERTY(EditAnywhere, Category = Sound)
+		class USoundBase* bakeSound;
+
+	UPROPERTY(EditAnywhere, Category = Sound)
+		class USoundBase* sound;
+
 	UPROPERTY()
 		class AFireStraw* fireStraw;
 
@@ -66,4 +72,9 @@ public:
 
 	UPROPERTY()
 		bool bisBone = false;
+
+	UPROPERTY()
+		bool bisBake = false;
+	UPROPERTY()
+		bool bisEat = false;
 };

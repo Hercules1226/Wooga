@@ -157,7 +157,7 @@ void ASJ_Actor_KnowledgePoint::OnOverlap(UPrimitiveComponent* OverlappedComponen
 
 		// 워치가 반짝일 수 있도록 하는 변수
 		watch1->isBlink = true;
-
+		bisTouch1 = true;
 		Destroy();
 		player->knowledgePoint = 1;
 	}
@@ -168,7 +168,7 @@ void ASJ_Actor_KnowledgePoint::OnOverlap(UPrimitiveComponent* OverlappedComponen
 
 		// 워치가 반짝일 수 있도록 하는 변수
 		watch2->isBlink = true;
-
+		bisTouch2 = true;
 		Destroy();
 		player->knowledgePoint = 2;
 	}
@@ -179,7 +179,7 @@ void ASJ_Actor_KnowledgePoint::OnOverlap(UPrimitiveComponent* OverlappedComponen
 
 		// 워치가 반짝일 수 있도록 하는 변수
 		watch3->isBlink = true;
-
+		bisTouch3 = true;
 		Destroy();
 		player->knowledgePoint = 3;
 	}
@@ -190,7 +190,7 @@ void ASJ_Actor_KnowledgePoint::OnOverlap(UPrimitiveComponent* OverlappedComponen
 
 		// 워치가 반짝일 수 있도록 하는 변수
 		watch4->isBlink = true;
-
+		bisTouch4 = true;
 		Destroy();
 		player->knowledgePoint = 4;
 	}
@@ -201,7 +201,7 @@ void ASJ_Actor_KnowledgePoint::OnOverlap(UPrimitiveComponent* OverlappedComponen
 
 		// 워치가 반짝일 수 있도록 하는 변수
 		watch5->isBlink = true;
-
+		bisTouch5 = true;
 		Destroy();
 		player->knowledgePoint = 5;
 	}
@@ -212,7 +212,7 @@ void ASJ_Actor_KnowledgePoint::OnOverlap(UPrimitiveComponent* OverlappedComponen
 
 		// 워치가 반짝일 수 있도록 하는 변수
 		watch6->isBlink = true;
-
+		bisTouch6 = true;
 		Destroy();
 		player->knowledgePoint = 6;
 	}

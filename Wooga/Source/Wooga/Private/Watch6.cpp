@@ -8,6 +8,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "IconSpot.h"
 #include "Icon6.h"
+#include "SJ_Actor_KnowledgePoint.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
 
 // Sets default values
@@ -31,6 +32,7 @@ void AWatch6::BeginPlay()
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
 	spot = Cast<AIconSpot>(UGameplayStatics::GetActorOfClass(GetWorld(), AIconSpot::StaticClass()));
 	icon6 = Cast<AIcon6>(UGameplayStatics::GetActorOfClass(GetWorld(), AIcon6::StaticClass()));
+	pointMachine = Cast<ASJ_Actor_KnowledgePoint>(UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_Actor_KnowledgePoint::StaticClass()));
 }
 
 // Called every frame
@@ -77,6 +79,12 @@ void AWatch6::Tick(float DeltaTime)
 				bisEnd = true;
 			}
 		}
+	}
+
+	if (pointMachine->bisTouch6 == true)
+	{
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), effectFactory, GetActorLocation() + FVector(0.f, 0.0f, 0.f));
+		pointMachine->bisTouch6 = false;
 	}
 }
 
