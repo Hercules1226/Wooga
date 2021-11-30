@@ -12,6 +12,8 @@
 #include "SlicePig.h"
 #include "SJ_Actor_Hammer.h"
 #include "DetachRock.h"
+#include <Components/AudioComponent.h>
+#include "Particles/ParticleSystemComponent.h"
 
 // Sets default values
 ASJ_Character_Boar::ASJ_Character_Boar()
@@ -27,6 +29,11 @@ ASJ_Character_Boar::ASJ_Character_Boar()
 
 	hammer = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Hammer"));
 	hammer->SetupAttachment(boarMesh);
+
+	hitPointFX = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("HitPointFX"));
+	hitPointFX->SetupAttachment(boarMesh);
+
+	runSound = CreateDefaultSubobject<UAudioComponent>(TEXT("RunAudio"));
 }
 
 // Called when the game starts or when spawned
@@ -42,6 +49,7 @@ void ASJ_Character_Boar::BeginPlay()
 	boarMesh->OnComponentBeginOverlap.AddDynamic(this, &ASJ_Character_Boar::HitBoarBody);
 
 	hitPoint->SetHiddenInGame(true);
+	hitPointFX->SetHiddenInGame(true);
 
 	Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
@@ -53,6 +61,7 @@ void ASJ_Character_Boar::BeginPlay()
 	FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
 
 	hitPoint->AttachToComponent(boarMesh, attachRules, TEXT("HitPosition"));
+	hitPointFX->AttachToComponent(boarMesh, attachRules, TEXT("HitPosition"));
 
 	SetState(EBoarState::Run);
 }
@@ -119,9 +128,10 @@ void ASJ_Character_Boar::Run()
 	if (slowRange <= distance)
 	{
 		CustomTimeDilation = 0.05f;
-		hitPoint->SetHiddenInGame(false);
+		//hitPoint->SetHiddenInGame(false);
+		hitPointFX->SetHiddenInGame(false);
 		
-
+		runSound->Stop();
 		SetState(EBoarState::SlowMotion);
 	}
 }

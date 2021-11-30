@@ -31,6 +31,8 @@ void AStick::BeginPlay()
 {
 	Super::BeginPlay();
 
+	outLine->SetVisibility(false);
+
 }
 
 // Called every frame

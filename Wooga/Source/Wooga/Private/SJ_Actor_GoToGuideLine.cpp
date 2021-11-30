@@ -76,7 +76,7 @@ void ASJ_Actor_GoToGuideLine::BeginPlay()
 	}
 	else if (gameModeBase->flowState == EFlowState::EatFish || gameModeBase->flowState == EFlowState::GoToHut)
 	{
-		FVector p5 = FVector(4207, 7727, 1270);
+		FVector p5 = FVector(4207, 7727, 1260);
 
 		SetActorLocation(p5);
 

@@ -28,6 +28,9 @@ public:
 	// 플레이어
 	class AVR_Player* player;
 
+	// 나뭇가지
+	TArray<class AStick*> sticks;
+
 	// 생성 파라미터
 	FActorSpawnParameters Param;
 
