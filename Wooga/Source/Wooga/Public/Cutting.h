@@ -43,6 +43,24 @@ public:
 		class AVR_Player* player;
 
 	UPROPERTY()
+		class AWatch1* watch1;
+
+	UPROPERTY()
+		class AWatch2* watch2;
+
+	UPROPERTY()
+		class AWatch3* watch3;
+
+	UPROPERTY()
+		class AWatch4* watch4;
+
+	UPROPERTY()
+		class AWatch5* watch5;
+
+	UPROPERTY()
+		class AWatch6* watch6;
+
+	UPROPERTY()
 		class AFistAxe* fA;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)

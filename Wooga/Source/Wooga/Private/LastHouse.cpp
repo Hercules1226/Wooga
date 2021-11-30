@@ -128,6 +128,8 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 
 				stick->SetActorHiddenInGame(true);
 
+				UGameplayStatics::PlaySound2D(GetWorld(), overlabSound);
+
 				check2 = true;
 				check1 = false;
 			}
@@ -144,6 +146,8 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 				tree1->SetMaterial(0, onMaterial);
 				tree2->SetMaterial(0, offMaterial);
 				stick->SetActorHiddenInGame(true);
+
+				UGameplayStatics::PlaySound2D(GetWorld(), overlabSound);
 
 				check2 = true;
 				check1 = false;
@@ -170,6 +174,8 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 
 				stick->SetActorHiddenInGame(true);
 
+				UGameplayStatics::PlaySound2D(GetWorld(), overlabSound);
+
 				check3 = true;
 				check2 = false;
 			}
@@ -182,6 +188,8 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 				stick->AttachToComponent(tree2, attachRules);*/
 
 				stick->SetActorLocationAndRotation(tree2->GetComponentLocation(), tree2->GetComponentRotation());
+
+				UGameplayStatics::PlaySound2D(GetWorld(), overlabSound);
 
 				tree2->SetMaterial(0, onMaterial);
 				tree3->SetMaterial(0, offMaterial);
@@ -212,6 +220,8 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 
 				stick->SetActorHiddenInGame(true);
 
+				UGameplayStatics::PlaySound2D(GetWorld(), overlabSound);
+
 				check4 = true;
 				check3 = false;
 			}
@@ -229,6 +239,8 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 				tree3->SetMaterial(0, onMaterial);
 				tree4->SetMaterial(0, offMaterial);
 				stick->SetActorHiddenInGame(true);
+
+				UGameplayStatics::PlaySound2D(GetWorld(), overlabSound);
 
 				check4 = true;
 				check3 = false;
@@ -254,6 +266,8 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 
 				stick->SetActorHiddenInGame(true);
 
+				UGameplayStatics::PlaySound2D(GetWorld(), overlabSound);
+
 				bisfinish = true;
 				check4 = false;
 
@@ -272,6 +286,9 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 				tree4->SetMaterial(0, onMaterial);
 				stick->SetActorHiddenInGame(true);
 				currentTime = 0.f;
+
+				UGameplayStatics::PlaySound2D(GetWorld(), overlabSound);
+
 				bisfinish = true;
 				check4 = false;
 			}
@@ -285,6 +302,10 @@ void ALastHouse::CreateStick()
 	{
 		if (currentTime > 0.2f)
 		{
+			if (creatCount < 16)
+			{
+				UGameplayStatics::PlaySound2D(GetWorld(), overlabSound);
+			}
 			base->SetHiddenInGame(true);
 			stickArray[creatCount]->SetHiddenInGame(false);
 			creatCount++;

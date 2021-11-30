@@ -57,7 +57,7 @@ ASlicePig::ASlicePig()
 
 	decalCollision5 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("DecalCollision5"));
 	decalCollision5->SetupAttachment(rootComp);
-	
+
 	onMaterial = CreateDefaultSubobject<UMaterialInstance>(TEXT("On Material"));
 	decalMaterial = CreateDefaultSubobject<UMaterialInstance>(TEXT("DecalMaterial"));
 
@@ -128,25 +128,59 @@ void ASlicePig::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, clas
 	if (OtherComp == cutting->handle && OverlappedComp == decalCollision1)
 	{
 		decal1->SetMaterial(0, decalMaterial);
+		if (sound1 == true)
+		{
+			UGameplayStatics::PlaySound2D(GetWorld(), sound);
+			
+			sound2 = true;
+			sound1 = false;
+		}
 	}
 
 	if (OtherComp == cutting->handle && OverlappedComp == decalCollision2)
 	{
 		decal2->SetMaterial(0, decalMaterial);
+		if (sound2 == true)
+		{
+			UGameplayStatics::PlaySound2D(GetWorld(), sound);
+
+			sound3 = true;
+			sound2 = false;
+		}
 	}
 
 	if (OtherComp == cutting->handle && OverlappedComp == decalCollision3)
 	{
 		decal3->SetMaterial(0, decalMaterial);
+		if (sound3 == true)
+		{
+			UGameplayStatics::PlaySound2D(GetWorld(), sound);
+
+			sound4 = true;
+			sound3 = false;
+		}
 	}
 
 	if (OtherComp == cutting->handle && OverlappedComp == decalCollision4)
 	{
 		decal4->SetMaterial(0, decalMaterial);
+		if (sound4 == true)
+		{
+			UGameplayStatics::PlaySound2D(GetWorld(), sound);
+
+			sound5 = true;
+			sound4 = false;
+		}
 	}
 
 	if (OtherComp == cutting->handle && OverlappedComp == decalCollision5)
 	{
 		decal5->SetMaterial(0, decalMaterial);
+		if (sound5 == true)
+		{
+			UGameplayStatics::PlaySound2D(GetWorld(), sound);
+
+			sound5 = false;
+		}
 	}
 }

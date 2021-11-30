@@ -74,6 +74,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Setting)
 		class UMaterialInstance* decalMaterial;
 
+	UPROPERTY(EditAnywhere, Category = "Sound")
+		USoundBase* sound;
+
 	UPROPERTY()
 		float blend;
 
@@ -106,4 +109,19 @@ public:
 
 	UPROPERTY()
 		FRotator targetBottomRot;
+
+	UPROPERTY()
+		bool sound1 = true;
+
+	UPROPERTY()
+		bool sound2 = false;
+
+	UPROPERTY()
+		bool sound3 = false;
+
+	UPROPERTY()
+		bool sound4 = false;
+
+	UPROPERTY()
+		bool sound5 = false;
 };
