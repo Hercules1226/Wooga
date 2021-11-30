@@ -36,6 +36,8 @@ void ASJ_Hologram::BeginPlay()
 {
 	Super::BeginPlay();
 
+	UGameplayStatics::PlaySound2D(GetWorld(), onSound);
+
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
 	watch = Cast<AWatch>(UGameplayStatics::GetActorOfClass(GetWorld(), AWatch::StaticClass()));
 	
@@ -56,6 +58,8 @@ void ASJ_Hologram::BeginPlay()
 		FRotator r1 = FRotator(0, 70, 0);
 
 		SetActorRotation(r1);
+		
+		playChangeTime = 9;
 	}
 
 	// Ã¤Áý È¦·Î±×·¥
@@ -69,7 +73,7 @@ void ASJ_Hologram::BeginPlay()
 
 		SetActorRotation(r2);
 
-		playChangeTime = 10.0f;
+		playChangeTime = 6;
 	}
 
 	// ÁÖ¸Ôµµ³¢ È¦·Î±×·¥
@@ -83,7 +87,7 @@ void ASJ_Hologram::BeginPlay()
 
 		SetActorRotation(r3);
 
-		playChangeTime = 12.0f;
+		playChangeTime = 9;
 	}
 	// ºÒÀÇ È°¿ë È¦·Î±×·¥
 	if (gameMode->flowState == EFlowState::EatMeat || gameMode->flowState == EFlowState::CompleteFireUse)
@@ -96,7 +100,7 @@ void ASJ_Hologram::BeginPlay()
 
 		SetActorRotation(r4);
 
-		playChangeTime = 21.0f;
+		playChangeTime = 12;
 	}
 	// ½¿º£Âî¸£°³ È¦·Î±×·¥
 	if (gameMode->flowState == EFlowState::TieSpear || gameMode->flowState == EFlowState::CompleteSpear)
@@ -109,20 +113,20 @@ void ASJ_Hologram::BeginPlay()
 
 		SetActorRotation(r5);
 
-		playChangeTime = 13.0f;
+		playChangeTime = 9;
 	}
 	// ¿òÁý È¦·Î±×·¥
 	if (gameMode->flowState == EFlowState::MakeHut || gameMode->flowState == EFlowState::CompleteHut)
 	{
-		FVector p6  = FVector(3783, 7816, 1290);
+		FVector p6  = FVector(3829, 7997, 1310);
 
 		SetActorLocation(p6);
 
-		FRotator r6 = FRotator(0, -30, 0);
+		FRotator r6 = FRotator(0, -75, 0);
 
 		SetActorRotation(r6);
 
-		playChangeTime = 18.0f;
+		playChangeTime = 14;
 	}
 
 	SetState(EHologramState::TurnOnHologram);

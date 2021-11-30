@@ -38,6 +38,30 @@ public:
 	UPROPERTY()
 	class AVR_Player* player;
 
+	UPROPERTY()
+	int32 flowIndex = 1;
+
+	UPROPERTY()
+	TArray<class AArrow1*> arrow1s;
+
+	UPROPERTY()
+		class AArrow2* arrow2;
+
+	UPROPERTY()
+		class AArrow3* arrow3;
+
+	UPROPERTY()
+		class AArrow4* arrow4;
+
+	UPROPERTY()
+		class AArrow5* arrow5;
+
+	UPROPERTY()
+	TArray<class AArrow6*> arrow6s;
+
+	UPROPERTY()
+	TArray<class AArrow7*> arrow7s;
+
 	// 머티리얼 디졸브 변수
 	UPROPERTY()
 	float beginDissolveParam;
@@ -74,6 +98,9 @@ public:
 	// 설명 나래이션
 	UPROPERTY(EditAnywhere, Category = Sound)
 		class USoundBase* howToSound;
+
+	UPROPERTY(EditAnywhere, Category = Sound)
+	class USoundBase* onSound;
 
 	// 나래이션 설명 시간
 	UPROPERTY()

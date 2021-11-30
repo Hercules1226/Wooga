@@ -74,7 +74,7 @@ void ASJ_Actor_GoToGuideLine::BeginPlay()
 
 		SetActorRotation(r4);
 	}
-	else if (gameModeBase->flowState == EFlowState::EatFish || gameModeBase->flowState == EFlowState::GoToHut)
+	else if (gameModeBase->flowState == EFlowState::SpawnHutGuideLine)
 	{
 		FVector p5 = FVector(4207, 7727, 1260);
 

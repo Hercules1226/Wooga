@@ -28,9 +28,6 @@ public:
 	// 플레이어
 	class AVR_Player* player;
 
-	// 나뭇가지
-	TArray<class AStick*> sticks;
-
 	// 생성 파라미터
 	FActorSpawnParameters Param;
 
@@ -270,6 +267,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = UI)
 	TSubclassOf<class ASJ_Actor_HowToFlow> bpHowToMakeHandAx;
 
+	UPROPERTY()
+	class AActor* hitPoint;
+	// 히트 포인트
 	UPROPERTY(EditAnywhere, Category = HitPoint)
 	TSubclassOf<AActor> bpHitPoint;
 
@@ -461,12 +461,14 @@ public:
 	UPROPERTY(EditAnywhere, Category = UI)
 	TSubclassOf<class ASJ_Actor_EatFishUI> bpEatFishUI;
 
+	void SpawnHutGuideLine();
 	// 움집제작
 	void GoToHut();
 	void HutTitle();
 	void HowToMakeHut();
 	void MakeHut();
 	void CompleteHut();
+	void OutGame();
 
 	// 움집 제작 가이드라인
 	UPROPERTY(EditAnywhere, Category = GuiedLine)
@@ -486,6 +488,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = UI)
 	TSubclassOf<class ASJ_Actor_HowToFlow> bpHowToMakeHut;
 
+	// 나뭇가지
+	TArray<class AStick*> sticks;
+
 	// 움집 제작 UI
 	UPROPERTY()
 	class ASJ_Actor_MakeHutUI* makeHutUI;
@@ -499,6 +504,4 @@ public:
 	// 움집 홀로그램
 	UPROPERTY(EditAnywhere, Category = Hologram)
 	TSubclassOf<class ASJ_Hologram> bpHutHologram;
-
-	void TestFunc();
 };

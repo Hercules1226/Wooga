@@ -7,6 +7,13 @@
 #include "SJ_WoogaGameModeBase.h"
 #include <Kismet/GameplayStatics.h>
 #include "VR_Player.h"
+#include "Arrow1.h"
+#include "Arrow2.h"
+#include "Arrow3.h"
+#include "Arrow4.h"
+#include "Arrow5.h"
+#include "Arrow6.h"
+#include "Arrow7.h"
 
 // Sets default values
 ASJ_Actor_HowToFlow::ASJ_Actor_HowToFlow()
@@ -27,6 +34,8 @@ ASJ_Actor_HowToFlow::ASJ_Actor_HowToFlow()
 void ASJ_Actor_HowToFlow::BeginPlay()
 {
 	Super::BeginPlay();
+
+	UGameplayStatics::PlaySound2D(GetWorld(), onSound);
 	
 	gameMode = Cast<ASJ_WoogaGameModeBase>(GetWorld()->GetAuthGameMode());
 
@@ -40,30 +49,57 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 		SetActorRotation(r1);
 
 		playTime = 14;
+
+		TArray<AActor*> bpArrow1;
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), AArrow1::StaticClass(), bpArrow1);
+		if (bpArrow1.Num() > 0)
+		{
+			for (int i = 0; i < bpArrow1.Num(); i++)
+			{
+				AArrow1* emptyArrow1 = nullptr;
+				arrow1s.Add(emptyArrow1);
+			}
+
+			for (int i = 0; i < bpArrow1.Num(); i++)
+			{
+				auto arrow1 = Cast<AArrow1>(bpArrow1[i]);
+				arrow1s[i] = arrow1;
+				arrow1s[i]->arrowOn = true;
+			}
+		}
+
+		flowIndex = 1;
 	}
 	// 채집하기 방법
 	else if (gameMode->flowState == EFlowState::CollectTitle)
 	{
+		arrow2 = Cast<AArrow2>(UGameplayStatics::GetActorOfClass(GetWorld(), AArrow2::StaticClass()));
+		arrow2->arrowOn  = true;
+
 		FVector p2 = FVector(9835, 10114, 1300);
 		SetActorLocation(p2);
 
 		FRotator r2 = FRotator(0, -30, 0);
 		SetActorRotation(r2);
 
+		flowIndex = 2;
+
 		playTime = 3;
+		arrow2->meshComp->SetHiddenInGame(false);
 	}
 	// 사냥하기 방법
-	else if (gameMode->flowState == EFlowState::HandAxTitle)
+	else if (gameMode->flowState == EFlowState::GrabHandAx)
 	{
-		FVector p3 = FVector(8006, 8907, 1295);
+		FVector p3 = FVector(7710, 8977, 1300);
 
 		SetActorLocation(p3);
 
-		FRotator r3 = FRotator(0, -40, 0);
+		FRotator r3 = FRotator(0, -85, 0);
 
 		SetActorRotation(r3);
 
 		playTime = 8;
+		flowIndex = 3;
 	}
 	// 주먹도끼 방법
 	else if (gameMode->flowState == EFlowState::MakeHandAx)
@@ -75,6 +111,11 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 		FRotator r4 = FRotator(0, -140, 0);
 
 		SetActorRotation(r4);
+
+		flowIndex = 4;
+
+		arrow4 = Cast<AArrow4>(UGameplayStatics::GetActorOfClass(GetWorld(), AArrow4::StaticClass()));
+		arrow4->arrowOn = true;
 
 		playTime = 8;
 	}
@@ -88,6 +129,11 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 
 		SetActorRotation(r5);
 
+		flowIndex = 5;
+
+		arrow5 = Cast<AArrow5>(UGameplayStatics::GetActorOfClass(GetWorld(), AArrow5::StaticClass()));
+		arrow5->arrowOn = true;
+
 		playTime = 9;
 	}
 	else if (gameMode->flowState == EFlowState::SpearTitle)
@@ -100,6 +146,26 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 
 		SetActorRotation(r6);
 
+		TArray<AActor*> bpArrow6;
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), AArrow6::StaticClass(), bpArrow6);
+		if (bpArrow6.Num() > 0)
+		{
+			for (int i = 0; i < bpArrow6.Num(); i++)
+			{
+				AArrow6* emptyArrow6 = nullptr;
+				arrow6s.Add(emptyArrow6);
+			}
+
+			for (int i = 0; i < bpArrow6.Num(); i++)
+			{
+				auto arrow6 = Cast<AArrow6>(bpArrow6[i]);
+				arrow6s[i] = arrow6;
+				arrow6s[i]->arrowOn = true;
+			}
+		}
+
+		flowIndex = 6;
+
 		playTime = 13;
 	}
 	else if (gameMode->flowState == EFlowState::HutTitle)
@@ -111,6 +177,26 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 		FRotator r7 = FRotator(0, -145, 0);
 
 		SetActorRotation(r7);
+
+		TArray<AActor*> bpArrow7;
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), AArrow7::StaticClass(), bpArrow7);
+		if (bpArrow7.Num() > 0)
+		{
+			for (int i = 0; i < bpArrow7.Num(); i++)
+			{
+				AArrow7* emptyArrow7 = nullptr;
+				arrow7s.Add(emptyArrow7);
+			}
+
+			for (int i = 0; i < bpArrow7.Num(); i++)
+			{
+				auto arrow7 = Cast<AArrow7>(bpArrow7[i]);
+				arrow7s[i] = arrow7;
+				arrow7s[i]->arrowOn = true;
+			}
+		}
+
+		flowIndex = 7;
 
 		playTime = 8;
 	}
@@ -215,6 +301,91 @@ void ASJ_Actor_HowToFlow::OffSature()
 	if (offTime >= 1.0f)
 	{
 		offTime = 0;
+
+		if (flowIndex == 1)
+		{
+			// 불의 발견 설명 액터 끄기
+			TArray<AActor*> bpArrow1;
+			UGameplayStatics::GetAllActorsOfClass(GetWorld(), AArrow1::StaticClass(), bpArrow1);
+			if (bpArrow1.Num() > 0)
+			{
+				for (int i = 0; i < bpArrow1.Num(); i++)
+				{
+					AArrow1* emptyArrow1 = nullptr;
+					arrow1s.Add(emptyArrow1);
+				}
+
+				for (int i = 0; i < bpArrow1.Num(); i++)
+				{
+					auto arrow1 = Cast<AArrow1>(bpArrow1[i]);
+					arrow1s[i] = arrow1;
+					arrow1s[i]->arrowOn = false;
+				}
+			}
+		}
+		
+		if (flowIndex == 2)
+		{
+			arrow2->arrowOn = false;
+		}
+
+		if (flowIndex == 3)
+		{
+
+		}
+
+		if (flowIndex == 4)
+		{
+			arrow4->arrowOn = false;
+		}
+
+		if (flowIndex == 5)
+		{
+			arrow5->arrowOn = false;
+		}
+
+		if (flowIndex == 6)
+		{
+			TArray<AActor*> bpArrow6;
+			UGameplayStatics::GetAllActorsOfClass(GetWorld(), AArrow6::StaticClass(), bpArrow6);
+			if (bpArrow6.Num() > 0)
+			{
+				for (int i = 0; i < bpArrow6.Num(); i++)
+				{
+					AArrow6* emptyArrow6 = nullptr;
+					arrow6s.Add(emptyArrow6);
+				}
+
+				for (int i = 0; i < bpArrow6.Num(); i++)
+				{
+					auto arrow6 = Cast<AArrow6>(bpArrow6[i]);
+					arrow6s[i] = arrow6;
+					arrow6s[i]->arrowOn = false;
+				}
+			}
+		}
+
+		if (flowIndex == 7)
+		{
+			TArray<AActor*> bpArrow7;
+			UGameplayStatics::GetAllActorsOfClass(GetWorld(), AArrow7::StaticClass(), bpArrow7);
+			if (bpArrow7.Num() > 0)
+			{
+				for (int i = 0; i < bpArrow7.Num(); i++)
+				{
+					AArrow7* emptyArrow7 = nullptr;
+					arrow7s.Add(emptyArrow7);
+				}
+
+				for (int i = 0; i < bpArrow7.Num(); i++)
+				{
+					auto arrow7 = Cast<AArrow7>(bpArrow7[i]);
+					arrow7s[i] = arrow7;
+					arrow7s[i]->arrowOn = false;
+				}
+			}
+		}
+
 		SetState(ESaturateState::OnSature);
 		Destroy();
 	}

@@ -49,7 +49,7 @@ public:
 
 	float playTime;
 	UPROPERTY(EditAnywhere, Category = Time)
-		float playChangeTime = 12.0f;
+		float playChangeTime;
 
 	float destroyTime;
 	float destroyParam;
@@ -62,6 +62,9 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = Sound)
 		class USoundBase* FDHologramSound;
+
+		UPROPERTY(EditAnywhere, Category = Sound)
+		class USoundBase* onSound;
 
 
 };
