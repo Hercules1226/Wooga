@@ -66,6 +66,7 @@
 #include "LastHouse.h"
 #include "SJ_Actor_HowToFlow.h"
 #include "SJ_Actor_MakeSpearUI.h"
+#include "Stick.h"
 
 ASJ_WoogaGameModeBase::ASJ_WoogaGameModeBase()
 {
@@ -77,7 +78,7 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	Super::BeginPlay();
 
 	// 맨 처음 불의 발견 교육으로 시작
-	SetState(EFlowState::InGame);
+	SetState(EFlowState::SpawnHandAxGuideLine);
 
 	// 테스트용 스테이트
 	//SetState(EFlowState::CompleteCollect);
@@ -114,6 +115,8 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 
 	// 라이트
 	levelLight = Cast<ASJ_Actor_LevelLight>(UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_Actor_LevelLight::StaticClass()));
+
+
 }
 
 #pragma region FlowStateFunction
@@ -1507,6 +1510,25 @@ void ASJ_WoogaGameModeBase::HowToMakeHut()
 			makeHutUI = GetWorld()->SpawnActor<ASJ_Actor_MakeHutUI>(bpMakeHutUI, Param);
 
 			lastHouse->SetActorHiddenInGame(false);
+
+			TArray<AActor*> bpStick;
+			UGameplayStatics::GetAllActorsOfClass(GetWorld(), AStick::StaticClass(), bpStick);
+
+			if (bpStick.Num() > 0)
+			{
+				for (int i = 0; i < bpStick.Num(); i++)
+				{
+					AStick* emptyStick = nullptr;
+					sticks.Add(emptyStick);
+				}
+
+				for (int i = 0; i < bpStick.Num(); i++)
+				{
+					auto sstick = Cast<AStick>(bpStick[i]);
+					sticks[i] = sstick;
+					sticks[i]->outLine->SetVisibility(true);
+				}
+			}
 
 			// 딜레이변수 초기화
 			bIsDelay = false;

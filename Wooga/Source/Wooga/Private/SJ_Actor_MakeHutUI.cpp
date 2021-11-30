@@ -29,6 +29,10 @@ void ASJ_Actor_MakeHutUI::BeginPlay()
 	FVector p = FVector(4190, 7950, 1310);
 
 	SetActorLocation(p);
+
+	FRotator r = FRotator(0, -100, 0);
+
+	SetActorRotation(r);
 	
 }
 

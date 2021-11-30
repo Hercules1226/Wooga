@@ -101,9 +101,13 @@ void ASJ_Hologram::BeginPlay()
 	// ½¿º£Âî¸£°³ È¦·Î±×·¥
 	if (gameMode->flowState == EFlowState::TieSpear || gameMode->flowState == EFlowState::CompleteSpear)
 	{
-		FVector p5 = FVector(4110, 6760, 1280);
+		FVector p5 = FVector(4439, 6512, 1358);
 
 		SetActorLocation(p5);
+
+		FRotator r5 = FRotator(-6, 86, 0);
+
+		SetActorRotation(r5);
 
 		playChangeTime = 13.0f;
 	}

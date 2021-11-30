@@ -22,7 +22,13 @@ public:
 	class UStaticMeshComponent* hitPoint;
 
 	UPROPERTY(EditAnywhere, Category = Boar)
+	class UParticleSystemComponent* hitPointFX;
+
+	UPROPERTY(EditAnywhere, Category = Boar)
 	class UStaticMeshComponent* hammer;
+
+	UPROPERTY(EditAnywhere,Category = Sound)
+	class UAudioComponent* runSound;
 
 protected:
 	// Called when the game starts or when spawned
@@ -90,6 +96,13 @@ public:
 
 	FActorSpawnParameters Param;
 
+	UPROPERTY()
+	float currentTime = 3.0f;
+
+	// µÅÁö ¶Ù¾î¿À´Â ¼Ò¸®
+	UPROPERTY(EditAnywhere, Category = Sound)
+	class USoundBase* pigRunSound;
+
 	// µÅÁö Á×´Â ¼Ò¸®
 	UPROPERTY(EditAnywhere, Category = Sound)
 	class USoundBase* pigDieSound;
@@ -97,5 +110,4 @@ public:
 	// ¸ÁÄ¡
 	UPROPERTY(EditAnywhere, Category = Hammer)
 	TSubclassOf<class ASJ_Actor_Hammer> bpHammer;
-
 };

@@ -52,11 +52,11 @@ void ASJ_Actor_MakeRange::BeginPlay()
 	}
 	else if (gameMode->flowState == EFlowState::CompleteSpear)
 	{
-		FVector p3 = FVector(4378, 6817, 1190);
+		FVector p3 = FVector(4050, 6835, 1180);
 
 		SetActorLocation(p3);
 
-		FRotator r3 = FRotator(0, 100, 0);
+		FRotator r3 = FRotator(0, 70, 0);
 
 		SetActorRotation(r3);
 	}
