@@ -70,4 +70,15 @@ public:
 	void OnSature();
 	void Stay();
 	void OffSature();
+
+	// 설명 나래이션
+	UPROPERTY(EditAnywhere, Category = Sound)
+		class USoundBase* howToSound;
+
+	// 나래이션 설명 시간
+	UPROPERTY()
+	float playTime;
+
+	UPROPERTY()
+	float currentTime;
 };

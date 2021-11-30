@@ -28,6 +28,18 @@ void AWatch4::BeginPlay()
 {
 	Super::BeginPlay();
 
+	
+	
+	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
+	spot = Cast<AIconSpot>(UGameplayStatics::GetActorOfClass(GetWorld(), AIconSpot::StaticClass()));
+	icon4 = Cast<AIcon4>(UGameplayStatics::GetActorOfClass(GetWorld(), AIcon4::StaticClass()));
+}
+
+// Called every frame
+void AWatch4::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
 	switch (blinkState)
 	{
 	case EBlinkState::Idle:
@@ -40,16 +52,6 @@ void AWatch4::BeginPlay()
 		UnBlink();
 		break;
 	}
-	
-	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
-	spot = Cast<AIconSpot>(UGameplayStatics::GetActorOfClass(GetWorld(), AIconSpot::StaticClass()));
-	icon4 = Cast<AIcon4>(UGameplayStatics::GetActorOfClass(GetWorld(), AIcon4::StaticClass()));
-}
-
-// Called every frame
-void AWatch4::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
 
 	if (player->camLoc)
 	{

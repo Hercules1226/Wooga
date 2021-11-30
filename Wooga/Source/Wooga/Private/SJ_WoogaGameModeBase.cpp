@@ -421,30 +421,35 @@ void ASJ_WoogaGameModeBase::FireDiscoveryTitle()
 
 void ASJ_WoogaGameModeBase::HowToFIreDiscovery()
 {
-	if (player->isClose == true)
+	howToNarTime += GetWorld()->DeltaTimeSeconds;
+	if (howToNarTime >= 15.0f)
 	{
-		bIsDelay = true;
-	}
-	if (bIsDelay == true)
-	{
-		nextDelayTime += GetWorld()->DeltaTimeSeconds;
-
-		if (nextDelayTime >= 1.0f)
+		if (player->isClose == true)
 		{
-			// 부싯돌 캐싱
-			fireRockOne = Cast<AFireRock>(UGameplayStatics::GetActorOfClass(GetWorld(), AFireRock::StaticClass()));
-			fireRockTwo = Cast<AFireRock2>(UGameplayStatics::GetActorOfClass(GetWorld(), AFireRock2::StaticClass()));
+			bIsDelay = true;
+		}
+		if (bIsDelay == true)
+		{
+			nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-			// 부싯돌 아웃라인
-			fireRockOne->outLine->SetVisibility(true);
-			fireRockTwo->outLine->SetVisibility(true);
+			if (nextDelayTime >= 1.0f)
+			{
+				// 부싯돌 캐싱
+				fireRockOne = Cast<AFireRock>(UGameplayStatics::GetActorOfClass(GetWorld(), AFireRock::StaticClass()));
+				fireRockTwo = Cast<AFireRock2>(UGameplayStatics::GetActorOfClass(GetWorld(), AFireRock2::StaticClass()));
 
-			// 불씨 UI 생성
-			howToFire = GetWorld()->SpawnActor<ASJ_HowToFireUIActor>(howToFireUIActor, Param);
+				// 부싯돌 아웃라인
+				fireRockOne->outLine->SetVisibility(true);
+				fireRockTwo->outLine->SetVisibility(true);
 
-			nextDelayTime = 0;
+				// 불씨 UI 생성
+				howToFire = GetWorld()->SpawnActor<ASJ_HowToFireUIActor>(howToFireUIActor, Param);
 
-			SetState(EFlowState::HowToFireUI);
+				howToNarTime = 0;
+				nextDelayTime = 0;
+
+				SetState(EFlowState::HowToFireUI);
+			}
 		}
 	}
 }
@@ -647,25 +652,30 @@ void ASJ_WoogaGameModeBase::CollectTitle()
 
 void ASJ_WoogaGameModeBase::HowToCollect()
 {
-	// UI 를 끄면
-	if (player->isClose == true)
+	howToNarTime += GetWorld()->DeltaTimeSeconds;
+	if (howToNarTime >= 4.0f)
 	{
-		bIsDelay = true;
-	}
-	if (bIsDelay == true)
-	{
-		nextDelayTime += GetWorld()->DeltaTimeSeconds;
-
-		if (nextDelayTime >= 1.0f)
+		// UI 를 끄면
+		if (player->isClose == true)
 		{
-			// 사과 채집과 먹기 UI
-			eatAppleUI = GetWorld()->SpawnActor<ASJ_Actor_EatAppleUI>(bpEatAppleUI, Param);
+			bIsDelay = true;
+		}
+		if (bIsDelay == true)
+		{
+			nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-			// 딜레이변수 초기화
-			bIsDelay = false;
-			nextDelayTime = 0;
+			if (nextDelayTime >= 1.0f)
+			{
+				// 사과 채집과 먹기 UI
+				eatAppleUI = GetWorld()->SpawnActor<ASJ_Actor_EatAppleUI>(bpEatAppleUI, Param);
 
-			SetState(EFlowState::CollectAndEat);
+				// 딜레이변수 초기화
+				bIsDelay = false;
+				howToNarTime = 0;
+				nextDelayTime = 0;
+
+				SetState(EFlowState::CollectAndEat);
+			}
 		}
 	}
 }
@@ -747,30 +757,36 @@ void ASJ_WoogaGameModeBase::HandAxTitle()
 }
 void ASJ_WoogaGameModeBase::HowToHunt()
 {
-	// UI 를 끄면
-	if (player->isClose == true)
+	howToNarTime += GetWorld()->DeltaTimeSeconds;
+	if (howToNarTime >= 9.0f)
 	{
-		bIsDelay = true;
-	}
-	if (bIsDelay == true)
-	{
-		nextDelayTime += GetWorld()->DeltaTimeSeconds;
-
-		if (nextDelayTime >= 1.0f)
+		// UI 를 끄면
+		if (player->isClose == true)
 		{
-			// 주먹도끼 돌 잡기 UI 생성
-			handAxUI = GetWorld()->SpawnActor<ASJ_Actor_GrabHandAxUI>(bpHandAxUI, Param);
+			bIsDelay = true;
+		}
+		if (bIsDelay == true)
+		{
+			nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-			// 주먹도끼 돌 아웃라인
-			fistAxe = Cast<AFistAxe>(UGameplayStatics::GetActorOfClass(GetWorld(), AFistAxe::StaticClass()));
-			fistAxe->handHologramL->SetHiddenInGame(false);
-			fistAxe->bisStartBreak = false;
+			if (nextDelayTime >= 1.0f)
+			{
+				// 주먹도끼 돌 잡기 UI 생성
+				handAxUI = GetWorld()->SpawnActor<ASJ_Actor_GrabHandAxUI>(bpHandAxUI, Param);
 
-			// 딜레이변수 초기화
-			bIsDelay = false;
-			nextDelayTime = 0;
+				// 주먹도끼 돌 아웃라인
+				fistAxe = Cast<AFistAxe>(UGameplayStatics::GetActorOfClass(GetWorld(), AFistAxe::StaticClass()));
+				fistAxe->handHologramL->SetHiddenInGame(false);
+				fistAxe->bisStartBreak = false;
 
-			SetState(EFlowState::GrabHandAx);
+				// 딜레이변수 초기화
+				bIsDelay = false;
+
+				howToNarTime = 0;
+				nextDelayTime = 0;
+
+				SetState(EFlowState::GrabHandAx);
+			}
 		}
 	}
 }
@@ -861,24 +877,30 @@ void ASJ_WoogaGameModeBase::MakeHandAx()
 
 void ASJ_WoogaGameModeBase::HowToMakeHandAx()
 {
-	// UI 를 끄면
-	if (player->isClose == true)
+	howToNarTime += GetWorld()->DeltaTimeSeconds;
+	if (howToNarTime >= 9.0f)
 	{
-		bIsDelay = true;
-	}
-	if (bIsDelay == true)
-	{
-		// 간접떼기 UI 생성
-		indirectUI = GetWorld()->SpawnActor<ASJ_Actor_IndirectHitUI>(bpIndirectUI, Param);
+		// UI 를 끄면
+		if (player->isClose == true)
+		{
+			bIsDelay = true;
+		}
+		if (bIsDelay == true)
+		{
+			// 간접떼기 UI 생성
+			indirectUI = GetWorld()->SpawnActor<ASJ_Actor_IndirectHitUI>(bpIndirectUI, Param);
 
-		fistAxe->bisStartBreak = true;
+			fistAxe->bisStartBreak = true;
 
-		// 딜레이변수 초기화
-		bIsDelay = false;
-		nextDelayTime = 0;
+			// 딜레이변수 초기화
+			bIsDelay = false;
 
-		SetState(EFlowState::IndirectnessHit);
+			nextDelayTime = 0;
+			howToNarTime = 0;
 
+			SetState(EFlowState::IndirectnessHit);
+
+		}
 	}
 }
 
@@ -1042,26 +1064,31 @@ void ASJ_WoogaGameModeBase::FireUseTitle()
 }
 void ASJ_WoogaGameModeBase::HowToFireUse()
 {
-	// UI 를 끄면
-	if (player->isClose == true)
+	howToNarTime += GetWorld()->DeltaTimeSeconds;
+	if (howToNarTime >= 10.0f)
 	{
-		bIsDelay = true;
-	}
-	if (bIsDelay == true)
-	{
-		nextDelayTime += GetWorld()->DeltaTimeSeconds;
-
-		if (nextDelayTime >= 1.0f)
+		// UI 를 끄면
+		if (player->isClose == true)
 		{
-			fireStraw->outLine->SetVisibility(true);
-			// 숨을 불어 넣어주세요 UI 생성
-			fireTwoUI = GetWorld()->SpawnActor<ASJ_Actor_FireTwoUI>(bpFireTwoUI, Param);
+			bIsDelay = true;
+		}
+		if (bIsDelay == true)
+		{
+			nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-			// 딜레이변수 초기화
-			bIsDelay = false;
-			nextDelayTime = 0;
+			if (nextDelayTime >= 1.0f)
+			{
+				fireStraw->outLine->SetVisibility(true);
+				// 숨을 불어 넣어주세요 UI 생성
+				fireTwoUI = GetWorld()->SpawnActor<ASJ_Actor_FireTwoUI>(bpFireTwoUI, Param);
 
-			SetState(EFlowState::FiringTwo);
+				// 딜레이변수 초기화
+				bIsDelay = false;
+				nextDelayTime = 0;
+				howToNarTime = 0;
+
+				SetState(EFlowState::FiringTwo);
+			}
 		}
 	}
 }
@@ -1187,28 +1214,33 @@ void ASJ_WoogaGameModeBase::SpearTitle()
 
 void ASJ_WoogaGameModeBase::HowToMakeSpear()
 {
-	// UI 를 끄면
-	if (player->isClose == true)
+	howToNarTime += GetWorld()->DeltaTimeSeconds;
+	if (howToNarTime >= 14.0f)
 	{
-		bIsDelay = true;
-	}
-	if (bIsDelay == true)
-	{
-		nextDelayTime += GetWorld()->DeltaTimeSeconds;
-
-		if (nextDelayTime >= 1.0f)
+		// UI 를 끄면
+		if (player->isClose == true)
 		{
-			// 제작 범위 생성
-			makeHandAxRange = GetWorld()->SpawnActor<ASJ_Actor_MakeRange>(bpMakeHandAxRange, Param);
+			bIsDelay = true;
+		}
+		if (bIsDelay == true)
+		{
+			nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-			// 슴베찌르개 제작 UI
-			makeSpearUI = GetWorld()->SpawnActor<ASJ_Actor_MakeSpearUI>(bpMakeSpearUI, Param);
+			if (nextDelayTime >= 1.0f)
+			{
+				// 제작 범위 생성
+				makeHandAxRange = GetWorld()->SpawnActor<ASJ_Actor_MakeRange>(bpMakeHandAxRange, Param);
 
-			// 딜레이변수 초기화
-			bIsDelay = false;
-			nextDelayTime = 0;
+				// 슴베찌르개 제작 UI
+				makeSpearUI = GetWorld()->SpawnActor<ASJ_Actor_MakeSpearUI>(bpMakeSpearUI, Param);
 
-			SetState(EFlowState::MakeSpear);
+				// 딜레이변수 초기화
+				bIsDelay = false;
+				nextDelayTime = 0;
+				howToNarTime = 0;
+
+				SetState(EFlowState::MakeSpear);
+			}
 		}
 	}
 }
@@ -1495,46 +1527,51 @@ void ASJ_WoogaGameModeBase::HutTitle()
 }
 void ASJ_WoogaGameModeBase::HowToMakeHut()
 {
-	// UI 를 끄면
-	if (player->isClose == true)
+	howToNarTime += GetWorld()->DeltaTimeSeconds;
+	if (howToNarTime >= 9.0f)
 	{
-		bIsDelay = true;
-	}
-	if (bIsDelay == true)
-	{
-		nextDelayTime += GetWorld()->DeltaTimeSeconds;
-
-		if (nextDelayTime >= 1.0f)
+		// UI 를 끄면
+		if (player->isClose == true)
 		{
-			// 움집만들기 UI 생성
-			makeHutUI = GetWorld()->SpawnActor<ASJ_Actor_MakeHutUI>(bpMakeHutUI, Param);
+			bIsDelay = true;
+		}
+		if (bIsDelay == true)
+		{
+			nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-			lastHouse->SetActorHiddenInGame(false);
-
-			TArray<AActor*> bpStick;
-			UGameplayStatics::GetAllActorsOfClass(GetWorld(), AStick::StaticClass(), bpStick);
-
-			if (bpStick.Num() > 0)
+			if (nextDelayTime >= 1.0f)
 			{
-				for (int i = 0; i < bpStick.Num(); i++)
+				// 움집만들기 UI 생성
+				makeHutUI = GetWorld()->SpawnActor<ASJ_Actor_MakeHutUI>(bpMakeHutUI, Param);
+
+				lastHouse->SetActorHiddenInGame(false);
+
+				TArray<AActor*> bpStick;
+				UGameplayStatics::GetAllActorsOfClass(GetWorld(), AStick::StaticClass(), bpStick);
+
+				if (bpStick.Num() > 0)
 				{
-					AStick* emptyStick = nullptr;
-					sticks.Add(emptyStick);
+					for (int i = 0; i < bpStick.Num(); i++)
+					{
+						AStick* emptyStick = nullptr;
+						sticks.Add(emptyStick);
+					}
+
+					for (int i = 0; i < bpStick.Num(); i++)
+					{
+						auto sstick = Cast<AStick>(bpStick[i]);
+						sticks[i] = sstick;
+						sticks[i]->outLine->SetVisibility(true);
+					}
 				}
 
-				for (int i = 0; i < bpStick.Num(); i++)
-				{
-					auto sstick = Cast<AStick>(bpStick[i]);
-					sticks[i] = sstick;
-					sticks[i]->outLine->SetVisibility(true);
-				}
+				// 딜레이변수 초기화
+				bIsDelay = false;
+				nextDelayTime = 0;
+				howToNarTime = 0;
+
+				SetState(EFlowState::MakeHut);
 			}
-
-			// 딜레이변수 초기화
-			bIsDelay = false;
-			nextDelayTime = 0;
-
-			SetState(EFlowState::MakeHut);
 		}
 	}
 }

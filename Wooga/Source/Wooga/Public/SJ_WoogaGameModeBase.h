@@ -122,7 +122,12 @@ public:
 	TSubclassOf<class ASJ_Actor_HowToFlow> bpFDHowToFlow;
 
 	// 불지피는 방법 알려주는 UI
+	UPROPERTY()
 	class ASJ_HowToFireUIActor* howToFire;
+
+	// 설명 나래이션 재생시간
+	UPROPERTY()
+	float howToNarTime;
 
 	UPROPERTY(EditAnywhere, Category = UI)
 		TSubclassOf<class ASJ_HowToFireUIActor> howToFireUIActor;

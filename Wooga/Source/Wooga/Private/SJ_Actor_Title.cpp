@@ -136,6 +136,7 @@ void ASJ_Actor_Title::OnTitle()
 	if (playTime >= 2.0f)
 	{
 		playTime = 0;
+		UGameplayStatics::PlaySound2D(GetWorld(), titleNarrationSound);
 		SetState(ETitleState::Stay);
 	}
 }

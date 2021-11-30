@@ -38,6 +38,8 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 
 		FRotator r1 = FRotator(0, -30, 0);
 		SetActorRotation(r1);
+
+		playTime = 14;
 	}
 	// 채집하기 방법
 	else if (gameMode->flowState == EFlowState::CollectTitle)
@@ -47,6 +49,8 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 
 		FRotator r2 = FRotator(0, -30, 0);
 		SetActorRotation(r2);
+
+		playTime = 3;
 	}
 	// 사냥하기 방법
 	else if (gameMode->flowState == EFlowState::HandAxTitle)
@@ -58,6 +62,8 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 		FRotator r3 = FRotator(0, -40, 0);
 
 		SetActorRotation(r3);
+
+		playTime = 8;
 	}
 	// 주먹도끼 방법
 	else if (gameMode->flowState == EFlowState::MakeHandAx)
@@ -69,6 +75,8 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 		FRotator r4 = FRotator(0, -140, 0);
 
 		SetActorRotation(r4);
+
+		playTime = 8;
 	}
 	else if (gameMode->flowState == EFlowState::FireUseTitle)
 	{
@@ -79,6 +87,8 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 		FRotator r5 = FRotator(0, -140, 0);
 
 		SetActorRotation(r5);
+
+		playTime = 9;
 	}
 	else if (gameMode->flowState == EFlowState::SpearTitle)
 	{
@@ -89,6 +99,8 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 		FRotator r6 = FRotator(0, -20, 0);
 
 		SetActorRotation(r6);
+
+		playTime = 13;
 	}
 	else if (gameMode->flowState == EFlowState::HutTitle)
 	{
@@ -99,7 +111,11 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 		FRotator r7 = FRotator(0, -145, 0);
 
 		SetActorRotation(r7);
+
+		playTime = 8;
 	}
+
+	
 
 	SetState(ESaturateState::OnSature);
 
@@ -158,6 +174,7 @@ void ASJ_Actor_HowToFlow::OnSature()
 
 	if (onTime >= 1.0f)
 	{
+		UGameplayStatics::PlaySound2D(GetWorld(), howToSound);
 		onTime = 0;
 		SetState(ESaturateState::Stay);
 	}
@@ -166,11 +183,17 @@ void ASJ_Actor_HowToFlow::OnSature()
 void ASJ_Actor_HowToFlow::Stay()
 {
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
+	currentTime += GetWorld()->GetDeltaSeconds();
 
-	if (player->isClose)
+	if (currentTime >= playTime)
 	{
-		SetState(ESaturateState::OffSature);
+		if (player->isClose)
+		{
+			currentTime = 0;
+			SetState(ESaturateState::OffSature);
+		}
 	}
+
 }
 
 void ASJ_Actor_HowToFlow::OffSature()

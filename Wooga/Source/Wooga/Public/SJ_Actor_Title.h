@@ -51,4 +51,8 @@ public:
 	// 力格荤款靛
 	UPROPERTY(EditAnywhere, Category = Sound)
 	class USoundBase* titleSound;
+
+	// 力格 唱贰捞记 荤款靛
+	UPROPERTY(EditAnywhere, Category = Sound)
+	class USoundBase* titleNarrationSound;
 };
