@@ -42,7 +42,7 @@ void AIcon2::Tick(float DeltaTime)
 		FVector dir = target - me;
 		dir.Normalize();
 
-		float speed = 300.0f;
+		float speed = 600.0f;
 
 		FVector p = me + dir * speed * DeltaTime;
 

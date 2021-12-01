@@ -75,7 +75,7 @@ void AWatch1::Tick(float DeltaTime)
 		if (bisEnd == false)
 		{
 			endingCurrentTime += DeltaTime;
-			if (endingCurrentTime >= 5.f)
+			if (endingCurrentTime >= 5.3f)
 			{
 				GetWorld()->SpawnActor<AIcon1>(icon1Factory, GetTransform());
 
