@@ -88,10 +88,11 @@ void ALastHouse::Tick(float DeltaTime)
 			complete->SetScalarParameterValueOnMaterials(TEXT("Length"), blend);
 			//complete->SetScalarParameterValueOnMaterials(TEXT("Length"), blend);
 
-			if (currentTime2 >= 10.f)
-			{
-				bisClear = true;
-			}
+			
+		}
+		if (currentTime2 >= 10.f)
+		{
+			bisClear = true;
 		}
 
 	}
