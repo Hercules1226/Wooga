@@ -148,10 +148,8 @@ public:
 	TSubclassOf<class ASJ_Hologram> bpFDHologram;
 
 	// 플레이어 워치 안내 UI
-	class ASJ_Actor_WatchInformUI* watchInformUI;
-
-	UPROPERTY(EditAnywhere, Category = UI)
-		TSubclassOf<class ASJ_Actor_WatchInformUI> bpWatchInformUI;
+	UPROPERTY(EditAnywhere,Category = UI)
+	TSubclassOf<class ASJ_Actor_SystemUI> bpKnowledgeInformUI;
 
 	FVector p;
 

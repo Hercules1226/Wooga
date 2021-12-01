@@ -584,8 +584,7 @@ void ASJ_WoogaGameModeBase::CompleteFireCourse()
 		// 딜레이 변수 초기화
 		nextDelayTime = 0;
 
-		// 지식 안내 UI 생성
-		watchInformUI = GetWorld()->SpawnActor<ASJ_Actor_WatchInformUI>(bpWatchInformUI, Param);
+		systemUI = GetWorld()->SpawnActor<ASJ_Actor_SystemUI>(bpKnowledgeInformUI, Param);
 
 		SetState(EFlowState::InformWatch);
 	}
@@ -594,28 +593,33 @@ void ASJ_WoogaGameModeBase::InformWatch()
 {
 	// 시계 위에 UI 생성 및 A 버튼으로 끄는 기능
 	// UI를 끄면 이동 방법을 알려주는 UI 생성 및 이동 가이드라인 생성
-	if (player->isClose == true)
+	systemUIDelayTime += GetWorld()->DeltaTimeSeconds;
+
+	if (systemUIDelayTime >= 4.0f)
 	{
-		bIsDelay = true;
+		// 잡는 방법을 알려주는 UI 가 꺼지면 교육 제목을 생성한다.
+		if (player->isClose == true)
+		{
+			bIsDelay = true;
+		}
 	}
 
 	if (bIsDelay == true)
 	{
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
-	}
 
-	if (nextDelayTime >= 3.0f)
-	{
-		// 라이팅 낮 상태로 변경
-		levelLight->isDay = true;
+		if (nextDelayTime >= 1.0f)
+		{
+			// 라이팅 낮 상태로 변경
+			levelLight->isDay = true;
 
-		watchInformUI->Destroy();
+			// 딜레이 변수 초기화
+			bIsDelay = false;
+			nextDelayTime = 0;
+			systemUIDelayTime = 0;
 
-		// 딜레이 변수 초기화
-		bIsDelay = false;
-		nextDelayTime = 0;
-
-		SetState(EFlowState::SpawnCollectGuideLine);
+			SetState(EFlowState::SpawnCollectGuideLine);
+		}
 	}
 }
 

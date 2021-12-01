@@ -88,12 +88,12 @@ void AWatch2::Tick(float DeltaTime)
 
 	if (pointMachine)
 	{
-		if (pointMachine->bisTouch2 == true)
+		//if (pointMachine->bisTouch2 == true)
 		{
 			//UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), effectFactory, GetActorLocation() + FVector(0.f, 0.0f, 0.f));
 			nia->SetActive(true);
 			UGameplayStatics::PlaySound2D(GetWorld(), ddirorongSound);
-			pointMachine->bisTouch2 = false;
+			//pointMachine->bisTouch2 = false;
 		}
 	}
 }
@@ -112,7 +112,10 @@ void AWatch2::Idle()
 {
 	if (isBlink == true)
 	{
+		nia->SetActive(true);
+		UGameplayStatics::PlaySound2D(GetWorld(), ddirorongSound);
 		SetState(EBlinkState::Blink);
+		isBlink = false;
 	}
 }
 

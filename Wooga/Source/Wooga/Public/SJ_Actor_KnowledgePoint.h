@@ -65,29 +65,30 @@ public:
 	UPROPERTY()
 		float speed = 100;
 
+	/*UPROPERTY()
+		bool bisTouch1;
+
+	UPROPERTY()
+		bool bisTouch2;
+
+	UPROPERTY()
+		bool bisTouch3;
+
+	UPROPERTY()
+		bool bisTouch4;
+
+	UPROPERTY()
+		bool bisTouch5;
+
+	UPROPERTY()
+		bool bisTouch6;*/
+
 	UFUNCTION()
 		void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	UPROPERTY(EditAnywhere, Category = Haptic)
 		class UHapticFeedbackEffect_Base* watchHaptic;
 
-	void KnowledgeIn(AActor* watch, float point);
-
-	UPROPERTY()
-		bool bisTouch1 = false;
-
-	UPROPERTY()
-		bool bisTouch2 = false;
-
-	UPROPERTY()
-		bool bisTouch3 = false;
-
-	UPROPERTY()
-		bool bisTouch4 = false;
-
-	UPROPERTY()
-		bool bisTouch5 = false;
-
-	UPROPERTY()
-		bool bisTouch6 = false;
+	UPROPERTY(EditAnywhere,Category = Sound)
+	class USoundBase* swingSound;
 };
