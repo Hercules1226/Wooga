@@ -9,7 +9,7 @@
 // Sets default values
 ASJ_Actor_BoarLeapFXRange::ASJ_Actor_BoarLeapFXRange()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	rootComp = CreateDefaultSubobject<USceneComponent>(TEXT("RootComp"));
@@ -23,7 +23,7 @@ ASJ_Actor_BoarLeapFXRange::ASJ_Actor_BoarLeapFXRange()
 void ASJ_Actor_BoarLeapFXRange::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 
 	range->OnComponentEndOverlap.AddDynamic(this, &ASJ_Actor_BoarLeapFXRange::EndOverlap);
 }
@@ -45,7 +45,7 @@ void ASJ_Actor_BoarLeapFXRange::EndOverlap(class UPrimitiveComponent* Overlapped
 		//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("Fireeeeeeeeeeeeeeee!!")));
 		// UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), leapParticle, boar->GetActorLocation(), GetActorRotation(), FVector(2, 2, 2));
 
-		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), leapParticle, GetActorLocation(), GetActorRotation(), FVector(2, 2, 2));
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), leapParticle, GetActorLocation(), GetActorRotation(), FVector(1, 1, 1));
 	}
 }
 
