@@ -1152,7 +1152,7 @@ void ASJ_WoogaGameModeBase::CookMeat()
 }
 void ASJ_WoogaGameModeBase::EatMeat()
 {
-	if (tomahowk->bisBone == true)
+	if (tomahowk->bisEat == true)
 	{
 		// UI ≤®¡÷±‚
 		bIsUIClose = true;
