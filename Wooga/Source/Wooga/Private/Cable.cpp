@@ -60,6 +60,8 @@ void ACable::BeginPlay()
 	catchFish = Cast<ASJ_Actor_CatchFish>(UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_Actor_CatchFish::StaticClass()));
 
 	outLine->SetVisibility(false);
+
+	fish->SetActive(false);
 }
 
 // Called every frame
@@ -97,6 +99,16 @@ void ACable::Tick(float DeltaTime)
 		//	meshComp1->SetScalarParameterValueOnMaterials(TEXT("Amount"), blend);
 		}
 	}
+	if (niaStart == true)
+	{
+		niaCreateTime += GetWorld()->DeltaTimeSeconds;
+		if (niaCreateTime >= 2.f)
+		{
+			cableComp->SetHiddenInGame(false);
+			cableComp->SetMaterial(0, offMaterial);
+			niaStart = false;
+		}
+	}
 }
 
 void ACable::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -113,7 +125,8 @@ void ACable::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class A
 		//nia->SetHiddenInGame(false);
 			//UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), SpawnEffect, cableComp->GetComponentLocation(), cableComp->GetComponentRotation());
 		string->Destroy();
-		cableComp->SetMaterial(0, offMaterial);
+		cableComp->SetHiddenInGame(true);
+		niaStart = true;
 		UGameplayStatics::PlaySound2D(GetWorld(), clearSound);
 		bIsTie = true;
 	}
@@ -152,12 +165,12 @@ void ACable::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class A
 				player->grabComp->RightReleaseAction();
 				SetActorHiddenInGame(true);
 				stickComp->SetCollisionProfileName(TEXT("NoCollision"));
-				
+
 
 				if (bisEat == false)
 				{
 					UGameplayStatics::PlaySound2D(GetWorld(), eatSound);
-					
+
 					bisEat = true;
 				}
 			}
