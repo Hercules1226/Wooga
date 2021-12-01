@@ -24,6 +24,10 @@ public:
 	UPROPERTY(EditAnywhere, Category = HowToFlow)
 	class UPostProcessComponent* howToPost;
 
+	UPROPERTY(EditAnywhere, Category = HowToFlow, BlueprintReadWrite)
+	class UWidgetComponent* nextUI;
+
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -93,6 +97,7 @@ public:
 
 	void OnSature();
 	void Stay();
+	void Next();
 	void OffSature();
 
 	// 설명 나래이션

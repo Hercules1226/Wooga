@@ -28,9 +28,14 @@ public:
 	UPROPERTY(EditDefaultsOnly, BluePrintReadWrite, Category = "Animation", meta = (BindWidgetAnim), Transient)
 		class UWidgetAnimation* CloseUI;
 
-	UPROPERTY(EditDefaultsOnly, BluePrintReadWrite, Category = "Animation", meta = (BindWidgetAnim), Transient)
-		class UWidgetAnimation* Blink;
 
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+		void PlayNextUIAnimation();
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+		void StopNextUIAnimation();
+
+		void AnimPlay();
 		UPROPERTY()
 		float loopTime;
 };

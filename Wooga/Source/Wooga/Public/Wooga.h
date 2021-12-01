@@ -119,6 +119,7 @@ enum class ESaturateState : uint8
 {
 	OnSature,
 	Stay,
+	Next,
 	OffSature
 };
 

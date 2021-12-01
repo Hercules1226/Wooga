@@ -10,7 +10,7 @@ void USJ_UI_Next::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	PlayAnimation(OpenUI);
+	// PlayAnimation(OpenUI);
 }
 
 void USJ_UI_Next::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
@@ -19,16 +19,13 @@ void USJ_UI_Next::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
 
-	loopTime += InDeltaTime;
-	if (loopTime >= 2.0f)
-	{
-		PlayAnimation(Blink);
-		loopTime = 0;
-	}
-
 	if (player->isClose == true)
 	{
-		StopAnimation(Blink);
-		PlayAnimation(CloseUI);
+		//PlayAnimation(CloseUI);
 	}
+}
+
+void USJ_UI_Next::AnimPlay()
+{
+	PlayAnimation(OpenUI);
 }
