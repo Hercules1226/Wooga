@@ -13,5 +13,18 @@ UCLASS()
 class WOOGA_API ASJ_IntroGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
+
+public:
+	ASJ_IntroGameModeBase();
+
+	virtual void BeginPlay() override;
+
+	FTimerHandle introSoundTimer;
+	FTimerHandle moveLevelTimer;
+
+	void IntroSound();
+	void MoveLevel();
 	
+	UPROPERTY(EditAnywhere, Category = Sound)
+	class USoundBase* introNarration;
 };
