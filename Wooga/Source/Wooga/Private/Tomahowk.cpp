@@ -94,6 +94,7 @@ void ATomahowk::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, clas
 
 				if (bisEat == false)
 				{
+					bisBone = true;
 					UGameplayStatics::PlaySound2D(GetWorld(), sound);
 					bisEat = true;
 				}
