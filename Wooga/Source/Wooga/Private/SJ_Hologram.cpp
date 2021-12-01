@@ -118,7 +118,7 @@ void ASJ_Hologram::BeginPlay()
 	// 움집 홀로그램
 	if (gameMode->flowState == EFlowState::MakeHut || gameMode->flowState == EFlowState::CompleteHut)
 	{
-		FVector p6  = FVector(3829, 7997, 1310);
+		FVector p6  = FVector(3846, 7956, 1320);
 
 		SetActorLocation(p6);
 

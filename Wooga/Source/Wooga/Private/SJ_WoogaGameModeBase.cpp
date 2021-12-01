@@ -79,7 +79,8 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	Super::BeginPlay();
 
 	// 맨 처음 불의 발견 교육으로 시작
-	SetState(EFlowState::InGame);
+	// SetState(EFlowState::SpawnHutGuideLine);
+	SetState(EFlowState::SpawnCollectGuideLine);
 
 	// 테스트용 스테이트
 	//SetState(EFlowState::CompleteCollect);
@@ -112,7 +113,7 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 
 	// 움집
 	lastHouse = Cast<ALastHouse>(UGameplayStatics::GetActorOfClass(GetWorld(), ALastHouse::StaticClass()));
-	// lastHouse->SetActorHiddenInGame(true);
+	//lastHouse->SetActorHiddenInGame(true);
 
 	// 라이트
 	levelLight = Cast<ASJ_Actor_LevelLight>(UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_Actor_LevelLight::StaticClass()));
@@ -611,7 +612,7 @@ void ASJ_WoogaGameModeBase::InformWatch()
 		if (nextDelayTime >= 1.0f)
 		{
 			// 라이팅 낮 상태로 변경
-			levelLight->isDay = true;
+			
 
 			// 딜레이 변수 초기화
 			bIsDelay = false;
@@ -627,6 +628,7 @@ void ASJ_WoogaGameModeBase::SpawnCollectGuideLine()
 {
 	// 가이드라인 생성
 	goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpCollectGuideLine, Param);
+	levelLight->isDay = true;
 
 	SetState(EFlowState::GoToCollectCourse);
 }

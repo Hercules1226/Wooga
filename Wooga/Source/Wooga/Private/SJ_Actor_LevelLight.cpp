@@ -77,17 +77,19 @@ void ASJ_Actor_LevelLight::Day()
 {
 	changeTIme += GetWorld()->DeltaTimeSeconds;
 
+	
 	curDirColor = FMath::Lerp(curDirColor, dayDirColor, changeTIme * 0.0005f);
 	curSunColor = FMath::Lerp(curSunColor, daySunColor, changeTIme * 0.0005f);
 
 	directLight->SetLightColor(curDirColor);
 	sun->SetLightColor(curSunColor);
+	
 
 	if (changeTIme >= 10.1f)
 	{
 		isDay = false;
 		changeTIme = 0;
-		//skySphere->SetVisibility(false);
+		skySphere->SetVisibility(false);
 
 		SetState(ELightState::Stay);
 	}
