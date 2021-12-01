@@ -8,6 +8,8 @@
 #include "Components/StaticMeshComponent.h"
 #include "IconSpot.h"
 #include "Icon1.h"
+#include "NiagaraComponent.h"
+#include "NiagaraFunctionLibrary.h"
 #include "SJ_Actor_KnowledgePoint.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
 
@@ -22,6 +24,9 @@ AWatch1::AWatch1()
 
 	watch = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Watch"));
 	watch->SetupAttachment(rootComp);
+
+	nia = CreateDefaultSubobject<UNiagaraComponent>(TEXT("Nia"));
+	nia->SetupAttachment(watch);
 }
 
 // Called when the game starts or when spawned
@@ -53,6 +58,7 @@ void AWatch1::Tick(float DeltaTime)
 		UnBlink();
 		break;
 	}
+
 	if (player->camLoc)
 	{
 		dir = player->camLookAt->GetComponentLocation() - GetActorLocation();
@@ -85,7 +91,9 @@ void AWatch1::Tick(float DeltaTime)
 	{
 		if (pointMachine->bisTouch1 == true)
 		{
-			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), effectFactory, GetActorLocation() + FVector(0.f, 0.0f, 0.f));
+			//UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), effectFactory, GetActorLocation() + FVector(0.f, 0.0f, 0.f));
+			nia->SetActive(true);
+			UGameplayStatics::PlaySound2D(GetWorld(), ddirorongSound);
 			pointMachine->bisTouch1 = false;
 		}
 	}

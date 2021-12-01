@@ -21,6 +21,12 @@ public:
 	UPROPERTY(EditAnywhere, Category = Setting)
 		class UStaticMeshComponent* watch;
 
+	UPROPERTY(EditAnywhere)
+		class UNiagaraComponent* nia;
+
+	UPROPERTY(EditAnywhere, Category = "Sound")
+		USoundBase* ddirorongSound;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

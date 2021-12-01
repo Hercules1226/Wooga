@@ -29,6 +29,12 @@ public:
 	UPROPERTY(EditAnywhere, Category = Setting)
 		class UStaticMeshComponent* watch;
 
+	UPROPERTY(EditAnywhere)
+		class UNiagaraComponent* nia;
+
+	UPROPERTY(EditAnywhere, Category = "Sound")
+		USoundBase* ddirorongSound;
+
 	UPROPERTY()
 		class AVR_Player* player;
 
