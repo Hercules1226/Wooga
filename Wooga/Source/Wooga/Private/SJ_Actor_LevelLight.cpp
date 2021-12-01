@@ -77,6 +77,8 @@ void ASJ_Actor_LevelLight::Day()
 {
 	changeTIme += GetWorld()->DeltaTimeSeconds;
 
+	// wnthjr
+
 	curDirColor = FMath::Lerp(curDirColor, dayDirColor, changeTIme * 0.0005f);
 	curSunColor = FMath::Lerp(curSunColor, daySunColor, changeTIme * 0.0005f);
 
