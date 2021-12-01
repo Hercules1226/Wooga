@@ -18,18 +18,14 @@ protected:
 	virtual void NativeConstruct() override;
 
 public:
-	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
-
-	class AVR_Player* player;
-
 	UPROPERTY(EditDefaultsOnly, BluePrintReadWrite, Category = "Animation", meta = (BindWidgetAnim), Transient)
 		class UWidgetAnimation* OpenUI;
 
 	UPROPERTY(EditDefaultsOnly, BluePrintReadWrite, Category = "Animation", meta = (BindWidgetAnim), Transient)
 		class UWidgetAnimation* CloseUI;
 
-	UPROPERTY(EditDefaultsOnly, BluePrintReadWrite, Category = "Animation", meta = (BindWidgetAnim), Transient)
-		class UWidgetAnimation* Blink;
+		void OpenAnimation();
+		void CloseAnimation();
 
 		UPROPERTY()
 		float loopTime;

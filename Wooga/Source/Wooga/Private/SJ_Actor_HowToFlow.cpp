@@ -14,6 +14,8 @@
 #include "Arrow5.h"
 #include "Arrow6.h"
 #include "Arrow7.h"
+#include <Components/WidgetComponent.h>
+#include "SJ_UI_Next.h"
 
 // Sets default values
 ASJ_Actor_HowToFlow::ASJ_Actor_HowToFlow()
@@ -29,15 +31,29 @@ ASJ_Actor_HowToFlow::ASJ_Actor_HowToFlow()
 
 	howToPost = CreateDefaultSubobject<UPostProcessComponent>(TEXT("HowToPost"));
 	howToPost->SetupAttachment(rootComp);
+
+	howToUI = CreateDefaultSubobject<UWidgetComponent>(TEXT("HowToUI"));
+	howToUI->SetupAttachment(rootComp);
+
+	nextWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("NextUI"));
+	nextWidget->SetupAttachment(rootComp);
+
 }
 
 void ASJ_Actor_HowToFlow::BeginPlay()
 {
 	Super::BeginPlay();
 
+	//nextUI->Deactivate();
+	nextWidget->SetVisibility(false);
+
 	UGameplayStatics::PlaySound2D(GetWorld(), onSound);
-	
+
 	gameMode = Cast<ASJ_WoogaGameModeBase>(GetWorld()->GetAuthGameMode());
+
+	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
+
+	nextUI = Cast<USJ_UI_Next>(nextWidget->GetWidget());
 
 	// 불의 발견(불피우기) 방법
 	if (gameMode->flowState == EFlowState::FireDiscoveryTitle)
@@ -74,7 +90,7 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 	else if (gameMode->flowState == EFlowState::CollectTitle)
 	{
 		arrow2 = Cast<AArrow2>(UGameplayStatics::GetActorOfClass(GetWorld(), AArrow2::StaticClass()));
-		arrow2->arrowOn  = true;
+		arrow2->arrowOn = true;
 
 		FVector p2 = FVector(9835, 10114, 1300);
 		SetActorLocation(p2);
@@ -201,7 +217,7 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 		playTime = 8;
 	}
 
-	
+
 
 	SetState(ESaturateState::OnSature);
 
@@ -210,7 +226,7 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 	startParam.ColorSaturation = FVector4(1.0f, 1.0f, 1.0f, 1.0f);
 	howToPost->Settings = startParam;
 	*/
-	
+
 	howToPlane->SetRenderCustomDepth(true);
 }
 
@@ -225,6 +241,9 @@ void ASJ_Actor_HowToFlow::Tick(float DeltaTime)
 		break;
 	case ESaturateState::Stay:
 		Stay();
+		break;
+	case  ESaturateState::Next:
+		Next();
 		break;
 	case ESaturateState::OffSature:
 		OffSature();
@@ -248,7 +267,7 @@ void ASJ_Actor_HowToFlow::OnSature()
 
 	startDissolveParam = FMath::Lerp(-1.0f, 1.0f, onTime);
 
-	howToPlane->SetScalarParameterValueOnMaterials(TEXT("Dissolve"), startDissolveParam);
+	// howToPlane->SetScalarParameterValueOnMaterials(TEXT("Dissolve"), startDissolveParam);
 
 	// 포스트프로세스 흑백 조절
 	/*
@@ -268,18 +287,27 @@ void ASJ_Actor_HowToFlow::OnSature()
 
 void ASJ_Actor_HowToFlow::Stay()
 {
-	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
+
 	currentTime += GetWorld()->GetDeltaSeconds();
 
 	if (currentTime >= playTime)
 	{
-		if (player->isClose)
-		{
-			currentTime = 0;
-			SetState(ESaturateState::OffSature);
-		}
-	}
+		nextWidget->SetVisibility(true);
 
+		nextUI->OpenAnimation();
+
+		currentTime = 0;
+		SetState(ESaturateState::Next);
+	}
+}
+
+void ASJ_Actor_HowToFlow::Next()
+{
+	if (player->isClose == true)
+	{
+		nextUI->CloseAnimation();
+		SetState(ESaturateState::OffSature);
+	}
 }
 
 void ASJ_Actor_HowToFlow::OffSature()
@@ -288,7 +316,7 @@ void ASJ_Actor_HowToFlow::OffSature()
 
 	endDissolveParam = FMath::Lerp(1.0f, -1.0f, offTime);
 
-	howToPlane->SetScalarParameterValueOnMaterials(TEXT("Dissolve"), endDissolveParam);
+	// howToPlane->SetScalarParameterValueOnMaterials(TEXT("Dissolve"), endDissolveParam);
 
 	// 포스트 흑백 조절
 	/*
@@ -322,8 +350,10 @@ void ASJ_Actor_HowToFlow::OffSature()
 					arrow1s[i]->arrowOn = false;
 				}
 			}
+
+
 		}
-		
+
 		if (flowIndex == 2)
 		{
 			arrow2->arrowOn = false;

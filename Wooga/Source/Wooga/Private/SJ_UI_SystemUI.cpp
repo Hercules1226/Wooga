@@ -6,7 +6,6 @@
 #include <Kismet/GameplayStatics.h>
 #include "SJ_WoogaGameModeBase.h"
 
-
 void USJ_UI_SystemUI::NativeConstruct()
 {
 	Super::NativeConstruct();
@@ -20,8 +19,14 @@ void USJ_UI_SystemUI::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 {
 	Super::NativeTick(MyGeometry, InDeltaTime);
 
-	if (player->isClose == true)
+	currentTime += InDeltaTime;
+
+	if (currentTime >= 4.f)
 	{
-		PlayAnimation(CloseUI);
+		if (player->isClose == true)
+		{
+			currentTime = 0;
+			PlayAnimation(CloseUI);
+		}
 	}
 }

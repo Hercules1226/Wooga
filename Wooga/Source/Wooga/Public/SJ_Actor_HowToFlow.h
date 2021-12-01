@@ -24,6 +24,13 @@ public:
 	UPROPERTY(EditAnywhere, Category = HowToFlow)
 	class UPostProcessComponent* howToPost;
 
+	UPROPERTY(EditAnywhere, Category = HowToFlow)
+	class UWidgetComponent* howToUI;
+
+	UPROPERTY(EditAnywhere, Category = HowToFlow, BlueprintReadWrite)
+	class UWidgetComponent* nextWidget;
+
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -37,6 +44,9 @@ public:
 
 	UPROPERTY()
 	class AVR_Player* player;
+
+	UPROPERTY()
+	class USJ_UI_Next* nextUI;
 
 	UPROPERTY()
 	int32 flowIndex = 1;
@@ -93,6 +103,7 @@ public:
 
 	void OnSature();
 	void Stay();
+	void Next();
 	void OffSature();
 
 	// 설명 나래이션
@@ -108,4 +119,7 @@ public:
 
 	UPROPERTY()
 	float currentTime;
+
+	UPROPERTY()
+	bool isDelay = false;
 };
