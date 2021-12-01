@@ -67,6 +67,7 @@
 #include "SJ_Actor_HowToFlow.h"
 #include "SJ_Actor_MakeSpearUI.h"
 #include "Stick.h"
+#include "SJ_Actor_SystemUI.h"
 
 ASJ_WoogaGameModeBase::ASJ_WoogaGameModeBase()
 {
@@ -338,7 +339,7 @@ void ASJ_WoogaGameModeBase::InGame()
 	if (nextDelayTime >= 5.0f)
 	{
 		// 조작방법 UI 생성
-		manipulateUI = GetWorld()->SpawnActor<ASJ_Actor_HowToManipulate>(bpManipulateUI, Param);
+		systemUI = GetWorld()->SpawnActor<ASJ_Actor_SystemUI>(bpMoveSystemUI, Param);
 
 		nextDelayTime = 0;
 
@@ -348,10 +349,15 @@ void ASJ_WoogaGameModeBase::InGame()
 
 void ASJ_WoogaGameModeBase::ManipulateUI()
 {
-	// 만약 UI를 끄면,
-	if (player->isClose == true)
+	systemUIDelayTime += GetWorld()->DeltaTimeSeconds;
+
+	if (systemUIDelayTime >= 4.0f)
 	{
-		bIsDelay = true;
+		// 만약 UI를 끄면,
+		if (player->isClose == true)
+		{
+			bIsDelay = true;
+		}
 	}
 
 	// 시간이 흐른다
@@ -361,17 +367,18 @@ void ASJ_WoogaGameModeBase::ManipulateUI()
 
 		// 3초 뒤에 상태를 변경 해준다.
 		// 이후에도 같은 방법을 사용한다.
-		if (nextDelayTime >= 3.0f)
+		if (nextDelayTime >= 1.0f)
 		{
 			// 시작시 잡는 방법 알려주는 UI 생성 코드
-			howToGrab = GetWorld()->SpawnActor<ASJ_HowToGrabUIActor>(howToGrabActor, Param);
+			systemUI = GetWorld()->SpawnActor<ASJ_Actor_SystemUI>(bpGrabSystemUI, Param);
 
 			// 딜레이 변수 초기화
 			bIsDelay = false;
 			nextDelayTime = 0;
+			systemUIDelayTime = 0;
 
 			// 사용된 UI 제거
-			manipulateUI->Destroy();
+			// systemUI->Destroy();
 
 			SetState(EFlowState::HowToGrabActorUI);
 		}
@@ -380,24 +387,30 @@ void ASJ_WoogaGameModeBase::ManipulateUI()
 
 void ASJ_WoogaGameModeBase::GrabActorUI()
 {
-	// 잡는 방법을 알려주는 UI 가 꺼지면 교육 제목을 생성한다.
-	if (player->isClose == true)
+	UE_LOG(LogTemp,Warning,TEXT("GrabUI"));
+	systemUIDelayTime += GetWorld()->DeltaTimeSeconds;
+	if (systemUIDelayTime >= 4.0f)
 	{
-		bIsDelay = true;
+		// 잡는 방법을 알려주는 UI 가 꺼지면 교육 제목을 생성한다.
+		if (player->isClose == true)
+		{
+			bIsDelay = true;
+		}
 	}
 
 	if (bIsDelay == true)
 	{
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-		if (nextDelayTime >= 3.0f)
+		if (nextDelayTime >= 1.0f)
 		{
 			// 딜레이 변수 초기화
 			bIsDelay = false;
 			nextDelayTime = 0;
+			systemUIDelayTime = 0;
 
 			// 사용된 UI 제거
-			howToGrab->Destroy();
+			// systemUI->Destroy();
 
 			// 불의 발견 제목
 			// titleUI = GetWorld()->SpawnActor<ASJ_Actor_TitleUI>(bpFDTitle, Param);

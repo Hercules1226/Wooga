@@ -24,8 +24,11 @@ public:
 	UPROPERTY(EditAnywhere, Category = HowToFlow)
 	class UPostProcessComponent* howToPost;
 
+	UPROPERTY(EditAnywhere, Category = HowToFlow)
+	class UWidgetComponent* howToUI;
+
 	UPROPERTY(EditAnywhere, Category = HowToFlow, BlueprintReadWrite)
-	class UWidgetComponent* nextUI;
+	class UWidgetComponent* nextWidget;
 
 
 protected:
@@ -41,6 +44,9 @@ public:
 
 	UPROPERTY()
 	class AVR_Player* player;
+
+	UPROPERTY()
+	class USJ_UI_Next* nextUI;
 
 	UPROPERTY()
 	int32 flowIndex = 1;
@@ -113,4 +119,7 @@ public:
 
 	UPROPERTY()
 	float currentTime;
+
+	UPROPERTY()
+	bool isDelay = false;
 };

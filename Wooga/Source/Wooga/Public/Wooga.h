@@ -123,3 +123,10 @@ enum class ESaturateState : uint8
 	OffSature
 };
 
+UENUM(BlueprintType)
+enum class EUIState : uint8
+{
+	On,
+	Next,
+	Off
+};

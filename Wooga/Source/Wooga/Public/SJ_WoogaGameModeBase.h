@@ -68,23 +68,18 @@ public:
 	void ManipulateUI();
 	void GrabActorUI();
 
-	// 조작방법 UI 
-	class ASJ_Actor_HowToManipulate* manipulateUI;
-
+	// 조작방법 UI
+	UPROPERTY()
+	class ASJ_Actor_SystemUI* systemUI;
 	UPROPERTY(EditAnywhere, Category = UI)
-		TSubclassOf<class ASJ_Actor_HowToManipulate> bpManipulateUI;
+	TSubclassOf<class ASJ_Actor_SystemUI> bpMoveSystemUI;
 
-	// 두 UI 간에 딜레이를 위한 잡는방법UI 생성 타이머
-	FTimerHandle howToGrabUITimer;
-
-	// 잡는 방법 알려주는 UI
-	class ASJ_HowToGrabUIActor* howToGrab;
-
+	// 잡는방법 UI
 	UPROPERTY(EditAnywhere, Category = UI)
-		TSubclassOf<class ASJ_HowToGrabUIActor> howToGrabActor;
+	TSubclassOf<class ASJ_Actor_SystemUI> bpGrabSystemUI;
 
-	// 제목 생성 기능 및 타이머
-	FTimerHandle titleTimer;
+	UPROPERTY()
+	float systemUIDelayTime;
 
 	// 불의 발견 제목 UI
 	class ASJ_Actor_TitleUI* titleUI;

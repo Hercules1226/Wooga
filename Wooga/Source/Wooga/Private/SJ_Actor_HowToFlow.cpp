@@ -32,8 +32,11 @@ ASJ_Actor_HowToFlow::ASJ_Actor_HowToFlow()
 	howToPost = CreateDefaultSubobject<UPostProcessComponent>(TEXT("HowToPost"));
 	howToPost->SetupAttachment(rootComp);
 
-	nextUI = CreateDefaultSubobject<UWidgetComponent>(TEXT("NextUI"));
-	nextUI->SetupAttachment(rootComp);
+	howToUI = CreateDefaultSubobject<UWidgetComponent>(TEXT("HowToUI"));
+	howToUI->SetupAttachment(rootComp);
+
+	nextWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("NextUI"));
+	nextWidget->SetupAttachment(rootComp);
 
 }
 
@@ -42,11 +45,15 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 	Super::BeginPlay();
 
 	//nextUI->Deactivate();
-	nextUI->SetVisibility(false);
+	nextWidget->SetVisibility(false);
 
 	UGameplayStatics::PlaySound2D(GetWorld(), onSound);
 
 	gameMode = Cast<ASJ_WoogaGameModeBase>(GetWorld()->GetAuthGameMode());
+
+	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
+
+	nextUI = Cast<USJ_UI_Next>(nextWidget->GetWidget());
 
 	// 불의 발견(불피우기) 방법
 	if (gameMode->flowState == EFlowState::FireDiscoveryTitle)
@@ -260,7 +267,7 @@ void ASJ_Actor_HowToFlow::OnSature()
 
 	startDissolveParam = FMath::Lerp(-1.0f, 1.0f, onTime);
 
-	howToPlane->SetScalarParameterValueOnMaterials(TEXT("Dissolve"), startDissolveParam);
+	// howToPlane->SetScalarParameterValueOnMaterials(TEXT("Dissolve"), startDissolveParam);
 
 	// 포스트프로세스 흑백 조절
 	/*
@@ -285,24 +292,20 @@ void ASJ_Actor_HowToFlow::Stay()
 
 	if (currentTime >= playTime)
 	{
-		nextUI->SetVisibility(true);
-		auto next = Cast<USJ_UI_Next>(nextUI->GetWidget());
-		next->AnimPlay();
+		nextWidget->SetVisibility(true);
 
+		nextUI->OpenAnimation();
 
 		currentTime = 0;
 		SetState(ESaturateState::Next);
-
 	}
-
 }
 
 void ASJ_Actor_HowToFlow::Next()
 {
-	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
-
-	if (player->isClose)
+	if (player->isClose == true)
 	{
+		nextUI->CloseAnimation();
 		SetState(ESaturateState::OffSature);
 	}
 }
@@ -313,7 +316,7 @@ void ASJ_Actor_HowToFlow::OffSature()
 
 	endDissolveParam = FMath::Lerp(1.0f, -1.0f, offTime);
 
-	howToPlane->SetScalarParameterValueOnMaterials(TEXT("Dissolve"), endDissolveParam);
+	// howToPlane->SetScalarParameterValueOnMaterials(TEXT("Dissolve"), endDissolveParam);
 
 	// 포스트 흑백 조절
 	/*
