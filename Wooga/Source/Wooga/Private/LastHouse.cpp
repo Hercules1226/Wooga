@@ -272,7 +272,7 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 
 				bisfinish = true;
 				check4 = false;
-
+				isUIDown = true;
 			}
 
 			if (player->grabComp->bisStickL == true)
@@ -293,6 +293,7 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 
 				bisfinish = true;
 				check4 = false;
+				isUIDown = true;
 			}
 		}
 	}

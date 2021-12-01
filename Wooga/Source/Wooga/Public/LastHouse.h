@@ -113,4 +113,7 @@ public:
 
 	UPROPERTY()
 		bool bisClear = false;
+
+		UPROPERTY()
+		bool isUIDown;
 };

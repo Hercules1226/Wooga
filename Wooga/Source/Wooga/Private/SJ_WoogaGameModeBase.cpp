@@ -80,7 +80,7 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 
 	// 맨 처음 불의 발견 교육으로 시작
 	// SetState(EFlowState::SpawnHutGuideLine);
-	SetState(EFlowState::SpawnCollectGuideLine);
+	SetState(EFlowState::InGame);
 
 	// 테스트용 스테이트
 	//SetState(EFlowState::CompleteCollect);
@@ -113,7 +113,7 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 
 	// 움집
 	lastHouse = Cast<ALastHouse>(UGameplayStatics::GetActorOfClass(GetWorld(), ALastHouse::StaticClass()));
-	//lastHouse->SetActorHiddenInGame(true);
+	lastHouse->SetActorHiddenInGame(true);
 
 	// 라이트
 	levelLight = Cast<ASJ_Actor_LevelLight>(UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_Actor_LevelLight::StaticClass()));
@@ -1613,13 +1613,18 @@ void ASJ_WoogaGameModeBase::HowToMakeHut()
 }
 void ASJ_WoogaGameModeBase::MakeHut()
 {
+	if (lastHouse->isUIDown == true)
+	{
+		makeHutUI->SetActorHiddenInGame(true);
+	}
+
 	if (lastHouse->bisClear == true)
 	{
 		bIsUIClose = true;
-		makeHutUI->SetActorHiddenInGame(true);
+		
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
-		if (nextDelayTime >= 10.0f)
+		if (nextDelayTime >= 3.0f)
 		{
 			makeHutUI->Destroy();
 
@@ -1647,7 +1652,12 @@ void ASJ_WoogaGameModeBase::CompleteHut()
 
 void ASJ_WoogaGameModeBase::OutGame()
 {
-	UGameplayStatics::OpenLevel(this, TEXT("Outro"));
+	nextDelayTime += GetWorld()->DeltaTimeSeconds;
+
+	if (nextDelayTime >= 10.0f)
+	{
+		UGameplayStatics::OpenLevel(this, TEXT("Outro"));
+	}
 }
 
 #pragma endregion
