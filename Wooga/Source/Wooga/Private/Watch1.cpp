@@ -81,11 +81,15 @@ void AWatch1::Tick(float DeltaTime)
 		}
 	}
 
-	if (pointMachine->bisTouch1 == true)
+	if (pointMachine) 
 	{
-		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), effectFactory, GetActorLocation() + FVector(0.f, 0.0f, 0.f));
-		pointMachine->bisTouch1 = false;
+		if (pointMachine->bisTouch1 == true)
+		{
+			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), effectFactory, GetActorLocation() + FVector(0.f, 0.0f, 0.f));
+			pointMachine->bisTouch1 = false;
+		}
 	}
+	
 }
 
 EBlinkState AWatch1::GetState()

@@ -42,7 +42,7 @@ void ASJ_Actor_BoarLeapFXRange::EndOverlap(class UPrimitiveComponent* Overlapped
 	if (OtherActor == boar)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Leap"));
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("Fireeeeeeeeeeeeeeee!!")));
+		//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("Fireeeeeeeeeeeeeeee!!")));
 		// UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), leapParticle, boar->GetActorLocation(), GetActorRotation(), FVector(2, 2, 2));
 
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), leapParticle, GetActorLocation(), GetActorRotation(), FVector(2, 2, 2));

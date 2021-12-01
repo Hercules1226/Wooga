@@ -14,7 +14,7 @@
 // Sets default values
 AWatch5::AWatch5()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	rootComp = CreateDefaultSubobject<USceneComponent>(TEXT("Root Component"));
@@ -28,7 +28,7 @@ AWatch5::AWatch5()
 void AWatch5::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
 	spot = Cast<AIconSpot>(UGameplayStatics::GetActorOfClass(GetWorld(), AIconSpot::StaticClass()));
 	icon5 = Cast<AIcon5>(UGameplayStatics::GetActorOfClass(GetWorld(), AIcon5::StaticClass()));
@@ -81,11 +81,15 @@ void AWatch5::Tick(float DeltaTime)
 		}
 	}
 
-	if (pointMachine->bisTouch5 == true)
+	if (pointMachine)
 	{
-		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), effectFactory, GetActorLocation() + FVector(0.f, 0.0f, 0.f));
-		pointMachine->bisTouch5 = false;
+		if (pointMachine->bisTouch5 == true)
+		{
+			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), effectFactory, GetActorLocation() + FVector(0.f, 0.0f, 0.f));
+			pointMachine->bisTouch5 = false;
+		}
 	}
+
 }
 
 EBlinkState AWatch5::GetState()

@@ -81,10 +81,13 @@ void AWatch6::Tick(float DeltaTime)
 		}
 	}
 
-	if (pointMachine->bisTouch6 == true)
+	if (pointMachine)
 	{
-		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), effectFactory, GetActorLocation() + FVector(0.f, 0.0f, 0.f));
-		pointMachine->bisTouch6 = false;
+		if (pointMachine->bisTouch6 == true)
+		{
+			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), effectFactory, GetActorLocation() + FVector(0.f, 0.0f, 0.f));
+			pointMachine->bisTouch6 = false;
+		}
 	}
 }
 

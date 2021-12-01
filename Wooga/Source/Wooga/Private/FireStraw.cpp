@@ -103,7 +103,7 @@ void AFireStraw::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 		{
 			if (player->mouthComp)
 			{
-				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("Fireeeeeeeeeeeeeeee!!")));
+				//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("Fireeeeeeeeeeeeeeee!!")));
 				bisOverlab = true;
 			}
 		}
