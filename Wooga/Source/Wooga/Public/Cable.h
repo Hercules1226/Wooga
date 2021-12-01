@@ -67,6 +67,9 @@ public:
 		float currentTime2;
 
 	UPROPERTY()
+		float niaCreateTime;
+
+	UPROPERTY()
 		class ASumjjiRock* sumjjiRock;
 
 	UPROPERTY()
@@ -110,4 +113,7 @@ public:
 
 	UPROPERTY()
 		bool bisfire = true;
+
+	UPROPERTY()
+		bool niaStart = false;
 };

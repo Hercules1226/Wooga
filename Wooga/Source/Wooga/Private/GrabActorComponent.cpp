@@ -283,7 +283,7 @@ void UGrabActorComponent::RightReleaseAction()
 		}
 	}
 
-	if (sumjjiR)
+	/*if (sumjjiR)
 	{
 		sumjjiR->stickComp->SetEnableGravity(true);
 		// 그 자리에서 떨어지게
@@ -296,9 +296,9 @@ void UGrabActorComponent::RightReleaseAction()
 		bisLeftGrab = false;
 		bisSumjjiR = false;
 
-		// 왼손 피는 애니메이션
+		// 오른손 피는 애니메이션
 		player->handComp->targetGripValueRight = 0.0f;
-	}
+	}*/
 
 	if (sumjjiRockR)
 	{
@@ -493,7 +493,7 @@ void UGrabActorComponent::LeftReleaseAction()
 		player->handComp->targetGripValueLeft = 0.0f;
 	}
 
-	if (sumjjiL)
+	/*if (sumjjiL)
 	{
 		sumjjiL->stickComp->SetEnableGravity(true);
 		// 그 자리에서 떨어지게
@@ -508,7 +508,7 @@ void UGrabActorComponent::LeftReleaseAction()
 
 		// 왼손 피는 애니메이션
 		player->handComp->targetGripValueLeft = 0.0f;
-	}
+	}*/
 
 	if (sumjjiRockL)
 	{

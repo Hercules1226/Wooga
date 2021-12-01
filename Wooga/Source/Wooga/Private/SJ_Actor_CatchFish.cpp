@@ -48,6 +48,8 @@ void ASJ_Actor_CatchFish::OnOverlap(UPrimitiveComponent* OverlappedComponent, AA
 		// ½¿º£Âî¸£°³¿¡ Âñ¸®¸é
 		catchFishAnimInst->isDie = true;
 		isAttacked = true;
+
+		sumjji->fish->SetActive(true);
 		
 		if(biscatch == true)
 		{
