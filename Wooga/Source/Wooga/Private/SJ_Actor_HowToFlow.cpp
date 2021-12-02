@@ -92,10 +92,10 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 		arrow2 = Cast<AArrow2>(UGameplayStatics::GetActorOfClass(GetWorld(), AArrow2::StaticClass()));
 		arrow2->arrowOn = true;
 
-		FVector p2 = FVector(9835, 10114, 1300);
+		FVector p2 = FVector(9728, 10147, 1300);
 		SetActorLocation(p2);
 
-		FRotator r2 = FRotator(0, -30, 0);
+		FRotator r2 = FRotator(0, -45, 0);
 		SetActorRotation(r2);
 
 		flowIndex = 2;
@@ -154,11 +154,11 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 	}
 	else if (gameMode->flowState == EFlowState::SpearTitle)
 	{
-		FVector p6 = FVector(4178, 6708, 1320);
+		FVector p6 = FVector(4416, 6856, 1280);
 
 		SetActorLocation(p6);
 
-		FRotator r6 = FRotator(0, -20, 0);
+		FRotator r6 = FRotator(0, 180, 0);
 
 		SetActorRotation(r6);
 

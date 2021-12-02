@@ -207,7 +207,7 @@ void ASJ_Actor_KnowledgePoint::OnOverlap(UPrimitiveComponent* OverlappedComponen
 		player->knowledgePoint = 5;
 	}
 	// 움집 지식포인트
-	else if (OtherActor == watch5 && player->knowledgePoint == 4)
+	else if (OtherActor == watch6 && player->knowledgePoint == 5)
 	{
 		GetWorld()->GetFirstPlayerController()->PlayHapticEffect(watchHaptic, EControllerHand::Left, 0.5f, false);
 

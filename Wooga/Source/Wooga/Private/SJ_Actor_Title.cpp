@@ -40,11 +40,11 @@ void ASJ_Actor_Title::BeginPlay()
 	// Ã¤ÁýÇÏ±â
 	else if (gameMode->flowState == EFlowState::GoToCollectCourse || gameMode->flowState == EFlowState::CollectTitle)
 	{
-		FVector p1 = FVector(9850, 10150, 1290);
+		FVector p1 = FVector(9775, 10148, 1290);
 
 		SetActorLocation(p1);
 
-		FRotator r1 = FRotator(0, 140, 0);
+		FRotator r1 = FRotator(0, 130, 0);
 
 		SetActorRotation(r1);
 	}
@@ -73,11 +73,11 @@ void ASJ_Actor_Title::BeginPlay()
 	// ½¿º£Âî¸£°³
 	else if (gameMode->flowState == EFlowState::GoToSpear || gameMode->flowState == EFlowState::SpearTitle)
 	{
-		FVector p4 = FVector(4190, 6828, 1280);
+		FVector p4 = FVector(4416, 6856, 1280);
 
 		SetActorLocation(p4);
 
-		FRotator r4 = FRotator(0, 160, 0);
+		FRotator r4 = FRotator(0, 180, 0);
 
 		SetActorRotation(r4);
 	}

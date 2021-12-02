@@ -113,10 +113,12 @@ void AWatch3::Blink()
 	playTime += GetWorld()->DeltaTimeSeconds;
 
 	float amountOnParam = FMath::Lerp(0.0f, 1.0f, playTime);
+	float fixedOnParam = 1.0f;
+	float fixedBoostOnParam = 30.0f;
 
-	watch->SetScalarParameterValueOnMaterials(TEXT("Amount"), amountOnParam * 0.5);
-	watch->SetScalarParameterValueOnMaterials(TEXT("Boost"), amountOnParam * 0.5);
-	watch->SetScalarParameterValueOnMaterials(TEXT("Fringe Width"), amountOnParam * 0.5);
+	watch->SetScalarParameterValueOnMaterials(TEXT("Amount"), fixedOnParam);
+	watch->SetScalarParameterValueOnMaterials(TEXT("Boost"), fixedBoostOnParam);
+	watch->SetScalarParameterValueOnMaterials(TEXT("Fringe Width"), fixedOnParam);
 
 
 	if (playTime >= 2.0f)
@@ -131,10 +133,11 @@ void AWatch3::UnBlink()
 {
 	playTime += GetWorld()->DeltaTimeSeconds;
 
-	float boostOffParam = FMath::Lerp(1.0f, 0.0f, playTime);
+	float boostOffParam = FMath::Lerp(30.0f, 0.1f, playTime);
+	float offParam = FMath::Lerp(1.0f, 0.0f, playTime);
 
-	watch->SetScalarParameterValueOnMaterials(TEXT("Boost"), boostOffParam * 0.49);
-	watch->SetScalarParameterValueOnMaterials(TEXT("Fringe Width"), boostOffParam * 0.5);
+	watch->SetScalarParameterValueOnMaterials(TEXT("Boost"), boostOffParam * 14.9f);
+	watch->SetScalarParameterValueOnMaterials(TEXT("Fringe Width"), offParam * 0.5f);
 
 	if (playTime >= 2.0f)
 	{

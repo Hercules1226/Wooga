@@ -79,11 +79,11 @@ void ASJ_Hologram::BeginPlay()
 	// ÁÖ¸Ôµµ³¢ È¦·Î±×·¥
 	if (gameMode->flowState == EFlowState::CompleteHandAx || gameMode->flowState == EFlowState::DirectlyHit)
 	{
-		FVector p3 = FVector(7561, 8889, 1320);
+		FVector p3 = FVector(7579, 8999, 1370);
 
 		SetActorLocation(p3);
 
-		FRotator r3 = FRotator(0, -30, 0);
+		FRotator r3 = FRotator(0, -53, 0);
 
 		SetActorRotation(r3);
 
@@ -186,18 +186,11 @@ void ASJ_Hologram::PlayHologram()
 
 	if (playTime >= playChangeTime)
 	{
-		FActorSpawnParameters Param;
-		Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
-		GetWorld()->SpawnActor<ASJ_Actor_KnowledgePoint>(bpKnowledgePoint, GetActorLocation(), GetActorRotation(), Param);
-
 		playTime = 0;
-
-		Destroy();
 		// È¦·Î±×·¥ ºñÈ°¼ºÈ­ ÄÚµå
 		// holoPost-> bEnabled = false;
 
-		 // SetState(EHologramState::TurnOffHologram);
+		 SetState(EHologramState::TurnOffHologram);
 	}
 }
 
@@ -205,8 +198,13 @@ void ASJ_Hologram::TurnOffHologram()
 {
 	destroyTime += GetWorld()->DeltaTimeSeconds;
 
-	if (destroyTime >= 1.0f)
+	if (destroyTime >= 2.0f)
 	{
+		FActorSpawnParameters Param;
+		Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+		GetWorld()->SpawnActor<ASJ_Actor_KnowledgePoint>(bpKnowledgePoint, GetActorLocation(), GetActorRotation(), Param);
+
 		destroyTime = 0;
 		Destroy();
 	}

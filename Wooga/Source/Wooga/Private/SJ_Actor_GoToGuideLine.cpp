@@ -36,11 +36,11 @@ void ASJ_Actor_GoToGuideLine::BeginPlay()
 
 	if (gameModeBase->flowState == EFlowState::SpawnCollectGuideLine)
 	{
-		FVector p1 = FVector(9897.0f, 10207.0f, 1260.0);
+		FVector p1 = FVector(9830, 10251, 1260.0);
 
 		SetActorLocation(p1);
 
-		FRotator r1 = FRotator(0, 58, 0);
+		FRotator r1 = FRotator(0, 45, 0);
 
 		SetActorRotation(r1);
 	}
@@ -66,11 +66,11 @@ void ASJ_Actor_GoToGuideLine::BeginPlay()
 	}
 	else if (gameModeBase->flowState == EFlowState::CompleteFireUse || gameModeBase->flowState == EFlowState::GoToSpear || gameModeBase->flowState == EFlowState::TestFunc)
 	{
-		FVector p4 = FVector(4219, 6887, 1260);
+		FVector p4 = FVector(4410, 7025, 1270);
 		
 		SetActorLocation(p4);
 
-		FRotator r4 = FRotator(0, 70, 0);
+		FRotator r4 = FRotator(0, 90, 0);
 
 		SetActorRotation(r4);
 	}

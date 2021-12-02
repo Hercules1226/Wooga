@@ -47,7 +47,7 @@ void ASJ_Actor_EscapeFish::Tick(float DeltaTime)
 
 		SetActorLocation(p);
 
-		SetActorRotation(dir.Rotation());
+		// SetActorRotation(dir.Rotation());
 
 		escapeFishAnimInst->isRun = true;
 

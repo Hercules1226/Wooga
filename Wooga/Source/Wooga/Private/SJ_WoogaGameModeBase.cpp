@@ -580,7 +580,7 @@ void ASJ_WoogaGameModeBase::CompleteFireCourse()
 	// 홀로그램이 꺼지면 시계로 들어가는 기능
 	nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-	if (nextDelayTime >= 14)
+	if (nextDelayTime >= 16)
 	{
 		// 딜레이 변수 초기화
 		nextDelayTime = 0;
@@ -732,7 +732,7 @@ void ASJ_WoogaGameModeBase::CompleteCollect()
 	// 홀로그램 재생이 끝나면 플레이어 워치로 들어가고 
 	nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-	if (nextDelayTime >= 8)
+	if (nextDelayTime >= 10)
 	{
 		nextDelayTime = 0;
 		SetState(EFlowState::SpawnHandAxGuideLine);
@@ -988,7 +988,7 @@ void ASJ_WoogaGameModeBase::CompleteHandAx()
 {
 	nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-	if (nextDelayTime >= 11)
+	if (nextDelayTime >= 13)
 	{
 		// 간이 가이드라인 제거
 		//goToGuideLine->Destroy();
@@ -1037,7 +1037,7 @@ void ASJ_WoogaGameModeBase::CuttingPig()
 			// 고기 들고가기 UI생성
 			pickUpMeatUI = GetWorld()->SpawnActor<ASJ_Actor_PickUpMeatUI>(bpPickUpMeatUI, Param);
 
-			FVector fireStrawPosition = FVector(5173, 8000, 1177);
+			FVector fireStrawPosition = FVector(5174, 8004, 1203);
 			FRotator fireStrawRotation = FRotator(0, 0, 0);
 
 			// 도착 했을때 장작이 보이게 장작생성
@@ -1197,7 +1197,7 @@ void ASJ_WoogaGameModeBase::CompleteFireUse()
 {
 	nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-	if (nextDelayTime >= 14)
+	if (nextDelayTime >= 16)
 	{
 		// 슴베찌르개 가이드라인
 		goToGuideLine = GetWorld()->SpawnActor<ASJ_Actor_GoToGuideLine>(bpSpearGuideLine, Param);
@@ -1394,7 +1394,7 @@ void ASJ_WoogaGameModeBase::CompleteSpear()
 {
 	nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-	if (nextDelayTime >= 11)
+	if (nextDelayTime >= 13)
 	{
 		// 범위 생성
 		makeHandAxRange = GetWorld()->SpawnActor<ASJ_Actor_MakeRange>(bpMakeHandAxRange, Param);
@@ -1641,7 +1641,7 @@ void ASJ_WoogaGameModeBase::CompleteHut()
 {
 	nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-	if (nextDelayTime >= 16)
+	if (nextDelayTime >= 18)
 	{
 		// 딜레이 변수 초기화
 		nextDelayTime = 0;
