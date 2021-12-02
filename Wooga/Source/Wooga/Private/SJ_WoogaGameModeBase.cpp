@@ -1037,7 +1037,7 @@ void ASJ_WoogaGameModeBase::CuttingPig()
 			// 고기 들고가기 UI생성
 			pickUpMeatUI = GetWorld()->SpawnActor<ASJ_Actor_PickUpMeatUI>(bpPickUpMeatUI, Param);
 
-			FVector fireStrawPosition = FVector(5174, 8004, 1203);
+			FVector fireStrawPosition = FVector(5173, 8000, 1203);
 			FRotator fireStrawRotation = FRotator(0, 0, 0);
 
 			// 도착 했을때 장작이 보이게 장작생성
