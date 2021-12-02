@@ -158,7 +158,7 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 
 		SetActorLocation(p6);
 
-		FRotator r6 = FRotator(0, 180, 0);
+		FRotator r6 = FRotator(0, 0, 0);
 
 		SetActorRotation(r6);
 

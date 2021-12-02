@@ -66,7 +66,7 @@ void ASJ_Actor_GoToGuideLine::BeginPlay()
 	}
 	else if (gameModeBase->flowState == EFlowState::CompleteFireUse || gameModeBase->flowState == EFlowState::GoToSpear || gameModeBase->flowState == EFlowState::TestFunc)
 	{
-		FVector p4 = FVector(4410, 7025, 1270);
+		FVector p4 = FVector(4410, 7025, 1260);
 		
 		SetActorLocation(p4);
 

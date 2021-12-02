@@ -40,7 +40,7 @@ void ASJ_Actor_Title::BeginPlay()
 	// 채집하기
 	else if (gameMode->flowState == EFlowState::GoToCollectCourse || gameMode->flowState == EFlowState::CollectTitle)
 	{
-		FVector p1 = FVector(9775, 10148, 1290);
+		FVector p1 = FVector(9755, 10170, 1290);
 
 		SetActorLocation(p1);
 
