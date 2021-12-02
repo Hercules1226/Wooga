@@ -129,7 +129,7 @@ void ASlicePig::Tick(float DeltaTime)
 
 	if (effectOn == 1)
 	{
-		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), particleFactory, GetActorLocation() + FVector(0.f, 0.0f, 40.f));
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), particleFactory, GetActorLocation() + FVector(0.f, 0.0f, 50.f));
 		effectOn = 2;
 	}
 }
