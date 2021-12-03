@@ -19,7 +19,7 @@ AApple::AApple()
 
 	boxComp = CreateDefaultSubobject<UBoxComponent>(TEXT("Box Component"));
 	SetRootComponent(boxComp);
-
+	//
 	// 물리 관련 설정
 	boxComp->SetSimulatePhysics(false);
 	boxComp->SetEnableGravity(false);
