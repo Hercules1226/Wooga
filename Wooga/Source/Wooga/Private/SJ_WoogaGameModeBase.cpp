@@ -112,8 +112,8 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	tomahowk->SetActorHiddenInGame(true);
 
 	// 움집
-	lastHouse = Cast<ALastHouse>(UGameplayStatics::GetActorOfClass(GetWorld(), ALastHouse::StaticClass()));
-	lastHouse->SetActorHiddenInGame(true);
+	//lastHouse = Cast<ALastHouse>(UGameplayStatics::GetActorOfClass(GetWorld(), ALastHouse::StaticClass()));
+	//lastHouse->SetActorHiddenInGame(true);
 
 	// 라이트
 	levelLight = Cast<ASJ_Actor_LevelLight>(UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_Actor_LevelLight::StaticClass()));

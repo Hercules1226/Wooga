@@ -4,6 +4,9 @@
 #include "SJ_Actor_LevelLight.h"
 #include <Components/DirectionalLightComponent.h>
 #include <Components/StaticMeshComponent.h>
+#include <Components/PostProcessComponent.h>
+#include <Components/StaticMeshComponent.h>
+#include <Components/SkyLightComponent.h>
 
 // Sets default values
 ASJ_Actor_LevelLight::ASJ_Actor_LevelLight()
@@ -20,8 +23,14 @@ ASJ_Actor_LevelLight::ASJ_Actor_LevelLight()
 	sun = CreateDefaultSubobject<UDirectionalLightComponent>(TEXT("Sun"));
 	sun->SetupAttachment(rootComp);
 
+	skyLight = CreateDefaultSubobject<USkyLightComponent>(TEXT("SkyLight"));
+	skyLight->SetupAttachment(rootComp);
+
 	skySphere = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("SkySphere"));
 	skySphere->SetupAttachment(rootComp);
+
+	levelPost = CreateDefaultSubobject<UPostProcessComponent>(TEXT("LevelPost"));
+	levelPost->SetupAttachment(rootComp);
 }
 
 // Called when the game starts or when spawned
@@ -29,7 +38,7 @@ void ASJ_Actor_LevelLight::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	SetState(ELightState::Stay);
+	SetState(ELightState::Day);
 }
 
 // Called every frame
@@ -75,15 +84,22 @@ void ASJ_Actor_LevelLight::Stay()
 
 void ASJ_Actor_LevelLight::Day()
 {
+	// 라이트 변경
 	changeTIme += GetWorld()->DeltaTimeSeconds;
-
-	// wnthjr
 
 	curDirColor = FMath::Lerp(curDirColor, dayDirColor, changeTIme * 0.0005f);
 	curSunColor = FMath::Lerp(curSunColor, daySunColor, changeTIme * 0.0005f);
 
-	directLight->SetLightColor(curDirColor);
+	// directLight->SetLightColor(curDirColor);
 	sun->SetLightColor(curSunColor);
+	skyLight->SetLightColor(curDirColor);
+
+	float changeParam = FMath::Lerp(0.0f, 4.0f, changeTIme * 0.04f);
+	skySphere->SetScalarParameterValueOnMaterials(TEXT("Emissive_Power"), changeParam);
+	
+	dayParam.bOverride_BloomIntensity = true;
+	dayParam.BloomIntensity  = 0.675f;
+	levelPost->Settings = dayParam;
 
 	if (changeTIme >= 10.1f)
 	{

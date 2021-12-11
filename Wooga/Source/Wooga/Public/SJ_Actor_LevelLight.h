@@ -25,7 +25,13 @@ public:
 	class UDirectionalLightComponent* sun;
 
 	UPROPERTY(EditAnywhere, Category = Light)
+	class USkyLightComponent* skyLight;
+
+	UPROPERTY(EditAnywhere, Category = Light)
 	class UStaticMeshComponent* skySphere;
+
+	UPROPERTY(EditAnywhere, Category = Light)
+	class UPostProcessComponent* levelPost;
 
 protected:
 	// Called when the game starts or when spawned
@@ -51,9 +57,13 @@ public:
 
 	// ³· ÄÃ·¯
 	UPROPERTY()
-	FLinearColor dayDirColor = FLinearColor(1.0f, 0.686685f, 0.181164f);
+	FLinearColor dayDirColor = FLinearColor(0.64448f, 0.799103f, 1.0f);
 	UPROPERTY()
-	FLinearColor daySunColor = FLinearColor(0.938686f, 0.783538f, 0.55834f);
+	FLinearColor daySunColor = FLinearColor(1.0f, 0.955973f, 0.822786f);
+
+	UPROPERTY(EditAnywhere, Category = Setting)
+	struct FPostProcessSettings dayParam;
+
 
 	// ¹ã ÄÃ·¯
 	UPROPERTY()
