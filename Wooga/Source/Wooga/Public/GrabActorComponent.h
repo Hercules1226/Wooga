@@ -79,10 +79,6 @@ public:
 
 	void RGripString(AActor* grabActor);
 
-	void LGripBone(AActor* grabActor);
-
-	void RGripBone(AActor* grabActor);
-
 	void LGripTomahowk(AActor* grabActor);
 
 	void RGripTomahowk(AActor* grabActor);

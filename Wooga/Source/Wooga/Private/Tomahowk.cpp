@@ -105,6 +105,7 @@ void ATomahowk::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, clas
 						bisEat = true;
 
 						meshComp1->SetHiddenInGame(true);
+						meatOutline->SetHiddenInGame(true);
 						meshComp4->SetHiddenInGame(false);
 					}
 				}
