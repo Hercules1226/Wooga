@@ -41,6 +41,7 @@ void AHalfRock::Tick(float DeltaTime)
 	if (fistAxe->bisD15 == true)
 	{
 		SetActorHiddenInGame(true);
+		player->grabComp->RightHalfRockReleaseAction();
 	}
 }
 

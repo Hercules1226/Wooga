@@ -87,6 +87,11 @@ public:
 
 	void RGripTomahowk(AActor* grabActor);
 
+	void LeftFistReleaseAction();
+
+	void RightHalfRockReleaseAction();
+
+
 	UPROPERTY()
 		class AVR_Player* player;
 

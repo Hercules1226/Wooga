@@ -56,10 +56,19 @@ public:
 		FVector knockbackPos;
 
 	UPROPERTY()
+		FVector knockbackPos2;
+
+	UPROPERTY()
 		FVector returnKnockbackPos;
 
 	UPROPERTY()
+		FVector returnKnockbackPos2;
+
+	UPROPERTY()
 		FVector myPos;
+
+	UPROPERTY()
+		FVector myPos2;
 
 	UPROPERTY()
 		bool bisOverlab = false;

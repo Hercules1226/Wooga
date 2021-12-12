@@ -89,7 +89,45 @@ void ACutting::Tick(float DeltaTime)
 
 void ACutting::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (player->grabComp->bisGrabFistAxeR)
+	if (player->grabComp->bisGrabFistAxeL)
+	{
+		if (OtherActor == fA)
+		{
+			bisOverlabL = true;
+			handle->SetRelativeScale3D(FVector(1.2f, -1.2f, 1.2f));
+			player->leftHand->SetHiddenInGame(true);
+			fA->SetActorHiddenInGame(true);
+
+			handle->SetMaterial(0, onMaterialHand);
+			handle->SetMaterial(1, onMaterialFA);
+		}
+	}
+
+	if (bisOverlabL == true)
+	{
+		auto detachRock = Cast<ADetachRock>(OtherActor);
+		if (OtherActor == detachRock)
+		{
+			fA->SetActorHiddenInGame(true);
+			watch1->SetActorHiddenInGame(false);
+			watch2->SetActorHiddenInGame(false);
+			watch3->SetActorHiddenInGame(false);
+			watch4->SetActorHiddenInGame(false);
+			watch5->SetActorHiddenInGame(false);
+			watch6->SetActorHiddenInGame(false);
+
+			player->grabComp->LeftFistReleaseAction();
+
+			bisfinish = true;
+			//UGameplayStatics::PlaySound2D(GetWorld(), cuttingSound);
+			//fA->Destroy();
+			SetActorHiddenInGame(true);
+			player->leftHand->SetHiddenInGame(false);
+			bisSound = true;
+			//rootComp->SetActive(false);
+		}
+	}
+	/*if (player->grabComp->bisGrabFistAxeR)
 	{
 		if (OtherActor == fA)
 		{
@@ -108,60 +146,25 @@ void ACutting::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 			handle->SetMaterial(0, onMaterialHand);
 			handle->SetMaterial(1, onMaterialFA);
 		}
-	}
-
-	if (player->grabComp->bisGrabFistAxeL)
-	{
-		if (OtherActor == fA)
-		{
-			bisOverlabL = true;
-			handle->SetRelativeScale3D(FVector(1.2f, -1.2f, 1.2f));
-			player->leftHand->SetHiddenInGame(true);
-			fA->SetActorHiddenInGame(true);
-
-			handle->SetMaterial(0, onMaterialHand);
-			handle->SetMaterial(1, onMaterialFA);
-		}
-	}
+	}*/
 
 
-	if (bisOverlabR == true)
-	{
-		auto detachRock = Cast<ADetachRock>(OtherActor);
-		if (OtherActor == detachRock)
-		{
-			player->rightHand->SetHiddenInGame(false);
-			//?!
-			fA->SetActorHiddenInGame(false);
-			bisfinish = true;
-			//UGameplayStatics::PlaySound2D(GetWorld(), cuttingSound);
-			//fA->Destroy();
-			SetActorHiddenInGame(true);
-			//Destroy();
-		}
-	}
 
-	if (bisOverlabL == true)
-	{
-		auto detachRock = Cast<ADetachRock>(OtherActor);
-		if (OtherActor == detachRock)
-		{
-			player->leftHand->SetHiddenInGame(false);
-			fA->SetActorHiddenInGame(true);
-			watch1->SetActorHiddenInGame(false);
-			watch2->SetActorHiddenInGame(false);
-			watch3->SetActorHiddenInGame(false);
-			watch4->SetActorHiddenInGame(false);
-			watch5->SetActorHiddenInGame(false);
-			watch6->SetActorHiddenInGame(false);
+	//if (bisOverlabR == true)
+	//{
+	//	auto detachRock = Cast<ADetachRock>(OtherActor);
+	//	if (OtherActor == detachRock)
+	//	{
+	//		player->rightHand->SetHiddenInGame(false);
+	//		//?!
+	//		fA->SetActorHiddenInGame(false);
+	//		bisfinish = true;
+	//		//UGameplayStatics::PlaySound2D(GetWorld(), cuttingSound);
+	//		//fA->Destroy();
+	//		SetActorHiddenInGame(true);
+	//		//Destroy();
+	//	}
+	//}
 
-			bisfinish = true;
-			//UGameplayStatics::PlaySound2D(GetWorld(), cuttingSound);
-			//fA->Destroy();
-			SetActorHiddenInGame(true);
-			bisSound = true;
-			//rootComp->SetActive(false);
-		}
-	}
 }
 

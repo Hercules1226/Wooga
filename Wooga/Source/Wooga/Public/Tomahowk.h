@@ -27,15 +27,16 @@ public:
 		void OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	UPROPERTY(EditAnywhere, Category = Setting)
-		class UStaticMeshComponent* meshComp;
+		class UBoxComponent* meshComp;
 	UPROPERTY(EditAnywhere, Category = Setting)
 		class UStaticMeshComponent* meshComp1;
 	UPROPERTY(EditAnywhere, Category = Setting)
-		class UStaticMeshComponent* meshComp2;
-	UPROPERTY(EditAnywhere, Category = Setting)
-		class UStaticMeshComponent* meshComp3;
-	UPROPERTY(EditAnywhere, Category = Setting)
 		class UStaticMeshComponent* meshComp4;
+
+	UPROPERTY(EditAnywhere, Category = Setting)
+	class UStaticMeshComponent* meatOutline;
+	UPROPERTY(EditAnywhere, Category = Setting)
+	class UStaticMeshComponent* boneOutline;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
 		class UMaterialInstance* medium;
@@ -75,6 +76,10 @@ public:
 
 	UPROPERTY()
 		bool bisBake = false;
+
+	UPROPERTY()
+		bool bcanEat = false;
+
 	UPROPERTY()
 		bool bisEat = false;
 };

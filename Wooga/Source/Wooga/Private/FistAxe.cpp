@@ -141,7 +141,7 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 		if (currentTime >= 1.f)
 		{
 
-			if (bisStartBreak == true)
+			if (bisStartBreak == false)
 			{
 				detachRock = Cast<ADetachRock>(OtherActor);
 				if (OtherActor == detachRock)

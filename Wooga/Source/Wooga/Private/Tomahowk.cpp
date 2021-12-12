@@ -14,17 +14,19 @@ ATomahowk::ATomahowk()
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	meshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh Component"));
+	meshComp = CreateDefaultSubobject<UBoxComponent>(TEXT("Mesh Component"));
 	SetRootComponent(meshComp);
 
 	meshComp1 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh Component1"));
 	meshComp1->SetupAttachment(meshComp);
-	meshComp2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh Component2"));
-	meshComp2->SetupAttachment(meshComp);
-	meshComp3 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh Component3"));
-	meshComp3->SetupAttachment(meshComp);
 	meshComp4 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh Component4"));
-	meshComp4->SetupAttachment(meshComp);
+	meshComp4->SetupAttachment(meshComp1);
+
+	meatOutline = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Meat OutLine"));
+	meatOutline->SetupAttachment(meshComp1);
+
+	boneOutline = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Bone OutLine"));
+	boneOutline->SetupAttachment(meshComp4);
 
 	medium = CreateDefaultSubobject<UMaterialInstance>(TEXT("Medium"));
 	welldone = CreateDefaultSubobject<UMaterialInstance>(TEXT("Welldone"));
@@ -47,7 +49,7 @@ void ATomahowk::Tick(float DeltaTime)
 	{
 		currentTime += GetWorld()->DeltaTimeSeconds;
 
-		if (currentTime >= 2.f)
+		if (currentTime >= 1.f)
 		{
 			meshComp1->SetMaterial(0, medium);
 
@@ -62,7 +64,7 @@ void ATomahowk::Tick(float DeltaTime)
 		//	meshComp1->SetScalarParameterValueOnMaterials(TEXT("Amount"), blend);
 		}
 
-		if (currentTime >= 4.f)
+		if (currentTime >= 3.f)
 		{
 			meshComp1->SetMaterial(0, welldone);
 			bisWelldone = true;
@@ -70,6 +72,11 @@ void ATomahowk::Tick(float DeltaTime)
 			blend = FMath::Lerp(0.f, 1.f, disTime * 0.5f);*/
 
 			//	meshComp1->SetScalarParameterValueOnMaterials(TEXT("Amount"), blend);
+		}
+
+		if (currentTime >= 4.5f)
+		{
+			bcanEat = true;
 		}
 	}
 }
@@ -85,21 +92,22 @@ void ATomahowk::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, clas
 
 	if (bisWelldone == true)
 	{
-		if (player)
+		if (bcanEat == true)
 		{
-			if (OtherComp == player->mouthComp)
+			if (player)
 			{
-				meshComp1->SetHiddenInGame(true);
-				meshComp4->SetHiddenInGame(false);
-
-				if (bisEat == false)
+				if (OtherComp == player->mouthComp)
 				{
-					bisBone = true;
-					UGameplayStatics::PlaySound2D(GetWorld(), sound);
-					bisEat = true;
+					if (bisEat == false)
+					{
+						bisBone = true;
+						UGameplayStatics::PlaySound2D(GetWorld(), sound);
+						bisEat = true;
+
+						meshComp1->SetHiddenInGame(true);
+						meshComp4->SetHiddenInGame(false);
+					}
 				}
-
-
 			}
 		}
 	}

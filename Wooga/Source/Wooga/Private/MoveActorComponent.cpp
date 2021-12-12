@@ -65,11 +65,33 @@ void UMoveActorComponent::SetupPlayerInputComponent(UInputComponent* PlayerInput
 void UMoveActorComponent::MoveHorizontal(float value)
 {
 
-	if (bisMove == true)
+	/*if (bisMove == true)
 	{
 		FVector dir = player->GetActorRightVector() * value;
 
 		player->SetActorLocation(player->GetActorLocation() + dir * moveSpeed * GetWorld()->DeltaTimeSeconds);
+	}*/
+
+	if (bisMove == true)
+	{
+		bisWalk = true;
+		auto cam = Cast<UCameraComponent>(player->GetDefaultSubobjectByName(TEXT("MainCamera")));
+
+		FVector dir = cam->GetRightVector() * value;
+		dir.Z = 0;
+
+		player->SetActorLocation(player->GetActorLocation() + dir * moveSpeed * GetWorld()->DeltaTimeSeconds);
+
+		if (value >= 0.5f)
+		{
+			bisWalk = true;
+		}
+
+		if (value < 0.5f)
+		{
+			bisWalk = false;
+			currentTime = 0;
+		}
 	}
 }
 

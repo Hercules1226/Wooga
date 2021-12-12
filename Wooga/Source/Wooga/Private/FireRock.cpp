@@ -52,9 +52,17 @@ void AFireRock::Tick(float DeltaTime)
 	if (bisOverlab == true)
 	{
 		myPos = FMath::Lerp(myPos, returnKnockbackPos, 5.f * GetWorld()->DeltaTimeSeconds);
+		myPos2 = FMath::Lerp(myPos2, returnKnockbackPos2, 5.f * GetWorld()->DeltaTimeSeconds);
 		player->leftHand->SetRelativeLocation(myPos);
+		player->rightHand->SetRelativeLocation(myPos2);
+
 		// 물어보기
 		if (FVector::Dist(myPos, returnKnockbackPos) < 1.f)
+		{
+			bisOverlab = false;
+		}
+
+		if (FVector::Dist(myPos2, returnKnockbackPos2) < 1.f)
 		{
 			bisOverlab = false;
 		}
@@ -72,8 +80,15 @@ void AFireRock::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, clas
 			{
 				myPos = player->leftHand->GetRelativeLocation();
 				knockbackPos = player->leftHand->GetRelativeLocation() + FVector(1.f, 0.f, 1.f) * -3.f;
+
+				myPos2 = player->rightHand->GetRelativeLocation();
+				knockbackPos2 = player->rightHand->GetRelativeLocation() + FVector(1.f, 0.f, 1.f) * -3.f;
+
 				myPos = knockbackPos;
+				myPos2 = knockbackPos2;
+
 				player->leftHand->SetRelativeLocation(myPos);
+				player->rightHand->SetRelativeLocation(myPos2);
 				UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), explosionFactory, GetActorLocation() + FVector(0.f, 0.0f, -30.f));
 
 				bisOverlab = true;
@@ -92,4 +107,5 @@ void AFireRock::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, clas
 	}
 }
 
+//  myPos, knock, 
 
