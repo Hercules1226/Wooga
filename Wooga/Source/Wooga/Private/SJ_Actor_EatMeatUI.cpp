@@ -26,11 +26,11 @@ void ASJ_Actor_EatMeatUI::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	FVector p = FVector(5151, 8090, 1290);
+	FVector p = FVector(6353, 7075, 1290);
 
 	SetActorLocation(p);
 
-	FRotator r = FRotator(0, -80, 0);
+	FRotator r = FRotator(0, 64, 0);
 
 	SetActorRotation(r);
 }

@@ -27,11 +27,11 @@ void ASJ_Actor_EatFishUI::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	FVector p = FVector(5254, 8061, 1310);
+	FVector p = FVector(6390, 7179, 1301);
 
 	SetActorLocation(p);
 
-	FRotator r = FRotator(0, -130, 0);
+	FRotator r = FRotator(0, 172, 0);
 
 	SetActorRotation(r);
 }

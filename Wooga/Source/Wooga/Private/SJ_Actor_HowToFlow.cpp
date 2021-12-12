@@ -106,11 +106,11 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 	// 荤成窍扁 规过
 	else if (gameMode->flowState == EFlowState::GrabHandAx)
 	{
-		FVector p3 = FVector(7710, 8977, 1300);
+		FVector p3 = FVector(7974, 9257, 1320);
 
 		SetActorLocation(p3);
 
-		FRotator r3 = FRotator(0, -85, 0);
+		FRotator r3 = FRotator(0, -82, 0);
 
 		SetActorRotation(r3);
 
@@ -120,11 +120,11 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 	// 林冈档尝 规过
 	else if (gameMode->flowState == EFlowState::MakeHandAx)
 	{
-		FVector p4 = FVector(7694, 8915, 1309);
+		FVector p4 = FVector(8111, 8678, 1313);
 
 		SetActorLocation(p4);
 
-		FRotator r4 = FRotator(0, -140, 0);
+		FRotator r4 = FRotator(0, 0, 0);
 
 		SetActorRotation(r4);
 
@@ -137,11 +137,11 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 	}
 	else if (gameMode->flowState == EFlowState::FireUseTitle)
 	{
-		FVector p5 = FVector(5177, 7877, 1300);
+		FVector p5 = FVector(6277, 7157, 1312);
 
 		SetActorLocation(p5);
 
-		FRotator r5 = FRotator(0, -140, 0);
+		FRotator r5 = FRotator(0, -31, 0);
 
 		SetActorRotation(r5);
 
