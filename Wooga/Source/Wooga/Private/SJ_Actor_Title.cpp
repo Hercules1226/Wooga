@@ -51,7 +51,7 @@ void ASJ_Actor_Title::BeginPlay()
 	// ÁÖ¸Ôµµ³¢ Á¦¸ñ
 	else if (gameMode->flowState == EFlowState::GoToFistAxCourse || gameMode->flowState == EFlowState::HandAxTitle)
 	{
-		FVector p2 = FVector(8023, 8940, 1290);
+		FVector p2 = FVector(8286, 9116, 1304);
 
 		SetActorLocation(p2);
 
@@ -62,22 +62,22 @@ void ASJ_Actor_Title::BeginPlay()
 	// ºÒÀÇ È°¿ë
 	else if (gameMode->flowState == EFlowState::GoToFireUse || gameMode->flowState == EFlowState::FireUseTitle)
 	{
-		FVector p3 = FVector(5201, 7838, 1290);
+		FVector p3 = FVector(6302, 7470, 1302);
 
 		SetActorLocation(p3);
 
-		FRotator r3 = FRotator(0, 50, 0);
+		FRotator r3 = FRotator(0, 122, 0);
 
 		SetActorRotation(r3);
 	}
 	// ½¿º£Âî¸£°³
 	else if (gameMode->flowState == EFlowState::GoToSpear || gameMode->flowState == EFlowState::SpearTitle)
 	{
-		FVector p4 = FVector(4416, 6856, 1280);
+		FVector p4 = FVector(5129, 6759, 1300);
 
 		SetActorLocation(p4);
 
-		FRotator r4 = FRotator(0, 180, 0);
+		FRotator r4 = FRotator(0, -47, 0);
 
 		SetActorRotation(r4);
 	}

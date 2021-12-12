@@ -27,11 +27,11 @@ void ASJ_Actor_ConnectSpearUI::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	FVector p = FVector(4396, 6667, 1262);
+	FVector p = FVector(5191, 6533, 1272);
 
 	SetActorLocation(p);
 
-	FRotator r = FRotator(0, 85, 0);
+	FRotator r = FRotator(0, 55, 0);
 
 	SetActorRotation(r);
 }
