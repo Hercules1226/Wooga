@@ -30,7 +30,7 @@ void ASJ_Actor_EatAppleUI::BeginPlay()
 	
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
 
-	FVector p = FVector(9560, 10120, 1300);
+	FVector p = FVector(9482, 10398, 1309);
 
 	SetActorLocation(p);
 

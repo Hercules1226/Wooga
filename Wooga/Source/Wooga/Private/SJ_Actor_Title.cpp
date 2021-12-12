@@ -29,22 +29,22 @@ void ASJ_Actor_Title::BeginPlay()
 
 	if (gameMode->flowState == EFlowState::HowToGrabActorUI || gameMode->flowState == EFlowState::FireDiscoveryTitle)
 	{
-		FVector p1 = FVector(10903, 11908, 1290);
+		FVector p1 = FVector(10893, 12024, 1300);
 
 		SetActorLocation(p1);
 
-		FRotator r1 = FRotator(0, 154, 0);
+		FRotator r1 = FRotator(0, -213, 0);
 
 		SetActorRotation(r1);
 	}
 	// 채집하기
 	else if (gameMode->flowState == EFlowState::GoToCollectCourse || gameMode->flowState == EFlowState::CollectTitle)
 	{
-		FVector p1 = FVector(9755, 10170, 1290);
+		FVector p1 = FVector(9677, 10263, 1300);
 
 		SetActorLocation(p1);
 
-		FRotator r1 = FRotator(0, 130, 0);
+		FRotator r1 = FRotator(0, -229, 0);
 
 		SetActorRotation(r1);
 	}

@@ -58,7 +58,7 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 	// 불의 발견(불피우기) 방법
 	if (gameMode->flowState == EFlowState::FireDiscoveryTitle)
 	{
-		FVector p1 = FVector(10900, 11920, 1290);
+		FVector p1 = FVector(10885, 12018, 1323);
 		SetActorLocation(p1);
 
 		FRotator r1 = FRotator(0, -30, 0);
@@ -92,10 +92,10 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 		arrow2 = Cast<AArrow2>(UGameplayStatics::GetActorOfClass(GetWorld(), AArrow2::StaticClass()));
 		arrow2->arrowOn = true;
 
-		FVector p2 = FVector(9728, 10147, 1300);
+		FVector p2 = FVector(9620, 10212, 1300);
 		SetActorLocation(p2);
 
-		FRotator r2 = FRotator(0, -45, 0);
+		FRotator r2 = FRotator(0, -48, 0);
 		SetActorRotation(r2);
 
 		flowIndex = 2;
