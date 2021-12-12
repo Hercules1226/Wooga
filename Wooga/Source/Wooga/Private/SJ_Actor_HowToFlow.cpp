@@ -130,9 +130,6 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 
 		flowIndex = 4;
 
-		arrow4 = Cast<AArrow4>(UGameplayStatics::GetActorOfClass(GetWorld(), AArrow4::StaticClass()));
-		arrow4->arrowOn = true;
-
 		playTime = 8;
 	}
 	else if (gameMode->flowState == EFlowState::FireUseTitle)
@@ -154,11 +151,11 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 	}
 	else if (gameMode->flowState == EFlowState::SpearTitle)
 	{
-		FVector p6 = FVector(4416, 6615, 1350);
+		FVector p6 = FVector(5209, 6569, 1353);
 
 		SetActorLocation(p6);
 
-		FRotator r6 = FRotator(0, 0, 0);
+		FRotator r6 = FRotator(0, -21, 0);
 
 		SetActorRotation(r6);
 
