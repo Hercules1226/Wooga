@@ -184,6 +184,7 @@ void ASumjjiRock::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cl
 
 					bisRockFin = true;
 					bone->SetActorHiddenInGame(true);
+					bone->boneOutline->SetHiddenInGame(true);
 				}
 			}
 		}
