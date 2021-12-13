@@ -51,11 +51,11 @@ void ASJ_Hologram::BeginPlay()
 	// ºÒÀÇ ¹ß°ß È¦·Î±×·¥
 	if (gameMode->flowState == EFlowState::Firing || gameMode->flowState == EFlowState::CompleteFireDiscovery)
 	{
-		FVector p1 = FVector(10720, 11760, 1310);
+		FVector p1 = FVector(10774, 11856, 1300);
 
 		SetActorLocation(p1);
 
-		FRotator r1 = FRotator(0, 61, 0);
+		FRotator r1 = FRotator(0, 65, 0);
 
 		SetActorRotation(r1);
 		
@@ -65,11 +65,11 @@ void ASJ_Hologram::BeginPlay()
 	// Ã¤Áý È¦·Î±×·¥
 	if (gameMode->flowState == EFlowState::CollectAndEat || gameMode->flowState == EFlowState::CompleteCollect)
 	{
-		FVector p2 = FVector(9598, 10208, 1300);
+		FVector p2 = FVector(9456, 10060, 1280);
 
 		SetActorLocation(p2);
 
-		FRotator r2 = FRotator(0, 72, 0);
+		FRotator r2 = FRotator(0, 70, 0);
 
 		SetActorRotation(r2);
 
@@ -79,11 +79,11 @@ void ASJ_Hologram::BeginPlay()
 	// ÁÖ¸Ôµµ³¢ È¦·Î±×·¥
 	if (gameMode->flowState == EFlowState::CompleteHandAx || gameMode->flowState == EFlowState::DirectlyHit)
 	{
-		FVector p3 = FVector(7579, 8999, 1370);
+		FVector p3 = FVector(8103, 8538, 1280);
 
 		SetActorLocation(p3);
 
-		FRotator r3 = FRotator(0, -53, 0);
+		FRotator r3 = FRotator(0, 85, 0);
 
 		SetActorRotation(r3);
 
@@ -92,11 +92,11 @@ void ASJ_Hologram::BeginPlay()
 	// ºÒÀÇ È°¿ë È¦·Î±×·¥
 	if (gameMode->flowState == EFlowState::EatMeat || gameMode->flowState == EFlowState::CompleteFireUse)
 	{
-		FVector p4 = FVector(5134, 8068, 1292);
+		FVector p4 = FVector(6288, 6981, 1280);
 
 		SetActorLocation(p4);
 
-		FRotator r4 = FRotator(0, -70, 0);
+		FRotator r4 = FRotator(0, 65, 0);
 
 		SetActorRotation(r4);
 
@@ -105,11 +105,11 @@ void ASJ_Hologram::BeginPlay()
 	// ½¿º£Âî¸£°³ È¦·Î±×·¥
 	if (gameMode->flowState == EFlowState::TieSpear || gameMode->flowState == EFlowState::CompleteSpear)
 	{
-		FVector p5 = FVector(4439, 6512, 1358);
+		FVector p5 = FVector(5222, 6391, 1359);
 
 		SetActorLocation(p5);
 
-		FRotator r5 = FRotator(-6, 86, 0);
+		FRotator r5 = FRotator(-15, 86, 0);
 
 		SetActorRotation(r5);
 
