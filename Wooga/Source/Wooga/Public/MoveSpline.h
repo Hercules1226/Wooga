@@ -10,8 +10,8 @@ UCLASS()
 class WOOGA_API AMoveSpline : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AMoveSpline();
 
@@ -19,18 +19,18 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(visibleAnywhere, BlueprintReadWrite, Category = "SplineComtroller")
-	USceneComponent* root;
+		USceneComponent* root;
 
 	UPROPERTY(visibleAnywhere, BlueprintReadWrite, Category = "SplineComtroller")
-	class USplineComponent* spline;
+		class USplineComponent* spline;
 
 	UPROPERTY(EditDefaultsOnly, Category = "SplineController")
-	TSubclassOf<class AActor> actorToMoveClass;
+		TSubclassOf<class AActor> actorToMoveClass;
 
 	class AActor* actorToMove;
 
@@ -38,24 +38,38 @@ public:
 		class AVR_Player* player;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "SplineController")
-	float totalPathTimeController;
+		float totalPathTimeController;
 
 	UPROPERTY(EditDefaultsOnly, Category = "SplineController")
 		bool bSplineInLoop;
 
 	UPROPERTY()
-	bool bcanMoveActor;
+		bool bcanMoveActor;
 
 	UPROPERTY()
-	float startTime; 
+		float startTime;
 
 	UPROPERTY()
-	float speed;
+		float speed;
 
 	UPROPERTY()
 		float curTime = 0.f;
 
-	float currentSplineTime;
+	UPROPERTY()
+		float moveTime;
 
-	float distance;
+	UPROPERTY()
+		float distance;
+
+	UPROPERTY()
+		float distanceRot;
+
+	UPROPERTY()
+		float currentSplineTime;
+
+	UPROPERTY()
+		float currentSplineTimeRot;
+
+	UPROPERTY()
+		bool timeOn = true;
 };

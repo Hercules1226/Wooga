@@ -4,6 +4,7 @@
 #include "MoveSpline.h"
 #include "MoveActorComponent.h"
 #include "Components/SplineComponent.h"
+#include "Components/TimelineComponent.h"
 #include "VR_Player.h"
 #include <Kismet/GameplayStatics.h>
 
@@ -50,31 +51,44 @@ void AMoveSpline::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	curTime += DeltaTime;
 
+	if (timeOn == true)
+	{
+		moveTime += GetWorld()->DeltaTimeSeconds;
+	}
+
 	if ((actorToMove != nullptr) && (bcanMoveActor))
 	{
+		currentSplineTime = (moveTime / totalPathTimeController);
+		currentSplineTimeRot = ((GetWorld()->GetTimeSeconds()) / totalPathTimeController);
 		if (3.f > curTime)
 		{
-			currentSplineTime = (GetWorld()->GetTimeSeconds()) * 1.f / totalPathTimeController;
+			timeOn = true;
 		}
 
-		else if (3.f <= curTime)
+		else if (3.f <= curTime && 6.f > curTime)
 		{
-			currentSplineTime = (GetWorld()->GetTimeSeconds()) * 0.f / totalPathTimeController;
+			timeOn = false;
+		}
+
+		else if (6.f <= curTime)
+		{
+			timeOn = true;
 		}
 
 		distance = spline->GetSplineLength() * currentSplineTime;
+		distanceRot = spline->GetSplineLength() * currentSplineTimeRot;
 
 		FVector position = spline->GetLocationAtDistanceAlongSpline(distance, ESplineCoordinateSpace::World);
 		actorToMove->SetActorLocation(position);
 
-		FVector direction = spline->GetDirectionAtDistanceAlongSpline(distance, ESplineCoordinateSpace::World);
+		FVector direction = spline->GetDirectionAtDistanceAlongSpline(distanceRot, ESplineCoordinateSpace::World);
 
 		FRotator rotator = direction.Rotation();
 		actorToMove->SetActorRotation(rotator);
 
-		
+
 	}
 
-	
+
 }
 
