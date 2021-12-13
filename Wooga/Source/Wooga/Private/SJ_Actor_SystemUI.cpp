@@ -8,6 +8,7 @@
 #include <Kismet/GameplayStatics.h>
 #include "SJ_WoogaGameModeBase.h"
 #include "SJ_UI_Next.h"
+#include "SJ_UI_SystemUI.h"
 
 // Sets default values
 ASJ_Actor_SystemUI::ASJ_Actor_SystemUI()
@@ -23,9 +24,6 @@ ASJ_Actor_SystemUI::ASJ_Actor_SystemUI()
 
 	widgetComp = CreateDefaultSubobject<UWidgetComponent>(TEXT("Widget Comp"));
 	widgetComp->SetupAttachment(rootComp);
-
-	nextWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("NextWidget"));
-	nextWidget->SetupAttachment(rootComp);
 }
 
 // Called when the game starts or when spawned
@@ -37,7 +35,7 @@ void ASJ_Actor_SystemUI::BeginPlay()
 	
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
 
-	nextUI = Cast<USJ_UI_Next>(nextWidget->GetWidget());
+	systemUI = Cast<USJ_UI_SystemUI>(widgetComp->GetWidget());
 
 	FVector playerLoc = player->GetActorLocation();
 	FVector me = GetActorLocation();
@@ -50,8 +48,6 @@ void ASJ_Actor_SystemUI::BeginPlay()
 	dir.Normalize();
 
 	SetActorRotation(dir.Rotation());
-
-	nextWidget->SetVisibility(false);
 
 	SetState(EUIState::On);
 }
@@ -92,9 +88,8 @@ void ASJ_Actor_SystemUI::On()
 
 	if (currentTime >= 3.0f)
 	{
-		nextWidget->SetVisibility(true);
-		
-		nextUI->OpenAnimation();
+		systemUI->NextAnimation();
+		UE_LOG(LogTemp, Warning, TEXT("NextOn"));
 
 		currentTime = 0;
 
@@ -106,7 +101,7 @@ void ASJ_Actor_SystemUI::Next()
 {
 	if (player->isClose == true)
 	{
-		nextUI->CloseAnimation();
+		// nextUI->CloseAnimation();
 
 		SetState(EUIState::Off);
 	}

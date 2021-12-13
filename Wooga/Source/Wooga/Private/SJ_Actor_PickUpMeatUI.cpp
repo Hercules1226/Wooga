@@ -37,7 +37,7 @@ void ASJ_Actor_PickUpMeatUI::BeginPlay()
 	FVector p = FVector(7541, 8715, 1282);
 	SetActorLocation(p);
 
-	FRotator r = FRotator(0, 30, 0);
+	FRotator r = FRotator(0, 10, 0);
 	SetActorRotation(r);
 }
 

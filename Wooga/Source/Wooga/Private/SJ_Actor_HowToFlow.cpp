@@ -16,6 +16,7 @@
 #include "Arrow7.h"
 #include <Components/WidgetComponent.h>
 #include "SJ_UI_Next.h"
+#include "SJ_UI_Flow.h"
 
 // Sets default values
 ASJ_Actor_HowToFlow::ASJ_Actor_HowToFlow()
@@ -35,17 +36,11 @@ ASJ_Actor_HowToFlow::ASJ_Actor_HowToFlow()
 	howToUI = CreateDefaultSubobject<UWidgetComponent>(TEXT("HowToUI"));
 	howToUI->SetupAttachment(rootComp);
 
-	nextWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("NextUI"));
-	nextWidget->SetupAttachment(rootComp);
-
 }
 
 void ASJ_Actor_HowToFlow::BeginPlay()
 {
 	Super::BeginPlay();
-
-	//nextUI->Deactivate();
-	nextWidget->SetVisibility(false);
 
 	UGameplayStatics::PlaySound2D(GetWorld(), onSound);
 
@@ -53,7 +48,7 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
 
-	nextUI = Cast<USJ_UI_Next>(nextWidget->GetWidget());
+	flowUI = Cast<USJ_UI_Flow>(howToUI->GetWidget());
 
 	// 불의 발견(불피우기) 방법
 	if (gameMode->flowState == EFlowState::FireDiscoveryTitle)
@@ -289,9 +284,7 @@ void ASJ_Actor_HowToFlow::Stay()
 
 	if (currentTime >= playTime)
 	{
-		nextWidget->SetVisibility(true);
-
-		nextUI->OpenAnimation();
+		flowUI->NextAnimation();
 
 		currentTime = 0;
 		SetState(ESaturateState::Next);
@@ -302,7 +295,6 @@ void ASJ_Actor_HowToFlow::Next()
 {
 	if (player->isClose == true)
 	{
-		nextUI->CloseAnimation();
 		SetState(ESaturateState::OffSature);
 	}
 }
@@ -363,7 +355,7 @@ void ASJ_Actor_HowToFlow::OffSature()
 
 		if (flowIndex == 4)
 		{
-			arrow4->arrowOn = false;
+			// arrow4->arrowOn = false;
 		}
 
 		if (flowIndex == 5)

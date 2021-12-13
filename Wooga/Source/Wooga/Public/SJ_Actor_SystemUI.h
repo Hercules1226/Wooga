@@ -41,6 +41,8 @@ public:
 
 	class USJ_UI_Next* nextUI; 
 
+	class USJ_UI_SystemUI* systemUI;
+
 	EUIState uiState;
 	EUIState GetState();
 	void SetState(EUIState state);
