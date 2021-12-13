@@ -52,21 +52,21 @@ void ASJ_Actor_MakeRange::BeginPlay()
 	}
 	else if (gameMode->flowState == EFlowState::CompleteSpear)
 	{
-		FVector p3 = FVector(4957, 6953, 1183);
+		FVector p3 = FVector(5012, 6900, 1183);
 
 		SetActorLocation(p3);
 
-		FRotator r3 = FRotator(0, -13, 0);
+		FRotator r3 = FRotator(0, -23, 0);
 
 		SetActorRotation(r3);
 	}
 	else if(gameMode->flowState == EFlowState::CatchFish || gameMode->flowState == EFlowState::GoToCookFish)
 	{
-		FVector p4 = FVector(6183, 7239, 1183);
+		FVector p4 = FVector(6232, 7187, 1183);
 
 		SetActorLocation(p4);
 
-		FRotator r4 = FRotator(0, -194, 0);
+		FRotator r4 = FRotator(0, -185.5f, 0);
 
 		SetActorRotation(r4);
 	}

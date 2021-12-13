@@ -355,7 +355,7 @@ void ASJ_Actor_HowToFlow::OffSature()
 
 		if (flowIndex == 4)
 		{
-			arrow4->arrowOn = false;
+			// arrow4->arrowOn = false;
 		}
 
 		if (flowIndex == 5)

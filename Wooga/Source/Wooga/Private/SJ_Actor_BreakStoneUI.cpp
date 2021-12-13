@@ -31,7 +31,7 @@ void ASJ_Actor_BreakStoneUI::BeginPlay()
 
 	SetActorLocation(p);
 
-	FRotator r = FRotator(0, 55, 0);
+	FRotator r = FRotator(0, 60, 0);
 
 	SetActorRotation(r);
 	

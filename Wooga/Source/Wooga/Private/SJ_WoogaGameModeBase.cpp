@@ -80,7 +80,7 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 
 	// 맨 처음 불의 발견 교육으로 시작
 	// SetState(EFlowState::SpawnHutGuideLine);
-	SetState(EFlowState::InGame);
+	SetState(EFlowState::SpawnHandAxGuideLine);
 
 	// 테스트용 스테이트
 	//SetState(EFlowState::CompleteCollect);
@@ -109,7 +109,7 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 
 	// 잘린고기
 	tomahowk = Cast<ATomahowk>(UGameplayStatics::GetActorOfClass(GetWorld(), ATomahowk::StaticClass()));
-	tomahowk->SetActorHiddenInGame(true);
+	// tomahowk->SetActorHiddenInGame(true);
 
 	// 움집
 	//lastHouse = Cast<ALastHouse>(UGameplayStatics::GetActorOfClass(GetWorld(), ALastHouse::StaticClass()));
@@ -1037,7 +1037,7 @@ void ASJ_WoogaGameModeBase::CuttingPig()
 			// 고기 들고가기 UI생성
 			pickUpMeatUI = GetWorld()->SpawnActor<ASJ_Actor_PickUpMeatUI>(bpPickUpMeatUI, Param);
 
-			FVector fireStrawPosition = FVector(5173, 8000, 1203);
+			FVector fireStrawPosition = FVector(6381, 7192, 1197);
 			FRotator fireStrawRotation = FRotator(0, 0, 0);
 
 			// 도착 했을때 장작이 보이게 장작생성
