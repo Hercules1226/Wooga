@@ -72,7 +72,7 @@ void UMoveActorComponent::MoveHorizontal(float value)
 		player->SetActorLocation(player->GetActorLocation() + dir * moveSpeed * GetWorld()->DeltaTimeSeconds);
 	}*/
 
-	if (bisMove == true)
+	/*if (bisMove == true)
 	{
 		bisWalk = true;
 		auto cam = Cast<UCameraComponent>(player->GetDefaultSubobjectByName(TEXT("MainCamera")));
@@ -81,7 +81,10 @@ void UMoveActorComponent::MoveHorizontal(float value)
 		dir.Z = 0;
 
 		player->SetActorLocation(player->GetActorLocation() + dir * moveSpeed * GetWorld()->DeltaTimeSeconds);
+		*/
 
+	/*if (bisMove == true)
+	{
 		if (value >= 0.5f)
 		{
 			bisWalk = true;
@@ -92,21 +95,22 @@ void UMoveActorComponent::MoveHorizontal(float value)
 			bisWalk = false;
 			currentTime = 0;
 		}
-	}
+	}*/
+
 }
 
 void UMoveActorComponent::MoveVertical(float value)
 {
 	if (bisMove == true)
 	{
-		bisWalk = true;
+		/*bisWalk = true;
 		auto cam = Cast<UCameraComponent>(player->GetDefaultSubobjectByName(TEXT("MainCamera")));
 
 		FVector dir = cam->GetForwardVector() * value;
 		dir.Z = 0;
 
 		player->SetActorLocation(player->GetActorLocation() + dir * moveSpeed * GetWorld()->DeltaTimeSeconds);
-
+		*/
 		if (value >= 0.5f)
 		{
 			bisWalk = true;

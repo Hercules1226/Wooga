@@ -55,6 +55,7 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Sound")
 		USoundBase* walkSound;
 
+public:
 	UPROPERTY()
 		bool bisMove = true;
 
