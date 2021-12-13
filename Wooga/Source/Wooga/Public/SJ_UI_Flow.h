@@ -26,6 +26,9 @@ public:
 	UPROPERTY(EditDefaultsOnly, BluePrintReadWrite, Category = "Animation", meta = (BindWidgetAnim), Transient)
 		class UWidgetAnimation* CloseUI;
 
+	UPROPERTY(EditDefaultsOnly, BluePrintReadWrite, Category = "Animation", meta = (BindWidgetAnim), Transient)
+		class UWidgetAnimation* NextUI;
+
 		UPROPERTY()
 		class ASJ_Actor_HowToFlow* howToFlow;
 
@@ -34,5 +37,7 @@ public:
 
 		UPROPERTY()
 		float currentTime;
+
+		void NextAnimation();
 		
 };

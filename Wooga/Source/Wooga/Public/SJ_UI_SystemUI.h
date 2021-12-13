@@ -29,6 +29,11 @@ public:
 	UPROPERTY(EditDefaultsOnly, BluePrintReadWrite, Category = "Animation", meta = (BindWidgetAnim), Transient)
 		class UWidgetAnimation* CloseUI;
 
+	UPROPERTY(EditDefaultsOnly, BluePrintReadWrite, Category = "Animation", meta = (BindWidgetAnim), Transient)
+		class UWidgetAnimation* NextUI;
+
 	UPROPERTY()
 	float currentTime;
+
+	void NextAnimation();
 };

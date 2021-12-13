@@ -34,3 +34,8 @@ void USJ_UI_Flow::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 	}
 }
 
+void USJ_UI_Flow::NextAnimation()
+{
+	PlayAnimation(NextUI);
+}
+

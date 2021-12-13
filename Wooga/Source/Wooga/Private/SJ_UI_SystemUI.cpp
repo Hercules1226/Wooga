@@ -30,3 +30,8 @@ void USJ_UI_SystemUI::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 		}
 	}
 }
+
+void USJ_UI_SystemUI::NextAnimation()
+{
+	PlayAnimation(NextUI);
+}

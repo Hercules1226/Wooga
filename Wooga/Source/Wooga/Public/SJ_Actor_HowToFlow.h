@@ -49,6 +49,9 @@ public:
 	class USJ_UI_Next* nextUI;
 
 	UPROPERTY()
+	class USJ_UI_Flow* flowUI;
+
+	UPROPERTY()
 	int32 flowIndex = 1;
 
 	UPROPERTY()
