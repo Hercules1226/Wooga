@@ -71,5 +71,8 @@ public:
 		float currentSplineTimeRot;
 
 	UPROPERTY()
-		bool timeOn = true;
+		bool timeOn = false;
+
+	UPROPERTY()
+		bool canMove = false;
 };
