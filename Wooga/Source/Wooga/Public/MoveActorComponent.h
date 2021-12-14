@@ -44,6 +44,10 @@ private:
 
 	UPROPERTY()
 		class AVR_Player* player;
+
+	UPROPERTY()
+		class AMoveSpline* moveSpline;
+
 	UPROPERTY()
 		class ASJ_WoogaGameModeBase* gameMode;
 
@@ -61,4 +65,7 @@ public:
 
 	UPROPERTY()
 		bool bisWalk = false;
+
+	UPROPERTY()
+		bool bisMoveSpline = false;
 };
