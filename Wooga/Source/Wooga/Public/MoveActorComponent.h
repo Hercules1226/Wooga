@@ -65,7 +65,4 @@ public:
 
 	UPROPERTY()
 		bool bisWalk = false;
-
-	UPROPERTY()
-		bool bisMoveSpline = false;
 };

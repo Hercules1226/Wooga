@@ -284,11 +284,11 @@ void UGrabActorComponent::RightReleaseAction()
 
 	if (sumjjiRockR)
 	{
-		sumjjiRockR->sumjji->SetEnableGravity(true);
+		sumjjiRockR->rootComp->SetEnableGravity(true);
 		// 그 자리에서 떨어지게
 		sumjjiRockR->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
 
-		sumjjiRockR->sumjji->SetSimulatePhysics(true);
+		sumjjiRockR->rootComp->SetSimulatePhysics(true);
 		//sumjjiRockR->outLine->SetVisibility(false);
 
 		sumjjiRockR = nullptr;
@@ -486,11 +486,11 @@ void UGrabActorComponent::LeftReleaseAction()
 
 	if (sumjjiRockL)
 	{
-		sumjjiRockL->sumjji->SetEnableGravity(true);
+		sumjjiRockL->rootComp->SetEnableGravity(true);
 		// 그 자리에서 떨어지게
 		sumjjiRockL->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
 
-		sumjjiRockL->sumjji->SetSimulatePhysics(true);
+		sumjjiRockL->rootComp->SetSimulatePhysics(true);
 		//sumjjiL->outLine->SetVisibility(true);
 
 		sumjjiRockL = nullptr;
@@ -1110,17 +1110,20 @@ void UGrabActorComponent::LGripSumjjiRock(AActor* grabActor)
 			//FAttachmentTransformRules attachRules = FAttachmentTransformRules::KeepWorldTransform;
 			FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
 
-			sumjjiRockL->sumjji->SetSimulatePhysics(false);
-			sumjjiRockL->sumjji->SetEnableGravity(false);
+			sumjjiRockL->rootComp->SetSimulatePhysics(false);
+			sumjjiRockL->rootComp->SetEnableGravity(false);
 			sumjjiRockL->outLine->SetVisibility(false);
 
-			sumjjiRockL->AttachToComponent(player->leftSRLoc, attachRules, TEXT("LGrabPoint"));
+			sumjjiRockL->sumjji->SetRelativeRotation(FRotator(-20.000286,-69.997444, -0.000991));
+
+
+			sumjjiRockL->AttachToComponent(player->leftHandLoc, attachRules, TEXT("LGrabPoint"));
 			// 왼손 쥐는 애니메이션
 			player->handComp->targetGripValueLeft = 0.7f;
 
 
 			// 오브젝트를 잡았을때 위치 잡기
-			sumjjiRockL->sumjji->SetRelativeLocation((sumjjiRockL->grabOffset));
+			sumjjiRockL->rootComp->SetRelativeLocation((sumjjiRockL->grabOffset));
 
 			bisSumjjiRockL = true;
 		}
@@ -1143,9 +1146,12 @@ void UGrabActorComponent::RGripSumjjiRock(AActor* grabActor)
 			//FAttachmentTransformRules attachRules = FAttachmentTransformRules::KeepWorldTransform;
 			FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
 
-			sumjjiRockR->sumjji->SetSimulatePhysics(false);
-			sumjjiRockR->sumjji->SetEnableGravity(false);
+			sumjjiRockR->rootComp->SetSimulatePhysics(false);
+			sumjjiRockR->rootComp->SetEnableGravity(false);
 			sumjjiRockR->outLine->SetVisibility(false);
+
+			sumjjiRockR->sumjji->SetRelativeRotation(FRotator(0.f, -210.f, 0.f));
+			sumjjiRockR->grabOffset = FVector(4.f, -1.f, 5.f);
 
 			sumjjiRockR->AttachToComponent(player->rightHandLoc, attachRules, TEXT("RGrabPoint"));
 			// 왼손 쥐는 애니메이션
@@ -1153,7 +1159,7 @@ void UGrabActorComponent::RGripSumjjiRock(AActor* grabActor)
 
 
 			// 오브젝트를 잡았을때 위치 잡기
-			sumjjiRockR->sumjji->SetRelativeLocation((sumjjiRockR->grabOffset));
+			sumjjiRockR->rootComp->SetRelativeLocation((sumjjiRockR->grabOffset));
 
 			bisSumjjiRockR = true;
 		}

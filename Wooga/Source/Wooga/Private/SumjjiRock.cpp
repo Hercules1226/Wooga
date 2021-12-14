@@ -13,7 +13,7 @@ ASumjjiRock::ASumjjiRock()
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	rootComp = CreateDefaultSubobject<USceneComponent>(TEXT("Root Component"));
+	rootComp = CreateDefaultSubobject<UBoxComponent>(TEXT("Root Component"));
 	SetRootComponent(rootComp);
 
 	sumjji = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Sumjji"));
