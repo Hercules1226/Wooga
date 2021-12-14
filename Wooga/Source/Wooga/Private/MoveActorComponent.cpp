@@ -6,6 +6,7 @@
 #include "MotionControllerComponent.h"
 #include "VRHandAnimInstance.h"
 #include "HandActorComponent.h"
+#include "MoveSpline.h"
 #include <Camera/CameraComponent.h>
 #include "SJ_WoogaGameModeBase.h"
 #include <Kismet/GameplayStatics.h>
@@ -28,6 +29,8 @@ void UMoveActorComponent::BeginPlay()
 
 	player = Cast<AVR_Player>(GetOwner());
 
+	moveSpline = Cast<AMoveSpline>(UGameplayStatics::GetActorOfClass(GetWorld(), AMoveSpline::StaticClass()));
+
 	// 게임모드 캐싱
 	gameMode = Cast<ASJ_WoogaGameModeBase>(GetWorld()->GetAuthGameMode());
 
@@ -43,12 +46,16 @@ void UMoveActorComponent::TickComponent(float DeltaTime, ELevelTick TickType, FA
 
 	if (bisWalk == true)
 	{
-		if (currentTime >= 0.5f)
+		if (moveSpline->canMove == true)
 		{
-			UGameplayStatics::PlaySound2D(GetWorld(), walkSound);
-			currentTime = 0;
+			if (currentTime >= 0.5f)
+			{
+				UGameplayStatics::PlaySound2D(GetWorld(), walkSound);
+				currentTime = 0;
+			}
 		}
 	}
+
 }
 
 void UMoveActorComponent::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -83,19 +90,19 @@ void UMoveActorComponent::MoveHorizontal(float value)
 		player->SetActorLocation(player->GetActorLocation() + dir * moveSpeed * GetWorld()->DeltaTimeSeconds);
 		*/
 
-	/*if (bisMove == true)
-	{
-		if (value >= 0.5f)
+		/*if (bisMove == true)
 		{
-			bisWalk = true;
-		}
+			if (value >= 0.5f)
+			{
+				bisWalk = true;
+			}
 
-		if (value < 0.5f)
-		{
-			bisWalk = false;
-			currentTime = 0;
-		}
-	}*/
+			if (value < 0.5f)
+			{
+				bisWalk = false;
+				currentTime = 0;
+			}
+		}*/
 
 }
 
@@ -113,12 +120,15 @@ void UMoveActorComponent::MoveVertical(float value)
 		*/
 		if (value >= 0.5f)
 		{
+			moveSpline->timeOn = true;
 			bisWalk = true;
 		}
 
 		if (value < 0.5f)
 		{
+			moveSpline->timeOn = false;
 			bisWalk = false;
+			/*bisMoveSpline = false;*/
 			currentTime = 0;
 		}
 	}
