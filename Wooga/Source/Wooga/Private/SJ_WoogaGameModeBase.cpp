@@ -80,11 +80,11 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SetState(EFlowState::InGame);
+	// SetState(EFlowState::InGame);
 
 	// 맨 처음 불의 발견 교육으로 시작
 	// SetState(EFlowState::SpawnHutGuideLine);
-	// SetState(EFlowState::SpawnHandAxGuideLine);
+	SetState(EFlowState::SpawnHandAxGuideLine);
 
 	// 테스트용 스테이트
 	//SetState(EFlowState::CompleteCollect);
@@ -1083,7 +1083,7 @@ void ASJ_WoogaGameModeBase::CuttingPig()
 			// 고기 들고가기 UI생성
 			pickUpMeatUI = GetWorld()->SpawnActor<ASJ_Actor_PickUpMeatUI>(bpPickUpMeatUI, Param);
 
-			FVector fireStrawPosition = FVector(6381, 7192, 1197);
+			FVector fireStrawPosition = FVector(6373, 7193, 1156);
 			FRotator fireStrawRotation = FRotator(0, 0, 0);
 
 			// 도착 했을때 장작이 보이게 장작생성

@@ -47,7 +47,7 @@ void ASJ_Actor_Hammer::Tick(float DeltaTime)
 
 	hammer->AddForce(p2 * 12);
 
-	if (playTime >= 3.0f)
+	if (playTime >= 2.0f)
 	{
 		playTime = 0;
 		Destroy();
