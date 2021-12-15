@@ -52,4 +52,6 @@ public:
 
 	UPROPERTY()
 	bool isDestroy;
+
+	void RunDeer();
 };

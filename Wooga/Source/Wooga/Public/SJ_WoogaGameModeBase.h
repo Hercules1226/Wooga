@@ -63,6 +63,14 @@ public:
 	// 라이트 설정
 	class ASJ_Actor_LevelLight* levelLight;
 
+	// 새
+	UPROPERTY()
+	TArray<class ASJ_Actor_Bird*> birds;
+
+	// 사슴
+	UPROPERTY()
+	TArray<class ASJ_Actor_RunDeer*> deers;
+
 	// 게임 시작
 	void InGame();
 	void ManipulateUI();

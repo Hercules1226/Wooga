@@ -68,6 +68,8 @@
 #include "SJ_Actor_MakeSpearUI.h"
 #include "Stick.h"
 #include "SJ_Actor_SystemUI.h"
+#include "SJ_Actor_Bird.h"
+#include "SJ_Actor_RunDeer.h"
 
 ASJ_WoogaGameModeBase::ASJ_WoogaGameModeBase()
 {
@@ -118,6 +120,37 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	// 라이트
 	levelLight = Cast<ASJ_Actor_LevelLight>(UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_Actor_LevelLight::StaticClass()));
 
+	// 새 받아오기
+	TArray<AActor*> bpBird;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ASJ_Actor_Bird::StaticClass(), bpBird);
+
+	for(int i = 0; i < bpBird.Num(); i++)
+	{
+		ASJ_Actor_Bird* emptyBird = nullptr;
+		birds.Add(emptyBird);
+	}
+	for (int i = 0; i < bpBird.Num(); i++)
+	{
+		auto bird = Cast<ASJ_Actor_Bird>(bpBird[i]);
+		birds[i] = bird;
+		birds[i]->Fly();
+	}
+
+	// 사슴 받아오기
+	TArray<AActor*> bpDeer;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ASJ_Actor_RunDeer::StaticClass(), bpDeer);
+
+	for (int i = 0; i < bpDeer.Num(); i++)
+	{
+		ASJ_Actor_RunDeer* emptyDeer = nullptr;
+		deers.Add(emptyDeer);
+	}
+	for (int i = 0; i < bpDeer.Num(); i++)
+	{
+		auto deer = Cast<ASJ_Actor_RunDeer>(bpDeer[i]);
+		deers[i] = deer;
+		deers[i]->RunDeer();
+	}
 
 }
 

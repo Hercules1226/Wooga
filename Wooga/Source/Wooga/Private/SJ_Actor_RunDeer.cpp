@@ -25,7 +25,8 @@ void ASJ_Actor_RunDeer::BeginPlay()
 {
 	Super::BeginPlay();
 
-	isTurn = true;
+	isTurn = false;
+	SetActorHiddenInGame(true);
 }
 
 // Called every frame
@@ -61,5 +62,11 @@ void ASJ_Actor_RunDeer::Tick(float DeltaTime)
 		SetActorRotation(dir.Rotation());
 	}
 
+}
+
+void ASJ_Actor_RunDeer::RunDeer()
+{
+	isTurn = true;
+	SetActorHiddenInGame(false);
 }
 
