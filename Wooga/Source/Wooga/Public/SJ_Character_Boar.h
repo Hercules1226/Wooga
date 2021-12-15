@@ -47,9 +47,15 @@ public:
 	class AFistAxe* fistAxe;
 	// AnimInstance
 	class USJ_BoarAnimInstance* anim;
+	// 턴 포인트
+	UPROPERTY()
+	class ASJ_Actor_PigTurnPoint* turnPoint;
+
 
 	// 돼지 위치
 	FVector me;
+	// 턴포인트 위치
+	FVector turnPointLoc;
 	// 플레이어 위치
 	FVector playerLoc;
 	// 플레이어 - 돼지
@@ -110,4 +116,7 @@ public:
 	// 망치
 	UPROPERTY(EditAnywhere, Category = Hammer)
 	TSubclassOf<class ASJ_Actor_Hammer> bpHammer;
+
+	UPROPERTY()
+	bool isTurn;
 };
