@@ -74,5 +74,5 @@ public:
 		bool timeOn = false;
 
 	UPROPERTY()
-		bool canMove = false;
+		bool canMove = true;
 };

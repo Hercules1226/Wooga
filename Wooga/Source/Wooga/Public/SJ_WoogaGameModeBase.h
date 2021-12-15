@@ -60,8 +60,19 @@ public:
 	UPROPERTY()
 	class ATomahowk* tomahowk;
 
+	UPROPERTY()
+	class AMoveSpline* moveSpine;
+
 	// 라이트 설정
 	class ASJ_Actor_LevelLight* levelLight;
+
+	// 새
+	UPROPERTY()
+	TArray<class ASJ_Actor_Bird*> birds;
+
+	// 사슴
+	UPROPERTY()
+	TArray<class ASJ_Actor_RunDeer*> deers;
 
 	// 게임 시작
 	void InGame();
@@ -227,6 +238,13 @@ public:
 	// 카메라 쉐이크 플레이 시간
 	UPROPERTY()
 		float mammothShakeTime;
+
+	// 맘모스 발소리만 들리는 플레이시간
+	UPROPERTY()
+	float mammothFootStepPlayTime;
+
+	UPROPERTY(EditAnywhere, Category = Sound)
+	USoundBase* footStepSound;
 
 	// 주먹도끼 돌 잡기 UI
 	class ASJ_Actor_GrabHandAxUI* handAxUI;

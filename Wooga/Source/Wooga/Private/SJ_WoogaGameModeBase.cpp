@@ -68,6 +68,9 @@
 #include "SJ_Actor_MakeSpearUI.h"
 #include "Stick.h"
 #include "SJ_Actor_SystemUI.h"
+#include "SJ_Actor_Bird.h"
+#include "SJ_Actor_RunDeer.h"
+#include "MoveSpline.h"
 
 ASJ_WoogaGameModeBase::ASJ_WoogaGameModeBase()
 {
@@ -78,9 +81,11 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 {
 	Super::BeginPlay();
 
+	 SetState(EFlowState::InGame);
+
 	// 맨 처음 불의 발견 교육으로 시작
 	// SetState(EFlowState::SpawnHutGuideLine);
-	SetState(EFlowState::SpawnHandAxGuideLine);
+	//SetState(EFlowState::SpawnHandAxGuideLine);
 
 	// 테스트용 스테이트
 	//SetState(EFlowState::CompleteCollect);
@@ -118,7 +123,12 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	// 라이트
 	levelLight = Cast<ASJ_Actor_LevelLight>(UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_Actor_LevelLight::StaticClass()));
 
+	moveSpine = Cast<AMoveSpline>(UGameplayStatics::GetActorOfClass(GetWorld(), AMoveSpline::StaticClass()));
 
+	// 제목이 없어지면 이동을 시작한다.
+	moveSpine->canMove = true;
+	
+	// moveSpine->canMove = false;
 }
 
 #pragma region FlowStateFunction
@@ -779,6 +789,22 @@ void ASJ_WoogaGameModeBase::HandAxTitle()
 		fistAxe->handHologramL->SetHiddenInGame(false);
 		fistAxe->bisStartBreak = false;
 
+		// 새 받아오기
+		TArray<AActor*> bpBird;
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), ASJ_Actor_Bird::StaticClass(), bpBird);
+
+		for (int i = 0; i < bpBird.Num(); i++)
+		{
+			ASJ_Actor_Bird* emptyBird = nullptr;
+			birds.Add(emptyBird);
+		}
+		for (int i = 0; i < bpBird.Num(); i++)
+		{
+			auto bird = Cast<ASJ_Actor_Bird>(bpBird[i]);
+			birds[i] = bird;
+			birds[i]->Fly();
+		}
+
 		// 딜레이변수 초기화
 		nextDelayTime = 0;
 
@@ -788,6 +814,14 @@ void ASJ_WoogaGameModeBase::HandAxTitle()
 
 void ASJ_WoogaGameModeBase::GrabHandAx()
 {
+	// 맘모스 발소리
+	mammothFootStepPlayTime += GetWorld()->DeltaTimeSeconds;
+
+	if (mammothFootStepPlayTime >= 1.0f)
+	{
+		UGameplayStatics::PlaySound2D(GetWorld(), footStepSound);
+	}
+
 	if (player->grabComp->bisGrabFistAxeR == true)
 	{
 		// UI 끄기
@@ -832,6 +866,22 @@ void ASJ_WoogaGameModeBase::HowToHunt()
 
 				// 맘모스 생성
 				mammothSpawn = GetWorld()->SpawnActor<ASJ_Actor_MammothSpawnDestroy>(bpMammothSpawn, Param);
+
+				// 사슴 받아오기
+				TArray<AActor*> bpDeer;
+				UGameplayStatics::GetAllActorsOfClass(GetWorld(), ASJ_Actor_RunDeer::StaticClass(), bpDeer);
+
+				for (int i = 0; i < bpDeer.Num(); i++)
+				{
+					ASJ_Actor_RunDeer* emptyDeer = nullptr;
+					deers.Add(emptyDeer);
+				}
+				for (int i = 0; i < bpDeer.Num(); i++)
+				{
+					auto deer = Cast<ASJ_Actor_RunDeer>(bpDeer[i]);
+					deers[i] = deer;
+					deers[i]->RunDeer();
+				}
 
 				// 딜레이변수 초기화
 				bIsDelay = false;
@@ -919,7 +969,7 @@ void ASJ_WoogaGameModeBase::HowToMakeHandAx()
 			indirectUI = GetWorld()->SpawnActor<ASJ_Actor_IndirectHitUI>(bpIndirectUI, Param);
 
 			// 타격 포인트
-			hitPoint = GetWorld()->SpawnActor<AActor>(bpHitPoint, FVector(7700, 8880, 1230), FRotator(0, 0, 0), Param);
+			hitPoint = GetWorld()->SpawnActor<AActor>(bpHitPoint, FVector(8110, 8780, 1227), FRotator(0, 0, 0), Param);
 
 			fistAxe->bisStartBreak = true;
 
@@ -1037,7 +1087,7 @@ void ASJ_WoogaGameModeBase::CuttingPig()
 			// 고기 들고가기 UI생성
 			pickUpMeatUI = GetWorld()->SpawnActor<ASJ_Actor_PickUpMeatUI>(bpPickUpMeatUI, Param);
 
-			FVector fireStrawPosition = FVector(6381, 7192, 1197);
+			FVector fireStrawPosition = FVector(6373, 7193, 1156);
 			FRotator fireStrawRotation = FRotator(0, 0, 0);
 
 			// 도착 했을때 장작이 보이게 장작생성

@@ -14,6 +14,7 @@
 #include "DetachRock.h"
 #include <Components/AudioComponent.h>
 #include "Particles/ParticleSystemComponent.h"
+#include "SJ_Actor_PigTurnPoint.h"
 
 // Sets default values
 ASJ_Character_Boar::ASJ_Character_Boar()
@@ -45,6 +46,8 @@ void ASJ_Character_Boar::BeginPlay()
 
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
 
+	turnPoint = Cast<ASJ_Actor_PigTurnPoint>(UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_Actor_PigTurnPoint::StaticClass()));
+
 	hitPoint->OnComponentBeginOverlap.AddDynamic(this, &ASJ_Character_Boar::HitPointTrigger);
 	boarMesh->OnComponentBeginOverlap.AddDynamic(this, &ASJ_Character_Boar::HitBoarBody);
 
@@ -53,7 +56,7 @@ void ASJ_Character_Boar::BeginPlay()
 
 	Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
-	FVector p = FVector(6887.f, 5954.0f, 1200.0f);
+	FVector p = FVector(7340, 7400, 1200.0f);
 
 	SetActorLocation(p);
 
@@ -107,22 +110,40 @@ EBoarState ASJ_Character_Boar::GetState()
 
 void ASJ_Character_Boar::Run()
 {
-	// 돼지 위치
-	me = GetActorLocation();
-	// 플레이어 위치
-	playerLoc = player->GetActorLocation();
-	// 돼지가 플레이어를 바라보게
-	dir = playerLoc - me;
-	// 정규화
-	dir.Normalize();
+	if (isTurn == false)
+	{
+		me = GetActorLocation();
+		turnPointLoc = turnPoint->GetActorLocation();
+		dir = turnPointLoc - me;
+		dir.Normalize();
 
-	FVector p = me + dir * speed * GetWorld()->DeltaTimeSeconds;
+		FVector p1 = me + dir * speed * GetWorld()->DeltaTimeSeconds;
 
-	SetActorLocation(p);
+		SetActorLocation(p1);
 
-	// FRotator r = FRotator(GetActorRotation().Pitch, dir.Rotation().Yaw, GetActorRotation().Roll);
-	SetActorRotation(dir.Rotation());
+		SetActorRotation(dir.Rotation());
+	}
+	if (isTurn == true)
+	{
+		// 돼지 위치
+		me = GetActorLocation();
+		// 플레이어 위치
+		playerLoc = player->GetActorLocation();
+		// 돼지가 플레이어를 바라보게
+		dir = playerLoc - me;
+		// 정규화
+		dir.Normalize();
 
+		FVector p2= me + dir * speed * GetWorld()->DeltaTimeSeconds;
+
+		SetActorLocation(p2);
+
+		// FRotator r = FRotator(GetActorRotation().Pitch, dir.Rotation().Yaw, GetActorRotation().Roll);
+
+		// FRotator r = GetActorRotation() + dir.Rotation() * speed * GetWorld()->DeltaTimeSeconds;
+		SetActorRotation(dir.Rotation());
+	}
+	
 	float slowRange = FVector::Dist(me, playerLoc);
 
 	if (slowRange <= distance)
