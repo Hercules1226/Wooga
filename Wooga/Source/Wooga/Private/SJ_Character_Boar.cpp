@@ -53,7 +53,7 @@ void ASJ_Character_Boar::BeginPlay()
 
 	Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
-	FVector p = FVector(6887.f, 5954.0f, 1200.0f);
+	FVector p = FVector(8087, 6884, 1200.0f);
 
 	SetActorLocation(p);
 

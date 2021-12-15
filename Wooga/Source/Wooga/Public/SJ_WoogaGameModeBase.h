@@ -236,6 +236,13 @@ public:
 	UPROPERTY()
 		float mammothShakeTime;
 
+	// 맘모스 발소리만 들리는 플레이시간
+	UPROPERTY()
+	float mammothFootStepPlayTime;
+
+	UPROPERTY(EditAnywhere, Category = Sound)
+	USoundBase* footStepSound;
+
 	// 주먹도끼 돌 잡기 UI
 	class ASJ_Actor_GrabHandAxUI* handAxUI;
 	UPROPERTY(EditAnywhere, Category = UI)

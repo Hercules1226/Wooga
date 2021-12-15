@@ -129,9 +129,9 @@ void ASJ_Actor_Title::OnTitle()
 {
 	playTime += GetWorld()->DeltaTimeSeconds;
 
-	startParam = FMath::Lerp(0.0f, 1.0f, playTime);
+	startParam = FMath::Lerp(1.0f, 0.0f, playTime);
 
-	title->SetScalarParameterValueOnMaterials(TEXT("Opacity"), startParam);
+	title->SetScalarParameterValueOnMaterials(TEXT("opacity"), startParam);
 
 	if (playTime >= 2.0f)
 	{
@@ -156,9 +156,9 @@ void ASJ_Actor_Title::OffTitle()
 {
 	playTime += GetWorld()->DeltaTimeSeconds;
 
-	endParam = FMath::Lerp(1.0f, 0.0f, playTime);
+	endParam = FMath::Lerp(0.0f, 1.0f, playTime);
 
-	title->SetScalarParameterValueOnMaterials(TEXT("Opacity"), endParam);
+	title->SetScalarParameterValueOnMaterials(TEXT("opacity"), endParam);
 
 	if (playTime >= 2.0f)
 	{

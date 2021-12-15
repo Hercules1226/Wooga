@@ -45,9 +45,16 @@ void ASJ_Actor_Bird::Tick(float DeltaTime)
 
 		FVector p = me + dir * speed * DeltaTime;
 
-		// SetActorLocation(p);
+		SetActorLocation(p);
 
-		bird->SetRelativeLocation(p);
+		// bird->SetRelativeLocation(p);
+
+		currentTime += DeltaTime;
+
+		if (currentTime >= 5)
+		{
+			Destroy();
+		}
 
 	}
 }
