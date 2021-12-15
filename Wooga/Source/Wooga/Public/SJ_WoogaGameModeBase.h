@@ -60,6 +60,9 @@ public:
 	UPROPERTY()
 	class ATomahowk* tomahowk;
 
+	UPROPERTY()
+	class AMoveSpline* moveSpine;
+
 	// 라이트 설정
 	class ASJ_Actor_LevelLight* levelLight;
 

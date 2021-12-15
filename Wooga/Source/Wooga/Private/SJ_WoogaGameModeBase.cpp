@@ -70,6 +70,7 @@
 #include "SJ_Actor_SystemUI.h"
 #include "SJ_Actor_Bird.h"
 #include "SJ_Actor_RunDeer.h"
+#include "MoveSpline.h"
 
 ASJ_WoogaGameModeBase::ASJ_WoogaGameModeBase()
 {
@@ -80,11 +81,11 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// SetState(EFlowState::InGame);
+	 SetState(EFlowState::InGame);
 
 	// 맨 처음 불의 발견 교육으로 시작
 	// SetState(EFlowState::SpawnHutGuideLine);
-	SetState(EFlowState::SpawnHandAxGuideLine);
+	//SetState(EFlowState::SpawnHandAxGuideLine);
 
 	// 테스트용 스테이트
 	//SetState(EFlowState::CompleteCollect);
@@ -122,9 +123,12 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	// 라이트
 	levelLight = Cast<ASJ_Actor_LevelLight>(UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_Actor_LevelLight::StaticClass()));
 
+	moveSpine = Cast<AMoveSpline>(UGameplayStatics::GetActorOfClass(GetWorld(), AMoveSpline::StaticClass()));
 
+	// 제목이 없어지면 이동을 시작한다.
+	moveSpine->canMove = true;
 	
-
+	// moveSpine->canMove = false;
 }
 
 #pragma region FlowStateFunction
