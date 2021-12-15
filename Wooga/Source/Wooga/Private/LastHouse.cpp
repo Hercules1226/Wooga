@@ -118,7 +118,7 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 		{
 			if (player->grabComp->bisStickR == true)
 			{
-				player->grabComp->RightReleaseAction();
+				//player->grabComp->RightReleaseAction();
 
 				/*FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
 				stick->AttachToComponent(tree1, attachRules);*/
@@ -134,11 +134,13 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 
 				check2 = true;
 				check1 = false;
+
+				stick->Destroy();
 			}
 
 			if (player->grabComp->bisStickL == true)
 			{
-				player->grabComp->LeftReleaseAction();
+				//player->grabComp->LeftReleaseAction();
 
 				/*FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
 				stick->AttachToComponent(tree1, attachRules);*/
@@ -153,6 +155,8 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 
 				check2 = true;
 				check1 = false;
+
+				stick->Destroy();
 			}
 		}
 	}
@@ -164,7 +168,7 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 		{
 			if (player->grabComp->bisStickR == true)
 			{
-				player->grabComp->RightReleaseAction();
+				//player->grabComp->RightReleaseAction();
 
 				/*FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
 				stick->AttachToComponent(tree2, attachRules);*/
@@ -180,11 +184,13 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 
 				check3 = true;
 				check2 = false;
+
+				stick->Destroy();
 			}
 
 			if (player->grabComp->bisStickL == true)
 			{
-				player->grabComp->LeftReleaseAction();
+				//player->grabComp->LeftReleaseAction();
 
 				/*FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
 				stick->AttachToComponent(tree2, attachRules);*/
@@ -199,6 +205,8 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 
 				check3 = true;
 				check2 = false;
+
+				stick->Destroy();
 			}
 		}
 	}
@@ -210,7 +218,7 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 		{
 			if (player->grabComp->bisStickR == true)
 			{
-				player->grabComp->RightReleaseAction();
+				//player->grabComp->RightReleaseAction();
 
 				/*FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
 				stick->AttachToComponent(tree3, attachRules);*/
@@ -226,11 +234,13 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 
 				check4 = true;
 				check3 = false;
+
+				stick->Destroy();
 			}
 
 			if (player->grabComp->bisStickL == true)
 			{
-				player->grabComp->LeftReleaseAction();
+				//player->grabComp->LeftReleaseAction();
 
 				/*FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
 				stick->AttachToComponent(tree3, attachRules);*/
@@ -246,6 +256,8 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 
 				check4 = true;
 				check3 = false;
+
+				stick->Destroy();
 			}
 		}
 	}
@@ -257,7 +269,7 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 		{
 			if (player->grabComp->bisStickR == true)
 			{
-				player->grabComp->RightReleaseAction();
+				//player->grabComp->RightReleaseAction();
 
 				/*FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
 				stick->AttachToComponent(tree4, attachRules);*/
@@ -273,11 +285,13 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 				bisfinish = true;
 				check4 = false;
 				isUIDown = true;
+
+				stick->Destroy();
 			}
 
 			if (player->grabComp->bisStickL == true)
 			{
-				player->grabComp->LeftReleaseAction();
+				//player->grabComp->LeftReleaseAction();
 
 				/*FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
 				stick->AttachToComponent(tree4, attachRules);*/
@@ -294,6 +308,8 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 				bisfinish = true;
 				check4 = false;
 				isUIDown = true;
+
+				stick->Destroy();
 			}
 		}
 	}

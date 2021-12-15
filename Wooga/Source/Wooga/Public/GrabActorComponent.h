@@ -165,6 +165,9 @@ public:
 		class ATomahowk* tomahowkR;
 
 	UPROPERTY()
+		class ALastHouse* lastHouse;
+
+	UPROPERTY()
 		FHitResult grabObject;
 
 public:
