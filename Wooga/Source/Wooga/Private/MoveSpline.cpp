@@ -36,7 +36,10 @@ void AMoveSpline::BeginPlay()
 
 	if (actorToMoveClass != nullptr)
 	{
-		actorToMove = GetWorld()->SpawnActor<AActor>(actorToMoveClass, spline->GetComponentTransform());
+		actorToMove = player;
+		// GetWorld()->SpawnActor<AActor>(actorToMoveClass, spline->GetComponentTransform());
+		actorToMove->SetActorLocation(spline->GetComponentLocation());
+		actorToMove->SetActorRotation(spline->GetComponentRotation());
 	}
 	if (actorToMove != nullptr)
 	{
