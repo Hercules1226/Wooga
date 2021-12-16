@@ -37,6 +37,7 @@ void ASJ_Actor_SystemUI::BeginPlay()
 
 	systemUI = Cast<USJ_UI_SystemUI>(widgetComp->GetWidget());
 
+	/*
 	FVector playerLoc = player->GetActorLocation();
 	FVector me = GetActorLocation();
 
@@ -48,8 +49,43 @@ void ASJ_Actor_SystemUI::BeginPlay()
 	dir.Normalize();
 
 	SetActorRotation(dir.Rotation());
+	*/
 
 	SetState(EUIState::On);
+
+	// À§Ä¡
+	if (gameModeBase->flowState == EFlowState::InGame)
+	{
+		FVector p = FVector(10809, 12123, 1363);
+
+		SetActorLocation(p);
+
+		FRotator r = FRotator(-2, 78, 0);
+
+		SetActorRotation(r);
+	}
+
+	if (gameModeBase->flowState == EFlowState::ManipulateUI)
+	{
+		FVector p = FVector(10809, 12123, 1363);
+
+		SetActorLocation(p);
+
+		FRotator r = FRotator(-2, 78, 0);
+
+		SetActorRotation(r);
+	}
+
+	if (gameModeBase->flowState == EFlowState::CompleteFireDiscovery)
+	{
+		FVector p = FVector(10780, 11899, 1363);
+
+		SetActorLocation(p);
+
+		FRotator r = FRotator(0, 82, 0);
+
+		SetActorRotation(r);
+	}
 }
 
 // Called every frame

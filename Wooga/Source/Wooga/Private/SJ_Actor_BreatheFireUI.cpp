@@ -34,11 +34,11 @@ void ASJ_Actor_BreatheFireUI::BeginPlay()
 	FVector me = GetActorLocation();
 
 	FVector p = tar + fireStraw->GetActorUpVector() * 50;
-	FVector p1 = FVector(10770, 12063, 1271);
+	FVector p1 = FVector(10892, 12013, 1300);
 
 	SetActorLocation(p1);
 
-	FRotator r = FRotator(0, -73, 0);
+	FRotator r = FRotator(0, 26, 0);
 
 	SetActorRotation(r);	
 	

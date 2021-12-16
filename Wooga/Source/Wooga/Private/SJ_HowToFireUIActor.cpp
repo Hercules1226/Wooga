@@ -26,8 +26,12 @@ void ASJ_HowToFireUIActor::BeginPlay()
 {
 	Super::BeginPlay();
 
-	FVector f = FVector(11176, 11985, 1277);
+	FVector f = FVector(10687, 12113, 1333);
 	SetActorLocation(f);
+
+	FRotator r = FRotator(0, -109, 0);
+
+	SetActorRotation(r);
 }
 
 // Called every frame

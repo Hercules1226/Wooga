@@ -15,6 +15,7 @@
 #include <Components/AudioComponent.h>
 #include "Particles/ParticleSystemComponent.h"
 #include "SJ_Actor_PigTurnPoint.h"
+#include <Components/CapsuleComponent.h> 
 
 // Sets default values
 ASJ_Character_Boar::ASJ_Character_Boar()
@@ -56,7 +57,7 @@ void ASJ_Character_Boar::BeginPlay()
 
 	Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
-	FVector p = FVector(7340, 7400, 1200.0f);
+	FVector p = FVector(7374, 7026, 1285);
 
 	SetActorLocation(p);
 
@@ -128,7 +129,7 @@ void ASJ_Character_Boar::Run()
 		// 돼지 위치
 		me = GetActorLocation();
 		// 플레이어 위치
-		playerLoc = player->GetActorLocation();
+		playerLoc = player->capsuleComp->GetComponentLocation();
 		// 돼지가 플레이어를 바라보게
 		dir = playerLoc - me;
 		// 정규화
@@ -148,12 +149,18 @@ void ASJ_Character_Boar::Run()
 
 	if (slowRange <= distance)
 	{
-		CustomTimeDilation = 0.05f;
-		//hitPoint->SetHiddenInGame(false);
-		hitPointFX->SetHiddenInGame(false);
-		
-		runSound->Stop();
-		SetState(EBoarState::SlowMotion);
+		distTime += GetWorld()->DeltaTimeSeconds;
+		if (distTime >= 0.2f)
+		{
+			CustomTimeDilation = 0.05f;
+			//hitPoint->SetHiddenInGame(false);
+			hitPointFX->SetHiddenInGame(false);
+
+			distTime = 0;
+
+			runSound->Stop();
+			SetState(EBoarState::SlowMotion);
+		}
 	}
 }
 

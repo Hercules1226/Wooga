@@ -36,21 +36,21 @@ void ASJ_Actor_GoToGuideLine::BeginPlay()
 
 	if (gameModeBase->flowState == EFlowState::SpawnCollectGuideLine)
 	{
-		FVector p1 = FVector(9825, 10414, 1261);
+		FVector p1 = FVector(9792, 10490, 1261);
 
 		SetActorLocation(p1);
 
-		FRotator r1 = FRotator(0, 47.8f, 0);
+		FRotator r1 = FRotator(0, 38.9f, 0);
 
 		SetActorRotation(r1);
 	}
 	else if (gameModeBase->flowState == EFlowState::SpawnHandAxGuideLine)
 	{
-		FVector p2 = FVector(8242, 9055, 1260);
+		FVector p2 = FVector(8274, 9181, 1253);
 
 		SetActorLocation(p2);
 
-		FRotator r2 = FRotator(0, 46, 0);
+		FRotator r2 = FRotator(0, 43, 0);
 
 		SetActorRotation(r2);
 	}

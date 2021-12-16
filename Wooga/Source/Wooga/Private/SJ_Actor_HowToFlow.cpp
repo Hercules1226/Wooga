@@ -53,10 +53,10 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 	// 불의 발견(불피우기) 방법
 	if (gameMode->flowState == EFlowState::FireDiscoveryTitle)
 	{
-		FVector p1 = FVector(10885, 12018, 1323);
+		FVector p1 = FVector(10758, 11932, 1384);
 		SetActorLocation(p1);
 
-		FRotator r1 = FRotator(0, -30, 0);
+		FRotator r1 = FRotator(0, -6, 0);
 		SetActorRotation(r1);
 
 		playTime = 14;
@@ -87,10 +87,10 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 		arrow2 = Cast<AArrow2>(UGameplayStatics::GetActorOfClass(GetWorld(), AArrow2::StaticClass()));
 		arrow2->arrowOn = true;
 
-		FVector p2 = FVector(9620, 10212, 1300);
+		FVector p2 = FVector(9693, 10241, 1342);
 		SetActorLocation(p2);
 
-		FRotator r2 = FRotator(0, -48, 0);
+		FRotator r2 = FRotator(0, -24, 0);
 		SetActorRotation(r2);
 
 		flowIndex = 2;
@@ -113,13 +113,13 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 		flowIndex = 3;
 	}
 	// 주먹도끼 방법
-	else if (gameMode->flowState == EFlowState::MakeHandAx)
+	else if (gameMode->flowState == EFlowState::HitBoar)
 	{
-		FVector p4 = FVector(8111, 8678, 1313);
+		FVector p4 = FVector(7972, 9258, 1340);
 
 		SetActorLocation(p4);
 
-		FRotator r4 = FRotator(0, 0, 0);
+		FRotator r4 = FRotator(0, -100, 0);
 
 		SetActorRotation(r4);
 

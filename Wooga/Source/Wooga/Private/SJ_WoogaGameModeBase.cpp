@@ -126,9 +126,9 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	moveSpine = Cast<AMoveSpline>(UGameplayStatics::GetActorOfClass(GetWorld(), AMoveSpline::StaticClass()));
 
 	// 제목이 없어지면 이동을 시작한다.
-	moveSpine->canMove = true;
+	// moveSpine->canMove = true;
 	
-	// moveSpine->canMove = false;
+	moveSpine->canMove = false;
 }
 
 #pragma region FlowStateFunction
@@ -478,6 +478,8 @@ void ASJ_WoogaGameModeBase::HowToFIreDiscovery()
 				howToNarTime = 0;
 				nextDelayTime = 0;
 
+				moveSpine->canMove = true;
+
 				SetState(EFlowState::HowToFireUI);
 			}
 		}
@@ -629,6 +631,8 @@ void ASJ_WoogaGameModeBase::InformWatch()
 			nextDelayTime = 0;
 			systemUIDelayTime = 0;
 
+			moveSpine->canMove = true;
+
 			SetState(EFlowState::SpawnCollectGuideLine);
 		}
 	}
@@ -709,6 +713,8 @@ void ASJ_WoogaGameModeBase::HowToCollect()
 				howToNarTime = 0;
 				nextDelayTime = 0;
 
+				moveSpine->canMove = true;
+
 				SetState(EFlowState::CollectAndEat);
 			}
 		}
@@ -745,6 +751,8 @@ void ASJ_WoogaGameModeBase::CompleteCollect()
 	if (nextDelayTime >= 10)
 	{
 		nextDelayTime = 0;
+
+		moveSpine->canMove = true;
 		SetState(EFlowState::SpawnHandAxGuideLine);
 	}
 }
@@ -807,6 +815,8 @@ void ASJ_WoogaGameModeBase::HandAxTitle()
 
 		// 딜레이변수 초기화
 		nextDelayTime = 0;
+
+		moveSpine->canMove = true;
 
 		SetState(EFlowState::GrabHandAx);
 	}
@@ -918,15 +928,17 @@ void ASJ_WoogaGameModeBase::HitBoar()
 			hitBoarUI->Destroy();
 
 			// 주먹도끼 만들기 UI
-			makeHandAxUI = GetWorld()->SpawnActor<ASJ_Actor_MakeHandAxUI>(bpMakeHandAxUI, Param);
+			// makeHandAxUI = GetWorld()->SpawnActor<ASJ_Actor_MakeHandAxUI>(bpMakeHandAxUI, Param);
 
 			// 주먹도끼 제작을 위한 장소 이동
-			makeHandAxRange = GetWorld()->SpawnActor<ASJ_Actor_MakeRange>(bpMakeHandAxRange, Param);
+			// makeHandAxRange = GetWorld()->SpawnActor<ASJ_Actor_MakeRange>(bpMakeHandAxRange, Param);
 
 			// 숨겨뒀던 죽은 돼지를 소환
 			slicePig->SetActorHiddenInGame(false);
 
-			SetState(EFlowState::MakeHandAx);
+			howToFlow = GetWorld()->SpawnActor<ASJ_Actor_HowToFlow>(bpHowToMakeHandAx, Param);
+
+			SetState(EFlowState::HowToMakeHandAx);
 		}
 	}
 }
@@ -969,7 +981,7 @@ void ASJ_WoogaGameModeBase::HowToMakeHandAx()
 			indirectUI = GetWorld()->SpawnActor<ASJ_Actor_IndirectHitUI>(bpIndirectUI, Param);
 
 			// 타격 포인트
-			hitPoint = GetWorld()->SpawnActor<AActor>(bpHitPoint, FVector(8110, 8780, 1227), FRotator(0, 0, 0), Param);
+			hitPoint = GetWorld()->SpawnActor<AActor>(bpHitPoint, FVector(8080, 9239, 1243), FRotator(0, 0, 0), Param);
 
 			fistAxe->bisStartBreak = true;
 
@@ -1042,7 +1054,7 @@ void ASJ_WoogaGameModeBase::CompleteHandAx()
 	{
 		// 간이 가이드라인 제거
 		//goToGuideLine->Destroy();
-		makeHandAxRange->Destroy();
+		//makeHandAxRange->Destroy();
 
 		// 돼지 정육 UI 생성
 		cuttingPigUI = GetWorld()->SpawnActor<ASJ_Actor_CuttingPigUI>(bpCuttingPigUI, Param);
@@ -1053,6 +1065,8 @@ void ASJ_WoogaGameModeBase::CompleteHandAx()
 
 		//딜레이 변수 초기화
 		nextDelayTime = 0;
+
+		moveSpine->canMove = true;
 
 		SetState(EFlowState::CuttingPig);
 	}

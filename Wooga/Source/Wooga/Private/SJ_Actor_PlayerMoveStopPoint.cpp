@@ -41,6 +41,7 @@ void ASJ_Actor_PlayerMoveStopPoint::PlayerOverlap(UPrimitiveComponent* Overlappe
 	if (OtherActor == player)
 	{
 		moveSpline->canMove = false;
+		Destroy();
 	}
 }
 

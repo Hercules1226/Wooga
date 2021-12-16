@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "Wooga.h"
 #include "GameFramework/Actor.h"
 #include "SJ_HowToFireUIActor.generated.h"
 
