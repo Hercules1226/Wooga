@@ -35,6 +35,10 @@ void AFirePosition::BeginPlay()
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
 	fireRock = Cast<AFireRock>(UGameplayStatics::GetActorOfClass(GetWorld(), AFireRock::StaticClass()));
 
+	boxComp->OnComponentBeginOverlap.AddDynamic(this, &AFirePosition::OnCollisionEnter);
+
+	startPoint = this->GetActorLocation();
+
 	outLine->SetVisibility(false);
 
 	FX->SetHiddenInGame(true);
@@ -61,5 +65,10 @@ void AFirePosition::Tick(float DeltaTime)
 			bisFire = true;
 		}
 	}
+}
+
+void AFirePosition::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	
 }
 

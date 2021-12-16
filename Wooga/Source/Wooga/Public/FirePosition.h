@@ -23,6 +23,9 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UFUNCTION()
+		void OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
 public:
 	UPROPERTY(EditAnywhere, Category = Setting)
 		class UBoxComponent* boxComp;
@@ -80,6 +83,9 @@ public:
 		bool bAutoDestroy = false;
 	UPROPERTY()
 		int32 overlabCount = 0;
+
+	UPROPERTY()
+		FVector startPoint;
 
 	UPROPERTY()
 	float outLineParam = 250;

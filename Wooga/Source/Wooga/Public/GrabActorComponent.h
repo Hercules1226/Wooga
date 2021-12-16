@@ -225,5 +225,6 @@ public:
 		bool bisTomahowkL = false;
 	UPROPERTY()
 		bool bisTomahowkR = false;
-
+	UPROPERTY()
+		bool bisHalfRockDet = false;
 };
