@@ -35,3 +35,8 @@ void USJ_UI_SystemUI::NextAnimation()
 {
 	PlayAnimation(NextUI);
 }
+
+void USJ_UI_SystemUI::BlinkAnimation()
+{
+	PlayAnimation(Blink);
+}

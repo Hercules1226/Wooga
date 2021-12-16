@@ -125,7 +125,6 @@ void ASJ_Actor_SystemUI::On()
 	if (currentTime >= 3.0f)
 	{
 		systemUI->NextAnimation();
-		UE_LOG(LogTemp, Warning, TEXT("NextOn"));
 
 		currentTime = 0;
 
@@ -135,11 +134,23 @@ void ASJ_Actor_SystemUI::On()
 
 void ASJ_Actor_SystemUI::Next()
 {
-	if (player->isClose == true)
-	{
-		// nextUI->CloseAnimation();
+	blinkTime += GetWorld()->DeltaTimeSeconds;
 
-		SetState(EUIState::Off);
+	if (blinkTime >= 1.0f)
+	{
+		systemUI->BlinkAnimation();
+		blinkTime = 0;
+	}
+
+	currentTime += GetWorld()->DeltaTimeSeconds;
+
+	if (currentTime >= 1.0f)
+	{
+		if (player->isClose == true)
+		{
+			currentTime = 0;
+			SetState(EUIState::Off);
+		}
 	}
 }
 

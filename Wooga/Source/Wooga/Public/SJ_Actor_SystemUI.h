@@ -53,4 +53,7 @@ public:
 
 	UPROPERTY()
 	float currentTime;
+
+	UPROPERTY()
+	float blinkTime;
 };

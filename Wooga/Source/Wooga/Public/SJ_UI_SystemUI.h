@@ -32,8 +32,12 @@ public:
 	UPROPERTY(EditDefaultsOnly, BluePrintReadWrite, Category = "Animation", meta = (BindWidgetAnim), Transient)
 		class UWidgetAnimation* NextUI;
 
+	UPROPERTY(EditDefaultsOnly, BluePrintReadWrite, Category = "Animation", meta = (BindWidgetAnim), Transient)
+		class UWidgetAnimation* Blink;
+
 	UPROPERTY()
 	float currentTime;
 
 	void NextAnimation();
+	void BlinkAnimation();
 };
