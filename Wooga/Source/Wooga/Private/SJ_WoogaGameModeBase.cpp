@@ -124,11 +124,8 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	levelLight = Cast<ASJ_Actor_LevelLight>(UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_Actor_LevelLight::StaticClass()));
 
 	moveSpine = Cast<AMoveSpline>(UGameplayStatics::GetActorOfClass(GetWorld(), AMoveSpline::StaticClass()));
-
-	// 제목이 없어지면 이동을 시작한다.
-	moveSpine->canMove = true;
 	
-	// moveSpine->canMove = false;
+	moveSpine->canMove = true;
 }
 
 #pragma region FlowStateFunction
@@ -477,6 +474,8 @@ void ASJ_WoogaGameModeBase::HowToFIreDiscovery()
 
 				howToNarTime = 0;
 				nextDelayTime = 0;
+
+				moveSpine->canMove = true;
 
 				SetState(EFlowState::HowToFireUI);
 			}
