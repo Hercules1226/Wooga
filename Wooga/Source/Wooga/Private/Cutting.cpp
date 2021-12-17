@@ -5,6 +5,7 @@
 #include "Components/SceneComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Components/BoxComponent.h"
 #include "GrabActorComponent.h"
 #include "PhysicsEngine/PhysicsConstraintComponent.h"
 #include "VR_Player.h"
@@ -15,6 +16,7 @@
 #include "Watch4.h"
 #include "Watch5.h"
 #include "Watch6.h"
+#include "Tomahowk.h"
 #include "DetachRock.h"
 #include "GrabActorComponent.h"
 #include <Kismet/GameplayStatics.h>
@@ -59,7 +61,7 @@ void ACutting::BeginPlay()
 	watch4 = Cast<AWatch4>(UGameplayStatics::GetActorOfClass(GetWorld(), AWatch4::StaticClass()));
 	watch5 = Cast<AWatch5>(UGameplayStatics::GetActorOfClass(GetWorld(), AWatch5::StaticClass()));
 	watch6 = Cast<AWatch6>(UGameplayStatics::GetActorOfClass(GetWorld(), AWatch6::StaticClass()));
-
+	tomahowk = Cast<ATomahowk>(UGameplayStatics::GetActorOfClass(GetWorld(), ATomahowk::StaticClass()));
 
 	handleX = handle->GetRelativeLocation().X;
 	handleZ = handle->GetRelativeLocation().Z;
@@ -84,6 +86,11 @@ void ACutting::Tick(float DeltaTime)
 		handleY = player->leftHand->GetComponentLocation().Y;
 
 		handle->SetRelativeLocation(FVector(handleX, handleY, handleZ));
+	}
+
+	if (bisfinish == true)
+	{
+		player->leftHand->SetHiddenInGame(false);
 	}
 }
 
@@ -115,7 +122,9 @@ void ACutting::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 			watch4->SetActorHiddenInGame(false);
 			watch5->SetActorHiddenInGame(false);
 			watch6->SetActorHiddenInGame(false);
-
+			tomahowk->meshComp1->SetHiddenInGame(false);
+			tomahowk->meshComp->SetSimulatePhysics(true);
+			tomahowk->meshComp->SetEnableGravity(true);
 			player->grabComp->LeftFistReleaseAction();
 
 			bisfinish = true;

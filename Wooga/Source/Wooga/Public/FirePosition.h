@@ -49,6 +49,9 @@ public:
 		class AFireRock* fireRock;
 
 	UPROPERTY()
+		class AReturnZone* returnZone;
+
+	UPROPERTY()
 		bool bisFire = false;
 
 	UPROPERTY(EditAnywhere, Category = "Fire")
