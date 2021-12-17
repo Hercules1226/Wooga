@@ -67,7 +67,7 @@ void ASJ_Actor_SystemUI::BeginPlay()
 
 		SetActorLocation(p);
 
-		FRotator r = FRotator(-2, 78, 0);
+		FRotator r = FRotator(-2, -12, 0);
 
 		SetActorRotation(r);
 	}
@@ -78,7 +78,7 @@ void ASJ_Actor_SystemUI::BeginPlay()
 
 		SetActorLocation(p);
 
-		FRotator r = FRotator(-2, 78, 0);
+		FRotator r = FRotator(-2, -12, 0);
 
 		SetActorRotation(r);
 	}
@@ -112,6 +112,7 @@ void ASJ_Actor_SystemUI::Tick(float DeltaTime)
 		break;
 	case EUIState::Next:
 		Next();
+		break;
 	case EUIState::Off:
 		Off();
 		break;
@@ -132,7 +133,7 @@ void ASJ_Actor_SystemUI::On()
 {
 	onTime += GetWorld()->DeltaTimeSeconds;
 
-	startDissolveParam = FMath::Lerp(-1.0f, 1.0f, onTime);
+	startDissolveParam = FMath::Lerp(-1.0f, 1.0f, onTime * 2);
 
 	plane->SetScalarParameterValueOnMaterials(TEXT("Dissolve"), startDissolveParam);
 
