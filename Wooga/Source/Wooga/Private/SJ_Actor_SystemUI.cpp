@@ -13,7 +13,7 @@
 // Sets default values
 ASJ_Actor_SystemUI::ASJ_Actor_SystemUI()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	rootComp = CreateDefaultSubobject<USceneComponent>(TEXT("Root Comp"));
@@ -21,6 +21,12 @@ ASJ_Actor_SystemUI::ASJ_Actor_SystemUI()
 
 	plane = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Plane"));
 	plane->SetupAttachment(rootComp);
+
+	nextController = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("NextController"));
+	nextController->SetupAttachment(rootComp);
+
+	nextBlink = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("NextBlink"));
+	nextBlink->SetupAttachment(rootComp);
 
 	widgetComp = CreateDefaultSubobject<UWidgetComponent>(TEXT("Widget Comp"));
 	widgetComp->SetupAttachment(rootComp);
@@ -32,28 +38,29 @@ void ASJ_Actor_SystemUI::BeginPlay()
 	Super::BeginPlay();
 
 	gameModeBase = Cast<ASJ_WoogaGameModeBase>(GetWorld()->GetAuthGameMode());
-	
+
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
 
-	systemUI = Cast<USJ_UI_SystemUI>(widgetComp->GetWidget());
+	nextController->SetHiddenInGame(true);
+	nextBlink->SetHiddenInGame(true);
 
-	/*
-	FVector playerLoc = player->GetActorLocation();
-	FVector me = GetActorLocation();
+	// systemUI = Cast<USJ_UI_SystemUI>(widgetComp->GetWidget());
 
-	FVector p = player->GetActorLocation() + player->GetActorForwardVector() * 200 + player->GetActorUpVector() * 50;
+   /*
+   FVector playerLoc = player->GetActorLocation();
+   FVector me = GetActorLocation();
 
-	SetActorLocation(p);
+   FVector p = player->GetActorLocation() + player->GetActorForwardVector() * 200 + player->GetActorUpVector() * 50;
 
-	FVector dir = player->GetActorLocation() - GetActorLocation();
-	dir.Normalize();
+   SetActorLocation(p);
 
-	SetActorRotation(dir.Rotation());
-	*/
+   FVector dir = player->GetActorLocation() - GetActorLocation();
+   dir.Normalize();
 
-	SetState(EUIState::On);
+   SetActorRotation(dir.Rotation());
+   */
 
-	// 위치
+   // 위치
 	if (gameModeBase->flowState == EFlowState::InGame)
 	{
 		FVector p = FVector(10809, 12123, 1363);
@@ -86,6 +93,8 @@ void ASJ_Actor_SystemUI::BeginPlay()
 
 		SetActorRotation(r);
 	}
+
+	SetState(EUIState::On);
 }
 
 // Called every frame
@@ -98,14 +107,15 @@ void ASJ_Actor_SystemUI::Tick(float DeltaTime)
 	case EUIState::On:
 		On();
 		break;
+	case EUIState::Stay:
+		Stay();
+		break;
 	case EUIState::Next:
 		Next();
-		break;
 	case EUIState::Off:
 		Off();
 		break;
 	}
-
 }
 
 EUIState ASJ_Actor_SystemUI::GetState()
@@ -120,47 +130,55 @@ void ASJ_Actor_SystemUI::SetState(EUIState state)
 
 void ASJ_Actor_SystemUI::On()
 {
+	onTime += GetWorld()->DeltaTimeSeconds;
+
+	startDissolveParam = FMath::Lerp(-1.0f, 1.0f, onTime);
+
+	plane->SetScalarParameterValueOnMaterials(TEXT("Dissolve"), startDissolveParam);
+
+	if (onTime >= 1.0f)
+	{
+		onTime = 0;
+
+		SetState(EUIState::Stay);
+	}
+}
+
+void ASJ_Actor_SystemUI::Stay()
+{
 	currentTime += GetWorld()->DeltaTimeSeconds;
 
 	if (currentTime >= 3.0f)
 	{
-		systemUI->NextAnimation();
+		nextController->SetHiddenInGame(false);
+		nextBlink->SetHiddenInGame(false);
 
 		currentTime = 0;
-
 		SetState(EUIState::Next);
 	}
 }
 
 void ASJ_Actor_SystemUI::Next()
 {
-	blinkTime += GetWorld()->DeltaTimeSeconds;
-
-	if (blinkTime >= 1.0f)
+	if (player->isClose == true)
 	{
-		systemUI->BlinkAnimation();
-		blinkTime = 0;
-	}
-
-	currentTime += GetWorld()->DeltaTimeSeconds;
-
-	if (currentTime >= 1.0f)
-	{
-		if (player->isClose == true)
-		{
-			currentTime = 0;
-			SetState(EUIState::Off);
-		}
+		nextController->SetHiddenInGame(true);
+		nextBlink->SetHiddenInGame(true);
+		SetState(EUIState::Off);
 	}
 }
 
 void ASJ_Actor_SystemUI::Off()
 {
-	currentTime += GetWorld()->DeltaTimeSeconds;
+	offTime += GetWorld()->DeltaTimeSeconds;
 
-	if (currentTime >= 0.9f)
+	endDissolveParam = FMath::Lerp(1.0f, -1.0f, offTime);
+
+	plane->SetScalarParameterValueOnMaterials(TEXT("Dissolve"), endDissolveParam);
+
+	if (offTime >= 1.0f)
 	{
-		currentTime = 0;
+		offTime = 0;
 		Destroy();
 	}
 }

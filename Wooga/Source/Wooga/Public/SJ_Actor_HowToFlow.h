@@ -22,14 +22,16 @@ public:
 	class UStaticMeshComponent* howToPlane;
 
 	UPROPERTY(EditAnywhere, Category = HowToFlow)
+	class UStaticMeshComponent* nextPlane;
+
+	UPROPERTY(EditAnywhere, Category = HowToFlow)
+	class UStaticMeshComponent* nextBlink;
+
+	UPROPERTY(EditAnywhere, Category = HowToFlow)
 	class UPostProcessComponent* howToPost;
 
 	UPROPERTY(EditAnywhere, Category = HowToFlow)
 	class UWidgetComponent* howToUI;
-
-	UPROPERTY(EditAnywhere, Category = HowToFlow, BlueprintReadWrite)
-	class UWidgetComponent* nextWidget;
-
 
 protected:
 	// Called when the game starts or when spawned
