@@ -1114,7 +1114,7 @@ void ASJ_WoogaGameModeBase::CuttingPig()
 			fireStraw->isClear = false;
 
 			// 사용 UI 제거
-			//6cuttingPigUI->Destroy();
+			//cuttingPigUI->Destroy();
 			// 발판 제거
 			//makeHandAxRange->Destroy();
 
@@ -1128,6 +1128,12 @@ void ASJ_WoogaGameModeBase::CuttingPig()
 
 void ASJ_WoogaGameModeBase::GoToFireUse()
 {
+	// 토마호크를 집으면 다시 이동 할 수 있도록
+	if (player->grabComp->bisTomahowkL == true && player->grabComp->bisTomahowkR == true)
+	{
+		moveSpine->canMove = true;
+	}
+
 	if (goToGuideLine->isTrigger == true)
 	{
 		// 고기 들고가기 UI 제거
@@ -1177,6 +1183,8 @@ void ASJ_WoogaGameModeBase::HowToFireUse()
 				fireStraw->outLine->SetVisibility(true);
 				// 숨을 불어 넣어주세요 UI 생성
 				fireTwoUI = GetWorld()->SpawnActor<ASJ_Actor_FireTwoUI>(bpFireTwoUI, Param);
+
+				moveSpine->canMove = true;
 
 				// 딜레이변수 초기화
 				bIsDelay = false;
@@ -1271,6 +1279,8 @@ void ASJ_WoogaGameModeBase::CompleteFireUse()
 
 		// 딜레이 변수 초기화
 		nextDelayTime = 0;
+
+		moveSpine->canMove = true;
 
 		SetState(EFlowState::GoToSpear);
 	}
@@ -1465,6 +1475,8 @@ void ASJ_WoogaGameModeBase::CompleteSpear()
 
 		// 물고기 사냥 UI
 		huntFishUI = GetWorld()->SpawnActor<ASJ_Actor_HuntFishUI>(bpHuntFishUI, Param);
+
+		moveSpine->canMove = true;
 
 		// 딜레이 변수 초기화
 		nextDelayTime = 0;
