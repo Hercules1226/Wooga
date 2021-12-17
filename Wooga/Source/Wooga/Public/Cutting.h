@@ -43,6 +43,9 @@ public:
 		class AVR_Player* player;
 
 	UPROPERTY()
+		class ATomahowk* tomahowk;
+
+	UPROPERTY()
 		class AWatch1* watch1;
 
 	UPROPERTY()

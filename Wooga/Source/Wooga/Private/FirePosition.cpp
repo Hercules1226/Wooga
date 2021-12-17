@@ -4,6 +4,7 @@
 #include "FirePosition.h"
 #include "VR_Player.h"
 #include "FireRock.h"
+#include "ReturnZone.h"
 #include "Components/BoxComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include <Kismet/GameplayStatics.h>
@@ -34,6 +35,7 @@ void AFirePosition::BeginPlay()
 	Super::BeginPlay();
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
 	fireRock = Cast<AFireRock>(UGameplayStatics::GetActorOfClass(GetWorld(), AFireRock::StaticClass()));
+	returnZone = Cast<AReturnZone>(UGameplayStatics::GetActorOfClass(GetWorld(), AReturnZone::StaticClass()));
 
 	boxComp->OnComponentBeginOverlap.AddDynamic(this, &AFirePosition::OnCollisionEnter);
 
@@ -69,6 +71,9 @@ void AFirePosition::Tick(float DeltaTime)
 
 void AFirePosition::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	
+	if (OtherActor == returnZone)
+	{
+		SetActorLocation(startPoint);
+	}
 }
 
