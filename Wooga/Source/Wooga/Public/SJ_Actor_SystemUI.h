@@ -16,13 +16,19 @@ public:
 	ASJ_Actor_SystemUI();
 
 	UPROPERTY(EditAnywhere, Category = UI)
-		class USceneComponent* rootComp;
+	class USceneComponent* rootComp;
 
 	UPROPERTY(EditAnywhere, Category = UI)
-		class UStaticMeshComponent* plane;
+	class UStaticMeshComponent* plane;
 
 	UPROPERTY(EditAnywhere, Category = UI)
-		class UWidgetComponent* widgetComp;
+	class UWidgetComponent* widgetComp;
+
+	UPROPERTY(EditAnywhere, Category = UI)
+	class UStaticMeshComponent* nextController;
+
+	UPROPERTY(EditAnywhere, Category = UI)
+	class UStaticMeshComponent* nextBlink;
 
 	UPROPERTY(EditAnywhere, Category = UI)
 		class UWidgetComponent* nextWidget;
@@ -48,6 +54,7 @@ public:
 	void SetState(EUIState state);
 
 	void On();
+	void Stay();
 	void Next();
 	void Off();
 
@@ -56,4 +63,15 @@ public:
 
 	UPROPERTY()
 	float blinkTime;
+
+	UPROPERTY()
+		float startDissolveParam;
+	UPROPERTY()
+		float endDissolveParam;
+
+	// 켜지고 꺼지는 시간
+	UPROPERTY()
+		float onTime;
+	UPROPERTY()
+		float offTime;
 };

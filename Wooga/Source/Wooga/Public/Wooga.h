@@ -127,6 +127,7 @@ UENUM(BlueprintType)
 enum class EUIState : uint8
 {
 	On,
+	Stay,
 	Next,
 	Off
 };
