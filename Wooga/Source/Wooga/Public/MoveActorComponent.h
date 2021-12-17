@@ -65,4 +65,7 @@ public:
 
 	UPROPERTY()
 		bool bisWalk = false;
+
+	UPROPERTY()
+		float moveValueSave = 0;
 };

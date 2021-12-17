@@ -95,12 +95,14 @@ void UMoveActorComponent::MoveHorizontal(float value)
 		if (value >= 0.5f)
 		{
 			bisWalk = true;
+			//moveSpline->blend = FMath::Lerp(0.f, 1.0f, moveSpline->moveTime);
 		}
 
 		if (value < 0.5f)
 		{
 			bisWalk = false;
 			currentTime = 0;
+			//moveSpline->blend = FMath::Lerp(1.f, 0.0f, moveSpline->speed);
 		}
 	}
 
@@ -130,6 +132,7 @@ void UMoveActorComponent::MoveVertical(float value)
 			bisWalk = false;
 			currentTime = 0;
 		}
+		moveValueSave = value;
 	}
 }
 

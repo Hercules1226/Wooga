@@ -75,4 +75,7 @@ public:
 
 	UPROPERTY()
 		bool canMove = true;
+
+	UPROPERTY()
+		float blend;
 };

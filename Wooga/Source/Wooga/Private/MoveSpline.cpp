@@ -58,7 +58,7 @@ void AMoveSpline::Tick(float DeltaTime)
 	{
 		if (timeOn == true)
 		{
-			moveTime += GetWorld()->DeltaTimeSeconds;
+			moveTime += (GetWorld()->DeltaTimeSeconds) * (player->moveComp->moveValueSave);
 		}
 	}
 
