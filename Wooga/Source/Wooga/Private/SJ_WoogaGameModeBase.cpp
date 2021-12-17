@@ -128,7 +128,7 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	// 제목이 없어지면 이동을 시작한다.
 	// moveSpine->canMove = true;
 	
-	moveSpine->canMove = false;
+	moveSpine->canMove = true;
 }
 
 #pragma region FlowStateFunction
@@ -1118,6 +1118,8 @@ void ASJ_WoogaGameModeBase::CuttingPig()
 			// 발판 제거
 			//makeHandAxRange->Destroy();
 
+			moveSpine->canMove = true;
+
 			// 딜레이 변수 초기화
 			nextDelayTime = 0;
 
@@ -1129,7 +1131,7 @@ void ASJ_WoogaGameModeBase::CuttingPig()
 void ASJ_WoogaGameModeBase::GoToFireUse()
 {
 	// 토마호크를 집으면 다시 이동 할 수 있도록
-	if (player->grabComp->bisTomahowkL == true && player->grabComp->bisTomahowkR == true)
+	if (player->grabComp->bisTomahowkL == true || player->grabComp->bisTomahowkR == true)
 	{
 		moveSpine->canMove = true;
 	}
