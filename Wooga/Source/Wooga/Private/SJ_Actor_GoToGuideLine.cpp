@@ -56,11 +56,11 @@ void ASJ_Actor_GoToGuideLine::BeginPlay()
 	}
 	else if (gameModeBase->flowState == EFlowState::CuttingPig)
 	{
-		FVector p3 = FVector(6424, 7538, 1260);
+		FVector p3 = FVector(6564, 7283, 1260);
 
 		SetActorLocation(p3);
 
-		FRotator r3 = FRotator(0, 30, 0);
+		FRotator r3 = FRotator(0, 39, 0);
 
 		SetActorRotation(r3);
 	}

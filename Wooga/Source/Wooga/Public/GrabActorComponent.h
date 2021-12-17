@@ -26,8 +26,6 @@ public:
 
 	void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent);
 
-
-
 public:
 	void ShowGrabLine();
 	void HideGrabLine();
