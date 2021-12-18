@@ -37,8 +37,14 @@ public:
 	TSubclassOf<class UCameraShakeBase> mammothCameraShake;
 
 	UPROPERTY(EditAnywhere, Category = Sound)
-	class USoundBase* footStepSound;
+	class USoundCue* footStepSound;
 
 	UPROPERTY()
 	float playTime;
+
+	UPROPERTY()
+	float soundPlayTime;
+
+	UPROPERTY()
+	bool isStateIn;
 };

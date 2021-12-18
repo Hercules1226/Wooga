@@ -137,9 +137,9 @@ void ASJ_Actor_SystemUI::On()
 {
 	onTime += GetWorld()->DeltaTimeSeconds;
 
-	startDissolveParam = FMath::Lerp(-1.0f, 1.0f, onTime * 2);
+	startDissolveParam = FMath::Lerp(0.0f, 1.0f, onTime);
 
-	plane->SetScalarParameterValueOnMaterials(TEXT("Dissolve"), startDissolveParam);
+	plane->SetScalarParameterValueOnMaterials(TEXT("Opacity"), startDissolveParam);
 
 	if (onTime >= 1.0f)
 	{
@@ -178,9 +178,9 @@ void ASJ_Actor_SystemUI::Off()
 {
 	offTime += GetWorld()->DeltaTimeSeconds;
 
-	endDissolveParam = FMath::Lerp(1.0f, -1.0f, offTime);
+	endDissolveParam = FMath::Lerp(1.0f, 0.0f, offTime);
 
-	plane->SetScalarParameterValueOnMaterials(TEXT("Dissolve"), endDissolveParam);
+	plane->SetScalarParameterValueOnMaterials(TEXT("Opacity"), endDissolveParam);
 
 	if (offTime >= 1.0f)
 	{
