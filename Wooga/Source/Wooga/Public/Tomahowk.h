@@ -75,6 +75,9 @@ public:
 		bool bisBone = false;
 
 	UPROPERTY()
+		bool bCanBake = false;
+
+	UPROPERTY()
 		bool bisBake = false;
 
 	UPROPERTY()

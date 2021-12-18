@@ -87,7 +87,10 @@ void ATomahowk::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, clas
 	auto player = Cast<AVR_Player>(OtherActor);
 	if (OtherActor == fireStraw)
 	{
-		bisOverlab = true;
+		if (bCanBake == true)
+		{
+			bisOverlab = true;
+		}
 	}
 
 	if (bisWelldone == true)
