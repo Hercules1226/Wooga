@@ -74,4 +74,10 @@ public:
 		float onTime;
 	UPROPERTY()
 		float offTime;
+
+	UPROPERTY(EditAnywhere, Category = Sound)
+	class USoundBase* openSound;
+
+	UPROPERTY(EditAnywhere, Category = Sound)
+	class USoundBase* closeSound;
 };
