@@ -9,6 +9,7 @@
 #include "SJ_WoogaGameModeBase.h"
 #include "SJ_UI_Next.h"
 #include "SJ_UI_SystemUI.h"
+#include <Kismet/GameplayStatics.h>
 
 // Sets default values
 ASJ_Actor_SystemUI::ASJ_Actor_SystemUI()
@@ -63,36 +64,39 @@ void ASJ_Actor_SystemUI::BeginPlay()
    // 위치
 	if (gameModeBase->flowState == EFlowState::InGame)
 	{
-		FVector p = FVector(10809, 12123, 1363);
+		FVector p1 = FVector(10800, 12106, 1322);
 
-		SetActorLocation(p);
+		SetActorLocation(p1);
 
-		FRotator r = FRotator(-2, -12, 0);
+		FRotator r1 = FRotator(0, -17, 0);
 
-		SetActorRotation(r);
+		SetActorRotation(r1);
 	}
 
 	if (gameModeBase->flowState == EFlowState::ManipulateUI)
 	{
-		FVector p = FVector(10809, 12123, 1363);
+		FVector p2 = FVector(10800, 12106, 1322);
 
-		SetActorLocation(p);
+		SetActorLocation(p2);
 
-		FRotator r = FRotator(-2, -12, 0);
+		FRotator r2 = FRotator(0, -17, 0);
 
-		SetActorRotation(r);
+		SetActorRotation(r2);
 	}
 
 	if (gameModeBase->flowState == EFlowState::CompleteFireDiscovery)
 	{
-		FVector p = FVector(10780, 11899, 1363);
+		FVector p3 = FVector(10780, 11899, 1363);
 
-		SetActorLocation(p);
+		SetActorLocation(p3);
 
-		FRotator r = FRotator(0, 82, 0);
+		FRotator r3 = FRotator(0, 82, 0);
 
-		SetActorRotation(r);
+		SetActorRotation(r3);
 	}
+
+	// UI 오픈 사운드
+	UGameplayStatics::PlaySound2D(GetWorld(), openSound);
 
 	SetState(EUIState::On);
 }
@@ -163,6 +167,7 @@ void ASJ_Actor_SystemUI::Next()
 {
 	if (player->isClose == true)
 	{
+		UGameplayStatics::PlaySound2D(GetWorld(), closeSound);
 		nextController->SetHiddenInGame(true);
 		nextBlink->SetHiddenInGame(true);
 		SetState(EUIState::Off);

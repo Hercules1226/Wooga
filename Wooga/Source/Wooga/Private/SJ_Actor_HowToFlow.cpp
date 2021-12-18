@@ -62,10 +62,10 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 	// 불의 발견(불피우기) 방법
 	if (gameMode->flowState == EFlowState::FireDiscoveryTitle)
 	{
-		FVector p1 = FVector(10758, 11932, 1384);
+		FVector p1 = FVector(10789, 12081, 1360);
 		SetActorLocation(p1);
 
-		FRotator r1 = FRotator(0, -6, 0);
+		FRotator r1 = FRotator(0, -20, 6);
 		SetActorRotation(r1);
 
 		playTime = 14;
@@ -96,10 +96,10 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 		arrow2 = Cast<AArrow2>(UGameplayStatics::GetActorOfClass(GetWorld(), AArrow2::StaticClass()));
 		arrow2->arrowOn = true;
 
-		FVector p2 = FVector(9693, 10241, 1342);
+		FVector p2 = FVector(9681, 10248, 1342);
 		SetActorLocation(p2);
 
-		FRotator r2 = FRotator(0, -24, 0);
+		FRotator r2 = FRotator(0, -30, 0);
 		SetActorRotation(r2);
 
 		flowIndex = 2;
@@ -128,7 +128,7 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 
 		SetActorLocation(p4);
 
-		FRotator r4 = FRotator(0, -110, 0);
+		FRotator r4 = FRotator(0, -111, 0);
 
 		SetActorRotation(r4);
 
@@ -138,11 +138,11 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 	}
 	else if (gameMode->flowState == EFlowState::FireUseTitle)
 	{
-		FVector p5 = FVector(6277, 7157, 1312);
+		FVector p5 = FVector(6307, 7290, 1340);
 
 		SetActorLocation(p5);
 
-		FRotator r5 = FRotator(0, -31, 0);
+		FRotator r5 = FRotator(0, -71, 0);
 
 		SetActorRotation(r5);
 
@@ -155,11 +155,11 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 	}
 	else if (gameMode->flowState == EFlowState::SpearTitle)
 	{
-		FVector p6 = FVector(5209, 6569, 1353);
+		FVector p6 = FVector(5233, 6594, 1380);
 
 		SetActorLocation(p6);
 
-		FRotator r6 = FRotator(0, -21, 0);
+		FRotator r6 = FRotator(0, -34,10);
 
 		SetActorRotation(r6);
 
