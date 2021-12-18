@@ -34,10 +34,10 @@ void ASJ_Actor_PickUpMeatUI::BeginPlay()
 
 	FVector pigLoc = tomahowk->GetActorLocation();
 	// FVector p = pigLoc + FVector::UpVector * 100;
-	FVector p = FVector(7541, 8715, 1282);
+	FVector p = FVector(7696, 8979, 1272);
 	SetActorLocation(p);
 
-	FRotator r = FRotator(0, 10, 0);
+	FRotator r = FRotator(0, -14, 0);
 	SetActorRotation(r);
 }
 

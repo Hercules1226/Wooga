@@ -62,10 +62,10 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 	// 불의 발견(불피우기) 방법
 	if (gameMode->flowState == EFlowState::FireDiscoveryTitle)
 	{
-		FVector p1 = FVector(10787, 12065, 1395);
+		FVector p1 = FVector(10789, 12081, 1360);
 		SetActorLocation(p1);
 
-		FRotator r1 = FRotator(0, -17, 0);
+		FRotator r1 = FRotator(0, -20, 6);
 		SetActorRotation(r1);
 
 		playTime = 14;
@@ -159,7 +159,7 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 
 		SetActorLocation(p6);
 
-		FRotator r6 = FRotator(10, -34, 0);
+		FRotator r6 = FRotator(0, -34,10);
 
 		SetActorRotation(r6);
 

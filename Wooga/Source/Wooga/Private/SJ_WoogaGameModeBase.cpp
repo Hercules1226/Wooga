@@ -974,25 +974,33 @@ void ASJ_WoogaGameModeBase::HowToMakeHandAx()
 		if (player->isClose == true)
 		{
 			bIsDelay = true;
+			isHandAxDelay = true;
 		}
-		if (bIsDelay == true)
+		// if (bIsDelay == true)
+		if(isHandAxDelay == true)
 		{
-			// 간접떼기 UI 생성
-			indirectUI = GetWorld()->SpawnActor<ASJ_Actor_IndirectHitUI>(bpIndirectUI, Param);
+			handAxDelayTime += GetWorld()->DeltaTimeSeconds;
 
-			// 타격 포인트
-			hitPoint = GetWorld()->SpawnActor<AActor>(bpHitPoint, FVector(8080, 9239, 1243), FRotator(0, 0, 0), Param);
+			if (handAxDelayTime >= 2.0f)
+			{
+				// 간접떼기 UI 생성
+				indirectUI = GetWorld()->SpawnActor<ASJ_Actor_IndirectHitUI>(bpIndirectUI, Param);
 
-			fistAxe->bisStartBreak = true;
+				// 타격 포인트
+				hitPoint = GetWorld()->SpawnActor<AActor>(bpHitPoint, FVector(8080, 9239, 1243), FRotator(0, 0, 0), Param);
 
-			// 딜레이변수 초기화
-			bIsDelay = false;
+				fistAxe->bisStartBreak = true;
 
-			nextDelayTime = 0;
-			howToNarTime = 0;
+				// 딜레이변수 초기화
+				bIsDelay = false;
 
-			SetState(EFlowState::IndirectnessHit);
+				handAxDelayTime = 0;
 
+				nextDelayTime = 0;
+				howToNarTime = 0;
+
+				SetState(EFlowState::IndirectnessHit);
+			}
 		}
 	}
 }
@@ -1101,7 +1109,7 @@ void ASJ_WoogaGameModeBase::CuttingPig()
 			// 고기 들고가기 UI생성
 			pickUpMeatUI = GetWorld()->SpawnActor<ASJ_Actor_PickUpMeatUI>(bpPickUpMeatUI, Param);
 
-			FVector fireStrawPosition = FVector(6373, 7193, 1156);
+			FVector fireStrawPosition = FVector(6377, 7195, 1170);
 			FRotator fireStrawRotation = FRotator(0, 0, 0);
 
 			// 도착 했을때 장작이 보이게 장작생성
@@ -1346,6 +1354,8 @@ void ASJ_WoogaGameModeBase::HowToMakeSpear()
 				bIsDelay = false;
 				nextDelayTime = 0;
 				howToNarTime = 0;
+
+				moveSpine->canMove = true;
 
 				SetState(EFlowState::MakeSpear);
 			}

@@ -38,6 +38,11 @@ public:
 	UPROPERTY()
 		bool bIsDelay;
 
+	UPROPERTY()
+	float handAxDelayTime;
+	UPROPERTY()
+	bool isHandAxDelay;
+
 	// 활동 UI 관련 변수
 	UPROPERTY()
 		float uiChange;
