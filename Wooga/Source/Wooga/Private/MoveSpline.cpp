@@ -6,6 +6,7 @@
 #include "Components/SplineComponent.h"
 #include "Components/TimelineComponent.h"
 #include "VR_Player.h"
+#include "LastHouse.h"
 #include <Kismet/GameplayStatics.h>
 
 // Sets default values
@@ -61,6 +62,20 @@ void AMoveSpline::Tick(float DeltaTime)
 			moveTime += (GetWorld()->DeltaTimeSeconds) * (player->moveComp->moveValueSave);
 		}
 	}
+	/*if (3.f < curTime)
+	{
+		if (canMove == true)
+		{
+			if (lastMove == true)
+			{
+				lastTime += DeltaTime;
+				if (lastTime <= 5.f)
+				{
+					moveTime += (GetWorld()->DeltaTimeSeconds) * -1;
+				}
+			}
+		}
+	}*/
 
 	if ((actorToMove != nullptr) && (bcanMoveActor))
 	{
@@ -91,9 +106,5 @@ void AMoveSpline::Tick(float DeltaTime)
 
 		FRotator rotator = direction.Rotation();
 		actorToMove->SetActorRotation(rotator);
-
-
 	}
-
-
 }

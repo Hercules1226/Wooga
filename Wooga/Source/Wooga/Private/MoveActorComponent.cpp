@@ -67,6 +67,7 @@ void UMoveActorComponent::SetupPlayerInputComponent(UInputComponent* PlayerInput
 	PlayerInputComponent->BindAction("LeftGrip", IE_Released, this, &UMoveActorComponent::LeftGripOff);
 	PlayerInputComponent->BindAction("RightGrip", IE_Pressed, this, &UMoveActorComponent::RightGripOn);
 	PlayerInputComponent->BindAction("RightGrip", IE_Released, this, &UMoveActorComponent::RightGripOff);
+	PlayerInputComponent->BindAction("ButtonB", IE_Pressed, this, &UMoveActorComponent::PressButtonB);
 }
 
 void UMoveActorComponent::MoveHorizontal(float value)
@@ -126,7 +127,7 @@ void UMoveActorComponent::MoveVertical(float value)
 			bisWalk = true;
 		}
 
-		if (value < 0.5f)
+		if (value < -1.f)
 		{
 			moveSpline->timeOn = false;
 			bisWalk = false;
@@ -166,5 +167,10 @@ void UMoveActorComponent::RightGripOn()
 void UMoveActorComponent::RightGripOff()
 {
 	player->handComp->targetGripValueRight = 0.0f;
+}
+
+void UMoveActorComponent::PressButtonB()
+{
+	moveSpline->canMove = true;
 }
 

@@ -41,6 +41,7 @@ private:
 	void LeftGripOff();
 	void RightGripOn();
 	void RightGripOff();
+	void PressButtonB();
 
 	UPROPERTY()
 		class AVR_Player* player;

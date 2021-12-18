@@ -37,6 +37,9 @@ public:
 	UPROPERTY()
 		class AVR_Player* player;
 
+	UPROPERTY()
+		class ALastHouse* lastHouse;
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "SplineController")
 		float totalPathTimeController;
 
@@ -78,4 +81,10 @@ public:
 
 	UPROPERTY()
 		float blend;
+
+	UPROPERTY()
+		bool lastMove = true;
+
+	UPROPERTY()
+		float lastTime;
 };
