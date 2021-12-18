@@ -227,6 +227,10 @@ public:
 	UPROPERTY(EditAnywhere, Category = Title)
 		TSubclassOf<class ASJ_Actor_Title> bpHandAxTitle;
 
+	// 새 소리
+	UPROPERTY(EditAnywhere, Category = Sound)
+	class USoundBase* birdSound;
+
 	// 사냥 하는법
 	UPROPERTY(EditAnywhere, Category = UI)
 	TSubclassOf<class ASJ_Actor_HowToFlow> bpHowToHunt;
@@ -250,6 +254,9 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = Sound)
 	USoundBase* footStepSound;
+
+	UPROPERTY()
+	class ASJ_Actor_Mammoth* mammoth;
 
 	// 주먹도끼 돌 잡기 UI
 	class ASJ_Actor_GrabHandAxUI* handAxUI;

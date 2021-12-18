@@ -5,6 +5,7 @@
 #include <Components/BoxComponent.h>
 #include "SJ_Actor_MammothSpawnDestroy.h"
 #include <Kismet/GameplayStatics.h>
+#include "Sound/SoundCue.h"
 
 // Sets default values
 ASJ_Actor_Mammoth::ASJ_Actor_Mammoth()
@@ -24,6 +25,7 @@ void ASJ_Actor_Mammoth::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	isStateIn = false;
 }
 
 // Called every frame
@@ -42,14 +44,29 @@ void ASJ_Actor_Mammoth::Tick(float DeltaTime)
 
 	SetActorLocation(p);
 
-	playTime += DeltaTime;
-
-	if (playTime >= 1.0f)
+	if (isStateIn == false)
 	{
-		GetWorld()->GetFirstPlayerController()->PlayerCameraManager->StartCameraShake(mammothCameraShake);
-		UGameplayStatics::PlaySound2D(GetWorld(), footStepSound);
+		playTime += DeltaTime;
 
-		playTime = 0;
+		if (playTime >= 1.0f)
+		{
+			GetWorld()->GetFirstPlayerController()->PlayerCameraManager->StartCameraShake(mammothCameraShake);
+
+			playTime = 0;
+		}
+	}
+
+	if (isStateIn == true)
+	{
+		footStepSound->VolumeMultiplier = 0.2f;
+	}
+
+	soundPlayTime += DeltaTime;
+
+	if (soundPlayTime >= 1.0f)
+	{
+		UGameplayStatics::PlaySound2D(GetWorld(), footStepSound);
+		soundPlayTime = 0;
 	}
 }
 

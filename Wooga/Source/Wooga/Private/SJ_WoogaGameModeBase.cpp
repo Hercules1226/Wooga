@@ -71,6 +71,7 @@
 #include "SJ_Actor_Bird.h"
 #include "SJ_Actor_RunDeer.h"
 #include "MoveSpline.h"
+#include "SJ_Actor_Mammoth.h"
 
 ASJ_WoogaGameModeBase::ASJ_WoogaGameModeBase()
 {
@@ -813,6 +814,8 @@ void ASJ_WoogaGameModeBase::HandAxTitle()
 			birds[i]->Fly();
 		}
 
+		UGameplayStatics::PlaySound2D(GetWorld(), birdSound);
+
 		// 딜레이변수 초기화
 		nextDelayTime = 0;
 
@@ -830,6 +833,7 @@ void ASJ_WoogaGameModeBase::GrabHandAx()
 	if (mammothFootStepPlayTime >= 1.0f)
 	{
 		UGameplayStatics::PlaySound2D(GetWorld(), footStepSound);
+		mammothFootStepPlayTime = 0;
 	}
 
 	if (player->grabComp->bisGrabFistAxeR == true)
@@ -937,6 +941,13 @@ void ASJ_WoogaGameModeBase::HitBoar()
 			slicePig->SetActorHiddenInGame(false);
 
 			howToFlow = GetWorld()->SpawnActor<ASJ_Actor_HowToFlow>(bpHowToMakeHandAx, Param);
+
+			mammoth = Cast<ASJ_Actor_Mammoth>(UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_Actor_Mammoth::StaticClass()));
+
+			if (mammoth)
+			{
+				mammoth->isStateIn = true;
+			}
 
 			SetState(EFlowState::HowToMakeHandAx);
 		}
