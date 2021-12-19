@@ -114,6 +114,9 @@ public:
 	UPROPERTY()
 		bool bisClear = false;
 
+	UPROPERTY()
+		bool bisFadeStart = false;
+
 		UPROPERTY()
 		bool isUIDown;
 };
