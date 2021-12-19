@@ -42,6 +42,8 @@ private:
 	void RightGripOn();
 	void RightGripOff();
 	void PressButtonB();
+	void PressButtonY();
+
 
 	UPROPERTY()
 		class AVR_Player* player;
@@ -66,6 +68,9 @@ public:
 
 	UPROPERTY()
 		bool bisWalk = false;
+
+	UPROPERTY()
+		bool bisWalk2 = false;
 
 	UPROPERTY()
 		float moveValueSave = 0;
