@@ -95,7 +95,7 @@ void ASJ_Actor_SystemUI::BeginPlay()
 		SetActorRotation(r3);
 	}
 
-	if (gameModeBase->flowState == EFlowState::CatchFish)
+	if (gameModeBase->flowState == EFlowState::GoBackFireStraw)
 	{
 		FVector p4  = FVector(4328, 7343, 1330);
 
