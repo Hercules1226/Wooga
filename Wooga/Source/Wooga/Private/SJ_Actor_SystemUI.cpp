@@ -97,11 +97,11 @@ void ASJ_Actor_SystemUI::BeginPlay()
 
 	if (gameModeBase->flowState == EFlowState::CatchFish)
 	{
-		FVector p4  = FVector(6311, 7212, 1182);
+		FVector p4  = FVector(4328, 7343, 1330);
 
 		SetActorLocation(p4);
 
-		FRotator r4 = FRotator(0, 161, 0);
+		FRotator r4 = FRotator(0, -175, 5);
 
 		SetActorRotation(r4);
 	}

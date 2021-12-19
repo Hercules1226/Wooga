@@ -52,21 +52,21 @@ void ASJ_Actor_MakeRange::BeginPlay()
 	}
 	else if (gameMode->flowState == EFlowState::CompleteSpear)
 	{
-		FVector p3 = FVector(5012, 6900, 1183);
+		FVector p3 = FVector(4510, 6965, 1195);
 
 		SetActorLocation(p3);
 
-		FRotator r3 = FRotator(0, -23, 0);
+		FRotator r3 = FRotator(0, 40, 0);
 
 		SetActorRotation(r3);
 	}
 	else if(gameMode->flowState == EFlowState::CanFreeMove)
 	{
-		FVector p4 = FVector(6311, 7212, 1183);
+		FVector p4 = FVector(6329, 7246, 1183);
 
 		SetActorLocation(p4);
 
-		FRotator r4 = FRotator(0, 161, 0);
+		FRotator r4 = FRotator(0, 135, 0);
 
 		SetActorRotation(r4);
 	}

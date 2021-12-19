@@ -62,10 +62,10 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 	// 불의 발견(불피우기) 방법
 	if (gameMode->flowState == EFlowState::FireDiscoveryTitle)
 	{
-		FVector p1 = FVector(10789, 12081, 1360);
+		FVector p1 = FVector(10789, 12065, 1375);
 		SetActorLocation(p1);
 
-		FRotator r1 = FRotator(0, -20, 6);
+		FRotator r1 = FRotator(0, -16, 10);
 		SetActorRotation(r1);
 
 		playTime = 14;
@@ -110,11 +110,11 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 	// 사냥하기 방법
 	else if (gameMode->flowState == EFlowState::GrabHandAx)
 	{
-		FVector p3 = FVector(7971, 9217, 1340);
+		FVector p3 = FVector(7952, 9169, 1326);
 
 		SetActorLocation(p3);
 
-		FRotator r3 = FRotator(0, -89, 0);
+		FRotator r3 = FRotator(0, -66, 0);
 
 		SetActorRotation(r3);
 
@@ -124,7 +124,7 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 	// 주먹도끼 방법
 	else if (gameMode->flowState == EFlowState::HitBoar)
 	{
-		FVector p4 = FVector(7972, 9258, 1340);
+		FVector p4 = FVector(7959, 9264, 1326);
 
 		SetActorLocation(p4);
 
@@ -139,7 +139,7 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 	// 불의 활용 방법
 	else if (gameMode->flowState == EFlowState::FireUseTitle)
 	{
-		FVector p5 = FVector(6337, 7223, 1340);
+		FVector p5 = FVector(6337, 7223, 1320);
 
 		SetActorLocation(p5);
 
@@ -154,13 +154,14 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 
 		playTime = 9;
 	}
+	// 슴베찌르개
 	else if (gameMode->flowState == EFlowState::SpearTitle)
 	{
-		FVector p6 = FVector(4734, 6818, 1319);
+		FVector p6 = FVector(4864, 6806, 1320);
 
 		SetActorLocation(p6);
 
-		FRotator r6 = FRotator(0, -95, 0);
+		FRotator r6 = FRotator(0, -88, -6);
 
 		SetActorRotation(r6);
 
@@ -188,11 +189,11 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 	}
 	else if (gameMode->flowState == EFlowState::HutTitle)
 	{
-		FVector p7 = FVector(4042, 7900, 1300);
+		FVector p7 = FVector(7334, 6807, 1379);
 
 		SetActorLocation(p7);
 
-		FRotator r7 = FRotator(0, -145, 0);
+		FRotator r7 = FRotator(0, 52, 0);
 
 		SetActorRotation(r7);
 

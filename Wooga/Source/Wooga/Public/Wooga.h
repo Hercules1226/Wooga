@@ -60,6 +60,7 @@ enum class EFlowState : uint8
 	CompleteSpear,
 	HuntFish,
 	CatchFish,
+	GoBackFireStraw,
 	CanFreeMove,
 	GoToCookFish,
 	CookFish,

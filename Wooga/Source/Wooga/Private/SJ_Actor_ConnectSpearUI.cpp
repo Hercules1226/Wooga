@@ -27,7 +27,7 @@ void ASJ_Actor_ConnectSpearUI::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	FVector p = FVector(5191, 6533, 1272);
+	FVector p = FVector(4760, 6602, 1264);
 
 	SetActorLocation(p);
 
