@@ -7,6 +7,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Components/SceneComponent.h"
 #include "Stick.h"
+#include "Camera/CameraComponent.h"
 #include <Kismet/GameplayStatics.h>
 
 
@@ -73,7 +74,6 @@ void ALastHouse::Tick(float DeltaTime)
 	currentTime += DeltaTime;
 	if (bisfinish == true)
 	{
-
 		FTimerHandle createTimer;
 		GetWorld()->GetTimerManager().SetTimer(createTimer, this, &ALastHouse::CreateStick, 3.0f, false);
 		//CreateStick();
@@ -81,14 +81,16 @@ void ALastHouse::Tick(float DeltaTime)
 	if (creatCount >= 15)
 	{
 		currentTime2 += DeltaTime;
+
 		if (currentTime2 <= 4.f)
 		{
+
 			disTime += GetWorld()->DeltaTimeSeconds;
 			blend = FMath::Lerp(1.f, 0.5f, disTime * 0.5f);
 			complete->SetScalarParameterValueOnMaterials(TEXT("Length"), blend);
 			//complete->SetScalarParameterValueOnMaterials(TEXT("Length"), blend);
 
-			
+
 		}
 		if (currentTime2 >= 10.f)
 		{
@@ -282,6 +284,9 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 
 				UGameplayStatics::PlaySound2D(GetWorld(), overlabSound);
 
+				auto cameraManager = UGameplayStatics::GetPlayerCameraManager(GetWorld(), 0);
+
+
 				bisfinish = true;
 				check4 = false;
 				isUIDown = true;
@@ -311,12 +316,28 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 
 				stick->Destroy();
 			}
+			auto cameraManager = UGameplayStatics::GetPlayerCameraManager(GetWorld(), 0);
+			if (cameraManager)
+			{
+				cameraManager->StartCameraFade(0.f, 1.f, 2.5f, FLinearColor::Black, true, true);
+			}
 		}
 	}
 }
 
 void ALastHouse::CreateStick()
 {
+	auto CameraManager = UGameplayStatics::GetPlayerCameraManager(GetWorld(), 0);
+
+	if (CameraManager)
+	{
+		if (bisFadeStart == false)
+		{
+			CameraManager->StartCameraFade(1.f, 0.f, 2.5f, FLinearColor::Black, true, true);
+			bisFadeStart = true;
+		}
+	}
+
 	if (creatCount < 21)
 	{
 		if (currentTime > 0.2f)
