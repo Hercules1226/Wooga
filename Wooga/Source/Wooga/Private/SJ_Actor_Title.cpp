@@ -29,18 +29,18 @@ void ASJ_Actor_Title::BeginPlay()
 
 	if (gameMode->flowState == EFlowState::HowToGrabActorUI || gameMode->flowState == EFlowState::FireDiscoveryTitle)
 	{
-		FVector p1 = FVector(10799, 12126, 1322);
+		FVector p = FVector(10799, 12126, 1322);
 
-		SetActorLocation(p1);
+		SetActorLocation(p);
 
-		FRotator r1 = FRotator(0, 163, 0);
+		FRotator r = FRotator(0, 163, 0);
 
-		SetActorRotation(r1);
+		SetActorRotation(r);
 	}
 	// Ã¤ÁýÇÏ±â
 	else if (gameMode->flowState == EFlowState::GoToCollectCourse || gameMode->flowState == EFlowState::CollectTitle)
 	{
-		FVector p1 = FVector(9636, 10356, 1301);
+		FVector p1 = FVector(9616, 10381, 1301);
 
 		SetActorLocation(p1);
 
@@ -51,33 +51,33 @@ void ASJ_Actor_Title::BeginPlay()
 	// ÁÖ¸Ôµµ³¢ Á¦¸ñ
 	else if (gameMode->flowState == EFlowState::GoToFistAxCourse || gameMode->flowState == EFlowState::HandAxTitle)
 	{
-		FVector p2 = FVector(8182, 9219, 1301);
+		FVector p2 = FVector(8173, 9228, 1301);
 
 		SetActorLocation(p2);
 
-		FRotator r2 = FRotator(0, 125, 0);
+		FRotator r2 = FRotator(0, 130, 0);
 
 		SetActorRotation(r2);
 	}
 	// ºÒÀÇ È°¿ë
 	else if (gameMode->flowState == EFlowState::GoToFireUse || gameMode->flowState == EFlowState::FireUseTitle)
 	{
-		FVector p3 = FVector(6364, 7232, 1301);
+		FVector p3 = FVector(6345, 7220, 1301);
 
 		SetActorLocation(p3);
 
-		FRotator r3 = FRotator(0, 120, 0);
+		FRotator r3 = FRotator(0, 123, 0);
 
 		SetActorRotation(r3);
 	}
 	// ½¿º£Âî¸£°³
 	else if (gameMode->flowState == EFlowState::GoToSpear || gameMode->flowState == EFlowState::SpearTitle)
 	{
-		FVector p4 = FVector(5331, 6751, 1301);
+		FVector p4 = FVector(4918, 6552, 1301);
 
 		SetActorLocation(p4);
 
-		FRotator r4 = FRotator(0, 130, 0);
+		FRotator r4 = FRotator(0, 110, 0);
 
 		SetActorRotation(r4);
 	}

@@ -36,8 +36,31 @@ public:
 	class ASJ_Actor_CatchFish* catchFish;
 
 	UPROPERTY(EditAnywhere, Category = Speed)
-	float speed = 300;
+	float runSpeed = 300;
 
 	UPROPERTY()
 	float destroyTime;
+
+	UPROPERTY()
+	FVector me; 
+
+	UPROPERTY()
+	FVector target;
+
+	UPROPERTY()
+	FVector dir;
+
+	UPROPERTY()
+	float currentTime;
+
+	UPROPERTY()
+	float turnTime;
+
+	UPROPERTY()
+	float swimSpeed = 50;
+
+	UPROPERTY()
+	bool isTurn;
 };
+
+

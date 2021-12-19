@@ -28,6 +28,8 @@ void ASJ_Actor_EscapeFish::BeginPlay()
 	catchFish = Cast<ASJ_Actor_CatchFish>(UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_Actor_CatchFish::StaticClass()));
 
 	escapeFishAnimInst = Cast<USJ_EscapeFishAnimInstance>(fish->GetAnimInstance());
+
+	currentTime = FMath::RandRange(0.1f, 2.0f);
 }
 
 // Called every frame
@@ -35,17 +37,49 @@ void ASJ_Actor_EscapeFish::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	// 아직 공격 받기 전 이라면, 
+	if (catchFish->isAttacked == false)
+	{
+		currentTime += DeltaTime;
+		if (isTurn == false)
+		{
+			// 1 초간 앞으로 이동 하고
+			me = GetActorLocation();
+
+			FVector p1 = me + GetActorForwardVector() * swimSpeed * DeltaTime;
+
+			SetActorLocation(p1);
+		}
+		
+		// 1초가 지나면 0.3초 기다린 후 회전한다.
+
+		if (currentTime >= 2.5f)
+		{
+			isTurn = true;
+			turnTime += DeltaTime;
+
+			if (turnTime >= 1.0f)
+			{
+				FRotator r1 = GetActorRotation() + FRotator(0, 180, 0);
+				SetActorRotation(r1);
+				isTurn = false;
+				currentTime = 0;
+				turnTime = 0;
+			}
+		}
+	}
+
 	if (catchFish->isAttacked == true)
 	{
-		FVector me = GetActorLocation();
-		FVector target = catchFish->GetActorLocation();
+		me = GetActorLocation();
+		target = catchFish->GetActorLocation();
 
-		FVector dir = -(target - me);
+		dir = -(target - me);
 		dir.Normalize();
 
-		FVector p = GetActorLocation() + GetActorForwardVector() * speed * DeltaTime;
+		FVector p2 = GetActorLocation() + GetActorForwardVector() * runSpeed * DeltaTime;
 
-		SetActorLocation(p);
+		SetActorLocation(p2);
 
 		// SetActorRotation(dir.Rotation());
 

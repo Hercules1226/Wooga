@@ -478,6 +478,7 @@ void ASJ_WoogaGameModeBase::HowToFIreDiscovery()
 
 				howToNarTime = 0;
 				nextDelayTime = 0;
+				bIsDelay = false;
 
 				moveSpine->canMove = true;
 
@@ -576,6 +577,7 @@ void ASJ_WoogaGameModeBase::Firing()
 
 			// 딜레이 변수 초기화
 			nextDelayTime = 0;
+			// bIsDelay = true;
 
 			// 시계 햅틱 기능
 			GetWorld()->GetFirstPlayerController()->PlayHapticEffect(watchHaptic, EControllerHand::Left, 0.5f, false);
@@ -657,6 +659,8 @@ void ASJ_WoogaGameModeBase::GoToCollectState()
 
 		// 채집하기 제목 UI 생성
 		title = GetWorld()->SpawnActor<class ASJ_Actor_Title>(bpCollectTitle, Param);
+
+		moveSpine->canMove = false;
 
 		// 채집 상태로 넘어가기
 		SetState(EFlowState::CollectTitle);
@@ -772,6 +776,8 @@ void ASJ_WoogaGameModeBase::GoToFistAxCourse()
 	{
 		// 주먹도끼(사냥하기) 제목 생성
 		title = GetWorld()->SpawnActor<ASJ_Actor_Title>(bpHandAxTitle, Param);
+
+		moveSpine->canMove = false;
 
 		SetState(EFlowState::HandAxTitle);
 	}
@@ -1163,6 +1169,8 @@ void ASJ_WoogaGameModeBase::GoToFireUse()
 		// 불의 활용 UI 생성
 		title = GetWorld()->SpawnActor<ASJ_Actor_Title>(bpFireUseTitle, Param);
 
+		moveSpine->canMove = false;
+
 		SetState(EFlowState::FireUseTitle);
 	}
 }
@@ -1314,6 +1322,8 @@ void ASJ_WoogaGameModeBase::GoToSpear()
 		// 사용 UI 제거
 		grabTomahowk->Destroy();
 		title = GetWorld()->SpawnActor<ASJ_Actor_Title>(bpSpearTitle, Param);
+
+		moveSpine->canMove = false;
 
 		SetState(EFlowState::SpearTitle);
 	}
@@ -1635,6 +1645,8 @@ void ASJ_WoogaGameModeBase::GoToHut()
 	{
 		// 사용 UI 제거
 		// goToHutUI->Destroy();
+
+		moveSpine->canMove = false;
 
 		// 제목 생성
 		title = GetWorld()->SpawnActor<ASJ_Actor_Title>(bpHutTitle, Param);

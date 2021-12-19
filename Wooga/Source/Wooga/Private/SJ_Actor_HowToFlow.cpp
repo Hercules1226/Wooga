@@ -96,7 +96,7 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 		arrow2 = Cast<AArrow2>(UGameplayStatics::GetActorOfClass(GetWorld(), AArrow2::StaticClass()));
 		arrow2->arrowOn = true;
 
-		FVector p2 = FVector(9681, 10248, 1342);
+		FVector p2 = FVector(9642, 10233, 1339);
 		SetActorLocation(p2);
 
 		FRotator r2 = FRotator(0, -30, 0);
@@ -136,13 +136,14 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 
 		playTime = 8;
 	}
+	// 불의 활용 방법
 	else if (gameMode->flowState == EFlowState::FireUseTitle)
 	{
-		FVector p5 = FVector(6307, 7290, 1340);
+		FVector p5 = FVector(6337, 7223, 1340);
 
 		SetActorLocation(p5);
 
-		FRotator r5 = FRotator(0, -71, 0);
+		FRotator r5 = FRotator(0, -54, 0);
 
 		SetActorRotation(r5);
 
@@ -155,11 +156,11 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 	}
 	else if (gameMode->flowState == EFlowState::SpearTitle)
 	{
-		FVector p6 = FVector(5233, 6594, 1380);
+		FVector p6 = FVector(4734, 6818, 1319);
 
 		SetActorLocation(p6);
 
-		FRotator r6 = FRotator(0, -34,10);
+		FRotator r6 = FRotator(0, -95, 0);
 
 		SetActorRotation(r6);
 
