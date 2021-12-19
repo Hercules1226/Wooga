@@ -62,7 +62,7 @@ void AFireRock::Tick(float DeltaTime)
 			bisOverlab = false;
 		}
 
-		if (FVector::Dist(myPos2, returnKnockbackPos2) < 1.f)
+		if (FVector::Dist(myPos2, returnKnockbackPos2) < -1.f)
 		{
 			bisOverlab = false;
 		}
@@ -82,7 +82,7 @@ void AFireRock::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, clas
 				knockbackPos = player->leftHand->GetRelativeLocation() + FVector(1.f, 0.f, 1.f) * -3.f;
 
 				myPos2 = player->rightHand->GetRelativeLocation();
-				knockbackPos2 = player->rightHand->GetRelativeLocation() + FVector(1.f, 0.f, 1.f) * -3.f;
+				knockbackPos2 = player->rightHand->GetRelativeLocation() + FVector(-1.f, 0.f, -1.f) * -3.f;
 
 				myPos = knockbackPos;
 				myPos2 = knockbackPos2;

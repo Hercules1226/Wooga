@@ -26,9 +26,9 @@ public:
 	void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent);
 
 	UPROPERTY(EditAnywhere, Category = MoveSettings)
-		float moveSpeed = 300.f;
+		float moveSpeed = 250.f;
 	UPROPERTY(EditAnywhere, Category = MoveSettings)
-		float rotateSpeed = 100.f;
+		float rotateSpeed = 50.f;
 
 	UPROPERTY()
 		float currentTime;
