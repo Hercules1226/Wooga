@@ -115,7 +115,7 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 
 	// 잘린고기
 	tomahowk = Cast<ATomahowk>(UGameplayStatics::GetActorOfClass(GetWorld(), ATomahowk::StaticClass()));
-	// tomahowk->SetActorHiddenInGame(true);
+	tomahowk->SetActorHiddenInGame(true);
 
 	// 움집
 	//lastHouse = Cast<ALastHouse>(UGameplayStatics::GetActorOfClass(GetWorld(), ALastHouse::StaticClass()));
@@ -276,6 +276,9 @@ void ASJ_WoogaGameModeBase::Tick(float DeltaSeconds)
 		break;
 	case EFlowState::CatchFish:
 		CatchFish();
+		break;
+	case EFlowState::CanFreeMove:
+		CanFreeMove();
 		break;
 	case EFlowState::GoToCookFish:
 		GoToCookFish();
@@ -625,10 +628,7 @@ void ASJ_WoogaGameModeBase::InformWatch()
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
 		if (nextDelayTime >= 1.0f)
-		{
-			// 라이팅 낮 상태로 변경
-			
-
+		{			
 			// 딜레이 변수 초기화
 			bIsDelay = false;
 			nextDelayTime = 0;
@@ -1556,11 +1556,47 @@ void ASJ_WoogaGameModeBase::CatchFish()
 			// 사용 UI 제거
 			catchFish->Destroy();
 
-			goFryFishUI = GetWorld()->SpawnActor<ASJ_Actor_GoFryFishUI>(bpGoFryFishUI, Param);
-			makeHandAxRange = GetWorld()->SpawnActor<ASJ_Actor_MakeRange>(bpGoToFry, Param);
+			// 자유 이동 안내 UI
+			systemUI = GetWorld()->SpawnActor<ASJ_Actor_SystemUI>(bpFreeMoveUI, Param);
 
 			// 딜레이변수 초기화
 			nextDelayTime = 0;
+			SetState(EFlowState::CanFreeMove);
+		}
+	}
+}
+void ASJ_WoogaGameModeBase::CanFreeMove()
+{
+	systemUIDelayTime += GetWorld()->DeltaTimeSeconds;
+
+	if (systemUIDelayTime >= 4.0f)
+	{
+		// 만약 UI를 끄면,
+		if (player->isClose == true)
+		{
+			bIsDelay = true;
+		}
+	}
+
+	// 시간이 흐른다
+	if (bIsDelay == true)
+	{
+		nextDelayTime += GetWorld()->DeltaTimeSeconds;
+
+		// 3초 뒤에 상태를 변경 해준다.
+		// 이후에도 같은 방법을 사용한다.
+		if (nextDelayTime >= 1.0f)
+		{
+			// 시작시 잡는 방법 알려주는 UI 생성 코드
+
+			// 딜레이 변수 초기화
+			bIsDelay = false;
+			nextDelayTime = 0;
+			systemUIDelayTime = 0;
+
+			goFryFishUI = GetWorld()->SpawnActor<ASJ_Actor_GoFryFishUI>(bpGoFryFishUI, Param);
+			makeHandAxRange = GetWorld()->SpawnActor<ASJ_Actor_MakeRange>(bpGoToFry, Param);
+
 			SetState(EFlowState::GoToCookFish);
 		}
 	}

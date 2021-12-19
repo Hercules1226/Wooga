@@ -394,6 +394,7 @@ public:
 	void CompleteSpear();
 	void HuntFish();
 	void CatchFish();
+	void CanFreeMove();
 	void GoToCookFish();
 	void CookFish();
 	void EatFish();
@@ -471,6 +472,10 @@ public:
 	// 화롯대 유도 가이드라인
 	UPROPERTY(EditAnywhere, Category = Range)
 	TSubclassOf<class ASJ_Actor_MakeRange> bpGoToFry;
+
+	// 자유이동 안내
+	UPROPERTY(EditAnywhere, Category = UI)
+	TSubclassOf<class ASJ_Actor_SystemUI> bpFreeMoveUI;
 
 	// 물고기 익히기 UI
 	UPROPERTY()
