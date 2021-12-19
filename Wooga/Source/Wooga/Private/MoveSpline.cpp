@@ -55,56 +55,59 @@ void AMoveSpline::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	curTime += DeltaTime;
 
-	if (canMove == true)
-	{
-		if (timeOn == true)
-		{
-			moveTime += (GetWorld()->DeltaTimeSeconds) * (player->moveComp->moveValueSave);
-		}
-	}
-	/*if (3.f < curTime)
+	if (lastMove == false)
 	{
 		if (canMove == true)
 		{
-			if (lastMove == true)
+			if (timeOn == true)
 			{
-				lastTime += DeltaTime;
-				if (lastTime <= 5.f)
-				{
-					moveTime += (GetWorld()->DeltaTimeSeconds) * -1;
-				}
+				moveTime += (GetWorld()->DeltaTimeSeconds) * (player->moveComp->moveValueSave);
 			}
 		}
-	}*/
-
-	if ((actorToMove != nullptr) && (bcanMoveActor))
-	{
-		currentSplineTime = (moveTime / totalPathTimeController);
-		currentSplineTimeRot = ((GetWorld()->GetTimeSeconds()) / totalPathTimeController);
-		/*if (3.f > curTime)
+		/*if (3.f < curTime)
 		{
-			timeOn = true;
-		}
-
-		else if (3.f <= curTime && 6.f > curTime)
-		{
-			timeOn = false;
-		}
-
-		else if (6.f <= curTime)
-		{
-			timeOn = true;
+			if (canMove == true)
+			{
+				if (lastMove == true)
+				{
+					lastTime += DeltaTime;
+					if (lastTime <= 5.f)
+					{
+						moveTime += (GetWorld()->DeltaTimeSeconds) * -1;
+					}
+				}
+			}
 		}*/
 
-		distance = spline->GetSplineLength() * currentSplineTime;
-		distanceRot = spline->GetSplineLength() * currentSplineTimeRot;
+		if ((actorToMove != nullptr) && (bcanMoveActor))
+		{
+			currentSplineTime = (moveTime / totalPathTimeController);
+			currentSplineTimeRot = ((GetWorld()->GetTimeSeconds()) / totalPathTimeController);
+			/*if (3.f > curTime)
+			{
+				timeOn = true;
+			}
 
-		FVector position = spline->GetLocationAtDistanceAlongSpline(distance, ESplineCoordinateSpace::World);
-		actorToMove->SetActorLocation(position);
+			else if (3.f <= curTime && 6.f > curTime)
+			{
+				timeOn = false;
+			}
 
-		FVector direction = spline->GetDirectionAtDistanceAlongSpline(distance, ESplineCoordinateSpace::World);
+			else if (6.f <= curTime)
+			{
+				timeOn = true;
+			}*/
 
-		FRotator rotator = direction.Rotation();
-		actorToMove->SetActorRotation(rotator);
+			distance = spline->GetSplineLength() * currentSplineTime;
+			distanceRot = spline->GetSplineLength() * currentSplineTimeRot;
+
+			FVector position = spline->GetLocationAtDistanceAlongSpline(distance, ESplineCoordinateSpace::World);
+			actorToMove->SetActorLocation(position);
+
+			FVector direction = spline->GetDirectionAtDistanceAlongSpline(distance, ESplineCoordinateSpace::World);
+
+			FRotator rotator = direction.Rotation();
+			actorToMove->SetActorRotation(rotator);
+		}
 	}
 }

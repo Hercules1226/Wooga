@@ -41,11 +41,10 @@ void UMoveActorComponent::TickComponent(float DeltaTime, ELevelTick TickType, FA
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	currentTime += DeltaTime;
-
-	if (bisWalk == true)
+	if (bisWalk == true || bisWalk2 == true)
 	{
-		if (moveSpline->canMove == true)
+		currentTime += DeltaTime;
+		//if (moveSpline->canMove == true)
 		{
 			if (currentTime >= 0.5f)
 			{
@@ -67,6 +66,7 @@ void UMoveActorComponent::SetupPlayerInputComponent(UInputComponent* PlayerInput
 	PlayerInputComponent->BindAction("RightGrip", IE_Pressed, this, &UMoveActorComponent::RightGripOn);
 	PlayerInputComponent->BindAction("RightGrip", IE_Released, this, &UMoveActorComponent::RightGripOff);
 	PlayerInputComponent->BindAction("ButtonB", IE_Pressed, this, &UMoveActorComponent::PressButtonB);
+	PlayerInputComponent->BindAction("ButtonY", IE_Pressed, this, &UMoveActorComponent::PressButtonY);
 }
 
 void UMoveActorComponent::MoveHorizontal(float value)
@@ -79,58 +79,73 @@ void UMoveActorComponent::MoveHorizontal(float value)
 		player->SetActorLocation(player->GetActorLocation() + dir * moveSpeed * GetWorld()->DeltaTimeSeconds);
 	}*/
 
-	/*if (bisMove == true)
+	if (moveSpline->lastMove == true)
 	{
-		bisWalk = true;
-		auto cam = Cast<UCameraComponent>(player->GetDefaultSubobjectByName(TEXT("MainCamera")));
-
-		FVector dir = cam->GetRightVector() * value;
-		dir.Z = 0;
-
-		player->SetActorLocation(player->GetActorLocation() + dir * moveSpeed * GetWorld()->DeltaTimeSeconds);
-	}*/
-
-	if (bisMove == true)
-	{
-		if (value >= 0.5f)
+		if (bisMove == true)
 		{
-			bisWalk = true;
-			//moveSpline->blend = FMath::Lerp(0.f, 1.0f, moveSpline->moveTime);
-		}
+			//bisWalk = true;
+			auto cam = Cast<UCameraComponent>(player->GetDefaultSubobjectByName(TEXT("MainCamera")));
 
-		if (value < 0.5f)
-		{
-			bisWalk = false;
-			currentTime = 0;
-			//moveSpline->blend = FMath::Lerp(1.f, 0.0f, moveSpline->speed);
+			FVector dir = cam->GetRightVector() * value;
+			dir.Z = 0;
+
+			player->SetActorLocation(player->GetActorLocation() + dir * moveSpeed * GetWorld()->DeltaTimeSeconds);
+		
+			if (value > 0.1f)
+			{
+				bisWalk = true;
+				//moveSpline->blend = FMath::Lerp(0.f, 1.0f, moveSpline->moveTime);
+			}
+
+			if (-0.1f <= value && value <= 0.1f)
+			{
+				bisWalk = false;
+			}
+
+			if (value < -0.1f)
+			{
+				bisWalk = true;
+
+				//moveSpline->blend = FMath::Lerp(1.f, 0.0f, moveSpline->speed);
+			}
 		}
 	}
-
 }
 
 void UMoveActorComponent::MoveVertical(float value)
 {
 	if (bisMove == true)
 	{
-		/*bisWalk = true;
-		auto cam = Cast<UCameraComponent>(player->GetDefaultSubobjectByName(TEXT("MainCamera")));
-
-		FVector dir = cam->GetForwardVector() * value;
-		dir.Z = 0;
-
-		player->SetActorLocation(player->GetActorLocation() + dir * moveSpeed * GetWorld()->DeltaTimeSeconds);*/
-
-		if (value >= 0.5f)
+		if (moveSpline->lastMove == true)
 		{
-			moveSpline->timeOn = true;
-			bisWalk = true;
+			//bisWalk = true;
+			auto cam = Cast<UCameraComponent>(player->GetDefaultSubobjectByName(TEXT("MainCamera")));
+
+			FVector dir = cam->GetForwardVector() * value;
+			dir.Z = 0;
+
+			player->SetActorLocation(player->GetActorLocation() + dir * moveSpeed * GetWorld()->DeltaTimeSeconds);
 		}
 
-		if (value < -1.f)
+		if (value > 0.1f)
+		{
+			moveSpline->timeOn = true;
+			bisWalk2 = true;
+		}
+
+		if (-0.1f <= value && value <= 0.1f)
 		{
 			moveSpline->timeOn = false;
-			bisWalk = false;
-			currentTime = 0;
+			bisWalk2 = false;
+
+		}
+
+		if (moveSpline->lastMove == true)
+		{
+			if (value < -0.1f)
+			{
+				bisWalk2 = true;
+			}
 		}
 		moveValueSave = value;
 	}
@@ -171,5 +186,10 @@ void UMoveActorComponent::RightGripOff()
 void UMoveActorComponent::PressButtonB()
 {
 	moveSpline->canMove = true;
+}
+
+void UMoveActorComponent::PressButtonY()
+{
+	moveSpline->lastMove = true;
 }
 

@@ -83,7 +83,7 @@ public:
 		float blend;
 
 	UPROPERTY()
-		bool lastMove = true;
+		bool lastMove = false;
 
 	UPROPERTY()
 		float lastTime;
