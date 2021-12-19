@@ -36,41 +36,41 @@ void ASJ_Actor_GoToGuideLine::BeginPlay()
 
 	if (gameModeBase->flowState == EFlowState::SpawnCollectGuideLine)
 	{
-		FVector p1 = FVector(9792, 10490, 1261);
+		FVector p1 = FVector(9792, 10520, 1260);
 
 		SetActorLocation(p1);
 
-		FRotator r1 = FRotator(0, 38.9f, 0);
+		FRotator r1 = FRotator(0, 39, 0);
 
 		SetActorRotation(r1);
 	}
 	else if (gameModeBase->flowState == EFlowState::SpawnHandAxGuideLine)
 	{
-		FVector p2 = FVector(8222, 9239, 1253);
+		FVector p2 = FVector(8213, 9250, 1253);
 
 		SetActorLocation(p2);
 
-		FRotator r2 = FRotator(0, 39, 0);
+		FRotator r2 = FRotator(0, 40, 0);
 
 		SetActorRotation(r2);
 	}
 	else if (gameModeBase->flowState == EFlowState::CuttingPig)
 	{
-		FVector p3 = FVector(6528, 7324, 1260);
+		FVector p3 = FVector(6518, 7338, 1260);
 
 		SetActorLocation(p3);
 
-		FRotator r3 = FRotator(0, 31, 0);
+		FRotator r3 = FRotator(0, 35, 0);
 
 		SetActorRotation(r3);
 	}
 	else if (gameModeBase->flowState == EFlowState::CompleteFireUse || gameModeBase->flowState == EFlowState::GoToSpear || gameModeBase->flowState == EFlowState::TestFunc)
 	{
-		FVector p4 = FVector(5443, 6869, 1260);
+		FVector p4 = FVector(5071, 6712, 1260);
 		
 		SetActorLocation(p4);
 
-		FRotator r4 = FRotator(0, 42, 0);
+		FRotator r4 = FRotator(0, 21, 0);
 
 		SetActorRotation(r4);
 	}
