@@ -26,11 +26,11 @@ void ASJ_Actor_CookUI::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	FVector p = FVector(6441, 6974, 1307);
+	FVector p = FVector(6445, 7086, 1307);
 
 	SetActorLocation(p);
 
-	FRotator r = FRotator(0, 84, 0);
+	FRotator r = FRotator(0, 92, 0);
 
 	SetActorRotation(r);
 }

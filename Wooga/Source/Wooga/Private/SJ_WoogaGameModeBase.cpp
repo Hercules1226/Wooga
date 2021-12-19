@@ -72,6 +72,7 @@
 #include "SJ_Actor_RunDeer.h"
 #include "MoveSpline.h"
 #include "SJ_Actor_Mammoth.h"
+#include "SJ_ChangeFreeMove.h"
 
 ASJ_WoogaGameModeBase::ASJ_WoogaGameModeBase()
 {
@@ -276,6 +277,9 @@ void ASJ_WoogaGameModeBase::Tick(float DeltaSeconds)
 		break;
 	case EFlowState::CatchFish:
 		CatchFish();
+		break;
+	case EFlowState::GoBackFireStraw:
+		GoBackFireStraw();
 		break;
 	case EFlowState::CanFreeMove:
 		CanFreeMove();
@@ -1240,6 +1244,7 @@ void ASJ_WoogaGameModeBase::FiringTwo()
 			cookUI = GetWorld()->SpawnActor<ASJ_Actor_CookUI>(bpCookUI, Param);
 			// 딜레이 변수 초기화
 			nextDelayTime = 0;
+			tomahowk->bCanBake = true;
 
 			// 사용 UI 파괴
 			fireTwoUI->Destroy();
@@ -1522,6 +1527,7 @@ void ASJ_WoogaGameModeBase::HuntFish()
 	if (makeHandAxRange->isPlayerIn == true)
 	{
 		bIsUIClose = true;
+		moveSpine->canMove = false;
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
@@ -1555,6 +1561,28 @@ void ASJ_WoogaGameModeBase::CatchFish()
 		{
 			// 사용 UI 제거
 			catchFish->Destroy();
+
+			goFryFishUI = GetWorld()->SpawnActor<ASJ_Actor_GoFryFishUI>(bpGoFryFishUI, Param);
+
+			// 딜레이변수 초기화
+			nextDelayTime = 0;
+			SetState(EFlowState::GoBackFireStraw);
+		}
+	}
+}
+void ASJ_WoogaGameModeBase::GoBackFireStraw()
+{
+	freeMove = Cast<ASJ_ChangeFreeMove>(UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_ChangeFreeMove::StaticClass()));
+
+	if (freeMove->bisFreeMove == true)
+	{
+		bIsUIClose = true;
+
+		nextDelayTime += GetWorld()->DeltaTimeSeconds;
+
+		if (nextDelayTime >= 1.0f)
+		{
+			goFryFishUI->Destroy();
 
 			// 자유 이동 안내 UI
 			systemUI = GetWorld()->SpawnActor<ASJ_Actor_SystemUI>(bpFreeMoveUI, Param);
@@ -1594,7 +1622,6 @@ void ASJ_WoogaGameModeBase::CanFreeMove()
 			nextDelayTime = 0;
 			systemUIDelayTime = 0;
 
-			goFryFishUI = GetWorld()->SpawnActor<ASJ_Actor_GoFryFishUI>(bpGoFryFishUI, Param);
 			makeHandAxRange = GetWorld()->SpawnActor<ASJ_Actor_MakeRange>(bpGoToFry, Param);
 
 			SetState(EFlowState::GoToCookFish);

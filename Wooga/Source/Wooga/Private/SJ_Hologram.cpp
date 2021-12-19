@@ -105,11 +105,11 @@ void ASJ_Hologram::BeginPlay()
 	// ½¿º£Âî¸£°³ È¦·Î±×·¥
 	if (gameMode->flowState == EFlowState::TieSpear || gameMode->flowState == EFlowState::CompleteSpear)
 	{
-		FVector p5 = FVector(5091, 6470, 1375);
+		FVector p5 = FVector(4546, 6926, 1334);
 
 		SetActorLocation(p5);
 
-		FRotator r5 = FRotator(-13, 37, 0);
+		FRotator r5 = FRotator(-5, -32, 0);
 
 		SetActorRotation(r5);
 

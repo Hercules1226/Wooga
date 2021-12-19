@@ -76,11 +76,11 @@ void ASJ_Actor_GoToGuideLine::BeginPlay()
 	}
 	else if (gameModeBase->flowState == EFlowState::SpawnHutGuideLine)
 	{
-		FVector p5 = FVector(4207, 7727, 1260);
+		FVector p5 = FVector(7005, 6935, 1257);
 
 		SetActorLocation(p5);
 
-		FRotator r5 = FRotator(0, -50, 0);
+		FRotator r5 = FRotator(0, 123, 0);
 
 		SetActorRotation(r5);
 	}

@@ -30,14 +30,14 @@ void ASJ_Actor_EatAppleUI::BeginPlay()
 	
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
 
-	FVector p = FVector(9566, 10264, 1327);
+	FVector p = FVector(9462, 10386, 1327);
 
 	SetActorLocation(p);
 
 	FVector dir = player->GetActorLocation() - GetActorLocation();
 	dir.Normalize();
 
-	FRotator r = FRotator(0, 55, 0);
+	FRotator r = FRotator(0, -12, 0);
 	SetActorRotation(r);
 }
 

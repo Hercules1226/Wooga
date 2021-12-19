@@ -394,6 +394,7 @@ public:
 	void CompleteSpear();
 	void HuntFish();
 	void CatchFish();
+	void GoBackFireStraw();
 	void CanFreeMove();
 	void GoToCookFish();
 	void CookFish();
@@ -468,6 +469,10 @@ public:
 	class ASJ_Actor_GoFryFishUI* goFryFishUI;
 	UPROPERTY(EditAnywhere, Category = UI)
 	TSubclassOf<class ASJ_Actor_GoFryFishUI> bpGoFryFishUI;
+
+	// 플레이어 자유이동 범위
+	UPROPERTY()
+	class ASJ_ChangeFreeMove* freeMove;
 
 	// 화롯대 유도 가이드라인
 	UPROPERTY(EditAnywhere, Category = Range)

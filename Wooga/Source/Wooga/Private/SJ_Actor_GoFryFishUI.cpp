@@ -26,11 +26,11 @@ void ASJ_Actor_GoFryFishUI::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	FVector p = FVector(4249, 7122, 1297);
+	FVector p = FVector(4359, 6730, 1252);
 
 	SetActorLocation(p);
 
-	FRotator r = FRotator(0, -15, 0);
+	FRotator r = FRotator(0, 36, 0);
 
 	SetActorRotation(r);
 }

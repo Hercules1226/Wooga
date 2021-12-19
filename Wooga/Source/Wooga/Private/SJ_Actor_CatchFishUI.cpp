@@ -26,11 +26,11 @@ void ASJ_Actor_CatchFishUI::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	FVector p =FVector(4507, 7054, 1302);
+	FVector p =FVector(4359, 6730, 1252);
 
 	SetActorLocation(p);
 
-	FRotator r = FRotator(0, -17, 0);
+	FRotator r = FRotator(0, 36, 0);
 
 	SetActorRotation(r);
 }
