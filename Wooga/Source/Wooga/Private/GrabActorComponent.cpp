@@ -206,21 +206,21 @@ void UGrabActorComponent::RightReleaseAction()
 		player->handComp->targetGripValueRight = 0.0f;
 	}
 
-	if (appleR)
-	{
-		appleR->boxComp->SetEnableGravity(true);
-		// 그 자리에서 떨어지게
-		appleR->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+	//if (appleR)
+	//{
+	//	appleR->boxComp->SetEnableGravity(true);
+	//	// 그 자리에서 떨어지게
+	//	appleR->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
 
-		//appleR->boxComp->SetSimulatePhysics(true);
+	//	//appleR->boxComp->SetSimulatePhysics(true);
 
-		appleR = nullptr;
-		bisLeftGrab = false;
-		bisGrabApple = false;
+	//	appleR = nullptr;
+	//	bisLeftGrab = false;
+	//	bisGrabApple = false;
 
-		// 오른손 피는 애니메이션
-		player->handComp->targetGripValueRight = 0.0f;
-	}
+	//	// 오른손 피는 애니메이션
+	//	player->handComp->targetGripValueRight = 0.0f;
+	//}
 
 	if (stickR)
 	{
@@ -435,22 +435,22 @@ void UGrabActorComponent::LeftReleaseAction()
 		player->handComp->targetGripValueLeft = 0.0f;
 	}
 
-	if (appleL)
-	{
-		appleL->boxComp->SetEnableGravity(true);
-		// 그 자리에서 떨어지게
-		appleL->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+	//if (appleL)
+	//{
+	//	appleL->boxComp->SetEnableGravity(true);
+	//	// 그 자리에서 떨어지게
+	//	appleL->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
 
-		appleL->boxComp->SetSimulatePhysics(true);
-		appleL->outLine->SetVisibility(false);
+	//	appleL->boxComp->SetSimulatePhysics(true);
+	//	appleL->outLine->SetVisibility(false);
 
-		appleL = nullptr;
-		bisLeftGrab = false;
-		bisGrabApple = false;
+	//	appleL = nullptr;
+	//	bisLeftGrab = false;
+	//	bisGrabApple = false;
 
-		// 완손 피는 애니메이션
-		player->handComp->targetGripValueLeft = 0.0f;
-	}
+	//	// 완손 피는 애니메이션
+	//	player->handComp->targetGripValueLeft = 0.0f;
+	//}
 
 	if (stickL)
 	{
