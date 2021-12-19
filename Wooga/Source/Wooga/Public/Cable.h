@@ -84,6 +84,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Sound")
 		USoundBase* clearSound;
 
+	UPROPERTY(EditAnywhere, Category = "Sound")
+		USoundBase* padakSound;
+
 	UPROPERTY(EditAnywhere, Category = "Explosion")
 		class UParticleSystem* explosionFactory;
 
@@ -103,17 +106,23 @@ public:
 		bool bisWelldone = false;
 
 	UPROPERTY()
-	bool bIsConnect;
+		bool bIsConnect;
 
 	UPROPERTY()
-	bool bIsTie;
+		bool bIsTie;
 
 	UPROPERTY()
-	bool bisEat = false;
+		bool bIsConnectRock = false;
+
+	UPROPERTY()
+		bool bisEat = false;
 
 	UPROPERTY()
 		bool bisfire = true;
 
 	UPROPERTY()
 		bool niaStart = false;
+
+	UPROPERTY()
+		bool playPadakSound = false;
 };

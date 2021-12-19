@@ -72,6 +72,11 @@ void ACable::Tick(float DeltaTime)
 	if (biscatch == true)
 	{
 		currentTime += GetWorld()->DeltaTimeSeconds;
+		if(playPadakSound == false)
+		{
+		UGameplayStatics::PlaySound2D(GetWorld(), padakSound);
+		playPadakSound = true;
+		}
 		if (currentTime >= 5.f)
 		{
 			/*fish->SetCollisionProfileName(TEXT("Ragdoll"));
@@ -120,15 +125,18 @@ void ACable::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class A
 	auto player = Cast<AVR_Player>(OtherActor);
 	//catchFish = Cast<ASJ_Actor_CatchFish>(OtherActor);
 
-	if (OtherActor == string)
+	if (bIsConnectRock == true)
 	{
-		//nia->SetHiddenInGame(false);
-			//UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), SpawnEffect, cableComp->GetComponentLocation(), cableComp->GetComponentRotation());
-		string->Destroy();
-		cableComp->SetHiddenInGame(true);
-		niaStart = true;
-		UGameplayStatics::PlaySound2D(GetWorld(), clearSound);
-		bIsTie = true;
+		if (OtherActor == string)
+		{
+			//nia->SetHiddenInGame(false);
+				//UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), SpawnEffect, cableComp->GetComponentLocation(), cableComp->GetComponentRotation());
+			string->Destroy();
+			cableComp->SetHiddenInGame(true);
+			niaStart = true;
+			UGameplayStatics::PlaySound2D(GetWorld(), clearSound);
+			bIsTie = true;
+		}
 	}
 
 	if (OverlappedComp == rockComp && OtherActor == sumjjiRock)
@@ -136,6 +144,7 @@ void ACable::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class A
 		rockComp->SetHiddenInGame(false);
 		cableComp->SetHiddenInGame(false);
 		rockComp->SetMaterial(0, onMaterial);
+		bIsConnectRock = true;
 		sumjjiRock->Destroy();
 		UGameplayStatics::PlaySound2D(GetWorld(), clearSound);
 		bIsConnect = true;
@@ -143,16 +152,18 @@ void ACable::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class A
 
 	if (OtherActor == fireStraw)
 	{
-		bisOverlab = true;
-
-		if (bisfire == true)
+		if (bIsTie == true)
 		{
-			UGameplayStatics::PlaySound2D(GetWorld(), fireSound);
-			bisfire = false;
-		}
-		currentTime2 = 0.f;
-	}
+			bisOverlab = true;
 
+			if (bisfire == true)
+			{
+				UGameplayStatics::PlaySound2D(GetWorld(), fireSound);
+				bisfire = false;
+			}
+			currentTime2 = 0.f;
+		}
+	}
 
 	if (bisWelldone == true)
 	{
