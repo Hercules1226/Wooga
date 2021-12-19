@@ -60,13 +60,13 @@ void ASJ_Actor_MakeRange::BeginPlay()
 
 		SetActorRotation(r3);
 	}
-	else if(gameMode->flowState == EFlowState::CatchFish || gameMode->flowState == EFlowState::GoToCookFish)
+	else if(gameMode->flowState == EFlowState::CanFreeMove)
 	{
-		FVector p4 = FVector(6232, 7187, 1183);
+		FVector p4 = FVector(6311, 7212, 1183);
 
 		SetActorLocation(p4);
 
-		FRotator r4 = FRotator(0, -185.5f, 0);
+		FRotator r4 = FRotator(0, 161, 0);
 
 		SetActorRotation(r4);
 	}

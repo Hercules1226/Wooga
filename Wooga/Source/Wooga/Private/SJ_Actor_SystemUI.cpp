@@ -95,6 +95,17 @@ void ASJ_Actor_SystemUI::BeginPlay()
 		SetActorRotation(r3);
 	}
 
+	if (gameModeBase->flowState == EFlowState::CatchFish)
+	{
+		FVector p4  = FVector(6311, 7212, 1182);
+
+		SetActorLocation(p4);
+
+		FRotator r4 = FRotator(0, 161, 0);
+
+		SetActorRotation(r4);
+	}
+
 	// UI ¿ÀÇÂ »ç¿îµå
 	UGameplayStatics::PlaySound2D(GetWorld(), openSound);
 
