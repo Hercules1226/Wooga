@@ -86,11 +86,11 @@ void ASJ_Actor_SystemUI::BeginPlay()
 
 	if (gameModeBase->flowState == EFlowState::CompleteFireDiscovery)
 	{
-		FVector p3 = FVector(10780, 11899, 1363);
+		FVector p3 = FVector(10728, 11906, 1320);
 
 		SetActorLocation(p3);
 
-		FRotator r3 = FRotator(0, 82, 0);
+		FRotator r3 = FRotator(0, -16, 0);
 
 		SetActorRotation(r3);
 	}
