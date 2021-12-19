@@ -386,7 +386,7 @@ void ASJ_WoogaGameModeBase::ManipulateUI()
 
 		// 3초 뒤에 상태를 변경 해준다.
 		// 이후에도 같은 방법을 사용한다.
-		if (nextDelayTime >= 2.5f)
+		if (nextDelayTime >= 1.5f)
 		{
 			// 시작시 잡는 방법 알려주는 UI 생성 코드
 			systemUI = GetWorld()->SpawnActor<ASJ_Actor_SystemUI>(bpGrabSystemUI, Param);
@@ -1527,7 +1527,7 @@ void ASJ_WoogaGameModeBase::HuntFish()
 	if (makeHandAxRange->isPlayerIn == true)
 	{
 		bIsUIClose = true;
-		moveSpine->canMove = false;
+		// moveSpine->canMove = false;
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
