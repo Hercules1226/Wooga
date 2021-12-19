@@ -26,11 +26,11 @@ void ASJ_Actor_HuntFishUI::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	FVector p = FVector(4748, 6857, 1280);
+	FVector p = FVector(4460, 6889, 1298);
 
 	SetActorLocation(p);
 
-	FRotator r = FRotator(0, -56, 0);
+	FRotator r = FRotator(0, -30, 0);
 
 	SetActorRotation(r);
 }

@@ -27,11 +27,11 @@ void ASJ_Actor_TieSpearUI::BeginPlay()
 {
 	Super::BeginPlay();
 
-	FVector p = FVector(4760, 6602, 1264);
+	FVector p = FVector(4792, 6620, 1263);
 
 	SetActorLocation(p);
 
-	FRotator r = FRotator(0, 60, 0);
+	FRotator r = FRotator(0, 55, 0);
 
 	SetActorRotation(r);
 }

@@ -119,8 +119,8 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	tomahowk->SetActorHiddenInGame(true);
 
 	// 움집
-	//lastHouse = Cast<ALastHouse>(UGameplayStatics::GetActorOfClass(GetWorld(), ALastHouse::StaticClass()));
-	//lastHouse->SetActorHiddenInGame(true);
+	lastHouse = Cast<ALastHouse>(UGameplayStatics::GetActorOfClass(GetWorld(), ALastHouse::StaticClass()));
+	lastHouse->SetActorHiddenInGame(true);
 
 	// 라이트
 	levelLight = Cast<ASJ_Actor_LevelLight>(UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_Actor_LevelLight::StaticClass()));
@@ -386,7 +386,7 @@ void ASJ_WoogaGameModeBase::ManipulateUI()
 
 		// 3초 뒤에 상태를 변경 해준다.
 		// 이후에도 같은 방법을 사용한다.
-		if (nextDelayTime >= 1.0f)
+		if (nextDelayTime >= 2.5f)
 		{
 			// 시작시 잡는 방법 알려주는 UI 생성 코드
 			systemUI = GetWorld()->SpawnActor<ASJ_Actor_SystemUI>(bpGrabSystemUI, Param);
@@ -1130,7 +1130,7 @@ void ASJ_WoogaGameModeBase::CuttingPig()
 			// 고기 들고가기 UI생성
 			pickUpMeatUI = GetWorld()->SpawnActor<ASJ_Actor_PickUpMeatUI>(bpPickUpMeatUI, Param);
 
-			FVector fireStrawPosition = FVector(6420, 7160, 1184);
+			FVector fireStrawPosition = FVector(6410, 7160, 1190);
 			FRotator fireStrawRotation = FRotator(0, 0, 0);
 
 			// 도착 했을때 장작이 보이게 장작생성
@@ -1637,8 +1637,7 @@ void ASJ_WoogaGameModeBase::GoToCookFish()
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 		if (nextDelayTime >= 1.0f)
 		{
-			goFryFishUI->Destroy();
-			makeHandAxRange->Destroy();
+			// makeHandAxRange->Destroy();
 
 			cookFishUI = GetWorld()->SpawnActor<ASJ_Actor_CookFishUI>(bpCookFishUI, Param);
 			// 딜레이 변수 초기화

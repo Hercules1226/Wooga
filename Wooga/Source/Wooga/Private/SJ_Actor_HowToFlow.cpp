@@ -157,11 +157,11 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 	// ½¿º£Âî¸£°³
 	else if (gameMode->flowState == EFlowState::SpearTitle)
 	{
-		FVector p6 = FVector(4864, 6806, 1320);
+		FVector p6 = FVector(4931, 6829, 1304);
 
 		SetActorLocation(p6);
 
-		FRotator r6 = FRotator(0, -88, -6);
+		FRotator r6 = FRotator(0, -97, 0);
 
 		SetActorRotation(r6);
 

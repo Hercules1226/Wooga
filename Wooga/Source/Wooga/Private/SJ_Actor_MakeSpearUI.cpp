@@ -26,11 +26,11 @@ void ASJ_Actor_MakeSpearUI::BeginPlay()
 {
 	Super::BeginPlay();
 
-	FVector p = FVector(5107, 6805, 1293);
+	FVector p = FVector(4795, 6811, 1289);
 
 	SetActorLocation(p);
 
-	FRotator r = FRotator(0, 25, 0);
+	FRotator r = FRotator(0, -39, 0);
 
 	SetActorRotation(r);
 
