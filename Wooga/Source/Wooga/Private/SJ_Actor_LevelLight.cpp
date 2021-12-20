@@ -7,8 +7,9 @@
 #include <Components/PostProcessComponent.h>
 #include <Components/StaticMeshComponent.h>
 #include <Components/SkyLightComponent.h>
+#include <Kismet/GameplayStatics.h>
 
-// Sets default values
+// Sets default valueso
 ASJ_Actor_LevelLight::ASJ_Actor_LevelLight()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
@@ -28,6 +29,7 @@ ASJ_Actor_LevelLight::ASJ_Actor_LevelLight()
 
 	skySphere = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("SkySphere"));
 	skySphere->SetupAttachment(rootComp);
+	skySphere->CreateAndSetMaterialInstanceDynamic(0);
 
 	levelPost = CreateDefaultSubobject<UPostProcessComponent>(TEXT("LevelPost"));
 	levelPost->SetupAttachment(rootComp);
@@ -38,9 +40,12 @@ void ASJ_Actor_LevelLight::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	SetState(ELightState::Day);
+	//SetState(ELightState::Day);
 	//IJ
-	/*curDirColor = FMath::Lerp(curDirColor, dayDirColor, changeTIme * 0.0005f);
+
+	changeParam2 = FVector4(0.637523f, 0.660977f, 0.775f, 1.0f);
+	
+	curDirColor = FMath::Lerp(curDirColor, dayDirColor, changeTIme * 0.0005f);
 	curSunColor = FMath::Lerp(curSunColor, daySunColor, changeTIme * 0.0005f);
 
 	sun->SetLightColor(curSunColor);
@@ -49,18 +54,21 @@ void ASJ_Actor_LevelLight::BeginPlay()
 	float changeParam = FMath::Lerp(0.0f, 3.0f, changeTIme * 0.04f);
 	skySphere->SetScalarParameterValueOnMaterials(TEXT("Emissive_Power"), changeParam);
 
-	FVector4 changeParam2 = FMath::Lerp(FLinearColor(changeParam2), FLinearColor(1.f, 0.05451f, 10.f, 1.f), changeTIme * 0.04f);
-	skySphere->SetVectorParameterValueOnMaterials(TEXT("Sky_Color_Shift"), changeParam2);*/
+	//FVector4 changeParam2 = FMath::Lerp(changeParam2, FVector4(1.0f, 0.109375f, 0.118422f), changeTIme * 0.04f);
+	changeParam2 = FVector4(1.0f, 1.109375f, 1.118422f, 1.0f);
+	skySphere->SetVectorParameterValueOnMaterials(TEXT("Sky_Color_Shift"), changeParam2);
 
-	//dayParam.bOverride_BloomIntensity = true;
-	//dayParam.BloomIntensity = 0.675f;
-	//levelPost->Settings = dayParam;
+	dayParam.bOverride_BloomIntensity = true;
+	dayParam.BloomIntensity = 0.675f;
+	levelPost->Settings = dayParam;
 }
 
 // Called every frame
 void ASJ_Actor_LevelLight::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	
 	
 	switch (lightState)
 	{
