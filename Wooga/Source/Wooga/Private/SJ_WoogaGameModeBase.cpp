@@ -1746,7 +1746,7 @@ void ASJ_WoogaGameModeBase::HutTitle()
 void ASJ_WoogaGameModeBase::HowToMakeHut()
 {
 	howToNarTime += GetWorld()->DeltaTimeSeconds;
-	if (howToNarTime >= 9.0f)
+	if (howToNarTime >= 4.0f)
 	{
 		// UI 를 끄면
 		if (player->isClose == true)
@@ -1780,7 +1780,7 @@ void ASJ_WoogaGameModeBase::HowToMakeHut()
 						sticks[i]->outLine->SetVisibility(true);
 					}
 				}
-
+				lastHouse->bisAttachStart = true;
 				// 딜레이변수 초기화
 				bIsDelay = false;
 				nextDelayTime = 0;

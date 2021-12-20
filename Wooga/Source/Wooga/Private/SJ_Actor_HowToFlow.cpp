@@ -217,7 +217,7 @@ void ASJ_Actor_HowToFlow::BeginPlay()
 
 		flowIndex = 7;
 
-		playTime = 8;
+		playTime = 3;
 	}
 
 	SetState(ESaturateState::OnSature);

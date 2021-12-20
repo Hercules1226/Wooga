@@ -89,7 +89,7 @@ void ALastHouse::Tick(float DeltaTime)
 			blend = FMath::Lerp(1.f, 0.5f, disTime * 0.5f);
 			complete->SetScalarParameterValueOnMaterials(TEXT("Length"), blend);
 		}
-		if (currentTime2 >= 10.f)
+		if (currentTime2 >= 6.f)
 		{
 			bisClear = true;
 		}
@@ -101,9 +101,10 @@ void ALastHouse::Tick(float DeltaTime)
 		playerSetTime += DeltaTime;
 		if (playerSetTime >= 2.5f)
 		{
-			player->SetActorLocationAndRotation(FVector(6864.32373f, 6981.561035f, 1318.585693f), FRotator(0.0f, -16, 0.f));
-			isPlayerSet = false;
+			player->SetActorLocationAndRotation(FVector(6864.32373f, 6981.561035f, 1318.585693f), FRotator(0.0f, -47, 0.f));
 			player->moveComp->bisMove = false;
+			player->ResetHMD();
+			isPlayerSet = false;
 
 			// 43.888271f
 		}

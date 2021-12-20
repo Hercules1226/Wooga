@@ -74,7 +74,7 @@ void UGrabActorComponent::HideGrabLine()
 
 void UGrabActorComponent::RightDrawGrabLine()
 {
-	DrawDebugSphere(GetWorld(), player->rightHandLoc->GetComponentLocation(), grabRange, 30, FColor::Green, false, -1, 0, 1);
+	//DrawDebugSphere(GetWorld(), player->rightHandLoc->GetComponentLocation(), grabRange, 30, FColor::Green, false, -1, 0, 1);
 	FHitResult hitInfo;
 	FVector startPos = player->rightHandLoc->GetComponentLocation();
 
@@ -99,7 +99,7 @@ void UGrabActorComponent::RightDrawGrabLine()
 
 void UGrabActorComponent::LeftDrawGrabLine()
 {
-	DrawDebugSphere(GetWorld(), player->leftHandLoc->GetComponentLocation(), grabRange, 30, FColor::Green, false, -1, 0, 1);
+	//DrawDebugSphere(GetWorld(), player->leftHandLoc->GetComponentLocation(), grabRange, 30, FColor::Green, false, -1, 0, 1);
 	FHitResult hitInfo;
 	FVector startPos = player->leftHandLoc->GetComponentLocation();
 
@@ -596,7 +596,7 @@ void UGrabActorComponent::LGripFireRock(AActor* grabActor)
 
 		if (fireRockL)
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("TRIGGER IN!!")));
+			//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("TRIGGER IN!!")));
 			//fireRock->SetActorHiddenInGame(false);
 			//FAttachmentTransformRules attachRules = FAttachmentTransformRules::KeepWorldTransform;
 			FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
@@ -630,7 +630,7 @@ void UGrabActorComponent::LGripFireRock2(AActor* grabActor)
 
 		if (fireRock2L)
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("TRIGGER IN!!")));
+			//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("TRIGGER IN!!")));
 			//fireRock->SetActorHiddenInGame(false);
 			//FAttachmentTransformRules attachRules = FAttachmentTransformRules::KeepWorldTransform;
 			FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
@@ -663,7 +663,7 @@ void UGrabActorComponent::RGripFireRock2(AActor* grabActor)
 
 		if (fireRock2R)
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("TRIGGER IN!!")));
+			//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("TRIGGER IN!!")));
 			//fireRock->SetActorHiddenInGame(false);
 			//FAttachmentTransformRules attachRules = FAttachmentTransformRules::KeepWorldTransform;
 			FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
