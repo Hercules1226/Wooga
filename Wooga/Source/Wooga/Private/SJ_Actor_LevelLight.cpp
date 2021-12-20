@@ -39,6 +39,22 @@ void ASJ_Actor_LevelLight::BeginPlay()
 	Super::BeginPlay();
 	
 	SetState(ELightState::Day);
+	//IJ
+	/*curDirColor = FMath::Lerp(curDirColor, dayDirColor, changeTIme * 0.0005f);
+	curSunColor = FMath::Lerp(curSunColor, daySunColor, changeTIme * 0.0005f);
+
+	sun->SetLightColor(curSunColor);
+	skyLight->SetLightColor(curDirColor);
+
+	float changeParam = FMath::Lerp(0.0f, 3.0f, changeTIme * 0.04f);
+	skySphere->SetScalarParameterValueOnMaterials(TEXT("Emissive_Power"), changeParam);
+
+	FVector4 changeParam2 = FMath::Lerp(FLinearColor(changeParam2), FLinearColor(1.f, 0.05451f, 10.f, 1.f), changeTIme * 0.04f);
+	skySphere->SetVectorParameterValueOnMaterials(TEXT("Sky_Color_Shift"), changeParam2);*/
+
+	//dayParam.bOverride_BloomIntensity = true;
+	//dayParam.BloomIntensity = 0.675f;
+	//levelPost->Settings = dayParam;
 }
 
 // Called every frame

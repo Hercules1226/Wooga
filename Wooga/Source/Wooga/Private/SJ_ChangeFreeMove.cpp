@@ -35,6 +35,15 @@ void ASJ_ChangeFreeMove::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	curTime += DeltaTime;
+
+	if (bisFreeMove == true)
+	{
+		if (curTime >= 2.0f)
+		{
+			Destroy();
+		}
+	}
 }
 
 void ASJ_ChangeFreeMove::OnPlayerIn(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)

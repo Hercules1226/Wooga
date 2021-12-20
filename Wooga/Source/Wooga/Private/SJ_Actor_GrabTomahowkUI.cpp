@@ -26,11 +26,11 @@ void ASJ_Actor_GrabTomahowkUI::BeginPlay()
 {
 	Super::BeginPlay();
 
-	FVector p = FVector(6445, 7086, 1307);
+	FVector p = FVector(6338, 6963, 1345);
 
 	SetActorLocation(p);
 
-	FRotator r = FRotator(0, 92, 0);
+	FRotator r = FRotator(0, 73, 0);
 
 	SetActorRotation(r);
 	

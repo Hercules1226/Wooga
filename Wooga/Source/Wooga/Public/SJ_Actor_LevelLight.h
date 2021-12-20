@@ -58,8 +58,12 @@ public:
 	// ³· ÄÃ·¯
 	UPROPERTY()
 	FLinearColor dayDirColor = FLinearColor(0.64448f, 0.799103f, 1.0f);
+	//IJ
+	//FLinearColor dayDirColor = FLinearColor(194, 144, 169);
 	UPROPERTY()
 	FLinearColor daySunColor = FLinearColor(1.0f, 0.955973f, 0.822786f);
+	//IJ
+	//FLinearColor daySunColor = FLinearColor(255, 211, 170);
 
 	UPROPERTY(EditAnywhere, Category = Setting)
 	struct FPostProcessSettings dayParam;
