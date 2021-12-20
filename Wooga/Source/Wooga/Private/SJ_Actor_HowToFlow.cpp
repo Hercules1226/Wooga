@@ -266,9 +266,9 @@ void ASJ_Actor_HowToFlow::OnSature()
 {
 	onTime += GetWorld()->DeltaTimeSeconds;
 
-	startDissolveParam = FMath::Lerp(0.0f, 1.0f, onTime);
+	startDissolveParam = FMath::Lerp(-0.7f, 0.3f, onTime);
 
-	howToPlane->SetScalarParameterValueOnMaterials(TEXT("Opacity"), startDissolveParam);
+	howToPlane->SetScalarParameterValueOnMaterials(TEXT("Dissolve"), startDissolveParam);
 
 	// 포스트프로세스 흑백 조절
 	/*
@@ -316,9 +316,9 @@ void ASJ_Actor_HowToFlow::OffSature()
 {
 	offTime += GetWorld()->DeltaTimeSeconds;
 
-	endDissolveParam = FMath::Lerp(1.0f, 0.0f, offTime);
+	endDissolveParam = FMath::Lerp(0.3f, -0.7f, offTime);
 
-	howToPlane->SetScalarParameterValueOnMaterials(TEXT("Opacity"), endDissolveParam);
+	howToPlane->SetScalarParameterValueOnMaterials(TEXT("Dissolve"), endDissolveParam);
 
 	// 포스트 흑백 조절
 	/*

@@ -52,7 +52,7 @@ void ASJ_Actor_MakeRange::BeginPlay()
 	}
 	else if (gameMode->flowState == EFlowState::CompleteSpear)
 	{
-		FVector p3 = FVector(4499, 6843, 1190);
+		FVector p3 = FVector(4489, 6855, 1190);
 
 		SetActorLocation(p3);
 
@@ -60,7 +60,7 @@ void ASJ_Actor_MakeRange::BeginPlay()
 
 		SetActorRotation(r3);
 	}
-	else if(gameMode->flowState == EFlowState::CanFreeMove)
+	else if (gameMode->flowState == EFlowState::CanFreeMove)
 	{
 		FVector p4 = FVector(6329, 7246, 1183);
 
@@ -70,6 +70,9 @@ void ASJ_Actor_MakeRange::BeginPlay()
 
 		SetActorRotation(r4);
 	}
+
+
+
 }
 
 // Called every frame

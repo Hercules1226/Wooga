@@ -87,7 +87,7 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 
 	// 맨 처음 불의 발견 교육으로 시작
 	// SetState(EFlowState::SpawnHutGuideLine);
-	//SetState(EFlowState::SpawnHandAxGuideLine);
+	// SetState(EFlowState::SpawnHandAxGuideLine);
 
 	// 테스트용 스테이트
 	//SetState(EFlowState::CompleteCollect);
@@ -131,6 +131,8 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	// moveSpine->canMove = true;
 	
 	moveSpine->canMove = true;
+
+	freeMove = Cast<ASJ_ChangeFreeMove>(UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_ChangeFreeMove::StaticClass()));
 }
 
 #pragma region FlowStateFunction
@@ -1008,7 +1010,7 @@ void ASJ_WoogaGameModeBase::HowToMakeHandAx()
 				indirectUI = GetWorld()->SpawnActor<ASJ_Actor_IndirectHitUI>(bpIndirectUI, Param);
 
 				// 타격 포인트
-				hitPoint = GetWorld()->SpawnActor<AActor>(bpHitPoint, FVector(8080, 9239, 1243), FRotator(0, 0, 0), Param);
+				hitPoint = GetWorld()->SpawnActor<AActor>(bpHitPoint, FVector(8081, 9232, 1247), FRotator(0, 0, 0), Param);
 
 				fistAxe->bisStartBreak = true;
 
@@ -1563,6 +1565,7 @@ void ASJ_WoogaGameModeBase::CatchFish()
 			catchFish->Destroy();
 
 			goFryFishUI = GetWorld()->SpawnActor<ASJ_Actor_GoFryFishUI>(bpGoFryFishUI, Param);
+			moveSpine->canMove = true;
 
 			// 딜레이변수 초기화
 			nextDelayTime = 0;
@@ -1572,12 +1575,8 @@ void ASJ_WoogaGameModeBase::CatchFish()
 }
 void ASJ_WoogaGameModeBase::GoBackFireStraw()
 {
-	freeMove = Cast<ASJ_ChangeFreeMove>(UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_ChangeFreeMove::StaticClass()));
-
 	if (freeMove->bisFreeMove == true)
 	{
-		bIsUIClose = true;
-
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
 		if (nextDelayTime >= 1.0f)
@@ -1590,6 +1589,9 @@ void ASJ_WoogaGameModeBase::GoBackFireStraw()
 			// 딜레이변수 초기화
 			nextDelayTime = 0;
 			SetState(EFlowState::CanFreeMove);
+
+
+			// bIsUIClose = true;
 		}
 	}
 }
@@ -1646,6 +1648,7 @@ void ASJ_WoogaGameModeBase::GoToCookFish()
 		}
 	}
 }
+
 void ASJ_WoogaGameModeBase::CookFish()
 {
 	if (cable->bisWelldone == true)

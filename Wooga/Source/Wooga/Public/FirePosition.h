@@ -49,6 +49,9 @@ public:
 		class AFireRock* fireRock;
 
 	UPROPERTY()
+		class AFireRock2* fireRock2;
+
+	UPROPERTY()
 		class AReturnZone* returnZone;
 
 	UPROPERTY()
