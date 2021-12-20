@@ -4,6 +4,7 @@
 #include "FirePosition.h"
 #include "VR_Player.h"
 #include "FireRock.h"
+#include "FireRock2.h"
 #include "ReturnZone.h"
 #include "Components/BoxComponent.h"
 #include "Components/StaticMeshComponent.h"
@@ -35,6 +36,7 @@ void AFirePosition::BeginPlay()
 	Super::BeginPlay();
 	player = Cast<AVR_Player>(UGameplayStatics::GetActorOfClass(GetWorld(), AVR_Player::StaticClass()));
 	fireRock = Cast<AFireRock>(UGameplayStatics::GetActorOfClass(GetWorld(), AFireRock::StaticClass()));
+	fireRock2 = Cast<AFireRock2>(UGameplayStatics::GetActorOfClass(GetWorld(), AFireRock2::StaticClass()));
 	returnZone = Cast<AReturnZone>(UGameplayStatics::GetActorOfClass(GetWorld(), AReturnZone::StaticClass()));
 
 	boxComp->OnComponentBeginOverlap.AddDynamic(this, &AFirePosition::OnCollisionEnter);
@@ -42,7 +44,7 @@ void AFirePosition::BeginPlay()
 	startPoint = this->GetActorLocation();
 
 	outLine->SetVisibility(false);
-
+	
 	FX->SetHiddenInGame(true);
 }
 
@@ -65,6 +67,10 @@ void AFirePosition::Tick(float DeltaTime)
 			FX->SetHiddenInGame(false);
 			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), emberFactory, GetActorLocation() + FVector(0.f, 0.0f, 0.f));
 			bisFire = true;
+			
+			fireRock->Destroy();
+			fireRock2->Destroy();
+			
 		}
 	}
 }
