@@ -40,4 +40,7 @@ public:
 
 	UPROPERTY()
 	bool bisFreeMove;
+
+	UPROPERTY()
+	float curTime;
 };
