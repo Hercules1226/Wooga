@@ -51,9 +51,9 @@ public:
 
 	// 현재 컬러
 	UPROPERTY()
-	FLinearColor curDirColor;
+	FLinearColor curDirColor = FLinearColor(0.068478f, 0.208637f, 0.327778f);
 	UPROPERTY()
-	FLinearColor curSunColor;
+	FLinearColor curSunColor = FLinearColor(0.016807f, 0.020289f, 0.030713f);
 
 	// 낮 컬러
 	UPROPERTY()

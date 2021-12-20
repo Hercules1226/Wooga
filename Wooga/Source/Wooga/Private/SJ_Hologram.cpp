@@ -51,11 +51,11 @@ void ASJ_Hologram::BeginPlay()
 	// 불의 발견 홀로그램
 	if (gameMode->flowState == EFlowState::Firing || gameMode->flowState == EFlowState::CompleteFireDiscovery)
 	{
-		FVector p1 = FVector(10774, 11856, 1320);
+		FVector p1 = FVector(10731, 11813, 1320);
 
 		SetActorLocation(p1);
 
-		FRotator r1 = FRotator(0, 97, 0);
+		FRotator r1 = FRotator(0, 75, 0);
 
 		SetActorRotation(r1);
 		
@@ -65,11 +65,11 @@ void ASJ_Hologram::BeginPlay()
 	// 채집 홀로그램
 	if (gameMode->flowState == EFlowState::CollectAndEat || gameMode->flowState == EFlowState::CompleteCollect)
 	{
-		FVector p2 = FVector(9456, 10060, 1320);
+		FVector p2 = FVector(9568, 9984, 1322);
 
 		SetActorLocation(p2);
 
-		FRotator r2 = FRotator(0, 70, 0);
+		FRotator r2 = FRotator(0, 80, 0);
 
 		SetActorRotation(r2);
 
@@ -96,7 +96,7 @@ void ASJ_Hologram::BeginPlay()
 
 		SetActorLocation(p4);
 
-		FRotator r4 = FRotator(0, 74, 0);
+		FRotator r4 = FRotator(0, 73, 0);
 
 		SetActorRotation(r4);
 
@@ -118,11 +118,11 @@ void ASJ_Hologram::BeginPlay()
 	// 움집 홀로그램
 	if (gameMode->flowState == EFlowState::MakeHut || gameMode->flowState == EFlowState::CompleteHut)
 	{
-		FVector p6  = FVector(3866, 7878, 1320);
+		FVector p6  = FVector(7051, 6747, 1330);
 
 		SetActorLocation(p6);
 
-		FRotator r6 = FRotator(0, -75, 0);
+		FRotator r6 = FRotator(0, 128, 0);
 
 		SetActorRotation(r6);
 

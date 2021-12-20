@@ -60,7 +60,7 @@ void ASJ_Actor_MakeRange::BeginPlay()
 
 		SetActorRotation(r3);
 	}
-	else if (gameMode->flowState == EFlowState::CanFreeMove)
+	else if (gameMode->flowState == EFlowState::CatchFish)
 	{
 		FVector p4 = FVector(6329, 7246, 1183);
 

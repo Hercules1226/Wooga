@@ -36,7 +36,7 @@ void ASJ_Actor_GoToGuideLine::BeginPlay()
 
 	if (gameModeBase->flowState == EFlowState::SpawnCollectGuideLine)
 	{
-		FVector p1 = FVector(9792, 10520, 1260);
+		FVector p1 = FVector(9781, 10528, 1260);
 
 		SetActorLocation(p1);
 

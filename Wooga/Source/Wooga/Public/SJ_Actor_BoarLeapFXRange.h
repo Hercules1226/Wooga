@@ -37,4 +37,7 @@ public:
 	UPROPERTY(EditAnywhere, Category = FX)
 	class UParticleSystem* leapParticle;
 
+	UPROPERTY(EditAnywhere, Category = Sound)
+	class USoundBase* leapSound;
+
 };

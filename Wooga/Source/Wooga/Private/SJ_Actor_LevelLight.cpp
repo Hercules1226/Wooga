@@ -38,7 +38,7 @@ void ASJ_Actor_LevelLight::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	SetState(ELightState::Day);
+	SetState(ELightState::Stay);
 	//IJ
 	/*curDirColor = FMath::Lerp(curDirColor, dayDirColor, changeTIme * 0.0005f);
 	curSunColor = FMath::Lerp(curSunColor, daySunColor, changeTIme * 0.0005f);
@@ -103,21 +103,21 @@ void ASJ_Actor_LevelLight::Day()
 	// 라이트 변경
 	changeTIme += GetWorld()->DeltaTimeSeconds;
 
-	curDirColor = FMath::Lerp(curDirColor, dayDirColor, changeTIme * 0.0005f);
-	curSunColor = FMath::Lerp(curSunColor, daySunColor, changeTIme * 0.0005f);
+	curDirColor = FMath::Lerp(curDirColor, dayDirColor, changeTIme * 0.05f);
+	curSunColor = FMath::Lerp(curSunColor, daySunColor, changeTIme * 0.05f);
 
 	// directLight->SetLightColor(curDirColor);
 	sun->SetLightColor(curSunColor);
 	skyLight->SetLightColor(curDirColor);
 
-	float changeParam = FMath::Lerp(0.0f, 4.0f, changeTIme * 0.04f);
+	float changeParam = FMath::Lerp(0.0f, 4.0f, changeTIme * 0.1f);
 	skySphere->SetScalarParameterValueOnMaterials(TEXT("Emissive_Power"), changeParam);
 	
 	dayParam.bOverride_BloomIntensity = true;
 	dayParam.BloomIntensity  = 0.675f;
 	levelPost->Settings = dayParam;
 
-	if (changeTIme >= 10.1f)
+	if (changeTIme >= 20.0f)
 	{
 		isDay = false;
 		changeTIme = 0;
@@ -131,8 +131,8 @@ void ASJ_Actor_LevelLight::Night()
 {
 	changeTIme += GetWorld()->DeltaTimeSeconds;
 
-	curDirColor = FMath::Lerp(curDirColor, nightDirColor, changeTIme * 0.0005f);
-	curSunColor = FMath::Lerp(curSunColor, nightSunColor, changeTIme * 0.0005f);
+	curDirColor = FMath::Lerp(curDirColor, nightDirColor, changeTIme * 0.0003f);
+	curSunColor = FMath::Lerp(curSunColor, nightSunColor, changeTIme * 0.0003f);
 
 	directLight->SetLightColor(curDirColor);
 	sun->SetLightColor(curSunColor);

@@ -46,6 +46,8 @@ void ASJ_Actor_BoarLeapFXRange::EndOverlap(class UPrimitiveComponent* Overlapped
 		// UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), leapParticle, boar->GetActorLocation(), GetActorRotation(), FVector(2, 2, 2));
 
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), leapParticle, GetActorLocation(), GetActorRotation(), FVector(1, 1, 1));
+
+		UGameplayStatics::PlaySound2D(GetWorld(), leapSound);
 	}
 }
 

@@ -73,6 +73,7 @@
 #include "MoveSpline.h"
 #include "SJ_Actor_Mammoth.h"
 #include "SJ_ChangeFreeMove.h"
+#include "MoveActorComponent.h"
 
 ASJ_WoogaGameModeBase::ASJ_WoogaGameModeBase()
 {
@@ -130,7 +131,7 @@ void ASJ_WoogaGameModeBase::BeginPlay()
 	// 제목이 없어지면 이동을 시작한다.
 	// moveSpine->canMove = true;
 	
-	moveSpine->canMove = true;
+	moveSpine->canMove = false;
 
 	freeMove = Cast<ASJ_ChangeFreeMove>(UGameplayStatics::GetActorOfClass(GetWorld(), ASJ_ChangeFreeMove::StaticClass()));
 }
@@ -1316,14 +1317,14 @@ void ASJ_WoogaGameModeBase::CompleteFireUse()
 		// 딜레이 변수 초기화
 		nextDelayTime = 0;
 
-		moveSpine->canMove = true;
-
 		SetState(EFlowState::GoToSpear);
 	}
 }
 
 void ASJ_WoogaGameModeBase::GoToSpear()
 {
+	moveSpine->canMove = true;
+
 	if (goToGuideLine->isTrigger == true)
 	{
 		// 사용 UI 제거
@@ -1565,6 +1566,9 @@ void ASJ_WoogaGameModeBase::CatchFish()
 			catchFish->Destroy();
 
 			goFryFishUI = GetWorld()->SpawnActor<ASJ_Actor_GoFryFishUI>(bpGoFryFishUI, Param);
+
+			makeHandAxRange = GetWorld()->SpawnActor<ASJ_Actor_MakeRange>(bpGoToFry, Param);
+
 			moveSpine->canMove = true;
 
 			// 딜레이변수 초기화
@@ -1579,6 +1583,8 @@ void ASJ_WoogaGameModeBase::GoBackFireStraw()
 	{
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
+		player->moveComp->bisMove = false;
+
 		if (nextDelayTime >= 1.0f)
 		{
 			goFryFishUI->Destroy();
@@ -1589,9 +1595,6 @@ void ASJ_WoogaGameModeBase::GoBackFireStraw()
 			// 딜레이변수 초기화
 			nextDelayTime = 0;
 			SetState(EFlowState::CanFreeMove);
-
-
-			// bIsUIClose = true;
 		}
 	}
 }
@@ -1618,13 +1621,12 @@ void ASJ_WoogaGameModeBase::CanFreeMove()
 		if (nextDelayTime >= 1.0f)
 		{
 			// 시작시 잡는 방법 알려주는 UI 생성 코드
+			player->moveComp->bisMove = true;
 
 			// 딜레이 변수 초기화
 			bIsDelay = false;
 			nextDelayTime = 0;
 			systemUIDelayTime = 0;
-
-			makeHandAxRange = GetWorld()->SpawnActor<ASJ_Actor_MakeRange>(bpGoToFry, Param);
 
 			SetState(EFlowState::GoToCookFish);
 		}
@@ -1716,6 +1718,8 @@ void ASJ_WoogaGameModeBase::GoToHut()
 		// 제목 생성
 		title = GetWorld()->SpawnActor<ASJ_Actor_Title>(bpHutTitle, Param);
 
+		player->moveComp->bisMove = false;
+
 		SetState(EFlowState::HutTitle);
 	}
 }
@@ -1782,6 +1786,8 @@ void ASJ_WoogaGameModeBase::HowToMakeHut()
 				nextDelayTime = 0;
 				howToNarTime = 0;
 
+				player->moveComp->bisMove = true;
+
 				SetState(EFlowState::MakeHut);
 			}
 		}
@@ -1800,7 +1806,7 @@ void ASJ_WoogaGameModeBase::MakeHut()
 		
 
 		nextDelayTime += GetWorld()->DeltaTimeSeconds;
-		if (nextDelayTime >= 3.0f)
+		if (nextDelayTime >= 1.0f)
 		{
 			makeHutUI->Destroy();
 
@@ -1830,9 +1836,9 @@ void ASJ_WoogaGameModeBase::OutGame()
 {
 	nextDelayTime += GetWorld()->DeltaTimeSeconds;
 
-	if (nextDelayTime >= 10.0f)
+	if (nextDelayTime >= 7.0f)
 	{
-		UGameplayStatics::OpenLevel(this, TEXT("Outro"));
+		UGameplayStatics::OpenLevel(this, TEXT("NSJ_Outro"));
 	}
 }
 

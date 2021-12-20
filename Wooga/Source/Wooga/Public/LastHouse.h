@@ -100,6 +100,9 @@ public:
 		float blend;
 
 	UPROPERTY()
+		float playerSetTime;
+
+	UPROPERTY()
 		bool check1 = true;
 	UPROPERTY()
 		bool check2 = false;
@@ -119,4 +122,7 @@ public:
 
 		UPROPERTY()
 		bool isUIDown;
+
+		UPROPERTY()
+		bool isPlayerSet = false;
 };

@@ -48,12 +48,14 @@ void UMoveActorComponent::TickComponent(float DeltaTime, ELevelTick TickType, FA
 		{
 			if (currentTime >= 0.5f)
 			{
-				UGameplayStatics::PlaySound2D(GetWorld(), walkSound);
-				currentTime = 0;
+				if (bisMove != false)
+				{
+					UGameplayStatics::PlaySound2D(GetWorld(), walkSound);
+					currentTime = 0;
+				}
 			}
 		}
 	}
-
 }
 
 void UMoveActorComponent::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

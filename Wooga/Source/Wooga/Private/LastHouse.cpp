@@ -9,6 +9,7 @@
 #include "Stick.h"
 #include "Camera/CameraComponent.h"
 #include <Kismet/GameplayStatics.h>
+#include "MoveActorComponent.h"
 
 
 // Sets default values
@@ -106,6 +107,18 @@ void ALastHouse::Tick(float DeltaTime)
 		complete2->SetHiddenInGame(false);
 		bisClear = true;
 	}*/
+	if (isPlayerSet == true)
+	{
+		playerSetTime += DeltaTime;
+		if (playerSetTime >= 2.5f)
+		{
+			player->SetActorLocationAndRotation(FVector(6864.32373f, 6981.561035f, 1318.585693f), FRotator(0.0f, -16, 0.f));
+			isPlayerSet = false;
+			player->moveComp->bisMove = false;
+
+			// 43.888271f
+		}
+	}
 }
 
 
@@ -320,6 +333,7 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 			if (cameraManager)
 			{
 				cameraManager->StartCameraFade(0.f, 1.f, 2.5f, FLinearColor::Black, true, true);
+				isPlayerSet = true;
 			}
 		}
 	}
