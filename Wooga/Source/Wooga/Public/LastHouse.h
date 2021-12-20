@@ -15,14 +15,14 @@ public:
 	// Sets default values for this actor's properties
 	ALastHouse();
 
-	UPROPERTY(EditAnywhere, Category=Data)
-	TArray<UStaticMeshComponent*> stickArray;
+	UPROPERTY(EditAnywhere, Category = Data)
+		TArray<UStaticMeshComponent*> stickArray;
 
 	UPROPERTY(EditAnywhere, Category = Data)
-	int32 stickCount = 22;
+		int32 stickCount = 22;
 
 	UPROPERTY()
-	int32 creatCount = 0;
+		int32 creatCount = 0;
 	/*UPROPERTY(EditAnywhere, Category=Data)
 	TSubclassOf<AActor> subEnemy;*/
 
@@ -81,6 +81,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = Sound)
 		class USoundBase* sound;
 
+	UPROPERTY(EditAnywhere, Category = Sound)
+		class USoundBase* createHouse;
+
 	UPROPERTY()
 		float currentTime = 0;
 
@@ -117,6 +120,12 @@ public:
 	UPROPERTY()
 		bool bisFadeStart = false;
 
-		UPROPERTY()
+	UPROPERTY()
 		bool isUIDown;
+
+	UPROPERTY()
+		bool bisAttachStart;
+
+	UPROPERTY()
+		bool lastSoundEnd = false;
 };

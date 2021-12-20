@@ -62,7 +62,7 @@ void ALastHouse::BeginPlay()
 	tree3->OnComponentBeginOverlap.AddDynamic(this, &ALastHouse::OnCollisionEnter);
 	tree4->OnComponentBeginOverlap.AddDynamic(this, &ALastHouse::OnCollisionEnter);
 
-	tree1->SetMaterial(0, offMaterial);
+
 
 	//enemies[0]->Create
 }
@@ -84,12 +84,15 @@ void ALastHouse::Tick(float DeltaTime)
 
 		if (currentTime2 <= 4.f)
 		{
-
+			if (lastSoundEnd == false)
+			{
+				UGameplayStatics::PlaySound2D(GetWorld(), createHouse);
+				lastSoundEnd = true;
+			}
 			disTime += GetWorld()->DeltaTimeSeconds;
 			blend = FMath::Lerp(1.f, 0.5f, disTime * 0.5f);
 			complete->SetScalarParameterValueOnMaterials(TEXT("Length"), blend);
 			//complete->SetScalarParameterValueOnMaterials(TEXT("Length"), blend);
-
 
 		}
 		if (currentTime2 >= 10.f)
@@ -99,13 +102,11 @@ void ALastHouse::Tick(float DeltaTime)
 
 	}
 
-	/*if (currentTime >= completeTime)
+	if (bisAttachStart == true)
 	{
-
-		complete->SetHiddenInGame(false);
-		complete2->SetHiddenInGame(false);
-		bisClear = true;
-	}*/
+		tree1->SetMaterial(0, offMaterial);
+		bisAttachStart = false;
+	}
 }
 
 
