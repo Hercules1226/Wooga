@@ -62,10 +62,6 @@ void ALastHouse::BeginPlay()
 	tree2->OnComponentBeginOverlap.AddDynamic(this, &ALastHouse::OnCollisionEnter);
 	tree3->OnComponentBeginOverlap.AddDynamic(this, &ALastHouse::OnCollisionEnter);
 	tree4->OnComponentBeginOverlap.AddDynamic(this, &ALastHouse::OnCollisionEnter);
-
-	tree1->SetMaterial(0, offMaterial);
-
-	//enemies[0]->Create
 }
 
 // Called every frame
@@ -77,7 +73,6 @@ void ALastHouse::Tick(float DeltaTime)
 	{
 		FTimerHandle createTimer;
 		GetWorld()->GetTimerManager().SetTimer(createTimer, this, &ALastHouse::CreateStick, 3.0f, false);
-		//CreateStick();
 	}
 	if (creatCount >= 15)
 	{
@@ -85,13 +80,14 @@ void ALastHouse::Tick(float DeltaTime)
 
 		if (currentTime2 <= 4.f)
 		{
-
+			if (lastSoundEnd == false)
+			{
+				UGameplayStatics::PlaySound2D(GetWorld(), createHouse);
+				lastSoundEnd = true;
+			}
 			disTime += GetWorld()->DeltaTimeSeconds;
 			blend = FMath::Lerp(1.f, 0.5f, disTime * 0.5f);
 			complete->SetScalarParameterValueOnMaterials(TEXT("Length"), blend);
-			//complete->SetScalarParameterValueOnMaterials(TEXT("Length"), blend);
-
-
 		}
 		if (currentTime2 >= 10.f)
 		{
@@ -100,13 +96,6 @@ void ALastHouse::Tick(float DeltaTime)
 
 	}
 
-	/*if (currentTime >= completeTime)
-	{
-
-		complete->SetHiddenInGame(false);
-		complete2->SetHiddenInGame(false);
-		bisClear = true;
-	}*/
 	if (isPlayerSet == true)
 	{
 		playerSetTime += DeltaTime;
@@ -118,6 +107,12 @@ void ALastHouse::Tick(float DeltaTime)
 
 			// 43.888271f
 		}
+	}
+
+	if (bisAttachStart == true)
+	{
+		tree1->SetMaterial(0, offMaterial);
+		bisAttachStart = false;
 	}
 }
 
@@ -133,11 +128,6 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 		{
 			if (player->grabComp->bisStickR == true)
 			{
-				//player->grabComp->RightReleaseAction();
-
-				/*FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
-				stick->AttachToComponent(tree1, attachRules);*/
-
 				stick->SetActorLocationAndRotation(tree1->GetComponentLocation(), tree1->GetComponentRotation());
 
 				tree1->SetMaterial(0, onMaterial);
@@ -155,11 +145,6 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 
 			if (player->grabComp->bisStickL == true)
 			{
-				//player->grabComp->LeftReleaseAction();
-
-				/*FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
-				stick->AttachToComponent(tree1, attachRules);*/
-
 				stick->SetActorLocationAndRotation(tree1->GetComponentLocation(), tree1->GetComponentRotation());
 
 				tree1->SetMaterial(0, onMaterial);
@@ -183,11 +168,6 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 		{
 			if (player->grabComp->bisStickR == true)
 			{
-				//player->grabComp->RightReleaseAction();
-
-				/*FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
-				stick->AttachToComponent(tree2, attachRules);*/
-
 				stick->SetActorLocationAndRotation(tree2->GetComponentLocation(), tree2->GetComponentRotation());
 
 				tree2->SetMaterial(0, onMaterial);
@@ -205,11 +185,6 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 
 			if (player->grabComp->bisStickL == true)
 			{
-				//player->grabComp->LeftReleaseAction();
-
-				/*FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
-				stick->AttachToComponent(tree2, attachRules);*/
-
 				stick->SetActorLocationAndRotation(tree2->GetComponentLocation(), tree2->GetComponentRotation());
 
 				UGameplayStatics::PlaySound2D(GetWorld(), overlabSound);
@@ -233,11 +208,6 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 		{
 			if (player->grabComp->bisStickR == true)
 			{
-				//player->grabComp->RightReleaseAction();
-
-				/*FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
-				stick->AttachToComponent(tree3, attachRules);*/
-
 				stick->SetActorLocationAndRotation(tree3->GetComponentLocation(), tree3->GetComponentRotation());
 
 				tree3->SetMaterial(0, onMaterial);
@@ -255,13 +225,7 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 
 			if (player->grabComp->bisStickL == true)
 			{
-				//player->grabComp->LeftReleaseAction();
-
-				/*FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
-				stick->AttachToComponent(tree3, attachRules);*/
-
 				stick->SetActorLocationAndRotation(tree3->GetComponentLocation(), tree3->GetComponentRotation());
-
 
 				tree3->SetMaterial(0, onMaterial);
 				tree4->SetMaterial(0, offMaterial);
@@ -284,11 +248,6 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 		{
 			if (player->grabComp->bisStickR == true)
 			{
-				//player->grabComp->RightReleaseAction();
-
-				/*FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
-				stick->AttachToComponent(tree4, attachRules);*/
-
 				stick->SetActorLocationAndRotation(tree4->GetComponentLocation(), tree4->GetComponentRotation());
 
 				tree4->SetMaterial(0, onMaterial);
@@ -299,7 +258,6 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 
 				auto cameraManager = UGameplayStatics::GetPlayerCameraManager(GetWorld(), 0);
 
-
 				bisfinish = true;
 				check4 = false;
 				isUIDown = true;
@@ -309,13 +267,7 @@ void ALastHouse::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, cla
 
 			if (player->grabComp->bisStickL == true)
 			{
-				//player->grabComp->LeftReleaseAction();
-
-				/*FAttachmentTransformRules attachRules = FAttachmentTransformRules::SnapToTargetNotIncludingScale;
-				stick->AttachToComponent(tree4, attachRules);*/
-
 				stick->SetActorLocationAndRotation(tree4->GetComponentLocation(), tree4->GetComponentRotation());
-
 
 				tree4->SetMaterial(0, onMaterial);
 				stick->SetActorHiddenInGame(true);
@@ -364,13 +316,10 @@ void ALastHouse::CreateStick()
 			stickArray[creatCount]->SetHiddenInGame(false);
 			creatCount++;
 			currentTime = 0;
-			/*FTimerHandle createTimer;
-			GetWorld()->GetTimerManager().SetTimer(createTimer, 1.f, false, 0.f);*/
 		}
 	}
 	if (creatCount == 20)
 	{
-
 		bisfinish = false;
 	}
 
