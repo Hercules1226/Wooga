@@ -87,10 +87,10 @@ public:
 		class USkeletalMeshComponent* fakeHand;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
-		class UMaterialInstance* offMaterial;
+		class UMaterialInstance* offMa;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
-		class UMaterialInstance* onMaterial;
+		class UMaterialInstance* onMa;
 
 public:
 	// 소켓에 넣을떄 Offset 값을 조정

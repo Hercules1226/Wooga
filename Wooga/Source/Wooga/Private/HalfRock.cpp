@@ -19,9 +19,7 @@ AHalfRock::AHalfRock()
 	halfRock = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("halfRock"));
 	SetRootComponent(halfRock);
 
-	offMaterial = CreateDefaultSubobject<UMaterial>(TEXT("Off Material"));
-
-	onMaterial = CreateDefaultSubobject<UMaterial>(TEXT("On Material"));
+	onMa = CreateDefaultSubobject<UMaterial>(TEXT("On Ma"));
 }
 
 // Called when the game starts or when spawned

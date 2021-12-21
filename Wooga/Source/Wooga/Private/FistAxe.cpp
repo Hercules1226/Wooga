@@ -78,9 +78,9 @@ AFistAxe::AFistAxe()
 	fakeHand = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FakeHand"));
 	fakeHand->SetupAttachment(fist);
 
-	offMaterial = CreateDefaultSubobject<UMaterialInstance>(TEXT("Off Material"));
+	offMa = CreateDefaultSubobject<UMaterialInstance>(TEXT("Off Ma"));
 
-	onMaterial = CreateDefaultSubobject<UMaterialInstance>(TEXT("On Material"));
+	onMa = CreateDefaultSubobject<UMaterialInstance>(TEXT("On Ma"));
 }
 
 // Called when the game starts or when spawned
@@ -151,7 +151,7 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 					knockbackPos = player->leftHand->GetRelativeLocation() + FVector(1.f, 0.f, 1.f) * -3.f;
 					myPos = knockbackPos;
 					player->leftHand->SetRelativeLocation(myPos);
-					rock2->SetMaterial(0, onMaterial);
+					rock2->SetMaterial(0, onMa);
 					bisOverlab = true;
 					location = this->GetActorLocation();
 					rotation = this->GetActorRotation();
@@ -193,8 +193,8 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 					rock2->SetSimulatePhysics(true);
 					rock2->SetEnableGravity(true);
 
-					rock2->SetMaterial(0, offMaterial);
-					rock3->SetMaterial(0, onMaterial);
+					rock2->SetMaterial(0, offMa);
+					rock3->SetMaterial(0, onMa);
 
 					rock2->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 					rock2->DetachFromParent(true);
@@ -224,8 +224,8 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 					rock3->SetSimulatePhysics(true);
 					rock3->SetEnableGravity(true);
 
-					rock3->SetMaterial(0, offMaterial);
-					rock4->SetMaterial(0, onMaterial);
+					rock3->SetMaterial(0, offMa);
+					rock4->SetMaterial(0, onMa);
 
 					rock3->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 					rock3->DetachFromParent(true);
@@ -255,8 +255,8 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 					rock4->SetSimulatePhysics(true);
 					rock4->SetEnableGravity(true);
 
-					rock4->SetMaterial(0, offMaterial);
-					rock5->SetMaterial(0, onMaterial);
+					rock4->SetMaterial(0, offMa);
+					rock5->SetMaterial(0, onMa);
 
 					rock4->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 					rock4->DetachFromParent(true);
@@ -286,8 +286,8 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 					rock5->SetSimulatePhysics(true);
 					rock5->SetEnableGravity(true);
 
-					rock5->SetMaterial(0, offMaterial);
-					rock6->SetMaterial(0, onMaterial);
+					rock5->SetMaterial(0, offMa);
+					rock6->SetMaterial(0, onMa);
 
 					rock5->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 					rock5->DetachFromParent(true);
@@ -317,8 +317,8 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 					rock6->SetSimulatePhysics(true);
 					rock6->SetEnableGravity(true);
 
-					rock6->SetMaterial(0, offMaterial);
-					rock7->SetMaterial(0, onMaterial);
+					rock6->SetMaterial(0, offMa);
+					rock7->SetMaterial(0, onMa);
 
 					rock6->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 					rock6->DetachFromParent(true);
@@ -348,8 +348,8 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 					rock7->SetSimulatePhysics(true);
 					rock7->SetEnableGravity(true);
 
-					rock7->SetMaterial(0, offMaterial);
-					rock8->SetMaterial(0, onMaterial);
+					rock7->SetMaterial(0, offMa);
+					rock8->SetMaterial(0, onMa);
 
 					rock7->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 					rock7->DetachFromParent(true);
@@ -379,8 +379,8 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 					rock8->SetSimulatePhysics(true);
 					rock8->SetEnableGravity(true);
 
-					rock8->SetMaterial(0, offMaterial);
-					rock9->SetMaterial(0, onMaterial);
+					rock8->SetMaterial(0, offMa);
+					rock9->SetMaterial(0, onMa);
 
 					rock8->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 					rock8->DetachFromParent(true);
@@ -410,8 +410,8 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 					rock9->SetSimulatePhysics(true);
 					rock9->SetEnableGravity(true);
 
-					rock9->SetMaterial(0, offMaterial);
-					rock10->SetMaterial(0, onMaterial);
+					rock9->SetMaterial(0, offMa);
+					rock10->SetMaterial(0, onMa);
 
 					rock9->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 					rock9->DetachFromParent(true);
@@ -440,8 +440,8 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 					rock10->SetSimulatePhysics(true);
 					rock10->SetEnableGravity(true);
 
-					rock10->SetMaterial(0, offMaterial);
-					rock11->SetMaterial(0, onMaterial);
+					rock10->SetMaterial(0, offMa);
+					rock11->SetMaterial(0, onMa);
 
 					rock10->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 					rock10->DetachFromParent(true);
@@ -470,8 +470,8 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 					rock11->SetSimulatePhysics(true);
 					rock11->SetEnableGravity(true);
 
-					rock11->SetMaterial(0, offMaterial);
-					rock12->SetMaterial(0, onMaterial);
+					rock11->SetMaterial(0, offMa);
+					rock12->SetMaterial(0, onMa);
 
 					rock11->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 					rock11->DetachFromParent(true);
@@ -500,8 +500,8 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 					rock12->SetSimulatePhysics(true);
 					rock12->SetEnableGravity(true);
 
-					rock12->SetMaterial(0, offMaterial);
-					rock13->SetMaterial(0, onMaterial);
+					rock12->SetMaterial(0, offMa);
+					rock13->SetMaterial(0, onMa);
 
 					rock12->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 					rock12->DetachFromParent(true);
@@ -530,8 +530,8 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 					rock13->SetSimulatePhysics(true);
 					rock13->SetEnableGravity(true);
 
-					rock13->SetMaterial(0, offMaterial);
-					rock14->SetMaterial(0, onMaterial);
+					rock13->SetMaterial(0, offMa);
+					rock14->SetMaterial(0, onMa);
 
 					rock13->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 					rock13->DetachFromParent(true);
@@ -560,8 +560,8 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 					rock14->SetSimulatePhysics(true);
 					rock14->SetEnableGravity(true);
 
-					rock14->SetMaterial(0, offMaterial);
-					rock15->SetMaterial(0, onMaterial);
+					rock14->SetMaterial(0, offMa);
+					rock15->SetMaterial(0, onMa);
 
 					rock14->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 					rock14->DetachFromParent(true);
@@ -590,8 +590,8 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 					rock15->SetSimulatePhysics(true);
 					rock15->SetEnableGravity(true);
 
-					rock14->SetMaterial(0, offMaterial);
-					rock15->SetMaterial(0, onMaterial);
+					rock14->SetMaterial(0, offMa);
+					rock15->SetMaterial(0, onMa);
 
 					rock15->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 					rock15->DetachFromParent(true);
@@ -603,7 +603,7 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 
 			if (bisD15 == true)
 			{
-				rock15->SetMaterial(0, offMaterial);
+				rock15->SetMaterial(0, offMa);
 				// UE_LOG(LogTemp, Warning, TEXT("CompleteHandAx"));
 				
 			}
