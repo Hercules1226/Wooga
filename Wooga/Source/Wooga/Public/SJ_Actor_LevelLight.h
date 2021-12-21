@@ -57,13 +57,13 @@ public:
 
 	// ³· ÄÃ·¯
 	UPROPERTY()
-	FLinearColor dayDirColor = FLinearColor(194, 144, 169);
-	//FLinearColor dayDirColor = FLinearColor(0.64448f, 0.799103f, 1.0f);
+	// FLinearColor dayDirColor = FLinearColor(194, 144, 169);
+	FLinearColor dayDirColor = FLinearColor(0.64448f, 0.799103f, 1.0f);
 	//IJ
 	UPROPERTY()
-	FLinearColor daySunColor = FLinearColor(255, 211, 170);
+	// FLinearColor daySunColor = FLinearColor(255, 211, 170);
 	//IJ
-	//FLinearColor daySunColor = FLinearColor(1.0f, 0.955973f, 0.822786f);
+	FLinearColor daySunColor = FLinearColor(1.0f, 0.955973f, 0.822786f);
 
 	UPROPERTY(EditAnywhere, Category = Setting)
 	struct FPostProcessSettings dayParam;

@@ -854,7 +854,7 @@ void UGrabActorComponent::RGripStick(AActor* grabActor)
 
 			stickR->AttachToComponent(player->rightHandLoc, attachRules, TEXT("RGrabPoint"));
 			// 오른손 쥐는 애니메이션
-			player->handComp->targetGripValueRight = 0.7f;
+			player->handComp->targetGripValueRight = 0.6f;
 
 			// 오브젝트를 잡았을때 위치 잡기
 			stickR->boxComp->SetRelativeLocation((stickR->grabOffset));
@@ -887,7 +887,7 @@ void UGrabActorComponent::LGripStick(AActor* grabActor)
 			stickL->grabOffset = FVector(-5.f, 2.f, 0.f);
 			stickL->AttachToComponent(player->leftHandLoc, attachRules, TEXT("LGrabPoint"));
 			// 오른손 쥐는 애니메이션
-			player->handComp->targetGripValueLeft = 0.7f;
+			player->handComp->targetGripValueLeft = 0.6f;
 
 			// 오브젝트를 잡았을때 위치 잡기
 			stickL->boxComp->SetRelativeLocation((stickL->grabOffset));
