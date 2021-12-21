@@ -36,8 +36,5 @@ public:
 		FVector grabOffset;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
-		class UMaterial* offMaterial;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Settings)
-		class UMaterial* onMaterial;
+		class UMaterial* onMa;
 };
