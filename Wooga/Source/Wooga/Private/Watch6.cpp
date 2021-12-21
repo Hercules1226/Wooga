@@ -133,10 +133,10 @@ void AWatch6::UnBlink()
 {
 	playTime += GetWorld()->DeltaTimeSeconds;
 
-	float boostOffParam = FMath::Lerp(30.0f, 0.1f, playTime);
+	float boostOffParam = FMath::Lerp(30.0f, 20.0f, playTime);
 	float offParam = FMath::Lerp(1.0f, 0.0f, playTime);
 
-	watch->SetScalarParameterValueOnMaterials(TEXT("Boost"), boostOffParam * 14.9f);
+	watch->SetScalarParameterValueOnMaterials(TEXT("Boost"), boostOffParam * 5.0f);
 	watch->SetScalarParameterValueOnMaterials(TEXT("Fringe Width"), offParam * 0.5f);
 
 	if (playTime >= 2.0f)
@@ -144,7 +144,7 @@ void AWatch6::UnBlink()
 		isBlink = false;
 
 		watch->SetScalarParameterValueOnMaterials(TEXT("Amount"), 1.0f);
-		watch->SetScalarParameterValueOnMaterials(TEXT("Boost"), 0.1f);
+		watch->SetScalarParameterValueOnMaterials(TEXT("Boost"), 20.0f);
 		watch->SetScalarParameterValueOnMaterials(TEXT("Fringe Width"), 0.0f);
 
 		playTime = 0;

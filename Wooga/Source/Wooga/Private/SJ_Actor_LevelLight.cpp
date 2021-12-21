@@ -37,8 +37,11 @@ ASJ_Actor_LevelLight::ASJ_Actor_LevelLight()
 void ASJ_Actor_LevelLight::BeginPlay()
 {
 	Super::BeginPlay();
+
+	curDirColor = skyLight->GetLightColor();
+	curSunColor = sun->GetLightColor();
 	
-	SetState(ELightState::Day);
+	SetState(ELightState::Stay);
 	//IJ
 	/*curDirColor = FMath::Lerp(curDirColor, dayDirColor, changeTIme * 0.0005f);
 	curSunColor = FMath::Lerp(curSunColor, daySunColor, changeTIme * 0.0005f);
