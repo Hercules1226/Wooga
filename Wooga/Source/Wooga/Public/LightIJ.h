@@ -25,10 +25,10 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY(EditAnywhere, Category = "Sky")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sky")
 		AActor* sun;
 
-	UPROPERTY(EditAnywhere, Category = "Sky")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sky")
 		ADirectionalLight* lightSource;
 
 	UPROPERTY(EditAnywhere, Category = "Sky")
