@@ -604,6 +604,8 @@ void AFistAxe::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 			if (bisD15 == true)
 			{
 				rock15->SetMaterial(0, offMa);
+				halfRock->SetHiddenInGame(true);
+				player->grabComp->RightHalfRockReleaseAction();
 				// UE_LOG(LogTemp, Warning, TEXT("CompleteHandAx"));
 				
 			}

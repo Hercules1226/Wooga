@@ -941,7 +941,7 @@ void UGrabActorComponent::RGripFistAxe(AActor* grabActor)
 {
 	FString fr = grabActor->GetName();
 
-	if (fr.Contains("FistAxe"))
+	if (fr.Contains("FistAxe") || (fr.Contains("HalfRock")))
 	{
 		fistAxeR = Cast<AFistAxe>(grabActor);
 
