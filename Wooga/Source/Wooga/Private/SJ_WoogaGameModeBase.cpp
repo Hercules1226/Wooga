@@ -764,7 +764,7 @@ void ASJ_WoogaGameModeBase::CompleteCollect()
 	{
 		nextDelayTime = 0;
 
-		moveSpine->canMove = true;
+		// moveSpine->canMove = true;
 		SetState(EFlowState::SpawnHandAxGuideLine);
 	}
 }
@@ -1098,7 +1098,7 @@ void ASJ_WoogaGameModeBase::CompleteHandAx()
 		//딜레이 변수 초기화
 		nextDelayTime = 0;
 
-		moveSpine->canMove = true;
+		// moveSpine->canMove = true;
 
 		SetState(EFlowState::CuttingPig);
 	}
@@ -1323,7 +1323,7 @@ void ASJ_WoogaGameModeBase::CompleteFireUse()
 
 void ASJ_WoogaGameModeBase::GoToSpear()
 {
-	moveSpine->canMove = true;
+	// moveSpine->canMove = true;
 
 	if (goToGuideLine->isTrigger == true)
 	{
@@ -1517,7 +1517,7 @@ void ASJ_WoogaGameModeBase::CompleteSpear()
 		// 물고기 사냥 UI
 		huntFishUI = GetWorld()->SpawnActor<ASJ_Actor_HuntFishUI>(bpHuntFishUI, Param);
 
-		moveSpine->canMove = true;
+		// moveSpine->canMove = true;
 
 		// 딜레이 변수 초기화
 		nextDelayTime = 0;

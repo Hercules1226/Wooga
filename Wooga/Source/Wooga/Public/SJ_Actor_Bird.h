@@ -33,10 +33,13 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY()
+	float animSpeed;
+
+	UPROPERTY()
 	bool isFly;
 
 	UPROPERTY()
-	float speed = 500.0f; 
+	float speed; 
 
 	UPROPERTY()
 	float currentTime;

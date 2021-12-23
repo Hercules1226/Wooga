@@ -41,17 +41,45 @@ void UMoveActorComponent::TickComponent(float DeltaTime, ELevelTick TickType, FA
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	if (bisWalk == true || bisWalk2 == true)
+
+	if (moveSpline->lastMove == true)
 	{
-		currentTime += DeltaTime;
-		//if (moveSpline->canMove == true)
+		if (bisWalk == true || bisWalk2 == true)
 		{
-			if (currentTime >= 0.5f)
+			currentTime += DeltaTime;
+			//if (moveSpline->canMove == true)
 			{
-				if (bisMove != false)
+
+				if (currentTime >= 0.5f)
 				{
-					UGameplayStatics::PlaySound2D(GetWorld(), walkSound);
-					currentTime = 0;
+					if (bisMove != false)
+					{
+						UGameplayStatics::PlaySound2D(GetWorld(), walkSound);
+						currentTime = 0;
+					}
+				}
+			}
+		}
+	}
+
+	if (moveSpline->lastMove == false)
+	{
+		if (moveSpline->canMove == true)
+		{
+			if (bisWalk == true || bisWalk2 == true)
+			{
+				currentTime += DeltaTime;
+				//if (moveSpline->canMove == true)
+				{
+
+					if (currentTime >= 0.5f)
+					{
+						if (bisMove != false)
+						{
+							UGameplayStatics::PlaySound2D(GetWorld(), walkSound);
+							currentTime = 0;
+						}
+					}
 				}
 			}
 		}
@@ -92,7 +120,7 @@ void UMoveActorComponent::MoveHorizontal(float value)
 			dir.Z = 0;
 
 			player->SetActorLocation(player->GetActorLocation() + dir * moveSpeed * GetWorld()->DeltaTimeSeconds, true);
-		
+
 			if (value > 0.1f)
 			{
 				bisWalk = true;

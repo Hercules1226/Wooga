@@ -45,7 +45,7 @@ public:
 	FVector dir;
 
 	UPROPERTY()
-	float speed = 500.0f;
+	float speed;
 
 	UPROPERTY()
 	bool isTurn;

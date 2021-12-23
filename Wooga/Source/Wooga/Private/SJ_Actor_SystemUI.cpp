@@ -97,11 +97,11 @@ void ASJ_Actor_SystemUI::BeginPlay()
 
 	if (gameModeBase->flowState == EFlowState::GoBackFireStraw)
 	{
-		FVector p4  = FVector(4328, 7343, 1330);
+		FVector p4  = FVector(4085, 7323, 1330);
 
 		SetActorLocation(p4);
 
-		FRotator r4 = FRotator(0, -175, 5);
+		FRotator r4 = FRotator(0, -150, 0);
 
 		SetActorRotation(r4);
 	}

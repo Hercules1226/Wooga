@@ -21,9 +21,11 @@ public:
 
 	FTimerHandle introSoundTimer;
 	FTimerHandle moveLevelTimer;
+	FTimerHandle fadeOutTimer;
 
 	void IntroSound();
 	void MoveLevel();
+	void FadeOutFunc();
 	
 	UPROPERTY(EditAnywhere, Category = Sound)
 	class USoundBase* introNarration;

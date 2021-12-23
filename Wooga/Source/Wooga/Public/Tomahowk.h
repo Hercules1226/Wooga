@@ -53,6 +53,9 @@ public:
 	UPROPERTY()
 		class AFireStraw* fireStraw;
 
+	/*UPROPERTY()
+		class AReturnZone* returnZone;*/
+
 	UPROPERTY()
 		float currentTime;
 
@@ -85,4 +88,16 @@ public:
 
 	UPROPERTY()
 		bool bisEat = false;
+
+	UPROPERTY()
+		bool bisfk = false;
+
+	UPROPERTY()
+	class AMoveSpline* moveSpline;
+
+	UPROPERTY()
+	class ASJ_NonGrabBoneUI* grabUI;
+
+	UPROPERTY(EditAnywhere, Category = UI)
+	TSubclassOf<class ASJ_NonGrabBoneUI> bpGrabUI;
 };

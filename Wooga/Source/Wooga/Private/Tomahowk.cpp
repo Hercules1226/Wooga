@@ -5,8 +5,10 @@
 #include "FireStraw.h"
 #include "Components/BoxComponent.h"
 #include "GrabActorComponent.h"
+#include "ReturnZone.h"
 #include "VR_Player.h"
 #include <Kismet/GameplayStatics.h>
+#include "MoveSpline.h"
 
 // Sets default values
 ATomahowk::ATomahowk()
@@ -36,8 +38,12 @@ ATomahowk::ATomahowk()
 void ATomahowk::BeginPlay()
 {
 	Super::BeginPlay();
-	//meshComp->OnComponentBeginOverlap.AddDynamic(this, &ATomahowk::OnCollisionBoneEnter);
+	meshComp->OnComponentBeginOverlap.AddDynamic(this, &ATomahowk::OnCollisionEnter);
 	meshComp1->OnComponentBeginOverlap.AddDynamic(this, &ATomahowk::OnCollisionEnter);
+	meshComp4->OnComponentBeginOverlap.AddDynamic(this, &ATomahowk::OnCollisionEnter);
+	//returnZone = Cast<AReturnZone>(UGameplayStatics::GetActorOfClass(GetWorld(), AReturnZone::StaticClass()));
+
+	// gameMode = Cast<ASJ_WoogaGameModeBase>(GetWorld()->GetAuthGameMode());
 }
 
 // Called every frame
@@ -85,6 +91,7 @@ void ATomahowk::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, clas
 {
 	fireStraw = Cast<AFireStraw>(OtherActor);
 	auto player = Cast<AVR_Player>(OtherActor);
+	auto returnZone = Cast<AReturnZone>(OtherActor);
 	if (OtherActor == fireStraw)
 	{
 		if (bCanBake == true)
@@ -114,6 +121,19 @@ void ATomahowk::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, clas
 				}
 			}
 		}
+	}
+
+	if (OtherActor == returnZone)
+	{
+		bisfk = true;
+
+		moveSpline = Cast<AMoveSpline>(UGameplayStatics::GetActorOfClass(GetWorld(), AMoveSpline::StaticClass()));
+		moveSpline->canMove = false;
+
+		FActorSpawnParameters Param;
+		Param.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+		grabUI = GetWorld()->SpawnActor<ASJ_NonGrabBoneUI>(bpGrabUI, Param);
 	}
 }
 

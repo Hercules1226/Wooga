@@ -54,6 +54,8 @@ void ASJ_ChangeFreeMove::OnPlayerIn(UPrimitiveComponent* OverlappedComponent, AA
 	{
 		moveSpline->lastMove = true;
 		bisFreeMove = true;
+		FRotator reset = FRotator(0, player->GetActorRotation().Yaw, 0);
+		player->SetActorRotation(reset);
 	}
 }
 

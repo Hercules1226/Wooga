@@ -60,13 +60,13 @@ void ASJ_Actor_GoToGuideLine::BeginPlay()
 
 		SetActorLocation(p3);
 
-		FRotator r3 = FRotator(0, 35, 0);
+		FRotator r3 = FRotator(0, 40, 0);
 
 		SetActorRotation(r3);
 	}
 	else if (gameModeBase->flowState == EFlowState::CompleteFireUse || gameModeBase->flowState == EFlowState::GoToSpear || gameModeBase->flowState == EFlowState::TestFunc)
 	{
-		FVector p4 = FVector(5087, 6718, 1260);
+		FVector p4 = FVector(5102, 6677, 1260);
 		
 		SetActorLocation(p4);
 

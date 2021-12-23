@@ -25,6 +25,8 @@ void ASJ_Actor_RunDeer::BeginPlay()
 {
 	Super::BeginPlay();
 
+	speed = FMath::RandRange(400.0f, 700.0f);
+
 	isTurn = false;
 	SetActorHiddenInGame(true);
 }

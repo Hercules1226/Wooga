@@ -27,6 +27,11 @@ void ASJ_Actor_Bird::BeginPlay()
 	
 	destroyZone->OnComponentBeginOverlap.AddDynamic(this, &ASJ_Actor_Bird::OnBirdEnter);
 
+	animSpeed = FMath::RandRange(1.5f, 2.0f);
+	bird->SetPlayRate(animSpeed);
+
+	speed = FMath::RandRange(400.0f, 700.0f);
+
 	isFly = false;
 	SetActorHiddenInGame(true);
 }

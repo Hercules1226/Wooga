@@ -164,7 +164,7 @@ void ASJ_Actor_KnowledgePoint::OnOverlap(UPrimitiveComponent* OverlappedComponen
 		// 워치가 반짝일 수 있도록 하는 변수
 		//bisTouch1 = true;
 		watch1->isBlink = true;
-		moveSpline->canMove = true;
+		// moveSpline->canMove = true;
 		Destroy();
 		player->knowledgePoint = 1;
 	}

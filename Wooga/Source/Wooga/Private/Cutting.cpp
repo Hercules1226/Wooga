@@ -105,6 +105,13 @@ void ACutting::OnCollisionEnter(class UPrimitiveComponent* OverlappedComp, class
 			player->leftHand->SetHiddenInGame(true);
 			fA->SetActorHiddenInGame(true);
 
+			watch1->SetActorHiddenInGame(true);
+			watch2->SetActorHiddenInGame(true);
+			watch3->SetActorHiddenInGame(true);
+			watch4->SetActorHiddenInGame(true);
+			watch5->SetActorHiddenInGame(true);
+			watch6->SetActorHiddenInGame(true);
+
 			handle->SetMaterial(0, onMaterialHand);
 			handle->SetMaterial(1, onMaterialFA);
 		}

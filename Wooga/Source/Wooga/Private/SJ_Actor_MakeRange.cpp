@@ -66,7 +66,7 @@ void ASJ_Actor_MakeRange::BeginPlay()
 
 		SetActorLocation(p4);
 
-		FRotator r4 = FRotator(0, 135, 0);
+		FRotator r4 = FRotator(0, 154, 0);
 
 		SetActorRotation(r4);
 	}
